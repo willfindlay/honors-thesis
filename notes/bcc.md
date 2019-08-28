@@ -11,6 +11,15 @@
     - maybe this could be useful?
 - possibly should have a way to *free* the template map after it is created
 
+## Main Problems
+
+- how to lookup file descriptor by name?
+    - palmtenor said this was easy but then he dropped of the face of the earth without explaining
+- how to fix potential rewriter problems?
+    - some of the diffs below might be helpful
+    - ` src/cc/frontends/clang/b_frontend_action.cc`
+- what is the best workflow for testing here?
+
 ## Creation Flow
 
 1. define inner map
