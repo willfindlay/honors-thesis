@@ -27,6 +27,8 @@
 - `src/cc/export/helpers.h`
     - define helper macros for BPF programs
     - need to add macros for HASH_OF_MAPS here
+- ` src/cc/frontends/clang/b_frontend_action.cc`
+    - rewriter stuff (see palmtenor's issue above)
 - maybe more
 
 ## Some Diffs That Might Be Useful
