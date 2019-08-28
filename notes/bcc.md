@@ -14,7 +14,7 @@
 ## Main Problems
 
 - best way to handle creation of template map?
-    - probably want to reuse some existing macro here (maybe BPF_TABLE)
+    - probably want to reuse some existing macro here (maybe BPF_TABLE or BPF_PINNED_MAP)
 - how to lookup file descriptor by name?
     - palmtenor said this was easy but then he dropped off the face of the earth without explaining
 - how to fix potential rewriter problems?
