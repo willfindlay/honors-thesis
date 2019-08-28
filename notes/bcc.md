@@ -14,7 +14,7 @@
 ## Main Problems
 
 - how to lookup file descriptor by name?
-    - palmtenor said this was easy but then he dropped of the face of the earth without explaining
+    - palmtenor said this was easy but then he dropped off the face of the earth without explaining
 - how to fix potential rewriter problems?
     - some of the diffs below might be helpful
     - ` src/cc/frontends/clang/b_frontend_action.cc`
