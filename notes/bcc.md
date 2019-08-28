@@ -20,11 +20,12 @@
 - how to fix potential rewriter problems?
     - some of the diffs below might be helpful
     - ` src/cc/frontends/clang/b_frontend_action.cc`
+- palmtenor said the hardest problem was inner map lookup after the fact
 - what is the best workflow for testing here?
 
 ## Creation Flow
 
-1. define inner map
+1. define inner map template
 2. lookup inner map fd by name
 3. define outer map using attributes of inner map
 4. maybe free inner map fd
