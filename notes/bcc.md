@@ -50,3 +50,21 @@
 - [add lru hash and lru per cpu hash](https://github.com/iovisor/bcc/pull/836/files)
 - [add devmap and cpumap](https://github.com/iovisor/bcc/commit/db410bf3484df3febbc51fe64463677f8a93529a) (**this is
     probably the most helpful so far**)
+
+## Meeting
+
+1. pin an inner map of file descriptors
+2. (maybe somehow call create_map_in_map directly?)
+
+- pin a map
+- access bytecode from /sys/fs/bpf
+- load it into a data structure
+
+- get assembly code from compiler
+- edit the assembly code
+- load it in
+- send off to the kernel
+
+## Useful Links
+
+- https://blogs.oracle.com/linux/notes-on-bpf-3

@@ -21,8 +21,19 @@ lib.bpf_obj_pin(map_in_map_fd, b'/sys/fs/bpf/map_in_map')
 with open("map_in_map.c", "r") as f:
     txt = f.read()
 
-bpf = BPF(text=txt, debug=0x8)
+print(txt)
+
+bpf = BPF(text=txt)
+
+def print_event(cpu, data, size):
+    event = bpf["testificate"].event(data)
+    print(event.test)
 
 if __name__ == "__main__":
-    table = bpf["map_in_map"]
-    print(table.map_fd)
+    bpf["testificate"].open_perf_buffer(print_event)
+    while 1:
+        try:
+            bpf.perf_buffer_poll()
+            pass
+        except KeyboardInterrupt:
+            exit()
