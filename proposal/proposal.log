@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Arch Linux) (preloaded format=pdflatex 2019.8.25)  3 OCT 2019 09:08
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Arch Linux) (preloaded format=pdflatex 2019.8.25)  4 OCT 2019 13:15
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1733,39 +1733,46 @@ File: ot1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) [1
 
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2
 
-LaTeX Warning: Empty bibliography on input line 110.
-
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 113.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 113.
+]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 130.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 130.
 (./proposal.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 113.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 113.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 130.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 130.
 Package rerunfilecheck Info: File `proposal.out' has not changed.
-(rerunfilecheck)             Checksum: C7629F9D5FEA9C48D13B462F1989686E;180.
+(rerunfilecheck)             Checksum: 74A477239D6D71B13F1A798BDB4B60AF;210.
+
+LaTeX Warning: There were undefined references.
+
+
+Package biblatex Warning: Please rerun LaTeX.
+
 Package logreq Info: Writing requests to 'proposal.run.xml'.
 \openout1 = `proposal.run.xml'.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 113.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 130.
  ) 
 Here is how much of TeX's memory you used:
- 47133 strings out of 492623
- 868595 string characters out of 6135669
- 1367597 words of memory out of 5000000
- 50360 multiletter control sequences out of 15000+600000
- 584649 words of font info for 71 fonts, out of 8000000 for 9000
+ 47370 strings out of 492623
+ 873210 string characters out of 6135669
+ 1368675 words of memory out of 5000000
+ 50569 multiletter control sequences out of 15000+600000
+ 594394 words of font info for 84 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 62i,6n,65p,1197b,749s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 62i,11n,65p,1197b,1232s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}</usr/share/texmf-dist/fo
 nts/type1/public/lm/lmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmb
 x9.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf
 -dist/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf-dist/fonts/type1/public
-/lm/lmr17.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmri12.pfb>
-Output written on proposal.pdf (1 page, 125389 bytes).
+/lm/lmr17.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmr9.pfb></usr/share
+/texmf-dist/fonts/type1/public/lm/lmri10.pfb></usr/share/texmf-dist/fonts/type1
+/public/lm/lmri12.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmri9.pfb>
+Output written on proposal.pdf (2 pages, 203359 bytes).
 PDF statistics:
- 52 PDF objects out of 1000 (max. 8388607)
- 42 compressed objects within 1 object stream
- 6 named destinations out of 1000 (max. 500000)
- 12317 words of extra memory for PDF output out of 14400 (max. 10000000)
+ 82 PDF objects out of 1000 (max. 8388607)
+ 68 compressed objects within 1 object stream
+ 10 named destinations out of 1000 (max. 500000)
+ 16413 words of extra memory for PDF output out of 17280 (max. 10000000)
 
