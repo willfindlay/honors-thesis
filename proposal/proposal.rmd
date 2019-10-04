@@ -1,0 +1,53 @@
+---
+author: |
+    | William Findlay
+title: |
+    | Extended Berkeley Packet Filter Introspection for Intrusion Detection
+subtitle: |
+    | Honours Thesis Proposal
+date: \today
+bibliography: ../thesis.bib
+biblio-style: ieee
+documentclass: article
+classoptions: twocolumn
+subparagraph: yes
+header-includes:
+    - \usepackage{findlayrmd}
+    - \lhead{\nouppercase{\leftmark}}
+    - \rhead{eBPF Introspection for Intrusion Detection}
+    - \let\cleardoublepage=\clearpage
+output:
+    pdf_document:
+        citation_package: biblatex
+        number_sections: true
+        fig_crop: true
+        fig_caption: true
+        keep_tex: false
+        pandoc_args: ["--listings"]
+---
+```{r,include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+options(kableExtra.latex.load_packages = FALSE)
+library(kableExtra)
+library(lubridate)
+```
+<!-- Setup -->
+\pagestyle{fancy}
+\counterwithin{lstlisting}{section}
+\renewcommand{\maketitle}{\oldmaketitle}
+
+<!-- Title page -->
+\maketitle
+\thispagestyle{plain}
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\begin{abstract}
+\end{abstract}
+
+# Introduction
+
+## Test
+
+<!-- References -->
+\clearpage
