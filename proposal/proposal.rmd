@@ -2,11 +2,11 @@
 author: |
     | William Findlay
 title: |
-    | Extended Berkeley Packet Filter Introspection for Intrusion Detection
+    | Extended Berkeley Packet Filter for Intrusion Detection
 subtitle: |
     | Honours Thesis Proposal
 date: \today
-bibliography: ../thesis.bib
+bibliography: ../bib/thesis.bib
 biblio-style: ieee
 documentclass: article
 classoptions: twocolumn
@@ -14,7 +14,7 @@ subparagraph: yes
 header-includes:
     - \usepackage{findlayrmd}
     - \lhead{\nouppercase{\leftmark}}
-    - \rhead{eBPF Introspection for Intrusion Detection}
+    - \rhead{eBPF for Intrusion Detection}
     - \let\cleardoublepage=\clearpage
 output:
     pdf_document:
@@ -43,11 +43,28 @@ library(lubridate)
 \setcounter{page}{1}
 
 \begin{abstract}
+Since its introduction to the Linux Kernel in 2013 \cite{starovoitov13},
+{\itshape Extended Berkeley Packet Filter} (eBPF)
+has provided a powerful toolkit for GNU/Linux developers to perform
+powerful system introspection and monitoring. This is thanks largely in part to
+its guaranteed safety, as well as its ability to inspect any kernel data structure
+in real time \cite{goldstein16, starovoitov13}. Additionally, its ever-expanding
+set of features \cite{goldstein16} as well as projects like \textit{bcc} \cite{bcc19}
+are set to ensure that eBPF is more powerful and accessible than ever before in the
+years to come.
+
+While eBPF is certainly ideal for performance monitoring use cases, there is no reason
+to stop there; powerful and safe system introspection techniques can offer promising
+boons to many fields, including that of computer security.
+The aim of this thesis is to provide an argument for eBPF's effectiveness
+in the domain of computer security. In particular, I hope to show that eBPF
+tracing programs can be leveraged effectively and efficiently for intrusion detection
+system implementations.
 \end{abstract}
 
 # Introduction
 
-## Test
+## Background
 
 <!-- References -->
 \clearpage
