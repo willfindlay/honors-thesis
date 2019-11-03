@@ -81,6 +81,13 @@ Carleton University
 
 # Introduction
 
+As our computer systems grow increasingly complex, so too does it
+become more and more difficult to gauge precisely what they are doing
+at any given moment. Consider your own personal computer or smart phone;
+how confident are you that you know exactly what background processes
+are running, what each one is responsible for, and why they are there in
+the first place?
+
 ## Motivation
 
 ## System Introspection and Observability
