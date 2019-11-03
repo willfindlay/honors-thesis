@@ -1,0 +1,120 @@
+---
+author: |
+    | William Findlay
+title: |
+    | Extended Berkeley Packet Filter for
+    | Intrusion Detection Implementations
+subtitle: |
+    | COMP4906 Honours Thesis Proposal
+date: \today
+bibliography: ../bib/thesis.bib
+biblio-style: ieee
+subparagraph: yes
+header-includes:
+    - \usepackage{findlayrmd}
+output:
+    pdf_document:
+        citation_package: biblatex
+        number_sections: true
+        fig_crop: true
+        fig_caption: true
+        keep_tex: false
+        pandoc_args: ["--listings"]
+---
+```{r,include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+options(kableExtra.latex.load_packages = FALSE)
+library(kableExtra)
+library(lubridate)
+```
+<!-- Setup -->
+\pagestyle{fancy}
+\counterwithin{lstlisting}{section}
+\renewcommand{\maketitle}{\oldmaketitle}
+
+\makeatletter
+\def\@maketitle{
+\begin{center}
+{\Huge \@title \par}
+{\Large COMP4906 Honours Thesis Proposal}
+\vskip 1.5em
+by
+\vskip 1.5em
+{\large \bfseries\@author}
+\vskip 0.5em
+{\large \itshape \thedate}
+\vfill
+Under the supervision of Dr.\ Anil Somayaji\\
+Carleton University
+\vfill
+\end{center}
+}
+\makeatother
+
+<!-- Title page -->
+\maketitle
+\thispagestyle{empty}
+
+\newpage
+\pagenumbering{roman}
+\section*{Abstract}
+\markboth{Abstract}{}
+
+\newpage
+\section*{Acknowledgments}
+\markboth{Acknowledgments}{}
+
+<!-- Table of contents -->
+\newpage
+\tableofcontents
+
+<!-- List of figs, tables, listings -->
+\newpage
+\listoffigures
+\listoftables
+\lstlistoflistings
+
+<!-- Setup the rest of the document -->
+\newpage
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+# Introduction
+
+## Motivation
+
+## System Introspection and Observability
+
+# Background
+
+## Extended Berkeley Packet Filter
+
+### Linux Superpowers
+
+### The Verifier
+
+### eBPF Programs
+
+### XDP Programs
+
+## Intrusion Detection
+
+## Process Homeostasis
+
+# Implementing ebpH
+
+# Methodology
+
+<!-- References -->
+\clearpage
+\nocite{*}
+\addcontentsline{toc}{section}{References}
+\printbibliography
+\renewcommand{\printbibliography}{\relax}
+\clearpage
+
+\appendix
+
+# Testificate
+
+# <!-- Ugly hack to suppress bib at the end -->
