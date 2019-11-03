@@ -42,29 +42,19 @@ library(lubridate)
 \pagenumbering{arabic}
 \setcounter{page}{1}
 
-\begin{abstract}
-Since its introduction to the Linux Kernel in 2013 \cite{starovoitov13},
-{\itshape Extended Berkeley Packet Filter} (eBPF)
-has provided a powerful toolkit for GNU/Linux developers to perform
-powerful system introspection and monitoring. This is thanks largely in part to
-its guaranteed safety, as well as its ability to inspect any kernel data structure
-in real time \cite{goldstein16, starovoitov13}. Additionally, its ever-expanding
-set of features \cite{goldstein16} as well as projects like \textit{bcc} \cite{bcc19}
-are set to ensure that eBPF is more powerful and accessible than ever before in the
-years to come.
-
-While eBPF is certainly ideal for performance monitoring use cases, there is no reason
-to stop there; powerful and safe system introspection techniques can offer promising
-boons to many fields, including that of computer security.
-The aim of this thesis is to provide an argument for eBPF's effectiveness
-in the domain of computer security. In particular, I hope to show that eBPF
-tracing programs can be leveraged effectively and efficiently for intrusion detection
-system implementations.
-\end{abstract}
 
 # Introduction
 
+asdasuidgajshgdasd \linebrea
+asdasdasda
+
+\lipsum[1-2]
+
 ## Background
+
+\lipsum
+
+\onecolumn
 
 <!-- References -->
 \clearpage
