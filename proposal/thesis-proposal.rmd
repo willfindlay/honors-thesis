@@ -86,7 +86,15 @@ become more and more difficult to gauge precisely what they are doing
 at any given moment. Consider your own personal computer or smart phone;
 how confident are you that you know exactly what background processes
 are running, what each one is responsible for, and why they are there in
-the first place?
+the first place? Almost invariably, most users have absolutely no idea what
+their system is doing at any given moment; certainly we may make
+educated guesses, but our mental of model of how our systems actually
+work is increasingly becoming further detached from reality.
+
+System introspection seeks to bridge this gap, by offering powerful
+tools we can use to monitor the state of a given system over a desired
+period of time -- and it is only getting better with time. Extended Berkeley
+Packet Filter, a recent addition to the Linux Kernel [@starovoitov13]
 
 ## Motivation
 
