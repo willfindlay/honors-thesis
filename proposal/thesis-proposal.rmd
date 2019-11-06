@@ -148,6 +148,16 @@ purpose for decades. Some prominent examples include:
 - SystemTap [@systemtap], which employs a variety of backends, but predominantly constructs loadable kernel modules
 - The ptrace system call, used by applications such as strace for system call tracing
 
+<!-- TODO: finish this list, maybe convert to table
+     Also, perhaps I should add more to the above paragraph and simply reference
+     the table..?
+-->
+
+<!-- insert more stuff about other systems here? -->
+
+While existing system introspection technologies can certainly constitute
+viable solutions
+
 \begin{figure}
 \includegraphics{../figures/eBPF-topology.png}
 \caption[Basic topology of eBPF with respect to userland and the kernel]{
@@ -155,6 +165,8 @@ Basic topology of eBPF with respect to userland and the kernel.
 Note the bidirectional nature of dataflow between userspace and kernelspace
 using maps.}
 \end{figure}
+
+\FloatBarrier
 
 ### Linux Tracing Superpowers
 
