@@ -10,8 +10,10 @@ date: \today
 bibliography: ../bib/thesis.bib
 biblio-style: ieee
 subparagraph: yes
+classoption: 12pt
 header-includes:
     - \usepackage{findlayrmd}
+    - \setlength{\headheight}{15pt}
 output:
     pdf_document:
         citation_package: biblatex
@@ -55,10 +57,14 @@ Carleton University
 \maketitle
 \thispagestyle{empty}
 
-\newpage
+\onehalfspacing
+
+\clearpage
 \pagenumbering{roman}
 \section*{Abstract}
 \markboth{Abstract}{}
+
+testificate
 
 \newpage
 \section*{Acknowledgments}
@@ -79,38 +85,86 @@ Carleton University
 \pagenumbering{arabic}
 \setcounter{page}{1}
 
-# Introduction
+# Introduction and Motivation
 
 As our computer systems grow increasingly complex, so too does it
 become more and more difficult to gauge precisely what they are doing
-at any given moment. Consider your own personal computer or smart phone;
-how confident are you that you know exactly what background processes
-are running, what each one is responsible for, and why they are there in
-the first place? Almost invariably, most users have absolutely no idea what
-their system is doing at any given moment; certainly we may make
-educated guesses, but our mental of model of how our systems actually
-work is increasingly becoming further detached from reality.
+at any given moment. Modern computers are often running hundreds, if not thousands
+of processes at any given time, the vast majority of which are running silently in
+the background. As a result, users often have a very limited notion of what exactly
+is happening on their systems, especially beyond that which they can actually see
+on their screens. An unfortunate corollary to this observation is that
+users *also* have no way of knowing whether their system may be *misbehaving*
+at a given moment, whether due to a malicious actor, buggy software, or simply
+some unfortunate combination of circumstances.
 
-System introspection seeks to bridge this gap, by offering powerful
-tools we can use to monitor the state of a given system over a desired
-period of time -- and it is only getting better with time. Extended Berkeley
-Packet Filter, a recent addition to the Linux Kernel [@starovoitov13]
+Recently, a lot of work has been done to help bridge this gap between
+system state and visibility, particularly through the introduction of
+powerful new tools such as *Extended Berkeley Packet Filter* (eBPF).
+Introduced to the Linux Kernel in a 2013 RFC and subsequent kernel patch [@starovoitov13],
+eBPF offers a promising interface for kernel introspection, particularly given its
+scope and unprecedented level of safety therein; although eBPF can examine
+any data structure or function in the kernel through the instrumentation of tracepoints,
+its safety is guaranteed via a bytecode verifier. What this means in practice is that we
+effectively have unlimited, highly performant, production-safe system
+introspection capabilities that can be used to monitor as much or as little
+system state as we desire.
 
-## Motivation
+Certainly, eBPF offers unprecedented system state visibility, but this is only scratching
+the surface of what this technology is capable of. With limitless tracing capabilities,
+we can construct powerful applications to enhance system security, stability, and performance.
+In theory, these applications can perform much of their work autonomously in the background, but
+are equally capable of functioning in a more interactive role, keeping the end user informed
+about changes in system state, particularly if these changes in state are undesired. To that end,
+I propose *ebpH* (*Extended Berkeley Process Homeostasis*), an intrusion detection system
+based entirely on eBPF that monitors process state in the form of system call sequences.
+By building and maintaining per-executable behavior profiles, ebpH can dynamically detect when
+processes are behaving outside of the status quo, and notify the user so that they can understand
+exactly what is going on.
 
-## System Introspection and Observability
+A prototype of ebpH has been written using the Python interface provided by the BPF Compiler Collection [@bcc19],
+and preliminary tests show that it is capable of monitoring system state under moderate to heavy workloads with negligible
+overhead. What's more, zero kernel panics occurred during ebpH's development and early testing, which simply
+would not have been possible without the safety guarantees that eBPF provides. The rest of this
+proposal will cover the necessary background material required to understand ebpH, describe
+several aspects of its implementation, including the many findings and pitfalls encountered along the way,
+and discuss the planned methodology for testing and iterating on this prototype going forward.
 
 # Background
 
-## Extended Berkeley Packet Filter
+While my work is primarily focused on the use of eBPF for maintaining
+system security and stability, my working prototype for ebpH borrows
+heavily from Anil Somayaji's *pH* or *Process Homeostais* [@soma02],
+an anomaly-based intrusion detection and response system written as a patch for Linux Kernel 2.2.
+As such, in the following sections I will attempt to provide some background on eBPF,
+intrusion detection, and the design of the original pH system.
 
-### Linux Superpowers
+## Extended Berkeley Packet Filter and System Introspection
 
-### The Verifier
+System introspection is hardly a novel concept. Developers have
+been designing kernel modules and in-kernel APIs for this express
+purpose for decades. Some prominent examples include:
+
+- SystemTap [@systemtap], which employs a variety of backends, but predominantly constructs loadable kernel modules
+- The ptrace system call, used by applications such as strace for system call tracing
+
+\begin{figure}
+\includegraphics{../figures/eBPF-topology.png}
+\caption[Basic topology of eBPF with respect to userland and the kernel]{
+Basic topology of eBPF with respect to userland and the kernel.
+Note the bidirectional nature of dataflow between userspace and kernelspace
+using maps.}
+\end{figure}
+
+### Linux Tracing Superpowers
+
+### The Verifier: The Good, the Bad, and the Ugly
 
 ### eBPF Programs
 
 ### XDP Programs
+
+### Other System Introspection Techniques
 
 ## Intrusion Detection
 
