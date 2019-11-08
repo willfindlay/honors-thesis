@@ -272,15 +272,22 @@ needs, are less extensible than other approaches.
 In 2016, eBPF was described by Brendan Gregg [@gregg16],
 a prominent member of the Iovisor project, as nothing short of *Linux tracing superpowers*.
 I echo that sentiment here, as it summarizes eBPF's capabilities perfectly.
-
+Through eBPF programs, we can simultaneously trace userland symbols and library
+calls, kernel functions and data structures, and hardware performance. What's more
+through an even newer subset of eBPF, known as *XDP* or *Express Data Path*, we
+can inspect, modify, redirect, and even drop packets entirely before
+they even reach the main kernel network stack. \autoref{ebpf-use-cases} provides
+a high level overview of these use cases and the corresponding eBPF instrumentation
+required.
 
 \begin{figure}
-\includegraphics{../figures/eBPF-use-cases.png}
+\begin{center}
+\includegraphics[keepaspectratio, height=4.5in]{../figures/eBPF-use-cases.png}
+\end{center}
 \caption[A high level overview of various eBPF use cases]{
 A high level overview of various eBPF use cases.
 Note the high level of flexibility that eBPF provides
-with respect to system tracing.
-}
+with respect to system tracing.}
 \label{ebpf-use-cases}
 \end{figure}
 
