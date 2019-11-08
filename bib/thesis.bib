@@ -1,3 +1,9 @@
+% try to find full version of this... https://www.usenix.org/conference/lisa17/training-program/session/linux-performance-monitoring-bpf
+% https://thenewstack.io/linux-technology-for-the-new-year-ebpf/
+% recent advances in intrusion detection BPF stuff https://books.google.ca/books?id=NFirCAAAQBAJ&pg=PA275&lpg=PA275&dq=collisions+in+bpf+hash+maps&source=bl&ots=WU_K2OBdxd&sig=ACfU3U0x4kvtUsrZn74f2z9A4Jjs0MLMAQ&hl=en&sa=X&ved=2ahUKEwiB9q2Zr43lAhXDV98KHYkVDpsQ6AEwA3oECAkQAQ#v=onepage&q=collisions%20in%20bpf%20hash%20maps&f=false
+
+% eBPF stuff below this line ---------------------------------------------------
+
 @techreport{starovoitov13, author={Alexei Starovoitov}, title={tracing filters with BPF},
 year=2013, month={December}, type={RFC}, institution={The Linux Foundation},
 url={https://lkml.org/lkml/2013/12/2/1066},
@@ -5,15 +11,77 @@ howpublished={Mailing List Request for Comments}, number={0/5}}
 @inproceedings{goldstein16, author={Sasha Goldstein}, publisher={USENIX SRECon16 Europe},
 title={The Next Linux Superpower: eBPF Primer}, year={2016}, month={July},
 url={https://www.usenix.org/conference/srecon16europe/program/presentation/goldshtein-ebpf-primer}}
-@misc{bcc19, title={iovisor/bcc}, url={https://github.com/iovisor/bcc}, journal={GitHub}, publisher={iovisor}, year={2019}, month={Oct}}
+@misc{bcc, title={iovisor/bcc}, url={https://github.com/iovisor/bcc}, journal={GitHub}, publisher={iovisor}, year={2019}, month={Oct}}
+@misc{gregg16, title={Linux BPF Superpowers}, url={http://www.brendangregg.com/blog/2016-03-05/linux-bpf-superpowers.html}, journal={Linux BPF Superpowers}, publisher={Brendan Gregg's Blog}, author={Gregg, Brendan}, year={2016}, month={Mar}}
 
-% try to find full version of this... https://www.usenix.org/conference/lisa17/training-program/session/linux-performance-monitoring-bpf
-% https://thenewstack.io/linux-technology-for-the-new-year-ebpf/
-% recent advances in intrusion detection BPF stuff https://books.google.ca/books?id=NFirCAAAQBAJ&pg=PA275&lpg=PA275&dq=collisions+in+bpf+hash+maps&source=bl&ots=WU_K2OBdxd&sig=ACfU3U0x4kvtUsrZn74f2z9A4Jjs0MLMAQ&hl=en&sa=X&ved=2ahUKEwiB9q2Zr43lAhXDV98KHYkVDpsQ6AEwA3oECAkQAQ#v=onepage&q=collisions%20in%20bpf%20hash%20maps&f=false
+
+% Other introspection background below this line -------------------------------
+% ltrace
+@inbook{rubirabranco07, place={Ottawa, Ontario, Canada}, title={Ltrace Internals}, volume={1}, url={https://www.linuxsecrets.com/kdocs/mirror/ols2007v1.pdf#page=41}, booktitle={Proceedings of the Linux Symposium}, author={Rubira Branco, Rodrigo}, pages={41–52}}
+@manual{manltrace,
+ title      = "ltrace(1) Linux User's Manual",
+ author     = {Cespedes, Juan and Machata, Petr},
+ organization  = "Ltrace project",
+ %address   = "",
+ %edition    = "",
+ year       = "2013",
+ month      = "January",
+ %note      = "",
+}
+
+% strace
+@misc{strace, title={strace}, url={https://strace.io/}, journal={strace}, publisher={Strace project}}
+@manual{manstrace,
+ title      = "strace(1) Linux User's Manual",
+ %author    = {},
+ organization  = "Strace project",
+ %address   = "",
+ edition    = "5.3",
+ year       = "2019",
+ month      = "September",
+ %note      = "",
+}
+% ptrace system call
+@manual{manptrace,
+ title      = "ptrace(2) Linux User's Manual",
+ %author    = {},
+ %organization  = "Strace project",
+ %address   = "",
+ %edition    = "5.3",
+ year       = "2019",
+ month      = "October",
+ %note      = "",
+}
+@inbook{keniston07, place={Ottawa, Ontario, Canada}, title={Ptrace, Utrace, Uprobes: Lightweight, Dynamic Tracing of User Apps}, volume={1}, url={https://www.linuxsecrets.com/kdocs/mirror/ols2007v1.pdf#page=41}, booktitle={Proceedings of the Linux Symposium}, author={Keniston, Jim and Mavinakayanahalli, Ananth and Panchamukhi, Prasanna and Prasad, Vara}, pages={215–224}}
 
 % systemtap
-
 @misc{systemtap, title={Understanding How SystemTap Works Red Hat Enterprise Linux 5}, url={https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/5/html/systemtap_beginners_guide/understanding-how-systemtap-works}, journal={Red Hat Customer Portal}, publisher={Red Hat}}
+@misc{merey17, title={Introducing stapbpf - SystemTap's new BPF backend}, url={https://developers.redhat.com/blog/2017/12/13/introducing-stapbpf-systemtaps-new-bpf-backend/}, journal={Red Hat Developer}, publisher={Red Hat}, author={Merey, Aaron}, year={2017}, month={Dec}}
 
-% pH stuff
+% ftrace
+@misc{ftrace, title={Documentation/ftrace.txt}, url={https://lwn.net/Articles/290277/}, journal={[LWN.net]}, publisher={Red Hat}, author={Rostedt, Steven}, year={2008}}
+
+% perf_events
+@manual{manperfeventopen,
+ title      = "perf\_event\_open(2) Linux User's Manual",
+ author    = {Weaver, Vince},
+ %organization  = "Strace project",
+ %address   = "",
+ %edition    = "5.3",
+ year       = "2019",
+ month      = "October",
+ %note      = "",
+}
+@misc{perf-security, title={Perf Security}, url={https://github.com/torvalds/linux/blob/master/Documentation/admin-guide/perf-security.rst}, journal={GitHub}, publisher={The Linux Foundation}, author={Budankov, Alexey and Corbet, Jonathan}, year={2019}, month={Feb}}
+
+% LTTng
+@misc{lttng, title={LTTng v2.11 - LTTng Documentation}, url={https://lttng.org/docs/v2.11/}, journal={LTTng}, publisher={The LTTng project}, year={2019}, month={Oct}}
+
+% dtrace4linux
+@misc{dtrace4linux, title={dtrace4linux/linux}, url={https://github.com/dtrace4linux/linux}, journal={GitHub}, publisher={dtrace4linux project}, author={Fox, Paul D}, year={2019}, month={Sep}}
+
+% sysdig
+@misc{sysdig, title={draios/sysdig}, url={https://github.com/draios/sysdig}, journal={GitHub}, publisher={Sysdig Inc.}, year={2019}, month={Nov}}
+
+% pH background below this line ---------------------------------------------
 @phdthesis{soma02, title={Operating system stability and security through process homeostasis}, url={https://people.scs.carleton.ca/~soma/pubs/soma-diss.pdf}, journal={Operating system stability and security through process homeostasis}, school={Anil Somayaji}, author={Somayaji, Anil Buntwal.}, year={2002}}
