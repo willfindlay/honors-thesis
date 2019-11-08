@@ -205,6 +205,7 @@ eBPF & In-kernel virtual machine for running pre-verified bytecode & \cite{bcc, 
 These technologies can, in general, be classified into a few broad categories (\autoref{instr-cmp}),
 albeit with potential overlap depending on the tool:
 
+(1) Userland libraries.
 (1) Ptrace-based instrumentation.
 (1) Loadable kernel modules.
 (1) Kernel subsystems.
@@ -271,6 +272,17 @@ needs, are less extensible than other approaches.
 In 2016, eBPF was described by Brendan Gregg [@gregg16],
 a prominent member of the Iovisor project, as nothing short of *Linux tracing superpowers*.
 I echo that sentiment here, as it summarizes eBPF's capabilities perfectly.
+
+
+\begin{figure}
+\includegraphics{../figures/eBPF-use-cases.png}
+\caption[A high level overview of various eBPF use cases]{
+A high level overview of various eBPF use cases.
+Note the high level of flexibility that eBPF provides
+with respect to system tracing.
+}
+\label{ebpf-use-cases}
+\end{figure}
 
 \begin{figure}
 \includegraphics{../figures/eBPF-topology.png}
