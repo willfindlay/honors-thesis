@@ -64,7 +64,28 @@ Carleton University
 \section*{Abstract}
 \markboth{Abstract}{}
 
-testificate
+System introspection is becoming an increasingly attractive option
+for maintaining operating system stability and security. This is primarily
+due to the many recent advances in system introspection technology; in particular,
+the 2013 introduction of *eBPF* (*Extended Berkeley Packet Filter*)
+into the Linux Kernel [@starovoitov13] along with the recent
+development highly usable interfaces such as *bcc* (*BPF Compiler Collection*)
+[@bcc] has resulted in highly compelling,
+performant, and (perhaps most importantly) safe subsystem for both kernel and userland
+instrumentation.
+
+The proposed thesis seeks to test the limits of what eBPF programs are capable of
+with respect to the domain of computer security; specifically, I present *ebpH*
+(*Extended Berkeley Process Homeostasis*), an eBPF-based intrusion detection
+system based on Anil Somayaji's [@soma02] *pH* (*Process Homeostasis*). Preliminary testing
+has shown that ebpH is able to detect anomalies in process behavior by instrumenting
+system call tracepoints with negligible overhead. Future work will involve testing and
+iterating on the ebpH prototype, as well as the implementation of several kernel patches
+to further extend its functionality.
+
+#### Keywords:
+
+eBPF, intrusion detection, system calls, Linux Kernel introspection
 
 \newpage
 \section*{Acknowledgments}
@@ -122,7 +143,7 @@ By building and maintaining per-executable behavior profiles, ebpH can dynamical
 processes are behaving outside of the status quo, and notify the user so that they can understand
 exactly what is going on.
 
-A prototype of ebpH has been written using the Python interface provided by the BPF Compiler Collection [@bcc19],
+A prototype of ebpH has been written using the Python interface provided by *bcc* (*BPF Compiler Collection*) [@bcc],
 and preliminary tests show that it is capable of monitoring system state under moderate to heavy workloads with negligible
 overhead. What's more, zero kernel panics occurred during ebpH's development and early testing, which simply
 would not have been possible without the safety guarantees that eBPF provides. The rest of this
@@ -132,21 +153,124 @@ and discuss the planned methodology for testing and iterating on this prototype 
 
 # Background
 
+In the following sections, I will provide the necessary background information needed
+to understand ebpH; this includes an overview of system introspection and tracing techniques
+on Linux including eBPF itself, and some background on system calls and intrusion detection.
+
 While my work is primarily focused on the use of eBPF for maintaining
-system security and stability, my working prototype for ebpH borrows
+system security and stability, the working prototype for ebpH borrows
 heavily from Anil Somayaji's *pH* or *Process Homeostais* [@soma02],
 an anomaly-based intrusion detection and response system written as a patch for Linux Kernel 2.2.
-As such, in the following sections I will attempt to provide some background on eBPF,
-intrusion detection, and the design of the original pH system.
+As such, I will also provide some background on the original pH system and many of the design choices therein.
 
 ## Extended Berkeley Packet Filter and System Introspection
 
-System introspection is hardly a novel concept. Developers have
-been designing kernel modules and in-kernel APIs for this express
-purpose for decades. Some prominent examples include:
+System introspection is hardly a novel concept; for years, developers
+have been thinking about the best way to solve this problem and have come up
+with several unique solutions, each with a variety of benefits and drawbacks.
+\autoref{introspection-summary} presents an overview of some prominent examples
+relevant to GNU/Linux systems.
 
-- SystemTap [@systemtap], which employs a variety of backends, but predominantly constructs loadable kernel modules
-- The ptrace system call, used by applications such as strace for system call tracing
+\begin{table}
+\caption{A summary of various system introspection technologies available for GNU/Linux systems.}
+\label{introspection-summary}
+\begin{center}
+\begin{tabular}{|l|p{3.8in}|l|}
+\hline
+\textbf{Name} & \textbf{Interface and Implementation} & \textbf{Citations}\\
+\hline
+\hline
+strace & Uses the ptrace system call to trace userland processes & \cite{strace, manstrace}  \\
+\hline
+ltrace & Uses the ptrace system call to trace library calls in userland processes & \cite{rubirabranco07, manltrace}  \\
+\hline
+SystemTap & Dynamically generates loadable kernel modules for instrumentation; newer versions can optionally use eBPF as a backend instead &  \cite{systemtap, merey17}\\
+\hline
+ftrace & Sysfs pseudo filesystem for tracepoint instrumentation located at \texttt{/sys/kernel/debug/tracing} & \cite{ftrace}\\
+\hline
+perf\_events & Linux subsystem that collects performance events and returns them to userspace & \cite{manperfeventopen}  \\
+\hline
+LTTng & Loadable kernel modules, userland libraries & \cite{lttng}\\
+\hline
+dtrace4linux & A Linux port of DTrace via a loadable kernel module & \cite{dtrace4linux} \\
+\hline
+sysdig & Loadable kernel modules for system monitoring; native support for containers & \cite{sysdig} \\
+\hline
+eBPF & In-kernel virtual machine for running pre-verified bytecode & \cite{bcc, goldstein16, starovoitov13} \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+These technologies can, in general, be classified into a few broad categories (\autoref{instr-cmp}),
+albeit with potential overlap depending on the tool:
+
+(1) Ptrace-based instrumentation.
+(1) Loadable kernel modules.
+(1) Kernel subsystems.
+
+\FloatBarrier
+
+\begin{figure}
+\begin{center}
+\includegraphics[keepaspectratio, height=3.2in]{../figures/instr-cmp.png}
+\end{center}
+\caption[A high level overview of the broad categories of Linux instrumentation]{
+A high level overview of the broad categories of Linux instrumentation.
+This does not represent a complete picture of all available tools and interfaces,
+but instead presents many of the most popular ones. Note how eBPF covers every presented use case.
+}
+\label{instr-cmp}
+\end{figure}
+
+Applications such as strace [@strace; @manstrace] which make use of the ptrace system call are certainly
+a viable option for limited system introspection with respect to specific processes.
+However, this does not represent a complete solution, as we are limited to monitoring
+the system calls made by a process to communicate with the kernel, its memory, and the state of its registers,
+rather than the underlying kernel functions themselves [@manptrace]. The scope of ptrace-based solutions is
+also limited by ptrace's lack of scalability; ptrace's API is conducive to tracing single processes at a time rather
+than tracing processes system wide. Its limited scale becomes even more obvious when considering the high
+amount of context-switching between kernel space and user space required when tracing multiple processes or threads,
+especially when these processes and threads make many hundreds of system calls per second [@keniston07].
+
+Although library call instrumentation through software such as ltrace [@rubirabranco07; @manltrace]
+does not necessarily suffer from the
+same performance issues as described above, it still constitutes a suboptimal solution for many
+use cases due to its limited scope. In order to be effective and provide a complete picture of what
+exactly is going on during a given process' execution, library tracing needs to be combined with other solutions.
+In fact, ltrace does exactly this; when the user specifies the `-S` flag, ltrace uses the ptrace systemcall
+to perform strace-like functionality.
+
+LKM-based implementations such as sysdig [@sysdig] and SystemTap [@systemtap] offer an extremely
+deep and powerful tracing solution given their ability to instrument the entire system, including
+the kernel itself. Their primary detriment is a lack of safety guarantees with respect to the modules
+themselves. No matter how vetted or credible a piece of software might be, running it natively in
+the kernel always comports with an inherent level of risk; buggy code might cause system failure,
+loss of data, or other unintended and potentially catastrophic consequences.
+
+Custom tracing solutions through kernel modules carry essentially the same risks.
+No sane manager would consent to running untrusted, unvetted code natively in the kernel
+of a production system; the risks are simply too great and far outweigh the benefits.
+Instead, such code must be carefully examined, reviewed, and tested, a process which
+can potentially take months. What's more, even allowing for a careful testing and vetting
+process, there is always some probability that a bug can slip through the cracks, resulting
+in the catastrophic consequences outlined above.
+
+Built-in kernel subsystems for instrumentation seem to be the most desirable choice of any
+of the presented solutions. In fact, eBPF [@starovoitov13] itself constitutes one such solution. However,
+for the time being, we will focus on a few others, namely ftrace [@ftrace] and perf\_events [@manperfeventopen]
+(eBPF programs actually *can* and *do* use both of these interfaces anyway). While both of these solutions are
+safe to use (assuming we trust the user), they suffer from limited documentation and relatively poor user interfaces.
+These factors in tandem mean that ftrace and perf\_events, while quite useful for a variety of system introspection
+needs, are less extensible than other approaches.
+
+\FloatBarrier
+
+### eBPF: Linux Tracing Superpowers
+
+In 2016, eBPF was described by Brendan Gregg [@gregg16],
+a prominent member of the Iovisor project, as nothing short of *Linux tracing superpowers*.
+I echo that sentiment here, as it summarizes eBPF's capabilities perfectly.
 
 \begin{figure}
 \includegraphics{../figures/eBPF-topology.png}
@@ -156,15 +280,11 @@ Note the bidirectional nature of dataflow between userspace and kernelspace
 using maps.}
 \end{figure}
 
-### Linux Tracing Superpowers
+\FloatBarrier
 
 ### The Verifier: The Good, the Bad, and the Ugly
 
-### eBPF Programs
-
-### XDP Programs
-
-### Other System Introspection Techniques
+## System Calls
 
 ## Intrusion Detection
 
@@ -176,7 +296,6 @@ using maps.}
 
 <!-- References -->
 \clearpage
-\nocite{*}
 \addcontentsline{toc}{section}{References}
 \printbibliography
 \renewcommand{\printbibliography}{\relax}
@@ -184,6 +303,6 @@ using maps.}
 
 \appendix
 
-# Testificate
+# eBPF Design Patterns
 
 # <!-- Ugly hack to suppress bib at the end -->
