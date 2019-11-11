@@ -210,8 +210,6 @@ albeit with potential overlap depending on the tool:
 (1) Loadable kernel modules.
 (1) Kernel subsystems.
 
-\FloatBarrier
-
 \begin{figure}
 \begin{center}
 \includegraphics[keepaspectratio, height=3.2in]{../figures/instr-cmp.png}
@@ -239,8 +237,8 @@ does not necessarily suffer from the
 same performance issues as described above, it still constitutes a suboptimal solution for many
 use cases due to its limited scope. In order to be effective and provide a complete picture of what
 exactly is going on during a given process' execution, library tracing needs to be combined with other solutions.
-In fact, ltrace does exactly this; when the user specifies the `-S` flag, ltrace uses the ptrace systemcall
-to perform strace-like functionality.
+In fact, ltrace does exactly this; when the user specifies the `-S` flag, ltrace uses the ptrace system call
+to provide strace-like system call tracing functionality.
 
 LKM-based implementations such as sysdig [@sysdig] and SystemTap [@systemtap] offer an extremely
 deep and powerful tracing solution given their ability to instrument the entire system, including
@@ -274,17 +272,13 @@ a prominent member of the Iovisor project, as nothing short of *Linux tracing su
 I echo that sentiment here, as it summarizes eBPF's capabilities perfectly.
 Through eBPF programs, we can simultaneously trace userland symbols and library
 calls, kernel functions and data structures, and hardware performance. What's more,
-through an even newer subset of eBPF, known as *XDP* or *Express Data Path*, we
-can inspect, modify, redirect, and even drop packets entirely before
-they even reach the main kernel network stack. <!-- TODO: add a citation for XDP here -->
-\autoref{ebpf-use-cases} provides
-a high level overview of these use cases and the corresponding eBPF instrumentation
-required.
+through an even newer subset of eBPF, known as *XDP* or *Express Data Path* [@xdp], we
+can inspect, modify, redirect, and even drop packets entirely before they even reach the main kernel network stack.
+\autoref{ebpf-use-cases} provides a high level overview of these use cases and the corresponding
+eBPF instrumentation required.
 
 \begin{figure}
-\begin{center}
-\includegraphics[keepaspectratio, height=4.5in]{../figures/eBPF-use-cases.png}
-\end{center}
+\includegraphics{../figures/eBPF-use-cases.png}
 \caption[A high level overview of various eBPF use cases]{
 A high level overview of various eBPF use cases.
 Note the high level of flexibility that eBPF provides
@@ -299,17 +293,19 @@ production environments, and at scale.
 
 Safety is guaranteed with the help of an in-kernel verifier that
 checks all submitted bytecode before its insertion into the BPF virtual machine.
-While the verifier does limit what is possible (eBPF is **not** Turing complete
-<!-- TODO: cite here -->), it is constantly being
-improved <!-- TODO: cite some kernel patches here --> and
-even in its current state, eBPF is quite feature-rich and capable. The verifier will
-be discussed in further detail in \autoref{verifier-section}.
+While the verifier does limit what is possible (eBPF in its current state is **not** Turing complete), it is constantly being
+improved; for example, a recent patch [@starovoitov19] that was mainlined in the Linux 5.3 kernel
+added support for verified bounded loops, which greatly increases the computational possibilities of eBPF.
+The verifier will be discussed in further detail in \autoref{verifier-section}.
 
-eBPF's superior performance can be attributed to several factors;
-on supported architectures,\footnote{TODO: which supported architectures?}
+eBPF's superior performance can be attributed to several factors.
+On supported architectures,\footnote{x86-64, SPARC, PowerPC, ARM, arm64, MIPS, and s390 \cite{fleming17}}
 eBPF bytecode is compiled into machine code using a *just-in-time* (*JIT*)
-compiler. This both saves memory and reduces the amount of time it takes
-to insert an eBPF program into the kernel <!-- TODO: cite here -->.
+compiler; this both saves memory and reduces the amount of time it takes
+to insert an eBPF program into the kernel. Additionally, since eBPF runs in-kernel
+and communicates with userland via map access and perf events, the number of context switches
+required between userland and the kernel is greatly diminished -- we can simply access the necessary data
+as needed.
 
 ### How eBPF Works at a High Level
 
