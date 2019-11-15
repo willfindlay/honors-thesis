@@ -98,7 +98,9 @@ eBPF, intrusion detection, system calls, Linux Kernel introspection
 <!-- List of figs, tables, listings -->
 \newpage
 \listoffigures
+\newpage
 \listoftables
+\newpage
 \lstlistoflistings
 
 <!-- Setup the rest of the document -->
@@ -163,7 +165,7 @@ heavily from Anil Somayaji's *pH* or *Process Homeostais* [@soma02],
 an anomaly-based intrusion detection and response system written as a patch for Linux Kernel 2.2.
 As such, I will also provide some background on the original pH system and many of the design choices therein.
 
-## Extended Berkeley Packet Filter and System Introspection
+## An Overview of the Linux Tracing Landscape
 
 System introspection is hardly a novel concept; for years, developers
 have been thinking about the best way to solve this problem and have come up
@@ -263,9 +265,18 @@ safe to use (assuming we trust the user), they suffer from limited documentation
 These factors in tandem mean that ftrace and perf\_events, while quite useful for a variety of system introspection
 needs, are less extensible than other approaches.
 
+### Dtrace
+
+It is worth spending a bit more time comparing eBPF with Dtrace, as both
+APIs are quite full-featured and designed with similar functionality in mind.
+dtrace4linux [@dtrace4linux] is a free and open source port of Sun's Dtrace for the
+Linux Kernel, implemented as a loadable kernel module (LKM).
+
+TODO: cite [@gregg18] here to talk about differences.
+
 \FloatBarrier
 
-### eBPF: Linux Tracing Superpowers
+## eBPF: Linux Tracing Superpowers
 
 In 2016, eBPF was described by Brendan Gregg [@gregg16],
 a prominent member of the Iovisor project, as nothing short of *Linux tracing superpowers*.
@@ -328,6 +339,8 @@ using maps.}
 
 ## Process Homeostasis
 
+## Other Related Work
+
 # Implementing ebpH
 
 # Methodology
@@ -342,5 +355,7 @@ using maps.}
 \appendix
 
 # eBPF Design Patterns
+
+\lil[language=c, caption={Handling large data in eBPF programs.}, label={appendix-bigdata}]{../code/design_patterns/bigdata.c}
 
 # <!-- Ugly hack to suppress bib at the end -->
