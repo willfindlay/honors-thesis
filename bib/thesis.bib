@@ -5,7 +5,7 @@
 % eBPF stuff below this line ---------------------------------------------------
 
 @techreport{starovoitov13, author={Alexei Starovoitov}, title={tracing filters with BPF},
-year=2013, month={December}, type={RFC}, institution={The Linux Foundation},
+year=2013, month={December}, type={RFC Patch}, institution={The Linux Foundation},
 url={https://lkml.org/lkml/2013/12/2/1066},
 howpublished={Mailing List Request for Comments}, number={0/5}}
 @inproceedings{goldstein16, author={Sasha Goldstein}, publisher={USENIX SRECon16 Europe},
@@ -23,6 +23,8 @@ url={https://www.usenix.org/conference/srecon16europe/program/presentation/golds
 @article{bonafiglia16, title={Enabling NFV Services on Resource-Constrained CPEs}, DOI={10.1109/cloudnet.2016.24}, journal={2016 5th IEEE International Conference on Cloud Networking (Cloudnet)}, author={Bonafiglia, Roberto and Miano, Sebastiano and Nuccio, Sergio and Risso, Fulvio and Sapio, Amedeo}, year={2016}}
 % bounded loop support
 @misc{starovoitov19, title={bpf: introduce bounded loops}, url={https://git.kernel.org/pub/scm/linux/kernel/git/davem/net-next.git/commit/?id=2589726d12a1b12eaaa93c7f1ea64287e383c7a5}, journal={kernel/git/davem/net-next.git - Netdev Group's -next networking tree}, publisher={The Linux Foundation}, author={Starovoitov, Alexei and Borkmann, Daniel}, year={2019}, month={Jun}}
+% more bounded loops stuff
+% https://lwn.net/Articles/773605/
 % seahorn paper
 @article{gershuni19, title={Simple and precise static analysis of untrusted Linux kernel extensions}, DOI={10.1145/3314221.3314590}, journal={Proceedings of the 40th ACM SIGPLAN Conference on Programming Language Design and Implementation - PLDI 2019}, author={Gershuni, Elazar and Amit, Nadav and Gurfinkel, Arie and Narodytska, Nina and Navas, Jorge A. and Rinetzky, Noam and Ryzhyk, Leonid and Sagiv, Mooly}, year={2019}, month={Jun}}
 
@@ -109,7 +111,25 @@ url={https://www.usenix.org/conference/srecon16europe/program/presentation/golds
 
 % dtrace4linux
 @misc{dtrace4linux, title={dtrace4linux/linux}, url={https://github.com/dtrace4linux/linux}, journal={GitHub}, publisher={dtrace4linux project}, author={Fox, Paul D}, year={2019}, month={Sep}}
+% Why eBPF is better than dtrace
 @misc{gregg18, title={bpftrace (DTrace 2.0) for Linux 2018}, url={http://www.brendangregg.com/blog/2018-10-08/dtrace-for-linux-2018.html}, journal={Brendan Gregg's Blog}, author={Gregg, Brendan}, year={2018}, month={Oct}}
+% bpftrace
+@misc{bpftrace, title={iovisor/bpftrace}, url={https://github.com/iovisor/bpftrace}, journal={GitHub}, publisher={Iovisor}, year={2019}, month={Nov}}
+% dtrace being reimplemented in eBPF
+@techreport{vanhees19,
+   AUTHOR = "Van Hees, Kris",
+   TITLE = "{bpf, trace, dtrace: DTrace BPF program type implementation and sample use}",
+   HOWPUBLISHED = {Internet Requests for Comments},
+   TYPE="{RFC Patch}",
+   NUMBER={00/11},
+   PAGES = {1-56},
+   YEAR = {2019},
+   MONTH = {May},
+   %ISSN = {2070-1721},
+   PUBLISHER = "{lwn.net}",
+   INSTITUTION = "{The Linux Foundation}",
+   URL={https://lwn.net/Articles/788995/}
+   }
 
 % sysdig
 @misc{sysdig, title={draios/sysdig}, url={https://github.com/draios/sysdig}, journal={GitHub}, publisher={Sysdig Inc.}, year={2019}, month={Nov}}

@@ -270,16 +270,33 @@ needs, are less extensible than other approaches.
 It is worth spending a bit more time comparing eBPF with Dtrace, as both
 APIs are quite full-featured and designed with similar functionality in mind.
 dtrace4linux [@dtrace4linux] is a free and open source port of Sun's Dtrace for the
-Linux Kernel, implemented as a loadable kernel module (LKM).
+Linux Kernel, implemented as a loadable kernel module (LKM). While Dtrace offers
+a powerful API for full-system tracing, its usefulness is, in general, eclipsed by
+that of eBPF [@gregg18] and requires extensive shell scripting for use cases beyond
+one-line tracing scripts. In contrast, with the help of powerful and easy to use
+front ends like bcc [@bcc], developing complex eBPF programs for a wide variety of use cases
+is becoming an increasingly painless process.
 
-TODO: cite [@gregg18] here to talk about differences.
+Not only does eBPF cover more complex use cases than Dtrace, but it also
+provides support for simple one-line programs through tools like bpftrace [@gregg18; @bpftrace]
+which has been designed to provide a high-level Dtrace-like tracing language
+for Linux using eBPF as a backend. Although bpftrace only provides a subset of
+Dtrace's functionality [@gregg18], its feature set has been carefully curated in order
+to cater to the most common use cases and more functionality is being added
+on an as-needed basis.
+
+Additional work is being done to fully reimplement Dtrace as a new BPF program type
+[@vanhees19] which will further augment eBPF's breadth and provide full
+backward compatibility for existing Dtrace scripts to work with eBPF.
+This seems to be by far the most promising avenue for Linux Dtrace support thus far,
+as it seeks to combine the advantages of Dtrace with the speed, power, and safety of eBPF.
 
 \FloatBarrier
 
 ## eBPF: Linux Tracing Superpowers
 
-In 2016, eBPF was described by Brendan Gregg [@gregg16],
-a prominent member of the Iovisor project, as nothing short of *Linux tracing superpowers*.
+In 2016, eBPF was described by Brendan Gregg [@gregg16]
+as nothing short of *Linux tracing superpowers*.
 I echo that sentiment here, as it summarizes eBPF's capabilities perfectly.
 Through eBPF programs, we can simultaneously trace userland symbols and library
 calls, kernel functions and data structures, and hardware performance. What's more,
@@ -300,7 +317,7 @@ with respect to system tracing.}
 The advantages of eBPF extend far beyond scope of traceability; eBPF
 is also extremely performant, and runs with guaranteed safety.
 In practice, this means that eBPF is an ideal tool for use in
-production environments, and at scale.
+production environments and at scale.
 
 Safety is guaranteed with the help of an in-kernel verifier that
 checks all submitted bytecode before its insertion into the BPF virtual machine.
@@ -315,10 +332,26 @@ eBPF bytecode is compiled into machine code using a *just-in-time* (*JIT*)
 compiler; this both saves memory and reduces the amount of time it takes
 to insert an eBPF program into the kernel. Additionally, since eBPF runs in-kernel
 and communicates with userland via map access and perf events, the number of context switches
-required between userland and the kernel is greatly diminished -- we can simply access the necessary data
-as needed.
+required between userland and the kernel is greatly diminished, especially compared to approaches
+such as the ptrace system call.
 
 ### How eBPF Works at a High Level
+
+From the perspective of a user, the eBPF workflow is surprisingly simple.
+Users can elect to write eBPF bytecode directly (not recommended) or use one
+of many front ends to write in higher level languages that are then used to
+generate the respective bytecode. bcc [@bcc] offers front ends for several languages including
+Python, Go, C/C++; users write eBPF programs in C and interact with bcc's API
+in order to generate eBPF bytecode and submit it to the kernel.
+
+\autoref{ebpf-topology} presents an overview of the eBPF workflow with respect to
+the interaction between userland applications and eBPF programs.
+Considering bcc's Python front end as an example: The user writes
+their BPF program in C and a user interface in Python. Using a provided
+BPF class, the C code is used to generate bytecode which is then submitted
+to the verifier to be checked for safety. Assuming the BPF program passes
+all required checks, it is then loaded into an in-kernel virtual machine. From there,
+we are able to attach onto various probes and tracepoints in the kernel.
 
 \begin{figure}
 \includegraphics{../figures/eBPF-topology.png}
@@ -326,7 +359,10 @@ as needed.
 Basic topology of eBPF with respect to userland and the kernel.
 Note the bidirectional nature of dataflow between userspace and kernelspace
 using maps.}
+\label{ebpf-topology}
 \end{figure}
+
+Communication between userland and the kernel is done through various maps.
 
 \FloatBarrier
 
@@ -356,6 +392,8 @@ using maps.}
 
 # eBPF Design Patterns
 
-\lil[language=c, caption={Handling large data in eBPF programs.}, label={appendix-bigdata}]{../code/design_patterns/bigdata.c}
+\lil[float=ph, language=c, caption={Handling large data in eBPF programs.}, label={appendix-bigdata}]{../code/design_patterns/bigdata.c}
+
+\FloatBarrier
 
 # <!-- Ugly hack to suppress bib at the end -->
