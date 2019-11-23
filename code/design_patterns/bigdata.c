@@ -25,7 +25,7 @@ int some_bpf_function(void)
     /* Make sure that bigdata is not NULL */
     if (!bigdata)
         return 0;
-    /* Get a new address for bigdata */
+    /* Copy bigdata to a new address */
     bpf_probe_read(bigdata, sizeof(struct bigdata_t), bigdata);
 
     /* .... */
