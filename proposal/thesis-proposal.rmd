@@ -364,6 +364,10 @@ using maps.}
 
 Communication between userland and the kernel is done through various maps.
 
+TODO: finish this
+
+<!-- TODO: left off here to focus on implementation details. come back to this later -->
+
 \FloatBarrier
 
 ### The Verifier: The Good, the Bad, and the Ugly
@@ -379,6 +383,98 @@ Communication between userland and the kernel is done through various maps.
 
 # Implementing ebpH
 
+At a high level, ebpH is an intrusion detection system that profiles executable behavior
+by sequencing the system calls that processes make to the kernel. This functionality
+serves as an implementation of the original pH system described by Somayaji [@soma02].
+What makes ebpH unique is its use of an eBPF program for system call instrumentation
+and profiling (in contrast to the original pH which was implemented as a Linux 2.2 kernel patch).
+
+ebpH can be thought of as a combination of several distinct components, functioning in two
+different parts of the system: userspace, and kernelspace (specifically within the eBPF virtual machine).
+In particular it includes a daemon, a CLI, and a GUI (described in \autoref{userspace-components})
+as well as a BPF program (described in \autoref{ebph-profiles} and onwards). The dataflow
+between these components is depicted in \autoref{ebph-dataflow}.
+
+In order to implement the ebpH prototype described here, it was necessary to
+circumvent several challenges associated with the eBPF verifier and make several
+critical design choices with respect to dataflow between userspace and the eBPF
+virtual machine running in the kernel.
+This section attempts to explain these design choices, describe any specific challenges
+faced, and justify why eBPF was ultimately well-suited to an implementation of this nature.
+
+![\label{ebph-dataflow}The dataflow between various components of ebpH.](../figures/ebph-dataflow.png){width=80%}
+
+## Userspace Components
+
+\label{userspace-components}
+
+The userspace components of ebpH are comprised of three distinct programs.
+The **ebpH Daemon** (*ebpHD*) is responsible for initially compiling and submitting the eBPF program,
+as well as communication between userspace and the in-kernel eBPF program. As part of this communication,
+it loads existing profiles from the disk and saves new and modified profiles to disk at regular intervals.
+The **ebpH CLI** is a command line interface with which the user can send commands to the ebpH
+Daemon and inspect an overview of their system including all existing profiles and traced processes.
+The **ebpH GUI** performs the same functions as the ebpH CLI, except it presents information and commands
+in the form of a graphical user interface.
+
+### The ebpH Daemon
+
+The ebpH Daemon is implemented as a Python3 script that runs as a daemonized background process.
+When started, the daemon uses bcc's Python front end [@bcc] to generate the BPF bytecode responsible for
+tracing system calls, building profiles, and detecting anomalous behavior. It then submits this bytecode
+to the verifier and JIT compiler for insertion into the eBPF virtual machine.
+
+Once the eBPF program is running in the kernel, the daemon continuously polls a set of specialized BPF maps
+called perf buffers which are updated on the occurrence of specific events.
+\autoref{bpf-events} presents an overview of the most important events we care about.
+
+\begin{table}
+\caption{Event categories in ebpH.}
+\label{bpf-events}
+\begin{center}
+\begin{tabular}{|l|p{2.6in}|l|}
+\hline
+\textbf{Event} & \textbf{Description} & \textbf{Memory Overhead}\\
+\hline
+\hline
+\texttt{ebpH\_on\_anomaly} & Reports anomalies in specific processes
+and which profile they were associated with & $2^{8} \text{ pages}$\\
+\hline
+\texttt{ebpH\_on\_create\_profile} & Reports when new profiles are created & $2^{8} \text{ pages}$\\
+\hline
+\texttt{ebpH\_on\_pid\_assoc} & Reports new associations between PIDs and profiles & $2^{8} \text{ pages}$\\
+\hline
+\texttt{ebpH\_error} & A generic event for reporting errors to userspace & $2^{2} \text{ pages}$\\
+\hline
+\texttt{ebpH\_warning} & A generic event for reporting warnings to userspace & $2^{2} \text{ pages}$\\
+\hline
+\texttt{ebpH\_debug} & A generic event for reporting debug information to userspace & $2^{2} \text{ pages}$\\
+\hline
+\texttt{ebpH\_info} & A generic event for reporting general information to userspace & $2^{2} \text{ pages}$\\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+The daemon also  automatically saves profiles
+to disk at a specified interval configurable by the user.
+It loads these profiles every time the eBPF program is reloaded so that
+profile data remains consistent between runs.
+
+### The ebpH CLI
+
+### The ebpH GUI
+
+## ebpH Profiles
+
+\label{ebph-profiles}
+
+## Tracing Processes
+
+## Anomaly Detection
+
+## Reporting Anomalies to Userspace
+
 # Methodology
 
 <!-- References -->
@@ -392,7 +488,9 @@ Communication between userland and the kernel is done through various maps.
 
 # eBPF Design Patterns
 
-\lil[float=ph, language=c, caption={Handling large data in eBPF programs.}, label={appendix-bigdata}]{../code/design_patterns/bigdata.c}
+\spacing{1}
+
+\lil[language=c, caption={Handling large data types in eBPF programs.}, label={appendix-bigdata}]{../code/design_patterns/bigdata.c}
 
 \FloatBarrier
 
