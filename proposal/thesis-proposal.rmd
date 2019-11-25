@@ -239,7 +239,7 @@ does not necessarily suffer from the
 same performance issues as described above, it still constitutes a suboptimal solution for many
 use cases due to its limited scope. In order to be effective and provide a complete picture of what
 exactly is going on during a given process' execution, library tracing needs to be combined with other solutions.
-In fact, ltrace does exactly this; when the user specifies the `-S` flag, ltrace uses the ptrace system call
+In fact, ltrace does exactly this; when the user specifies the \texttt{-S} flag, ltrace uses the ptrace system call
 to provide strace-like system call tracing functionality.
 
 LKM-based implementations such as sysdig [@sysdig] and SystemTap [@systemtap] offer an extremely
@@ -379,6 +379,10 @@ TODO: finish this
 
 ## Process Homeostasis
 
+### Homeostasis
+
+### System Call Sequencing Through Lookahead Pairs
+
 ## Other Related Work
 
 # Implementing ebpH
@@ -432,7 +436,6 @@ handled by the daemon and removed from the buffer to make room for new events. T
 and efficient method to transfer data from the eBPF program to userspace, particularly since buffering
 data significantly reduces the number of required context switches.
 
-
 \begin{table}
 \caption{Main event categories in ebpH.}
 \label{bpf-events}
@@ -461,7 +464,13 @@ and which profile they were associated with & $2^{8} \text{ pages}$\\
 \end{center}
 \end{table}
 
-The daemon also  automatically saves profiles
+In addition to perf buffers, the daemon is also able to communicate with the eBPF program through direct
+access to its maps. We use this direct access to issue commands to the eBPF program, check program state,
+and gather several statistics, such as profile count, anomaly count, and system call count. At the core of ebpH's
+design philosophy is the combination of system visibility and security, and so providing as much information
+as possible about system state is of paramount importance.
+
+The daemon's final task is to automatically save profiles
 to disk at a specified interval configurable by the user.
 It loads these profiles every time the eBPF program is reloaded so that
 profile data remains consistent between runs.
@@ -474,9 +483,9 @@ profile data remains consistent between runs.
 
 \label{ebph-profiles}
 
-In order to monitor process behavior, ebpH maintains a unique
+In order to monitor process behavior, ebpH keeps track of a unique
 profile for each executable on the system. It does this by maintaining
-a hashmap of profiles, hashed by a unique per-executable ID. This ID
+a hashmap of profiles, hashed by a unique per-executable ID; this ID
 is a 64-bit unsigned integer which is calculated as a unique combination
 of filesystem device number and inode number:
 \begin{align*}
@@ -495,22 +504,47 @@ to lookahead pairs section in background) to keep track of system call sequences
 definition of the ebpH profile struct.}]
 struct ebpH_profile
 {
-    u8 frozen;       /* Is the profile frozen? */
-    u8 normal;       /* Is the profile normal? */
-    u64 normal_time; /* Minimum system time required for normalcy */
-    /* TODO: maybe delete this */
-    u64 window_size;
-    u64 normal_count;
-    u64 last_mod_count;
-    u64 train_count;
-    u64 anomalies; /* Number of anomalies in the profile */
-    u8 flags[SYSCALLS^2]; /* System call lookahead pairs */
-    u64 key; /* Uniquely computed executable key */
-    char comm[EBPH_FILENAME_LEN]; /* Name of the executable file */
+    u8 frozen;          /* Is the profile frozen? */
+    u8 normal;          /* Is the profile normal? */
+    u64 normal_time;    /* Minimum system time required for normalcy */
+    u64 normal_count;   /* Normal syscall count */
+    u64 last_mod_count; /* Syscalls since profile was last modified */
+    u64 train_count;    /* Syscalls seen during training */
+    u64 anomalies;      /* Number of anomalies in the profile */
+    u8 flags[SYSCALLS][SYSCALLS]; /* System call lookahead pairs */
+    u64 key;            /* Uniquely computed executable key */
+    char comm[16];      /* Name of the executable file */
 };
 \end{lstlisting}
 
 ## Tracing Processes
+
+ebpH monitors process behavior by instrumenting tracepoints for both system call entry and return.
+While we keep track of every system call made by a process, we pay special attention to a select few system
+calls which comport with profile creation, association, and disassociation. These system calls
+and their respective side effects are summarized in \autoref{ebph-syscalls}.
+
+\begin{table}
+\caption{Important system calls in ebpH.}
+\label{ebph-syscalls}
+\begin{center}
+\begin{tabular}{|l|p{2.2in}|p{2.2in}|}
+\hline
+\textbf{System Call} & \textbf{Description} & \textbf{ebpH Side Effect}\\
+\hline
+\hline
+\texttt{execve} & &\\
+\hline
+\texttt{exit} & &\\
+\texttt{exit\_group} & &\\
+\hline
+\texttt{fork} & &\\
+\texttt{vfork} & &\\
+\texttt{clone} & &\\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
 
 ## Anomaly Detection
 
