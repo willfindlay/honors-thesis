@@ -427,6 +427,11 @@ to the verifier and JIT compiler for insertion into the eBPF virtual machine.
 Once the eBPF program is running in the kernel, the daemon continuously polls a set of specialized BPF maps
 called perf buffers which are updated on the occurrence of specific events.
 \autoref{bpf-events} presents an overview of the most important events we care about.
+As events are consumed, they are
+handled by the daemon and removed from the buffer to make room for new events. These buffers offer a lightweight
+and efficient method to transfer data from the eBPF program to userspace, particularly since buffering
+data significantly reduces the number of required context switches.
+
 
 \begin{table}
 \caption{Event categories in ebpH.}
