@@ -429,7 +429,7 @@ called perf buffers which are updated on the occurrence of specific events.
 \autoref{bpf-events} presents an overview of the most important events we care about.
 
 \begin{table}
-\caption{Event categories in ebpH.}
+\caption{Main event categories in ebpH.}
 \label{bpf-events}
 \begin{center}
 \begin{tabular}{|l|p{2.6in}|l|}
@@ -468,6 +468,42 @@ profile data remains consistent between runs.
 ## ebpH Profiles
 
 \label{ebph-profiles}
+
+In order to monitor process behavior, ebpH maintains a unique
+profile for each executable on the system. It does this by maintaining
+a hashmap of profiles, hashed by a unique per-executable ID. This ID
+is a 64-bit unsigned integer which is calculated as a unique combination
+of filesystem device number and inode number:
+\begin{align*}
+\texttt{key} &= (\texttt{device number} << 32) + \texttt{inode number}
+\end{align*}
+where $<<$ is the left bitshift operation. In other words, we take the filesystem's
+device ID in the upper 32 bits of our key, and the inode number in the lower 32 bits.
+This method provides a simple and efficient way to uniquely map keys to profiles.
+
+The profile itself is a C data structure that keeps track of information about the
+executable, as well as a sparse two-dimensional away of lookahead pairs (TODO: point back
+to lookahead pairs section in background) to keep track of system call sequences.
+\autoref{ebph-profile-struct} presents a simplified definition for the ebpH profile struct.
+
+\begin{lstlisting}[language=c, label={ebph-profile-struct}, caption={A simplified
+definition of the ebpH profile struct.}]
+struct ebpH_profile
+{
+    u8 frozen;       /* Is the profile frozen? */
+    u8 normal;       /* Is the profile normal? */
+    u64 normal_time; /* Minimum system time required for normalcy */
+    /* TODO: maybe delete this */
+    u64 window_size;
+    u64 normal_count;
+    u64 last_mod_count;
+    u64 train_count;
+    u64 anomalies; /* Number of anomalies in the profile */
+    u8 flags[SYSCALLS^2]; /* System call lookahead pairs */
+    u64 key; /* Uniquely computed executable key */
+    char comm[EBPH_FILENAME_LEN]; /* Name of the executable file */
+};
+\end{lstlisting}
 
 ## Tracing Processes
 
