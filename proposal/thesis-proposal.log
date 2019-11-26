@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Arch Linux) (preloaded format=pdflatex 2019.11.6)  24 NOV 2019 21:14
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Arch Linux) (preloaded format=pdflatex 2019.11.6)  25 NOV 2019 16:19
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1803,13 +1803,13 @@ LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 2
 (/usr/share/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-<"../figures/""instr-cmp".png, id=217, 2127.95pt x 1100.11pt>
+<"../figures/""instr-cmp".png, id=219, 2127.95pt x 1100.11pt>
 File: "../figures/""instr-cmp".png Graphic file (type png)
 <use "../figures/""instr-cmp".png>
 Package pdftex.def Info: "../figures/""instr-cmp".png  used on input line 298.
 (pdftex.def)             Requested size: 447.33727pt x 231.26492pt.
 [2] [3 <../figures/instr-cmp.png>] [4]
-<"../figures/""eBPF-use-cases".png, id=275, 1907.125pt x 1367.1075pt>
+<"../figures/""eBPF-use-cases".png, id=277, 1907.125pt x 1367.1075pt>
 File: "../figures/""eBPF-use-cases".png Graphic file (type png)
 <use "../figures/""eBPF-use-cases".png>
 Package pdftex.def Info: "../figures/""eBPF-use-cases".png  used on input line 
@@ -1822,14 +1822,14 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <7> on input line 440.
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <5> on input line 440.
-<"../figures/""eBPF-topology".png, id=298, 1830.84pt x 644.4075pt>
+<"../figures/""eBPF-topology".png, id=300, 1830.84pt x 644.4075pt>
 File: "../figures/""eBPF-topology".png Graphic file (type png)
 <use "../figures/""eBPF-topology".png>
 Package pdftex.def Info: "../figures/""eBPF-topology".png  used on input line 4
 72.
 (pdftex.def)             Requested size: 469.74944pt x 165.33943pt.
 [7] [8 <../figures/eBPF-topology.png>]
-<"../figures/""ebph-dataflow".png, id=328, 1367.1075pt x 1088.065pt>
+<"../figures/""ebph-dataflow".png, id=330, 1367.1075pt x 1088.065pt>
 File: "../figures/""ebph-dataflow".png Graphic file (type png)
 <use "../figures/""ebph-dataflow".png>
 Package pdftex.def Info: "../figures/""ebph-dataflow".png  used on input line 5
@@ -1846,17 +1846,17 @@ File: lstlang1.sty 2019/09/10 1.8c listings language file
 File: lstmisc.sty 2019/09/10 1.8c (Carsten Heinz)
 )
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 654.
-[11] [12] [13
+nput line 655.
+[11] [12] [13] [14] [15
 
-] [14] (../code/design_patterns/bigdata.c) [15
+] [16] (../code/design_patterns/bigdata.c) [17
 
 ]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 732.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 732.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 828.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 828.
 (./thesis-proposal.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 732.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 732.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 828.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 828.
 Package rerunfilecheck Info: File `thesis-proposal.out' has not changed.
 (rerunfilecheck)             Checksum: FDBCAD87A67A8B00EDBCB83F37C4B9AF;4151.
 
@@ -1871,17 +1871,17 @@ Package biblatex Warning: Please rerun LaTeX.
 Package logreq Info: Writing requests to 'thesis-proposal.run.xml'.
 \openout1 = `thesis-proposal.run.xml'.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 732.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 828.
  )
 (\end occurred inside a group at level 1)
 
-### semi simple group (level 1) entered at line 723 (\begingroup)
+### semi simple group (level 1) entered at line 819 (\begingroup)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 49808 strings out of 492167
- 916091 string characters out of 6131558
- 1594827 words of memory out of 5000000
- 53175 multiletter control sequences out of 15000+600000
+ 49866 strings out of 492167
+ 917010 string characters out of 6131558
+ 1595361 words of memory out of 5000000
+ 53216 multiletter control sequences out of 15000+600000
  628869 words of font info for 155 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  68i,13n,71p,1204b,1737s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1898,10 +1898,10 @@ public/lm/lmr17.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmr7.pfb></usr
 /share/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr/share/texmf-dist/fonts/t
 ype1/public/lm/lmri12.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmtt10.p
 fb></usr/share/texmf-dist/fonts/type1/public/lm/lmtt12.pfb>
-Output written on thesis-proposal.pdf (22 pages, 790020 bytes).
+Output written on thesis-proposal.pdf (24 pages, 798011 bytes).
 PDF statistics:
- 541 PDF objects out of 1000 (max. 8388607)
- 493 compressed objects within 5 object streams
- 162 named destinations out of 1000 (max. 500000)
+ 571 PDF objects out of 1000 (max. 8388607)
+ 520 compressed objects within 6 object streams
+ 179 named destinations out of 1000 (max. 500000)
  20713 words of extra memory for PDF output out of 20736 (max. 10000000)
 
