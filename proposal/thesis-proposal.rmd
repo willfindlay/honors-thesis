@@ -496,8 +496,10 @@ device ID in the upper 32 bits of our key, and the inode number in the lower 32 
 This method provides a simple and efficient way to uniquely map keys to profiles.
 
 The profile itself is a C data structure that keeps track of information about the
-executable, as well as a sparse two-dimensional away of lookahead pairs (TODO: point back
-to lookahead pairs section in background) to keep track of system call sequences.
+executable, as well as a sparse two-dimensional away of lookahead pairs to
+keep track of system call sequences. Each entry in this array consists of an
+8-bit integer, with the $i^\text{th}$ bit corresponding to a previously observed
+distance of $i$ between the two calls.
 \autoref{ebph-profile-struct} presents a simplified definition for the ebpH profile struct.
 
 \begin{lstlisting}[language=c, label={ebph-profile-struct}, caption={A simplified
@@ -517,36 +519,104 @@ struct ebpH_profile
 };
 \end{lstlisting}
 
+Each process (\autoref{tracing-processes}) is associated with
+exactly one profile at a time. Profile association is updated whenever
+we observe a process making a call to `execve`. Whenever a process makes
+a system call, ebpH looks up its associated profile, and sets the appropriate
+lookahead pairs according to the process' most recent system calls.
+
 ## Tracing Processes
 
+Like profiles, process information is also tracked through a global hashmap of process
+structs. The process struct's primary purpose is to maintain the association between
+a process and its profile, maintain a sequence of system calls, and keep track of various metadata.
+See \autoref{ebph-process-struct} for a simplified definition of the ebpH process struct.
+
+\begin{lstlisting}[language=c, label={ebph-process-struct}, caption={A simplified
+definition of the ebpH process struct.}]
+struct ebpH_process
+{
+    long seq[8];  /* Remember 8 most recent system calls in order */
+    u8 count;     /* How many system calls are in our sequence? */
+    u32 pid;      /* What is our PID? */
+    u64 profile_key; /* Associated profile key */
+    u8 in_execve; /* Are we in the middle of an execve? */
+};
+\end{lstlisting}
+
 ebpH monitors process behavior by instrumenting tracepoints for both system call entry and return.
+The eight most recent system calls made by each process are stored in its respective
+process struct, and are used to set the correct lookahead pairs in the associated profile
+struct.
+
 While we keep track of every system call made by a process, we pay special attention to a select few system
-calls which comport with profile creation, association, and disassociation. These system calls
+calls which are directly related to profile creation, association, and disassociation. These system calls
 and their respective side effects are summarized in \autoref{ebph-syscalls}.
 
 \begin{table}
 \caption{Important system calls in ebpH.}
 \label{ebph-syscalls}
 \begin{center}
-\begin{tabular}{|l|p{2.2in}|p{2.2in}|}
+\begin{tabular}{|l|p{2.4in}|p{2.6in}|}
 \hline
 \textbf{System Call} & \textbf{Description} & \textbf{ebpH Side Effect}\\
 \hline
 \hline
-\texttt{execve} & &\\
+\texttt{execve} & Execute a program & (Re)associate a process with a profile, creating the profile if necessary\\
 \hline
-\texttt{exit} & &\\
-\texttt{exit\_group} & &\\
+\texttt{exit} & Terminate the calling process & \multirow{2}{2.6in}{Stop tracing a process} \\
+\cline{1-2}
+\texttt{exit\_group} & Terminate all threads in a process &\\
 \hline
-\texttt{fork} & &\\
-\texttt{vfork} & &\\
-\texttt{clone} & &\\
+\texttt{fork} & Create a new process by duplicating calling process & \multirow{3}{2.6in}{Start tracing a process and associate with parent's profile}\\
+\cline{1-2}
+\texttt{vfork} & Create a child process and block parent &\\
+\cline{1-2}
+\texttt{clone} & Create a new process or thread &\\
 \hline
 \end{tabular}
 \end{center}
 \end{table}
 
+#### Profile Creation and Association with Execve
+There are several important considerations here. First, we need a way to assign profiles
+to processes, which is done by instrumenting the `execve` system call using a tracepoint,
+as well as part of its underlying implementation via a kprobe. In particular, we hook
+the `do_open_execat` kernel function in order to access the file's inode and filesystem
+information; without this, we would be unable to differentiate two paths that look like
+`/usr/bin/ls` and `./ls`.
+
+The entry and exit points to the `execve` system call are used to differentiate a true
+`execve` call from the kernel routines responsible for loading shared libraries, which both
+invoke the aforementioned `do_open_execat` subroutine. When we first hit an `execve`,
+we set an indicator variable in the process struct to say that we are in the middle of an `execve`.
+Subsequent calls to `do_open_execat` are then ignored until we hit `execve`'s return tracepoint
+and unset the indicator variable.
+
+#### Reaping Processes with Exit, Exit\_group, and Signals
+We use a combination of system call tracepoints and signal handler kprobes in order
+to determine when to stop tracing a particular PID. This is important for a few reasons,
+primarily due to map size considerations; by reaping process structs from our map as we are
+finished with them we ensure that: a) the map never fills up and; b) the map does not consume
+more memory than necessary.
+
+Processes are reaped from ebpH's map whenever it detects an `exit` or `exit_group` system call.
+Threads are reaped whenever we observe a `SIGTERM` or `SIGKILL` signal, the latter of which forms
+the underlying implementation for `exit_group`. <!-- TODO: verify this, provide citation -->
+
+#### Profile Association with Fork, Vfork, and Clone
+The final special consideration is with respect to `fork` and `clone` family system calls.
+In particular,
+we want to be able to track child process behavior as well as parent process behavior.
+In order to accomplish this, we simply instrument tracepoints for `fork`, `vfork`, and `clone`
+system calls, ensuring that we associate the child process with the parent's profile, if it
+exists. If ebpH detects an `execve` as outlined above, it will simply overwrite the
+profile association provided by the initial fork.
+
 ## Anomaly Detection
+
+ebpH profiles are tracked in two phases, *training mode* and *testing mode*.
+Once ebpH has decided that a pr
 
 ## Reporting Anomalies to Userspace
 
