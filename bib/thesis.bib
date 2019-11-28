@@ -47,6 +47,55 @@ url={https://www.usenix.org/conference/srecon16europe/program/presentation/golds
  keywords = {BPF, DPDK, XDP, programmable networking},
 }
 
+% bpf manpage
+@manual{man-bpf,
+ title      = "bpf(2) Linux Programmer's Manual",
+ %author     = {Cespedes, Juan and Machata, Petr},
+ organization  = "Linux",
+ %address   = "",
+ %edition    = "",
+ year       = "2019",
+ month      = "August",
+ %note      = "",
+}
+
+% Halting problem
+@article{turing37,
+    author = {Turing, A. M.},
+    title = "{On Computable Numbers, with an Application to the Entscheidungsproblem}",
+    journal = {Proceedings of the London Mathematical Society},
+    volume = {s2-42},
+    number = {1},
+    pages = {230-265},
+    year = {1937},
+    month = {01},
+    issn = {0024-6115},
+    doi = {10.1112/plms/s2-42.1.230},
+    url = {https://doi.org/10.1112/plms/s2-42.1.230},
+    eprint = {http://oup.prod.sis.lan/plms/article-pdf/s2-42/1/230/4317544/s2-42-1-230.pdf},
+}
+
+% Denial of service
+@inproceedings{hussain03,
+ author = {Hussain, Alefiya and Heidemann, John and Heidemann, John and Papadopoulos, Christos},
+ title = {A Framework for Classifying Denial of Service Attacks},
+ booktitle = {Proceedings of the 2003 Conference on Applications, Technologies, Architectures, and Protocols for Computer Communications},
+ series = {SIGCOMM '03},
+ year = {2003},
+ isbn = {1-58113-735-4},
+ location = {Karlsruhe, Germany},
+ pages = {99--110},
+ numpages = {12},
+ url = {http://doi.acm.org.proxy.library.carleton.ca/10.1145/863955.863968},
+ doi = {10.1145/863955.863968},
+ acmid = {863968},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {denial of service attacks, measurement, security, time series analysis},
+}
+
+[download]
+
 % Other introspection background below this line -------------------------------
 % ltrace
 @inbook{rubirabranco07, place={Ottawa, Ontario, Canada}, title={Ltrace Internals}, volume={1}, url={https://www.linuxsecrets.com/kdocs/mirror/ols2007v1.pdf#page=41}, booktitle={Proceedings of the Linux Symposium}, author={Rubira Branco, Rodrigo}, pages={41–52}}
@@ -134,5 +183,11 @@ url={https://www.usenix.org/conference/srecon16europe/program/presentation/golds
 % sysdig
 @misc{sysdig, title={draios/sysdig}, url={https://github.com/draios/sysdig}, journal={GitHub}, publisher={Sysdig Inc.}, year={2019}, month={Nov}}
 
+% Linux background below this line ------------------------------------------
+
+@misc{unistd, title={torvalds/linux }, url={https://github.com/torvalds/linux/blob/master/include/uapi/asm-generic/unistd.h}, journal={GitHub}, publisher={The Linux Foundation}, author={Torvalds, Linus}}
+
 % pH background below this line ---------------------------------------------
 @phdthesis{soma02, title={Operating system stability and security through process homeostasis}, url={https://people.scs.carleton.ca/~soma/pubs/soma-diss.pdf}, journal={Operating system stability and security through process homeostasis}, school={Anil Somayaji}, author={Somayaji, Anil Buntwal.}, year={2002}}
+% lookahead pairs
+@inbook{soma07, place={New York, New York}, title={Lookahead Pairs and Full Sequences: A Tale of Two Anomaly Detection Methods}, url={http://people.scs.carleton.ca/~soma/pubs/inoue-albany2007.pdf}, booktitle={Proceedings of the 2nd Annual Symposium on Information Assurance Academic track of the 10th Annual 2007 NYS Cyber Security Conference}, publisher={NYS Cyber Security Conference}, author={Somayaji, Anil Buntwal and Inoue, Hajime}, year={2007}, pages={9–19}}
