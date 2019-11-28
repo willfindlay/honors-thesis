@@ -75,9 +75,9 @@ performant, and (perhaps most importantly) safe subsystem for both kernel and us
 instrumentation.
 
 The proposed thesis seeks to test the limits of what eBPF programs are capable of
-with respect to the domain of computer security; specifically, I present *ebpH*
-(*Extended Berkeley Process Homeostasis*), an eBPF-based intrusion detection
-system based on Anil Somayaji's [@soma02] *pH* (*Process Homeostasis*). Preliminary testing
+with respect to the domain of computer security; specifically, I present *ebpH*,
+an eBPF-based intrusion detection system based on Anil Somayaji's
+[@soma02] *pH* (*Process Homeostasis*). Preliminary testing
 has shown that ebpH is able to detect anomalies in process behavior by instrumenting
 system call tracepoints with negligible overhead. Future work will involve testing and
 iterating on the ebpH prototype, as well as the implementation of several kernel patches
@@ -90,6 +90,24 @@ eBPF, intrusion detection, system calls, Linux Kernel introspection
 \newpage
 \section*{Acknowledgments}
 \markboth{Acknowledgments}{}
+
+First and foremost, I would like to thank my advisor, Anil Somayaji, for his
+tireless efforts to ensure the success of this project, as well as for providing
+the original design for pH along with invaluable advice and ideas. Implementing ebpH
+and writing this proposal has been a long process and not without its challenges.
+Dr. Somayaji's support and guidance has been quintessential to the success of this
+undertaking.
+
+I would also like to thank the members and contributors of the *Iovisor Project*,
+especially Yonghong Song (https://github.com/yonghong-song) and Teng Qin (https://github.com/palmtenor)
+for their guidance and willingness to respond to issues and questions related to the *bcc* project.
+Sasha Goldstein's (https://github.com/goldshtn) *syscount.py* was also an invaluable basis for my earliest proof-of-concept experimentation.
+although none of that original code has made it into this iteration of ebpH.
+
+For their love and tremendous support of my education, I would like to thank my parents,
+Mark and Terri-Lyn.
+Finally, I want to thank my dear friend, Amanda, for all the support she has provided me throughout
+my University career. I couldn't have made it this far without you.
 
 <!-- Table of contents -->
 \newpage
@@ -139,7 +157,7 @@ we can construct powerful applications to enhance system security, stability, an
 In theory, these applications can perform much of their work autonomously in the background, but
 are equally capable of functioning in a more interactive role, keeping the end user informed
 about changes in system state, particularly if these changes in state are undesired. To that end,
-I propose *ebpH* (*Extended Berkeley Process Homeostasis*), an intrusion detection system
+I propose *ebpH* (a portmanteau of eBPF and pH), an intrusion detection system
 based entirely on eBPF that monitors process state in the form of system call sequences.
 By building and maintaining per-executable behavior profiles, ebpH can dynamically detect when
 processes are behaving outside of the status quo, and notify the user so that they can understand
@@ -351,7 +369,7 @@ their BPF program in C and a user interface in Python. Using a provided
 BPF class, the C code is used to generate bytecode which is then submitted
 to the verifier to be checked for safety. Assuming the BPF program passes
 all required checks, it is then loaded into an in-kernel virtual machine. From there,
-we are able to attach onto various probes and tracepoints in the kernel.
+we are able to attach onto various probes and tracepoints, both in the kernel and in userland.
 
 \begin{figure}
 \includegraphics{../figures/eBPF-topology.png}
@@ -362,9 +380,63 @@ using maps.}
 \label{ebpf-topology}
 \end{figure}
 
-Communication between userland and the kernel is done through various maps.
+The main data structure used in eBPF is the map; these maps are used to store
+data as well as for communication between userspace and the eBPF program. There are several
+map types available in eBPF programs which cover a wide variety of use cases.
+These map types along with a brief description are provided in \autoref{ebpf-maps} [@man-bpf; @fleming17; @bcc].
+Thanks to this wide arsenal of maps, eBPF developers have a powerful set of both general-purpose
+and specialized data structures at their disposal; as we will see in coming sections,
+many of these maps are quite versatile and have use cases beyond what might initially
+seem pertinent. For example, the `ARRAY` map type may be used to initialize large data structures
+to be copied into a general purpose `HASH` map (refer to \autoref{appendix-bigdata} in \autoref{ebpf-design-patterns}).
+This can be effectively used to bypass the verifier's stack space limitations, which are discussed in detail
+in \autoref{verifier-section}.
 
-TODO: finish this
+\begin{table}
+\small
+\begin{center}
+\caption{Various map types available in eBPF programs.}
+\label{ebpf-maps}
+\begin{tabular}{|l|p{4.6in}|}
+\hline
+\textbf{Map Type} & \textbf{Description}\\
+\hline
+\hline
+\texttt{HASH} & A hashtable of key-value pairs\\
+\hline
+\texttt{ARRAY} & An array indexed by integers; members are zero-initialized\\
+\hline
+\texttt{PROG\_ARRAY} & A specialized array to hold file descriptors to other BPF programs; used for tail calls\\
+\hline
+\texttt{PERF\_EVENT\_ARRAY} & Holds perf event counters for hardware monitoring\\
+\hline
+\texttt{PERCPU\_HASH} & Like \texttt{HASH} but stores a different copy for each CPU context\\
+\hline
+\texttt{PERCPU\_ARRAY} & Like \texttt{ARRAY} but stores a different copy for each CPU context\\
+\hline
+\texttt{STACK\_TRACE} & Stores stack traces for userspace or kernerlspace functions\\
+\hline
+\texttt{CGROUP\_ARRAY} & Stores pointers to cgroups\\
+\hline
+\texttt{LRU\_HASH} & Like a \texttt{HASH} except least recently used values are removed to make space\\
+\hline
+\texttt{LRU\_PERCPU\_HASH} & Like \texttt{LRU\_HASH} but stores a different copy for each CPU context\\
+\hline
+\texttt{LPM\_TRIE} & A "Longest Prefix Matching" trie optimized for efficient traversal\\
+\hline
+\texttt{ARRAY\_OF\_MAPS} & An \texttt{ARRAY} of file descriptors into other maps\\
+\hline
+\texttt{HASH\_OF\_MAPS} & A \texttt{HASH} of file descriptors into other maps\\
+\hline
+\texttt{DEVMAP} & Maps the \texttt{ifindex} of various network devices; used in XDP programs\\
+\hline
+\texttt{SOCKMAP} & Holds references to \texttt{sock} structs; used for socket redirection\\
+\hline
+\texttt{CPUMAP} & Allows for redirection of packets to remote CPUs; used in XDP programs\\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
 
 <!-- TODO: left off here to focus on implementation details. come back to this later -->
 
@@ -373,7 +445,97 @@ TODO: finish this
 ### The Verifier: The Good, the Bad, and the Ugly
 \label{verifier-section}
 
+The verifier is responsible for eBPF's unprecedented safety, one of its
+most attractive qualities with respect to system tracing. While this verifier
+is quintessential to the safety of eBPF given its impressive scope and power,
+it is not without its drawbacks. In this section, we describe how the verifier works,
+its nuances and drawbacks, and recent work that has been done to improve
+the verifier's support for increasingly complex eBPF programs.
+
+Proving the safety of arbitrary code is by definition a difficult problem.
+This is thanks in part to theoretical limitations on what we can actually prove;
+a famous example is the halting problem described by Turing circa 1937 [@turing37].
+This difficulty is further compounded by stricter requirements for safety in the context
+of eBPF. In fact, the problem that we are effectively trying to solve is one of
+*untrusted* code running in the kernel, an implicitly trusted environment.
+
+To illustrate the importance of this problem of safety with respect to eBPF,
+let us consider a simple example. We will again consider the halting problem
+described above. Suppose we have two eBPF programs, program $A$ and program $B$,
+that each hook onto a mission-critical kernel function (`schedule()`, for example).
+The only difference between these two programs is that program $A$ always terminates,
+while program $B$ runs forever without stopping. Program $B$ effectively constitutes a
+denial of service attack [@hussain03] on our system, intentional or otherwise; allowing untrusted
+users to load this code into our kernel spells immediate disaster for our system.
+
+While we have established that verifying the safety of eBPF programs is an important problem to solve,
+the question remains as to whether it is *possible* to solve.
+For the reasons outlined above, this problem should intuitively seem impossible,
+or at least far more difficult than should be feasible. So, what can we do? The answer
+is to *change the rules* to make it easier. In particular, while it is difficult to prove
+that the set of all possible eBPF programs are safe, it is much easier\footnote{\emph{Easier}
+here means \emph{computationally easier}, certainly not trivial.}
+to prove this property for a subset of all eBPF programs. \autoref{valid-ebpf} depicts
+the relationship between potentially valid eBPF code and verifiably valid eBPF code.
+
+\begin{figure}
+\begin{center}
+\includegraphics[height=.4\paperheight]{../figures/valid-ebpf.png}
+\end{center}
+\caption[The set participation of valid C and eBPF programs.]
+{
+The set participation of valid C and eBPF programs.
+Valid eBPF programs written in C constitute a small subset of all valid C programs. Verifiably valid eBPF programs
+constitute an even smaller subset therein.
+}
+\label{valid-ebpf}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\includegraphics{../figures/complexity-verifiability.png}
+\end{center}
+\caption[Complexity and verifiability of eBPF programs.]
+{
+Complexity and verifiability of eBPF programs.
+Safety guarantees for eBPF programs rely on certain compromises.
+Ideally we would like to have a relationship as shown on the bottom;
+in practice, we have something that is getting closer over time, but is still
+far from the ideal.
+}
+\label{complexity-verifiability}
+\end{figure}
+
+The immediate exclusion of eBPF programs meeting certain criteria is the crux
+of eBPF's safety guarantees. Unfortunately, it also rather intuitively
+limits what we are actually able to do with eBPF programs. In particular,
+eBPF is not a Turing complete language; it prohibits jump instructions,
+cycles in execution graphs, and unverified memory access. Further, we limit
+stack allocations to only 512 bytes -- far too small for many practical use cases.
+From a security perspective, these limitations are a *good thing*, because they allow us to immediately exclude eBPF
+programs with unverifiable safety; but from a usability standpoint, particularly that of a new eBPF
+developer, the trade-off is not without its drawbacks.
+
+Fortunately, the eBPF verifier is getting better over time (\autoref{complexity-verifiability}).
+When we say *better*, what we mean is that it is able to prove the safety of increasingly complex programs.
+Perhaps the best example of this steady improvement is a recent kernel patch [@starovoitov19] that added
+support for bounded loops in eBPF programs. With this patch, the set of viable
+eBPF programs was *greatly* increased; in fact, ebpH in its current incarnation relies
+heavily on bounded loop support. Prior to bounded loops, eBPF programs relied on *unrolling*
+loops at compile time, a technique that was both slow and highly limited. This is just one example
+of the critical work that is being done to improve the verifier and thus improve eBPF as a whole.
+
 ## System Calls
+
+ebpH (and the original pH system upon which it is based) works by instrumenting
+*system calls* in order to establish behavioral patterns for all binaries
+running on the system. Understanding pH and ebpH requires a reliable mental model
+of what a system call is and how programs use them to communicate with the kernel.
+
+At the time of writing this paper, the Linux kernel [@unistd] supports
+an impressive 436 distinct system calls, and this number generally grows
+with subsequent releases. In general, userspace implements a subset of these
+system calls, with the exact specifications varying depending on architecture.
 
 ## Intrusion Detection
 
@@ -381,14 +543,16 @@ TODO: finish this
 
 ### Homeostasis
 
-### System Call Sequencing Through Lookahead Pairs
+### Anomaly Detection Through Lookahead Pairs
+
+### System Call Delays
 
 ## Other Related Work
 
 # Implementing ebpH
 
 At a high level, ebpH is an intrusion detection system that profiles executable behavior
-by sequencing the system calls that processes make to the kernel. This functionality
+by sequencing the system calls that processes make to the kernel; this essentially
 serves as an implementation of the original pH system described by Somayaji [@soma02].
 What makes ebpH unique is its use of an eBPF program for system call instrumentation
 and profiling (in contrast to the original pH which was implemented as a Linux 2.2 kernel patch).
@@ -396,8 +560,8 @@ and profiling (in contrast to the original pH which was implemented as a Linux 2
 ebpH can be thought of as a combination of several distinct components, functioning in two
 different parts of the system: userspace, and kernelspace (specifically within the eBPF virtual machine).
 In particular it includes a daemon, a CLI, and a GUI (described in \autoref{userspace-components})
-as well as a BPF program (described in \autoref{ebph-profiles} and onwards). The dataflow
-between these components is depicted in \autoref{ebph-dataflow}.
+as well as an eBPF program (described in \autoref{ebph-profiles} and onwards).
+The dataflow between these components is depicted in \autoref{ebph-dataflow}.
 
 In order to implement the ebpH prototype described here, it was necessary to
 circumvent several challenges associated with the eBPF verifier and make several
@@ -410,15 +574,12 @@ faced, and justify why eBPF was ultimately well-suited to an implementation of t
 
 ## Userspace Components
 
-\label{userspace-components}
-
-The userspace components of ebpH are comprised of three distinct programs.
+The userspace components of ebpH are comprised of two distinct programs.
 The **ebpH Daemon** (*ebpHD*) is responsible for initially compiling and submitting the eBPF program,
 as well as communication between userspace and the in-kernel eBPF program. As part of this communication,
 it loads existing profiles from the disk and saves new and modified profiles to disk at regular intervals.
-The **ebpH CLI** is a command line interface with which the user can send commands to the ebpH
-Daemon and inspect an overview of their system including all existing profiles and traced processes.
-The **ebpH GUI** performs the same functions as the ebpH CLI, except it presents information and commands
+Users can interact with the daemon either directly on the command line or using the **ebpH GUI**.
+The GUI performs the same basic functions as the command line interface, except it presents information and commands
 in the form of a graphical user interface.
 
 ### The ebpH Daemon
@@ -470,23 +631,30 @@ and gather several statistics, such as profile count, anomaly count, and system 
 design philosophy is the combination of system visibility and security, and so providing as much information
 as possible about system state is of paramount importance.
 
-The daemon's final task is to automatically save profiles
-to disk at a specified interval configurable by the user.
-It loads these profiles every time the eBPF program is reloaded so that
-profile data remains consistent between runs.
-
-### The ebpH CLI
+The daemon also uses direct map access to save and load profiles to and from the disk.
+Profiles are saved automatically at regular intervals, configurable by the user,
+as well as any time ebpH stops monitoring the system.
+These profiles are automatically loaded every time ebpH starts.
 
 ### The ebpH GUI
 
+The ebpH GUI (hereafter referred to as the GUI) provides a graphical user interface for interacting
+with the daemon. This GUI is still a work in progress and will be improved considerably
+during the testing and iteration phase (see \autoref{future-iteration}). In its current incarnation,
+the GUI can be used to inspect process profiles, examine the overall state of ebpH, and check
+the ebpH logs. It can also be used to issue rudimentary commands such as profile deletion.
+Future versions of the GUI will include more commands for controlling the state of ebpH,
+as well as increased system visibility and more information about process profiles.
+\autoref{early-gui} depicts an early version of the GUI.
+
+![\label{early-gui}A screenshot of an early version of the ebpH GUI.](../figures/early_gui.png)
+
 ## ebpH Profiles
 
-\label{ebph-profiles}
-
 In order to monitor process behavior, ebpH keeps track of a unique
-profile for each executable on the system. It does this by maintaining
-a hashmap of profiles, hashed by a unique per-executable ID; this ID
-is a 64-bit unsigned integer which is calculated as a unique combination
+profile (\autoref{ebph-profile-struct}) for each executable on the system.
+It does this by maintaining a hashmap of profiles, hashed by a unique per-executable ID;
+this ID is a 64-bit unsigned integer which is calculated as a unique combination
 of filesystem device number and inode number:
 \begin{align*}
 \texttt{key} &= (\texttt{device number} << 32) + \texttt{inode number}
@@ -494,13 +662,6 @@ of filesystem device number and inode number:
 where $<<$ is the left bitshift operation. In other words, we take the filesystem's
 device ID in the upper 32 bits of our key, and the inode number in the lower 32 bits.
 This method provides a simple and efficient way to uniquely map keys to profiles.
-
-The profile itself is a C data structure that keeps track of information about the
-executable, as well as a sparse two-dimensional away of lookahead pairs to
-keep track of system call sequences. Each entry in this array consists of an
-8-bit integer, with the $i^\text{th}$ bit corresponding to a previously observed
-distance of $i$ between the two calls.
-\autoref{ebph-profile-struct} presents a simplified definition for the ebpH profile struct.
 
 \begin{lstlisting}[language=c, label={ebph-profile-struct}, caption={A simplified
 definition of the ebpH profile struct.}]
@@ -519,11 +680,40 @@ struct ebpH_profile
 };
 \end{lstlisting}
 
+The profile itself is a C data structure that keeps track of information about the
+executable, as well as a sparse two-dimensional away of lookahead pairs [@soma07] to
+keep track of system call patterns. Each entry in this array consists of an
+8-bit integer, with the $i^\text{th}$ bit corresponding to a previously observed
+distance $i$ between the two calls. When we observe this distance, we set the corresponding bit
+to `1`. Otherwise, it remains `0`. Each profile maintains lookahead pairs for each possible pair of
+system calls. \autoref{lookahead-ls} presents a sample (`read`, `close`) lookahead pair for the `ls` binary.
+
+\begin{figure}
+\begin{center}
+\includegraphics[height=0.45\paperheight]{../figures/lookahead-ls.png}
+\end{center}
+\caption[A sample (\lstinline{read}, \lstinline{close}) lookahead pair in the ebpH profile for \lstinline{ls}.]
+{
+A sample (\lstinline{read}, \lstinline{close}) lookahead pair in the ebpH profile for \lstinline{ls}.
+(a) shows the lookahead pair and (b) shows two relevant system call sequences, separated by several omitted calls.
+Note that the first three system calls in both the first and second sequence are responsible for
+the two least significant bytes of the lookahead pair.
+}
+\label{lookahead-ls}
+\end{figure}
+
 Each process (\autoref{tracing-processes}) is associated with
 exactly one profile at a time. Profile association is updated whenever
 we observe a process making a call to `execve`. Whenever a process makes
 a system call, ebpH looks up its associated profile, and sets the appropriate
-lookahead pairs according to the process' most recent system calls.
+lookahead pairs according to the process' most recent system calls. This forms
+the crux of how ebpH is able to monitor process behavior.
+
+Just like in the original pH [@soma02], profile state is tracked using the `frozen` and `normal` fields.
+When a profile's behavior has stabilized, it is marked frozen. If a profile
+has been frozen for one week (i.e. system time has reached `normal_time`),
+the profile is then marked normal. Profiles are unfrozen when new behavior is
+observed and anomalies are only flagged in normal profiles.
 
 ## Tracing Processes
 
@@ -536,7 +726,7 @@ See \autoref{ebph-process-struct} for a simplified definition of the ebpH proces
 definition of the ebpH process struct.}]
 struct ebpH_process
 {
-    long seq[8];  /* Remember 8 most recent system calls in order */
+    long seq[9];  /* Remember 9 most recent system calls in order */
     u8 count;     /* How many system calls are in our sequence? */
     u32 pid;      /* What is our PID? */
     u64 profile_key; /* Associated profile key */
@@ -545,7 +735,7 @@ struct ebpH_process
 \end{lstlisting}
 
 ebpH monitors process behavior by instrumenting tracepoints for both system call entry and return.
-The eight most recent system calls made by each process are stored in its respective
+The nine most recent system calls made by each process are stored in its respective
 process struct, and are used to set the correct lookahead pairs in the associated profile
 struct.
 
@@ -562,7 +752,9 @@ and their respective side effects are summarized in \autoref{ebph-syscalls}.
 \textbf{System Call} & \textbf{Description} & \textbf{ebpH Side Effect}\\
 \hline
 \hline
-\texttt{execve} & Execute a program & (Re)associate a process with a profile, creating the profile if necessary\\
+\texttt{execve} & Execute a program & \multirow{2}{2.6in}{(Re)associate a process with a profile, creating the profile if necessary}\\
+\cline{1-2}
+\texttt{execveat} & Execute a program & \\
 \hline
 \texttt{exit} & Terminate the calling process & \multirow{2}{2.6in}{Stop tracing a process} \\
 \cline{1-2}
@@ -578,7 +770,7 @@ and their respective side effects are summarized in \autoref{ebph-syscalls}.
 \end{center}
 \end{table}
 
-#### Profile Creation and Association with Execve
+#### Profile Creation and Association with `execve` and `execveat`
 There are several important considerations here. First, we need a way to assign profiles
 to processes, which is done by instrumenting the `execve` system call using a tracepoint,
 as well as part of its underlying implementation via a kprobe. In particular, we hook
@@ -593,34 +785,91 @@ we set an indicator variable in the process struct to say that we are in the mid
 Subsequent calls to `do_open_execat` are then ignored until we hit `execve`'s return tracepoint
 and unset the indicator variable.
 
-#### Reaping Processes with Exit, Exit\_group, and Signals
+#### Reaping Processes with `exit`, `exit_group`, and Signals
 We use a combination of system call tracepoints and signal handler kprobes in order
 to determine when to stop tracing a particular PID. This is important for a few reasons,
 primarily due to map size considerations; by reaping process structs from our map as we are
-finished with them we ensure that: a) the map never fills up and; b) the map does not consume
-more memory than necessary.
+finished with them we ensure that:
+
+a) the map never fills up and;
+b) the map does not consume more memory than necessary.
 
 Processes are reaped from ebpH's map whenever it detects an `exit` or `exit_group` system call.
 Threads are reaped whenever we observe a `SIGTERM` or `SIGKILL` signal, the latter of which forms
 the underlying implementation for `exit_group`. <!-- TODO: verify this, provide citation -->
 
-#### Profile Association with Fork, Vfork, and Clone
+#### Profile Association with `fork`, `vfork`, and `clone`
 The final special consideration is with respect to `fork` and `clone` family system calls.
 In particular,
 we want to be able to track child process behavior as well as parent process behavior.
-In order to accomplish this, we simply instrument tracepoints for `fork`, `vfork`, and `clone`
+In order to accomplish this, we instrument tracepoints for the `fork`, `vfork`, and `clone`
 system calls, ensuring that we associate the child process with the parent's profile, if it
 exists. If ebpH detects an `execve` as outlined above, it will simply overwrite the
 profile association provided by the initial fork.
 
-## Anomaly Detection
+## Soothing the Verifier
+
+## Training, Testing, and Anomaly Detection
 
 ebpH profiles are tracked in two phases, *training mode* and *testing mode*.
-Once ebpH has decided that a pr
+Profile data is considered training data until the profile becomes normal (as described in \autoref{ebph-profiles}).
+Once a profile is in testing mode, the lookahead pairs generated by its associated processes
+are compared with existing data. When mismatches occur, they are flagged as anomalies which are reported
+to userspace via a perf event buffer. The detection of an anomaly also prompts ebpH
+to remove the profile's normal flag and return it to training mode.
 
-## Reporting Anomalies to Userspace
+### A Simple Example of ebpH Anomaly Detection
+
+As an example, consider the simple program shown in \autoref{anomaly.c}.
+This program's normal behavior is to simply print a message to the terminal.
+However, when issued an extra argument (in practice, this could be a secret keyword
+for activating a backdoor), it prints one extra message. This will cause a noticeable
+change in the lookahead pairs associated with the program's profile, and this will be flagged
+by ebpH if the profile has been previously marked normal.
+
+\lil[language=c, label={anomaly.c}, caption={A simple program to demonstrate anomaly detection in ebpH.}]{../experiments/anomaly/anomaly.c}
+
+In order to test this, we artificially lower ebpH's normal time to three seconds instead of one week.
+Then, we run our test program several times with no arguments to establish normal behavior. Once the profile
+has been marked as normal, we then run the same test program with an argument to produce the anomaly.
+ebpH immediately detects the anomalous system calls and flags them.
+These anomalies are then reported to userspace via a perf buffer as shown in \autoref{anomaly-flag}.
+
+![\label{anomaly-flag}The flagged anomalies in the `anomaly` binary as shown in the ebpH logs.](../figures/anomaly.png)
+
+From here, we can figure out exactly what went wrong by inspecting the system call sequences produced by `anomaly.c`
+in both cases and comparing them with their respective lookahead pair patterns. \autoref{anomaly-lookahead-comp}
+provides an example of this comparison.
+
+While this contrived example is useful for demonstrating ebpH's anomaly detection,
+process behavior in practice is often more nuanced. ebpH collects at least a week's worth of
+data about a processes system calls before marking it normal, which often corresponds with several branches of execution.
+In a real example, the multiple consecutive write calls might be a perfectly normal execution path for this process;
+by ensuring that we take our time before deciding whether a process' profile has reached acceptable maturity for testing,
+we dramatically decrease the probability of any false positives.
+
+\begin{figure}
+\begin{center}
+\includegraphics[height=0.45\paperheight]{../figures/lookahead-anomaly.png}
+\end{center}
+\caption[Two sample (\lstinline{write}, \lstinline{write}) lookahead pairs in the ebpH profile for \lstinline{anomaly.c}.]
+{
+Two sample (\lstinline{write}, \lstinline{write}) lookahead pairs in the ebpH profile for \lstinline{anomaly.c}.
+(a) shows the lookahead pair and (b) shows two relevant system call sequences. The left hand side depicts normal program
+behavior, while the right hand side depicts our artificially generated anomaly.
+There are several other anomalous lookahead pairs which result from this extra write call, but we focus
+on (\lstinline{write}, \lstinline{write}) for simplicity.
+}
+\label{anomaly-lookahead-comp}
+\end{figure}
 
 # Methodology
+
+# Future Iteration
+
+## Improvements to ebpH
+
+## Improvements to the ebpH GUI
 
 <!-- References -->
 \clearpage
@@ -632,8 +881,6 @@ Once ebpH has decided that a pr
 \appendix
 
 # eBPF Design Patterns
-
-\spacing{1}
 
 \lil[language=c, caption={Handling large data types in eBPF programs.}, label={appendix-bigdata}]{../code/design_patterns/bigdata.c}
 
