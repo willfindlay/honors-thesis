@@ -629,6 +629,26 @@ TODO: come back here when more inspired
 
 \label{ph-lap}
 
+pH uses a technique known as *lookahead pairs* [@soma02; @soma07] for detecting anomalies
+in system call data. This is in stark contrast to other anomaly detection
+systems at the time that primarily relied on *full sequence analysis*.
+Here we describe lookahead pairs, their use for anomaly detection, and offer
+a comparison with the more widely-known full sequence analysis.
+
+In order to identify normal process behavior, profiles are constructed for
+each executable on the system. On calls to `execve`, pH associates the correct profile
+with a process and begins monitoring its system calls, modifying the lookahead pairs
+associated with the testing data of a profile. Once enough normal samples have been gathered
+and the profile has reached a specified maturity date, the process is then placed into training
+mode wherein sequences of system calls are compared with the existing lookahead
+pairs for a given profile.
+
+Somayaji and Inoue [@soma07] contrasted full sequence analysis with lookahead pairs
+and found that lookahead pairs produce fewer false positives than full sequences
+and maintain this property even with very long window lengths.
+This comes at the expense of potentially reduced sensitivity to some attacks
+as well as <!-- TODO FINISH THIS -->
+
 ### System Call Delays
 
 ## Other Related Work
@@ -846,7 +866,7 @@ and their respective side effects are summarized in \autoref{ebph-syscalls}.
 \cline{1-2}
 \texttt{exit\_group} & Terminate all threads in a process &\\
 \hline
-\texttt{fork} & Create a new process by duplicating calling process & \multirow{3}{2.6in}{Start tracing a process and associate with parent's profile}\\
+\texttt{fork} & Create a new process by duplicating calling process & \multirow{3}{2.6in}{Start tracing a process and associate with parent's profile; also copy the parent process' current sequence into the child}\\
 \cline{1-2}
 \texttt{vfork} & Create a child process and block parent &\\
 \cline{1-2}
@@ -871,6 +891,17 @@ we set an indicator variable in the process struct to say that we are in the mid
 Subsequent calls to `do_open_execat` are then ignored until we hit `execve`'s return tracepoint
 and unset the indicator variable.
 
+#### Profile Association and Sequence Duplication with `fork`, `vfork`, and `clone`
+The final special consideration is with respect to `fork` and `clone` family system calls.
+In particular,
+we want to be able to track child process behavior as well as parent process behavior.
+In order to accomplish this, we instrument tracepoints for the `fork`, `vfork`, and `clone`
+system calls, ensuring that we associate the child process with the parent's profile, if it
+exists. If ebpH detects an `execve` as outlined above, it will simply overwrite the
+profile association provided by the initial fork.
+
+<!-- TODO: desribe how we also copy sequences on fork -->
+
 #### Reaping Processes with `exit`, `exit_group`, and Signals
 We use a combination of system call tracepoints and signal handler kprobes in order
 to determine when to stop tracing a particular PID. This is important for a few reasons,
@@ -883,15 +914,6 @@ b) the map does not consume more memory than necessary.
 Processes are reaped from ebpH's map whenever it detects an `exit` or `exit_group` system call.
 Threads are reaped whenever we observe a `SIGTERM` or `SIGKILL` signal, the latter of which forms
 the underlying implementation for `exit_group`. <!-- TODO: verify this, provide citation -->
-
-#### Profile Association with `fork`, `vfork`, and `clone`
-The final special consideration is with respect to `fork` and `clone` family system calls.
-In particular,
-we want to be able to track child process behavior as well as parent process behavior.
-In order to accomplish this, we instrument tracepoints for the `fork`, `vfork`, and `clone`
-system calls, ensuring that we associate the child process with the parent's profile, if it
-exists. If ebpH detects an `execve` as outlined above, it will simply overwrite the
-profile association provided by the initial fork.
 
 ## Training, Testing, and Anomaly Detection
 
@@ -1019,6 +1041,41 @@ the nuances of how the verifier works and how to coax it into accepting programs
 
 
 # Methodology and Future Work
+
+While the ebpH prototype is certainly capable of monitoring a system for anomalies,
+much testing and work remains to be done in order to completely reimplement the original
+pH and ascertain whether eBPF is truly the best choice for implementing such an IDS.
+Here, we discuss the planned strategies for testing ebpH, as well as plans for iteration
+on the initial prototype and future work.
+
+## Planned Testing Strategy
+
+The ebpH prototype as well as its future iterations will be heavily tested on several
+machines under a variety of workloads. Additional testing will be done on virtual machines
+to simulate systems with lower end hardware specifications. \autoref{testing-specifications}
+summarizes the currently planned systems as their relevant specifications.
+
+\begin{table}
+\caption[A summary of the various systems that will be used to test ebpH]
+{
+A summary of the various systems that will be used to test ebpH.
+}
+\label{testing-specifications}
+\begin{center}
+\begin{tabular}{|l|l|l|p{2.5in}|}
+\hline
+\textbf{System} & \textbf{CPU Speed} & \textbf{RAM} & \textbf{Description}\\
+\hline
+\hline
+arch & test & test & test\\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+### Gathering and Analyzing Performance Data
+
+### Gathering and Analyzing Profile Data
 
 ## Improvements to ebpH
 
