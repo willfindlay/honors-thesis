@@ -13,15 +13,14 @@ subparagraph: yes
 classoption: 12pt
 header-includes:
     - \usepackage{findlayrmd}
-    - \setlength{\headheight}{15pt}
 output:
     pdf_document:
-        citation_package: biblatex
         number_sections: true
         fig_crop: true
         fig_caption: true
         keep_tex: false
         pandoc_args: ["--listings"]
+        citation_package: biblatex
 ---
 ```{r,include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
