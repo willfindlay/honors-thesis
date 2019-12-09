@@ -184,7 +184,7 @@ on Linux including eBPF itself, and some background on system calls and intrusio
 
 While my work is primarily focused on the use of eBPF for maintaining
 system security and stability, the working prototype for ebpH borrows
-heavily from Anil Somayaji's *pH* or *Process Homeostais* [@soma02],
+heavily from Anil Somayaji's *pH* or *Process Homeostasis* [@soma02],
 an anomaly-based intrusion detection and response system written as a patch for Linux Kernel 2.2.
 As such, I will also provide some background on the original pH system and many of the design choices therein.
 
