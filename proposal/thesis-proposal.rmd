@@ -294,7 +294,38 @@ needs, are less extensible than other approaches.
 
 It is worth spending a bit more time comparing eBPF with Dtrace, as both
 APIs are quite full-featured and designed with similar functionality in mind.
-dtrace4linux [@dtrace4linux] is a free and open source port of Sun's Dtrace for the
+The original Dtrace [@cantrill04] was designed in 2004 for Solaris and lives on to this
+day in several operating systems, including Solaris, FreeBSD, MacOS X [@gregg14], and
+Linux [@dtrace4linux] (we will examine the dtrace4linux implementation with
+more scrutiny later in this section).
+
+In general, the original Dtrace and the current version of eBPF share much of the same
+family and cover similar use cases [@cantrill04; @starovoitov13].
+This includes perhaps most notably dynamic instrumentation
+in both userspace and kernelspace, arbitrary context instrumentation (i.e.\ the ability
+to instrument essentially any aspect of the system), and guarantees of safety
+and data integrity. The difference between the two systems generally boils
+down to the following three points:
+
+(1) eBPF supports a superset of Dtrace's functionality;
+(1) Dtrace provides only a high level interface, while eBPF provides both
+low level and high level interfaces (see \autoref{bpf-dtrace-api}); and
+(1) eBPF is natively supported in Linux, while Dtrace ports are purely
+LKM-based.
+
+\begin{figure}
+\includegraphics[width=.4\paperwidth]{../figures/bpf-dtrace-api.png}
+\caption[Comparing Dtrace and eBPF functionality with respect to API design]
+{
+Comparing Dtrace and eBPF functionality with respect to API design.
+Note that eBPF covers more complex use cases and supports both low level
+and high level APIs. Dtrace needs to be used in tandem with shell
+scripting to support more complex use cases.
+}
+\label{bpf-dtrace-api}
+\end{figure}
+
+dtrace4linux [@dtrace4linux] is a free and open source port of Sun's Dtrace [@cantrill04] for the
 Linux Kernel, implemented as a loadable kernel module (LKM). While Dtrace offers
 a powerful API for full-system tracing, its usefulness is, in general, eclipsed by
 that of eBPF [@gregg18] and requires extensive shell scripting for use cases beyond
@@ -314,9 +345,30 @@ Additional work is being done to fully reimplement Dtrace as a new BPF program t
 [@vanhees19] which will further augment eBPF's breadth and provide full
 backward compatibility for existing Dtrace scripts to work with eBPF.
 This seems to be by far the most promising avenue for Linux Dtrace support thus far,
-as it seeks to combine the advantages of Dtrace with the speed, power, and safety of eBPF.
+as it seeks to combine the higher level advantages of Dtrace with
+the existing eBPF virtual machine.
 
 \FloatBarrier
+
+## Classic BPF
+
+<!-- TODO: maybe come back here depending on what Anil says -->
+
+The original incarnation of BPF was introduced to the world in a 1992 paper by McCanne
+and Jacobson [@bpf] as a new system for capturing and filtering packets at the operating
+system level. In particular, Classic BPF implemented a filter virtual machine based entirely on registers
+as well as a tap mechanism to hook into packets. The *tap* copies network packets and delivers
+them to listening filter applications, while the *filter* determines whether a packet is accepted or not.
+
+The primary motivating factors behind Classic BPF were the desire to establish an efficient technique for
+capturing and filtering packets. McCanne and Jacobson showed that their approach was significantly more
+efficient than other contemporary packet filtering mechanisms, i.e.\ NIT [@nit] and CSPF [@mogul87];
+unsurprisingly, BPF is the only one of these three systems to have stood the test of time.
+
+Classic BPF is still used to this day in a variety of network diagnostic services, perhaps
+most notably *tcpdump* [@tcpdump] and *libcap*. It is also worth noting that eBPF
+implements a superset of Classic BPF; in other words, Classic BPF forms the basis for many modern eBPF
+programs in Linux.
 
 ## eBPF: Linux Tracing Superpowers
 
@@ -346,7 +398,7 @@ production environments and at scale.
 
 Safety is guaranteed with the help of an in-kernel verifier that
 checks all submitted bytecode before its insertion into the BPF virtual machine.
-While the verifier does limit what is possible (eBPF in its current state is **not** Turing complete), it is constantly being
+While the verifier does limit what is possible (eBPF in its current state is *not* Turing complete), it is constantly being
 improved; for example, a recent patch [@starovoitov19] that was mainlined in the Linux 5.3 kernel
 added support for verified bounded loops, which greatly increases the computational possibilities of eBPF.
 The verifier will be discussed in further detail in \autoref{verifier-section}.
@@ -592,7 +644,7 @@ A hybrid approach between these two techniques is also possible.
 
 Data collection is generally either host-based or network based.
 Network-based IDSes examine network traffic and analyze it to detect
-attacks or anomalies. In contrast, host-based attacks analyze the state
+attacks or anomalies. In contrast, host-based IDSes analyze the state
 of the local system [@kemmerer02; @soma02].
 
 Responses can vary significantly based on the system, but can be classified into
@@ -608,6 +660,10 @@ with one major exception:
 As we will see, the original pH also responds to anomalies by delaying
 system calls [@soma02] and preventing anomalous `execve`s.
 Implementing this functionality in ebpH is a topic for future work (refer to \autoref{potential-improvements-to-ebph}).
+
+### Gathering Data for Intrusion Detection
+
+TODO: come back here
 
 ## Process Homeostasis
 

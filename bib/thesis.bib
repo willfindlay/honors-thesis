@@ -52,7 +52,6 @@ url={https://www.usenix.org/conference/srecon16europe/program/presentation/golds
 }
 
 % Classic BPF
-
 @article{bpf,
 author={Steven McCanne and Van Jacobson},
 year={1992},
@@ -61,6 +60,29 @@ journal={USENIX winter},
 url={https://www.tcpdump.org/papers/bpf-usenix93.pdf},
 volume={93}
 }
+@inproceedings{mogul87,
+ author = {Mogul, J. and Rashid, R. and Accetta, M.},
+ title = {The Packer Filter: An Efficient Mechanism for User-level Network Code},
+ booktitle = {Proceedings of the Eleventh ACM Symposium on Operating Systems Principles},
+ series = {SOSP '87},
+ year = {1987},
+ isbn = {0-89791-242-X},
+ location = {Austin, Texas, USA},
+ pages = {39--51},
+ numpages = {13},
+ url = {http://doi.acm.org/10.1145/41457.37505},
+ doi = {10.1145/41457.37505},
+ acmid = {37505},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+}
+@manual{nit, organization={Sun Microsystems Inc.},
+    title={NIT(4p) SunOS 4.1.1 Reference Manual},
+    howpublished={Reference Manual},
+    place={Mountain View, CA},
+    month={September},
+    year={1990}}
+@misc{tcpdump, title={Tcpdump/Libpcap public repository}, url={https://www.tcpdump.org/}, journal={TCPDUMP/LIBPCAP public repository}, publisher={Tcpdump}, year={2010}, month={Sep}}
 
 % bpf manpage
 @manual{man-bpf,
@@ -183,11 +205,13 @@ volume={93}
  location = {Boston, MA},
  pages = {2--2},
  numpages = {1},
- url = {http://dl.acm.org/citation.cfm?id=1247415.1247417},
- acmid = {1247417},
+ url = {https://www.usenix.org/legacy/publications/library/proceedings/usenix04/tech/general/full_papers/cantrill/cantrill.pdf},
  publisher = {USENIX Association},
  address = {Berkeley, CA, USA},
 }
+% B Gregg Dtrace book
+@book{gregg14, place={Upper Saddle River}, title={DTrace: dynamic tracing in Oracle Solaris, Mac OS X and FreeBSD}, publisher={Prentice Hall}, author={Gregg, Brendan and Mauro, Jim and Cantrill, Bryan M.}, year={2014}}
+
 % dtrace4linux
 @misc{dtrace4linux, title={dtrace4linux/linux}, url={https://github.com/dtrace4linux/linux}, journal={GitHub}, publisher={dtrace4linux project}, author={Fox, Paul D}, year={2019}, month={Sep}}
 % Why eBPF is better than dtrace
