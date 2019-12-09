@@ -69,8 +69,8 @@ for maintaining operating system stability and security. This is primarily
 due to the many recent advances in system introspection technology; in particular,
 the 2013 introduction of *eBPF* (*Extended Berkeley Packet Filter*)
 into the Linux Kernel [@starovoitov13] along with the recent
-development highly usable interfaces such as *bcc* (*BPF Compiler Collection*)
-[@bcc] has resulted in highly compelling,
+development of more usable interfaces such as *bcc* (*BPF Compiler Collection*)
+[@bcc] has resulted in a highly compelling,
 performant, and (perhaps most importantly) safe subsystem for both kernel and userland
 instrumentation.
 
@@ -80,8 +80,8 @@ an eBPF-based intrusion detection system based on Anil Somayaji's
 [@soma02] *pH* (*Process Homeostasis*). Preliminary testing
 has shown that ebpH is able to detect anomalies in process behavior by instrumenting
 system call tracepoints with negligible overhead. Future work will involve testing and
-iterating on the ebpH prototype, as well as the implementation of several kernel patches
-to further extend its functionality.
+iterating on the ebpH prototype, in order to extend its functionality beyond that
+of the current prototype system.
 
 #### Keywords:
 
@@ -95,23 +95,28 @@ First and foremost, I would like to thank my advisor, Anil Somayaji, for his
 tireless efforts to ensure the success of this project, as well as for providing
 the original design for pH along with invaluable advice and ideas. Implementing ebpH
 and writing this proposal has been a long process and not without its challenges.
-Dr. Somayaji's support and guidance has been quintessential to the success of this
+Dr. Somayaji's support and guidance have been quintessential to the success of this
 undertaking.
 
 I would also like to thank the members and contributors of the *Iovisor Project*,
 especially Yonghong Song (https://github.com/yonghong-song) and Teng Qin (https://github.com/palmtenor)
 for their guidance and willingness to respond to issues and questions related to the *bcc* project.
-Sasha Goldstein's (https://github.com/goldshtn) *syscount.py* was also an invaluable basis for my earliest proof-of-concept experimentation.
+Sasha Goldstein's (https://github.com/goldshtn) *syscount.py* was an invaluable basis for my earliest proof-of-concept experimentation,
 although none of that original code has made it into this iteration of ebpH.
 
 For their love and tremendous support of my education, I would like to thank my parents,
-Mark and Terri-Lyn.
+Mark and Terri-Lyn. Without them, I am certain that none of this would have been possible.
+I would additionally like to thank my mother for suffering through the first draft of this proposal,
+and finding the many errors that come with writing a paper this large in Vim with no grammar checker.
+
 Finally, I want to thank my dear friend, Amanda, for all the support she has provided me throughout
-my University career. I couldn't have made it this far without you.
+my university career. I couldn't have made it this far without you.
 
 <!-- Table of contents -->
 \newpage
+\singlespacing
 \tableofcontents
+\onehalfspacing
 
 <!-- List of figs, tables, listings -->
 \newpage
@@ -179,7 +184,7 @@ on Linux including eBPF itself, and some background on system calls and intrusio
 
 While my work is primarily focused on the use of eBPF for maintaining
 system security and stability, the working prototype for ebpH borrows
-heavily from Anil Somayaji's *pH* or *Process Homeostais* [@soma02],
+heavily from Anil Somayaji's *pH* or *Process Homeostasis* [@soma02],
 an anomaly-based intrusion detection and response system written as a patch for Linux Kernel 2.2.
 As such, I will also provide some background on the original pH system and many of the design choices therein.
 
@@ -440,8 +445,6 @@ in \autoref{verifier-section}.
 \end{center}
 \end{table}
 
-<!-- TODO: left off here to focus on implementation details. come back to this later -->
-
 \FloatBarrier
 
 ### The Verifier: The Good, the Bad, and the Ugly
@@ -536,7 +539,7 @@ ebpH (and the original pH system upon which it is based) works by instrumenting
 running on the system. Understanding pH and ebpH requires a reliable mental model
 of what a system call is and how programs use them to communicate with the kernel.
 
-At the time of writing this paper, the Linux kernel [@unistd] supports
+At the time of writing this paper, the Linux Kernel [@unistd] supports
 an impressive 436 distinct system calls, and this number generally grows
 with subsequent releases. In general, userspace implements a subset of these
 system calls, with the exact specifications varying depending on architecture.
@@ -560,7 +563,7 @@ further in \autoref{ph-lap}.
 At a high level, intrusion detection systems (IDS) strive to monitor
 systems at a particular level and use observed data to make decisions
 about the legitimacy of these observations [@kemmerer02].
-IDS can be broadly classified into several categories based on data collection, detection
+Intrusion detection systems can be broadly classified into several categories based on data collection, detection
 technique(s), and response. \autoref{ids-overview} presents a broad and incomplete
 overview of these categories.
 
@@ -574,7 +577,7 @@ A broad overview of the basic categories of IDS.
 The current version of ebpH can be classified according to the
 categories labeled in \textbf{boldface}. Note that intrusion detection
 system classification can often be more nuanced than the basic overview presented
-here. However, this should present a good enough overview to understand IDS in
+here. However, this should present a good enough overview to understand IDSes in
 the context of ebpH.
 }
 \label{ids-overview}
@@ -588,13 +591,13 @@ misuse-based approaches tend to yield fewer false positives.
 A hybrid approach between these two techniques is also possible.
 
 Data collection is generally either host-based or network based.
-Network-based IDS examine network traffic and analyze it to detect
+Network-based IDSes examine network traffic and analyze it to detect
 attacks or anomalies. In contrast, host-based attacks analyze the state
-or the local system [@kemmerer02; @soma02].
+of the local system [@kemmerer02; @soma02].
 
-Responses can vary quite a bit based on the system, but can be classified into
+Responses can vary significantly based on the system, but can be classified into
 two main categories: alerts and counter-attacks. Systems can either choose to alert
-and administrator about the potential issue, or choose to mount counter-measures
+an administrator about the potential issue, or choose to mount counter-measures
 to defeat or mitigate the perceived attack [@kemmerer02]. Naturally, systems
 also have the option to take a hybrid approach here.
 
@@ -604,26 +607,19 @@ This is generally quite similar to the original pH (\autoref{process-homeostasis
 with one major exception:
 As we will see, the original pH also responds to anomalies by delaying
 system calls [@soma02] and preventing anomalous `execve`s.
-Implementing this functionality in ebpH is a topic for future work (refer to \autoref{improvements-to-ebph}).
+Implementing this functionality in ebpH is a topic for future work (refer to \autoref{potential-improvements-to-ebph}).
 
 ## Process Homeostasis
 
 Anil Somayaji's *Process Homeostasis* [@soma02], styled as *pH*, forms the basis for
 ebpH's core design; as such, it is worth exploring the original implementation,
-design choices, rationale therein. Using the same IDS categories from the previous
+design choices, and rationale therein. Using the same IDS categories from the previous
 section, we can classify pH as a host-based anomaly detection system that responds
 by both issuing alerts *and* mounting countermeasures to reduce the impact of anomalies;
 in particular pH responds to anomalies by injecting delays into a process' system calls
 proportionally to the number of recent anomalies that have been observed [@soma02].
 It is in this way that pH lives up to its name: These delays make process behavior
 *homeostatic*.
-
-### Homeostasis
-
-The concept of homeostasis in pH is inspired by the biological process
-of the same name [@soma02].
-
-TODO: come back here when more inspired
 
 ### Anomaly Detection Through Lookahead Pairs
 
@@ -647,11 +643,44 @@ Somayaji and Inoue [@soma07] contrasted full sequence analysis with lookahead pa
 and found that lookahead pairs produce fewer false positives than full sequences
 and maintain this property even with very long window lengths.
 This comes at the expense of potentially reduced sensitivity to some attacks
-as well as <!-- TODO FINISH THIS -->
+as well as more vulnerable to mimicry attacks. However, as part of their work,
+Somayaji and Inoue showed that longer sequences can help mitigate these shortcomings
+in practice [@soma07].
 
-### System Call Delays
+Both pH and ebpH use lookahead pair window sizes of 9, which has been shown to be
+effective at both minimizing false positive rates and mitigating potential
+mimicry attacks [@soma02]. This window size also carries the advantage that
+lookahead pairs can be expressed with exactly 8 bits of information (one bit for every
+previous position $i \in \{1..9\}$).
 
+### Homeostasis Through System Call Delays
+
+Perhaps the most unique aspect of pH's approach is the means by which it achieves the
+eponymous concept of *process homeostasis*: system call delays.
+Inspired by the biological process of the same name, pH attempts to maintain
+homeostatic process behavior by injecting delays into system calls that are detected
+as being anomalous [@soma02].
+
+By scaling this response in proportion to the number of recent anomalies detected in a profile,
+pH is able to effectively mitigate attacks while minimizing the impact of occasional false positives.
+For example, a process that triggers several dozen anomalies will be slowed down to the point of
+effectively stopping, while a process that triggers only one or two might only be delayed by a few seconds.
+Admittedly, this relies upon the assumption of low burstiness for false positives. While this assumption generally
+holds, Somayaji acknowledges in his dissertation [@soma02] that the possibility of attackers purposely provoking
+pH into causing denial of service attacks is a potential problem. Additionally, users may become frustrated
+with pH's refusal to allow otherwise legitimate behavior simply due to the fact that it has not yet been
+observed.
+
+In its current incarnation, ebpH does not yet delay system calls like its predecessor.
+The primary reason for this gap in functionality is that a solution still needs to be
+developed that works well with the eBPF paradigm; in particular, injecting delays via
+eBPF tracepoints or probes seems untenable due to the verifier's refusal to accommodate
+the code required for such an implementation. The addition of system call delays into
+ebpH is currently a topic for future work (see \autoref{potential-improvements-to-ebph}).
+
+<!--
 ## Other Related Work
+-->
 
 # Implementing ebpH
 
@@ -674,15 +703,17 @@ virtual machine running in the kernel.
 This section attempts to explain these design choices, describe any specific challenges
 faced, and justify why eBPF was ultimately well-suited to an implementation of this nature.
 
-![\label{ebph-dataflow}The dataflow between various components of ebpH.](../figures/ebph-dataflow.png){width=80%}
+![\label{ebph-dataflow}The dataflow between various components of ebpH.](../figures/ebph-dataflow.png){height=40%}
+
+\FloatBarrier
 
 ## Userspace Components
 
 The userspace components of ebpH are comprised of two distinct programs.
 The **ebpH Daemon** (*ebpHD*) is responsible for initially compiling and submitting the eBPF program,
 as well as communication between userspace and the in-kernel eBPF program. As part of this communication,
-it loads existing profiles from the disk and saves new and modified profiles to disk at regular intervals.
-Users can interact with the daemon either directly on the command line or using the **ebpH GUI**.
+it loads existing profiles from the disk and saves new and modified profiles to the disk at regular intervals.
+Users can interact with the daemon either directly on the command line or by using the **ebpH GUI**.
 The GUI performs the same basic functions as the command line interface, except it presents information and commands
 in the form of a graphical user interface.
 
@@ -707,7 +738,7 @@ data significantly reduces the number of required context switches.
 \begin{center}
 \begin{tabular}{|l|p{2.6in}|l|}
 \hline
-\textbf{Event} & \textbf{Description} & \textbf{Memory Overhead}\\
+\textbf{Event} & \textbf{Description} & \textbf{Memory Overhead}\footnotemark\\
 \hline
 \hline
 \texttt{ebpH\_on\_anomaly} & Reports anomalies in specific processes
@@ -742,13 +773,17 @@ These profiles are automatically loaded every time ebpH starts.
 
 ### The ebpH GUI
 
+\footnotetext{The majority of these values are subject to significant
+optimization in future iterations of ebpH. The $2^8$ value is a sensible default chosen by bcc. In practice, many of these events
+are infrequent enough that smaller buffer sizes would be sufficient.}
+
 The ebpH GUI (hereafter referred to as the GUI) provides a graphical user interface for interacting
 with the daemon. This GUI is still a work in progress and will be improved considerably
 during the testing and iteration phase (see \autoref{methodology-and-future-work}). In its current incarnation,
-the GUI can be used to inspect process profiles, examine the overall state of ebpH, and check
+the GUI can be used to inspect profiles, examine the overall state of ebpH, and check
 the ebpH logs. It can also be used to issue rudimentary commands such as profile deletion.
 Future versions of the GUI will include more commands for controlling the state of ebpH,
-as well as increased system visibility and more information about process profiles.
+as well as increased system visibility and more information about processes and profiles.
 \autoref{early-gui} depicts an early version of the GUI.
 
 ![\label{early-gui}A screenshot of an early version of the ebpH GUI.](../figures/early_gui.png)
@@ -787,7 +822,7 @@ struct ebpH_profile
 \end{lstlisting}
 
 The profile itself is a C data structure that keeps track of information about the
-executable, as well as a sparse two-dimensional away of lookahead pairs [@soma07] to
+executable, as well as a sparse two-dimensional array of lookahead pairs [@soma07] to
 keep track of system call patterns. Each entry in this array consists of an
 8-bit integer, with the $i^\text{th}$ bit corresponding to a previously observed
 distance $i$ between the two calls. When we observe this distance, we set the corresponding bit
@@ -803,7 +838,7 @@ system calls. \autoref{lookahead-ls} presents a sample (`read`, `close`) lookahe
 A sample (\lstinline{read}, \lstinline{close}) lookahead pair in the ebpH profile for \lstinline{ls}.
 (a) shows the lookahead pair and (b) shows two relevant system call sequences, separated by several omitted calls.
 Note that the first three system calls in both the first and second sequence are responsible for
-the two least significant bytes of the lookahead pair.
+the two least significant bits of the lookahead pair.
 }
 \label{lookahead-ls}
 \end{figure}
@@ -858,9 +893,12 @@ and their respective side effects are summarized in \autoref{ebph-syscalls}.
 \textbf{System Call} & \textbf{Description} & \textbf{ebpH Side Effect}\\
 \hline
 \hline
-\texttt{execve} & Execute a program & \multirow{2}{2.6in}{(Re)associate a process with a profile, creating the profile if necessary}\\
+\texttt{execve} & Execute a program & \multirow{4}{2.6in}{(Re)associate a process with a profile, creating the profile if necessary;
+wipe the process' current sequence of system calls}\\
+&&\\
 \cline{1-2}
 \texttt{execveat} & Execute a program & \\
+&&\\
 \hline
 \texttt{exit} & Terminate the calling process & \multirow{2}{2.6in}{Stop tracing a process} \\
 \cline{1-2}
@@ -881,8 +919,8 @@ There are several important considerations here. First, we need a way to assign 
 to processes, which is done by instrumenting the `execve` system call using a tracepoint,
 as well as part of its underlying implementation via a kprobe. In particular, we hook
 the `do_open_execat` kernel function in order to access the file's inode and filesystem
-information; without this, we would be unable to differentiate two paths that look like
-`/usr/bin/ls` and `./ls`.
+information; without this, we would be unable to differentiate between two paths that
+resolve to a binary with the same name, for example `/usr/bin/ls` and `./ls`.
 
 The entry and exit points to the `execve` system call are used to differentiate a true
 `execve` call from the kernel routines responsible for loading shared libraries, which both
@@ -891,16 +929,19 @@ we set an indicator variable in the process struct to say that we are in the mid
 Subsequent calls to `do_open_execat` are then ignored until we hit `execve`'s return tracepoint
 and unset the indicator variable.
 
+In addition to associating a process with the correct profile, we also wipe
+the process' current sequence of system calls, to ensure that there is no carryover
+between two unrelated profiles when constructing their lookahead pairs.
+
 #### Profile Association and Sequence Duplication with `fork`, `vfork`, and `clone`
-The final special consideration is with respect to `fork` and `clone` family system calls.
-In particular,
-we want to be able to track child process behavior as well as parent process behavior.
+Another special consideration is with respect to `fork` and `clone` family system calls.
+A forked process should begin with the same state as its parent and should (at least initially)
+be associated with the same profile as its parent.
 In order to accomplish this, we instrument tracepoints for the `fork`, `vfork`, and `clone`
 system calls, ensuring that we associate the child process with the parent's profile, if it
 exists. If ebpH detects an `execve` as outlined above, it will simply overwrite the
-profile association provided by the initial fork.
-
-<!-- TODO: desribe how we also copy sequences on fork -->
+profile association provided by the initial fork. The parent's current system call sequence
+is also copied to the child to prevent forks from being used to break sequences.
 
 #### Reaping Processes with `exit`, `exit_group`, and Signals
 We use a combination of system call tracepoints and signal handler kprobes in order
@@ -933,6 +974,8 @@ for activating a backdoor), it prints one extra message. This will cause a notic
 change in the lookahead pairs associated with the program's profile, and this will be flagged
 by ebpH if the profile has been previously marked normal.
 
+\protect\enlargethispage*{\baselineskip}
+
 \lil[language=c, label={anomaly.c}, caption={A simple program to demonstrate anomaly detection in ebpH.}]{../experiments/anomaly/anomaly.c}
 
 In order to test this, we artificially lower ebpH's normal time to three seconds instead of one week.
@@ -949,7 +992,7 @@ provides an example of this comparison.
 
 While this contrived example is useful for demonstrating ebpH's anomaly detection,
 process behavior in practice is often more nuanced. ebpH collects at least a week's worth of
-data about a processes system calls before marking it normal, which often corresponds with several branches of execution.
+data about a process' system calls before marking it normal, which often corresponds with several branches of execution.
 In a real example, the multiple consecutive write calls might be a perfectly normal execution path for this process;
 by ensuring that we take our time before deciding whether a process' profile has reached acceptable maturity for testing,
 we dramatically decrease the probability of any false positives.
@@ -984,14 +1027,14 @@ the form of several subproblems as follows:
 2) eBPF programs come with a hard stack space limit of 512 bytes;
 3) Dynamic memory allocation is prohibited and memory access requires strict safety checks;
 4) Support for bounded loops is in its infancy and loops will not work without an easy proof that the induction variable will result in termination;
-5) The verifier tends to err on the side of caution and will produce false positives with alarming frequency.
+5) The verifier tends to err on the side of caution and will produce false positives with non-negligible frequency.
 
 Subproblem (1) means that, at the moment, there is no simple means of injecting
 system call delay into system calls from within the eBPF program, an important part
 of the original pH's functionality [@soma02]. Kernel scheduling and delay functions do not work
 in eBPF due to unsafe jump instructions, and so other means of
 delaying processes need to be explored. This is currently a topic for future
-work (see \autoref{improvements-to-ebph}).
+work (see \autoref{potential-improvements-to-ebph}).
 
 From subproblems (2) and (3), one immediate issue arises: with no means of explicit dynamic memory allocation and
 a stack space limit of 512 bytes, how do we instantiate the large structs described in previous sections?
@@ -1007,38 +1050,24 @@ space as its current amount of entries requires. Memory management is handled au
 by the map. This combined with the aforementioned method of struct initialization gives
 us the means by which to safely and efficiently handle large data structures in eBPF programs.
 
-From subproblem (4), we have the obvious issue that loops need to "simple" enough for the eBPF
-verifier to reason about them. Loops need to have an induction variable that can be shown to
-invariably lead to termination. For example, a loop like the one shown in \autoref{invalid-loop}
-would be prohibited.
-
-\begin{lstlisting}[float={ht}, language=c, label={invalid-loop}, caption={[An invalid bounded loop in eBPF.]An invalid bounded loop in eBPF.
-Although it may be obvious to us that it will eventually terminate, the induction variable is not well-defined enough for the verifier
-to be confident about its termination.}]
-int j = 50;
-/* An invalid eBPF bounded loop */
-for (int i = 0; i < j; i++)
-{
-    /* Increase j by 1 every 3 iterations */
-    if (i % 3 == 0)
-        j++;
-}
-\end{lstlisting}
-
-Loops may also be rejected by the verifier for other reasons. For example, loops that
-have entrypoints in the middle of iteration will also be flagged due to the verifier's
-inability to correctly identify the loop structure [@corbet18]. Ultimately, designing
-verifiable loops in eBPF can be a tricky process with many pitfalls, but having support
-for loops at all greatly increases the potential complexity and power of eBPF programs like ebpH.
+From subproblem (4), we have the obvious issue that loops need to be "simple" enough for the eBPF
+verifier to reason about them. For example, loops that
+have entrypoints in the middle of iteration will potentially be flagged if the verifier is unable
+to correctly identify the loop structure [@corbet18]. Since the verifier relies
+on pattern matching in order to identify induction variables, LLVM optimizations
+to eBPF bytecode introduce an element of fragility to loop verification [@corbet18].
+Bounded loops that perform memory access using the induction variable are also quite finicky at best;
+the verifier must be able to show that memory access is safe for each possible state of the loop.
+For these reasons, development of eBPF programs that require bounded loops is still far from perfect,
+but we now at least have the tools with which to implement complex eBPF programs like ebpH.
 
 Subproblem (5) is perhaps the most difficult to reckon with, but is quite understandable from
 the perspective of the verifier. As we have already seen, guaranteeing the safety of arbitrary
-untrusted program is a difficult problem, and concessions need to be made in order for such guarantees
+untrusted programs is a difficult problem, and concessions need to be made in order for such guarantees
 to be tenable. False positives are unfortunately one of those concessions. When the verifier rejects
 code due to a false positive, there is simply no better solution than to try a different approach.
-Fortunately, well-contracted eBPF do not often suffer from false positives, particularly as one learns
-the nuances of how the verifier works and how to coax it into accepting programs
-
+Fortunately, well-constructed eBPF programs do not often suffer from false verifier positives,
+particularly as one learns the nuances of how the verifier works and how to coax it into accepting programs.
 
 # Methodology and Future Work
 
@@ -1046,14 +1075,15 @@ While the ebpH prototype is certainly capable of monitoring a system for anomali
 much testing and work remains to be done in order to completely reimplement the original
 pH and ascertain whether eBPF is truly the best choice for implementing such an IDS.
 Here, we discuss the planned strategies for testing ebpH, as well as plans for iteration
-on the initial prototype and future work.
+on the initial prototype, and future work.
 
 ## Planned Testing Strategy
 
 The ebpH prototype as well as its future iterations will be heavily tested on several
-machines under a variety of workloads. Additional testing will be done on virtual machines
-to simulate systems with lower end hardware specifications. \autoref{testing-specifications}
-summarizes the currently planned systems as their relevant specifications.
+machines under a variety of workloads. \autoref{testing-specifications}
+summarizes the currently planned systems and any relevant details therein.
+Additional testing will be done on virtual machines
+to simulate multiple systems under artificially constructed workloads and attacks.
 
 \begin{table}
 \caption[A summary of the various systems that will be used to test ebpH]
@@ -1062,24 +1092,176 @@ A summary of the various systems that will be used to test ebpH.
 }
 \label{testing-specifications}
 \begin{center}
-\begin{tabular}{|l|l|l|p{2.5in}|}
+\begin{tabular}{|l|p{4in}|}
 \hline
-\textbf{System} & \textbf{CPU Speed} & \textbf{RAM} & \textbf{Description}\\
+\textbf{System} & \textbf{Description}\\
 \hline
 \hline
-arch & test & test & test\\
+arch & My personal desktop computer, which has been running the current ebpH prototype for one month\\
+\hline
+archlaptop & My personal laptop computer, which has been running the current ebpH prototype for one month\\
+\hline
+homeostasis & Dr. Somayaji's computer at Carleton University, which also serves the Wiki for his courses\\
+\hline
+CCSL Servers & The servers at the Carleton Computer Security Lab\\
+\hline
+Assorted Virtual Machines & Several virtual machines running a variety of test workloads\\
 \hline
 \end{tabular}
 \end{center}
 \end{table}
 
-### Gathering and Analyzing Performance Data
-
 ### Gathering and Analyzing Profile Data
 
-## Improvements to ebpH
+ebpH will be retrofitted with the ability to generate CSV datasets and
+plots that will summarize profile data. Through the examination of profile
+data (specifically lookahead pair patterns), we can get a clear picture of ebpH's
+understanding of system behavior. Results will be gathered for a wide variety of systems as
+depicted above in \autoref{testing-specifications}; this will yield the opportunity to test
+ebpH on production systems of various scale (i.e. *homeostasis* and the *CCSL Servers*) as well
+as personal computers for everyday use (i.e. *arch* and *archlaptop*).
+
+Furthermore, the addition of several virtual machines for testing
+will provide the means to conduct reproducible experiments across various conditions,
+including measuring ebpH's response to a variety of simulated attacks. Snapshots will
+ensure controlled and consistent system state between runs, and will be particularly
+useful in controlling for initial ebpH profile state during each round of testing.
+
+During normal testing, we are particularly interested in the rate of
+false positives and false negatives observed by ebpH. A false positive will be
+defined as any anomaly detected by ebpH that corresponds to ordinary system behavior,
+while a false negative will be defined as a failure to detect the presence of an attack.
+In order to test for both false positive and false negative rates, we will observe ebpH
+on ordinary systems as well as systems under attack and compare results.
+
+As a general-purpose anomaly-based intrusion detection system, it is important to show that ebpH
+is capable of detecting a wide variety of attacks. The mimicry attacks described in Wagner and Soto's paper [@wagner02]
+are particularly interesting, as they were directly designed to defeat the original pH system
+(albeit an earlier version with much shorter lookahead pair window length) by constructing attack patterns
+that generate false negatives.
+
+### Gathering and Analyzing Performance Data
+
+One of the primary advantages cited for using eBPF to build intrusion detection systems
+is lower overhead. In order to test the validity of this claim, we need reliable metrics
+to measure ebpH's memory and CPU overhead under a variety of workloads and systems. A recent
+patch to the Linux Kernel has added the ability to measure individual eBPF program performance
+[@starovoitov19a]. Additionally, we can combine this approach through hardware performance measurement
+with eBPF perf events. This approach should provide the combined advantage of measuring
+the specific overhead associated with ebpH along with its impact on the overall memory and CPU usage
+of its environment.
+
+Another important consideration with respect to overhead is ebpH's direct impact
+on the user; in particular, we want to avoid annoying the user by introducing noticeable
+delays into their workflow. Therefore, in addition to rigorous quantitative testing,
+ebpH's overhead will also be qualitatively tested for noticeable impact on system performance
+during everyday use.
+
+## Potential Improvements to ebpH
+
+The system described in this proposal is a prototype, designed to
+implement the basic functionality of the pH intrusion detection system in eBPF,
+in order to ascertain whether such an implementation would be viable.
+While I believe I have achieved that goal, there is still plenty of room
+for future work on ebpH. Topics for future work include
+adding a mechanism for delaying system calls, using ebpH to increase
+overall system visibility, and the potential introduction of alternative
+behavioral metrics to provide a more comprehensive picture of system state
+and make better predictions about its validity. Furthermore, I plan to
+make extensive improvements to the ebpH GUI to complement the aforementioned
+augmentations to ebpH daemon functionality.
+
+### Delaying System Calls
+
+The most obvious improvement to ebpH is the introduction of system call delays in a future iteration.
+This feature comprises a large part of the original pH's response strategy and would be a vital part
+of a full reimplementation. As previously discussed, this is not necessarily an easy thing to accomplish
+due to the eBPF verifier's restrictions on program safety. From the perspective of what eBPF is trying to
+accomplish, this makes sense. In Somayaji's dissertation [@soma02], he discussed the potential for pH
+itself to cause denial of service on a system, due to intentional provocation from an attacker or
+simply an edge case in program behavior. eBPF is designed with safety in mind; allowing eBPF programs
+to cause denial of service in this way would be the antithesis of what eBPF is trying to accomplish.
+Therefore, another solution is needed.
+
+A kernel-based implementation for process delays would certainly
+work, but would be far from ideal -- this sacrifices a lot of the advantages that come with an eBPF implementation
+of pH in the first place, namely easy portability between Linux systems and guaranteed safety. Such an implementation
+would either be in the form of a kernel patch or a loadable kernel module; both of these
+solutions suffer from safety issues as we have discussed at length in \autoref{an-overview-of-the-linux-tracing-landscape}.
+Additionally, a kernel patch in particular limits the portability of ebpH, which currently runs on
+any vanilla Linux Kernel above version 5.3.
+
+We can also consider the possibility of busy waiting within the eBPF tracepoints themselves, although
+this also carries a few obvious drawbacks. Firstly, busy waiting means that the process that is being slowed
+down will continue to occupy CPU time instead of yielding it to another process by ceding time to the scheduler.
+Another obvious drawback is with respect to the verifier itself; verifier support for the bounded loops required
+for busy waiting is conditional on several factors. This may result in the rejection of busy waiting due
+to perceived safety violations.
+
+A third possibility is issuing delays from userspace via the `SIGSTOP` and `SIGCONT` signals;
+the daemon would simply issue these signals to offending processes and space them proportionally
+with respect to recent anomalies produced. While this solution *could* work, it suffers from a few
+obvious flaws. Firstly, there is no guarantee that we can prevent another signal from waking up
+the process early; in fact, an attacker with the ability to send arbitrary signals has already
+completely circumvented this type of response. Additionally, there is no guarantee that a process will receive
+this signal in time to stop the offending system call(s). By the time the process receives the signal,
+it may already be too late to stop the attack.
+
+None of these solutions seem ideal; it is likely that a presently unknown fourth alternative
+will present the best approach. Perhaps there may be an entirely eBPF-based solution on the horizon
+pending updates to the verifier -- time will tell. For now, it may be worthwhile exploring what options
+are available at the present to determine if any are suitable for use in practice.
+
+### Measuring Other System Behavior
+
+In his dissertation [@soma02], Somayaji discusses the potential of having multiple homeostatic
+systems at work on a given machine. This approach would more closely resemble the concept of
+homeostasis we know in biology, wherein multiple subsystems work together to add stability to
+overall system state. pH was a great starting point, and pending the introduction of system call
+delays as discussed in the above section, ebpH will follow in its footsteps in that regard.
+However, much of the true power of eBPF comes from its ability to monitor *so much* system state
+at once; there's no reason ebpH has to stop at system call tracing.
+
+By using eBPF to monitor multiple facets of system state, we can get a clearer picture of normal process
+behavior, which could in turn yield more accurate anomaly detection results. Perhaps these metrics could
+include memory allocations, number of incoming network connections, socket I/O, file I/O, CPU time per process, or any number
+of such metrics. eBPF can measure all of that and more; and it can do so reliably, efficiently, and with guaranteed safety.
+
+### Overall System Visibility
+
+As an intrusion detection system, ebpH's role is well-defined: monitor the system, detect misbehaving processes,
+and report them to the user. However, there is one glaring problem with this approach, particularly as we venture
+into the territory of automated responses via system call delays: users do not necessarily *want* a system that
+chooses not to perform a requested action; they also do not necessarily *want* a system that harasses them
+with warnings about program behavior that they either don't care about or don't necessarily understand.
+
+One potential solution to this problem is providing other benefits to the user through ebpH *in addition
+to* intrusion detection and response. For example, future versions of ebpH could include a performance analysis component,
+a debugger component, or any number of other metrics for increased system visibility. After all, one of the primary use cases
+for system introspection is precisely that: allowing a user to observe their system. By adding this extra functionality,
+we can provide complimentary benefits to the user that may incentivize them to run ebpH in the first place.
+
+It should also not be overlooked that, in many cases, increased system state visibility can provide implicit security
+benefits to the experienced user. For example, an experienced system administrator could use a future version of ebpH
+to find vulnerabilities in their system before an attack even occurs.
 
 ## Improvements to the ebpH GUI
+
+The GUI has potentially the most room for improvement of the entire ebpH system.
+Many of these improvements will be in tandem to those discussed in previous sections;
+in particular, system visibility enhancements to ebpH will almost certainly manifest themselves
+through the GUI wherein we will be able to visually present information to the user as they request it.
+
+Future versions of the GUI will also have more options for inspecting and making changes to system profiles.
+Somayaji describes three important operations in his dissertation [@soma2], *tolerize*, *sensitize*, and *normalize*,
+which have not yet been implemented in ebpH. These options will be added to the GUI when they are implemented to allow
+users to have fine grained control over how ebpH treats the profiles on their system. Additionally, users should be able
+to inspect individual profiles and look at their data in a format that is easy to understand; potentially this could be
+achieved via plotting profile data or perhaps presenting the top *n* system call lookahead pairs by process.
+
+Ultimately, the GUI is perhaps among the most important components of ebpH, particularly given the usability
+requirements we have discussed in previous sections. As such, it is one of the most important factors
+controlling the potential future adoption of ebpH, and is therefore important to get exactly right.
 
 <!-- References -->
 \clearpage
@@ -1092,7 +1274,7 @@ arch & test & test & test\\
 
 # eBPF Design Patterns
 
-\lil[language=c, caption={Handling large data types in eBPF programs.}, label={appendix-bigdata}]{../code/design_patterns/bigdata.c}
+\lil[language=c, caption={Handling large datatypes in eBPF programs.}, label={appendix-bigdata}]{../code/design_patterns/bigdata.c}
 
 \FloatBarrier
 

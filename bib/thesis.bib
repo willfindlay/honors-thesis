@@ -14,6 +14,8 @@ url={https://www.usenix.org/conference/srecon16europe/program/presentation/golds
 @misc{bcc, title={iovisor/bcc}, url={https://github.com/iovisor/bcc}, journal={GitHub}, publisher={iovisor}, year={2019}, month={Oct}}
 @misc{gregg16, title={Linux BPF Superpowers}, url={http://www.brendangregg.com/blog/2016-03-05/linux-bpf-superpowers.html}, journal={Linux BPF Superpowers}, publisher={Brendan Gregg's Blog}, author={Gregg, Brendan}, year={2016}, month={Mar}}
 
+@misc{starovoitov19a, title={[v2,bpf-next,1/4] bpf: enable program stats 1047415 diff mbox series}, url={https://patchwork.ozlabs.org/patch/1047415/}, journal={Patchwork}, author={Starovoitov, Alexei}, year={2019}, month={Feb}}
+
 % performance
 @article{deri19, title={Combining System Visibility and Security Using eBPF}, url={http://ceur-ws.org/Vol-2315/paper05.pdf}, journal={CEUR-WS}, author={Deri, Luca and Sabella, Samuele and Mainardi, Simone}}
 
@@ -23,6 +25,8 @@ url={https://www.usenix.org/conference/srecon16europe/program/presentation/golds
 @article{bonafiglia16, title={Enabling NFV Services on Resource-Constrained CPEs}, DOI={10.1109/cloudnet.2016.24}, journal={2016 5th IEEE International Conference on Cloud Networking (Cloudnet)}, author={Bonafiglia, Roberto and Miano, Sebastiano and Nuccio, Sergio and Risso, Fulvio and Sapio, Amedeo}, year={2016}}
 % bounded loop support
 @misc{starovoitov19, title={bpf: introduce bounded loops}, url={https://git.kernel.org/pub/scm/linux/kernel/git/davem/net-next.git/commit/?id=2589726d12a1b12eaaa93c7f1ea64287e383c7a5}, journal={kernel/git/davem/net-next.git - Netdev Group's -next networking tree}, publisher={The Linux Foundation}, author={Starovoitov, Alexei and Borkmann, Daniel}, year={2019}, month={Jun}}
+% more bounded loops stuff
+@misc{rybczynska19, title={Bounded loops in BPF for the 5.3 kernel}, url={https://lwn.net/Articles/794934/}, journal={[LWN.net]}, author={Rybczyńska, Marta}, year={2019}, month={Jul}}
 % more bounded loops stuff
 @misc{corbet18, title={Bounded loops in BPF programs}, url={https://lwn.net/Articles/773605/}, journal={[LWN.net]}, publisher={[LWN.net]}, author={Corbet, Jonathan}, year={2018}, month={Dec}}
 % seahorn paper
@@ -169,6 +173,21 @@ volume={93}
 % LTTng
 @misc{lttng, title={LTTng v2.11 - LTTng Documentation}, url={https://lttng.org/docs/v2.11/}, journal={LTTng}, publisher={The LTTng project}, year={2019}, month={Oct}}
 
+% original dtrace paper
+@inproceedings{cantrill04,
+ author = {Cantrill, Bryan M. and Shapiro, Michael W. and Leventhal, Adam H.},
+ title = {Dynamic Instrumentation of Production Systems},
+ booktitle = {Proceedings of the Annual Conference on USENIX Annual Technical Conference},
+ series = {ATEC '04},
+ year = {2004},
+ location = {Boston, MA},
+ pages = {2--2},
+ numpages = {1},
+ url = {http://dl.acm.org/citation.cfm?id=1247415.1247417},
+ acmid = {1247417},
+ publisher = {USENIX Association},
+ address = {Berkeley, CA, USA},
+}
 % dtrace4linux
 @misc{dtrace4linux, title={dtrace4linux/linux}, url={https://github.com/dtrace4linux/linux}, journal={GitHub}, publisher={dtrace4linux project}, author={Fox, Paul D}, year={2019}, month={Sep}}
 % Why eBPF is better than dtrace
@@ -202,6 +221,24 @@ volume={93}
 @phdthesis{soma02, title={Operating system stability and security through process homeostasis}, url={https://people.scs.carleton.ca/~soma/pubs/soma-diss.pdf}, journal={Operating system stability and security through process homeostasis}, school={Anil Somayaji}, author={Somayaji, Anil Buntwal.}, year={2002}}
 % lookahead pairs
 @inbook{soma07, place={New York, New York}, title={Lookahead Pairs and Full Sequences: A Tale of Two Anomaly Detection Methods}, url={http://people.scs.carleton.ca/~soma/pubs/inoue-albany2007.pdf}, booktitle={Proceedings of the 2nd Annual Symposium on Information Assurance Academic track of the 10th Annual 2007 NYS Cyber Security Conference}, publisher={NYS Cyber Security Conference}, author={Somayaji, Anil Buntwal and Inoue, Hajime}, year={2007}, pages={9–19}}
+@inproceedings{wagner02,
+ author = {Wagner, David and Soto, Paolo},
+ title = {Mimicry Attacks on Host-based Intrusion Detection Systems},
+ booktitle = {Proceedings of the 9th ACM Conference on Computer and Communications Security},
+ series = {CCS '02},
+ year = {2002},
+ isbn = {1-58113-612-9},
+ location = {Washington, DC, USA},
+ pages = {255--264},
+ numpages = {10},
+ url = {http://doi.acm.org/10.1145/586110.586145},
+ doi = {10.1145/586110.586145},
+ acmid = {586145},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {anomaly detection, evasion attacks, host-based intrusion detection},
+}
+
 
 % intrusion detection below this line -------------------------
 @ARTICLE{kemmerer02,
