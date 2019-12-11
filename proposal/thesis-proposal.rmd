@@ -13,6 +13,7 @@ subparagraph: yes
 classoption: 12pt
 header-includes:
     - \usepackage{findlayrmd}
+    - \usepackage{subcaption}
 output:
     pdf_document:
         number_sections: true
@@ -82,9 +83,11 @@ system call tracepoints with negligible overhead. Future work will involve testi
 iterating on the ebpH prototype, in order to extend its functionality beyond that
 of the current prototype system.
 
-#### Keywords:
-
-eBPF, intrusion detection, system calls, Linux Kernel introspection
+\noindent
+\begin{tabular}{l l}
+\textbf{Keywords} & eBPF, intrusion detection, system calls, Linux Kernel introspection,\\
+& Process Homeostasis, ebpH
+\end{tabular}
 
 \newpage
 \section*{Acknowledgments}
@@ -100,6 +103,8 @@ undertaking.
 I would also like to thank the members and contributors of the *Iovisor Project*,
 especially Yonghong Song (https://github.com/yonghong-song) and Teng Qin (https://github.com/palmtenor)
 for their guidance and willingness to respond to issues and questions related to the *bcc* project.
+Brendan Gregg's (http://www.brendangregg.com; https://github.com/brendangregg)
+writings and talks have been a great source of inspiration, especially with respect to background research.
 Sasha Goldstein's (https://github.com/goldshtn) *syscount.py* was an invaluable basis for my earliest proof-of-concept experimentation,
 although none of that original code has made it into this iteration of ebpH.
 
@@ -313,10 +318,10 @@ low level and high level interfaces (see \autoref{bpf-dtrace-api}); and
 LKM-based.
 
 \begin{figure}
-\includegraphics[width=.4\paperwidth]{../figures/bpf-dtrace-api.png}
+\includegraphics[width=0.5\textwidth]{../figures/bpf-dtrace-api.png}
 \caption[Comparing Dtrace and eBPF functionality with respect to API design]
 {
-Comparing Dtrace and eBPF functionality with respect to API design.
+Comparing Dtrace and eBPF functionality with respect to API design (adapted from \cite{gregg18}).
 Note that eBPF covers more complex use cases and supports both low level
 and high level APIs. Dtrace needs to be used in tandem with shell
 scripting to support more complex use cases.
@@ -351,25 +356,33 @@ the existing eBPF virtual machine.
 
 ## Classic BPF
 
-<!-- TODO: maybe come back here depending on what Anil says -->
+In 1992, McCanne and Jacobson [@bpf] introduced the original BPF\footnote{Hereafter,
+we will refer to the original BPF as {\itshape Classic BPF} to avoid confusion with eBPF and the BPF programming paradigm.}
+or *Berkeley Packet Filter* as a mechanism for capturing,
+monitoring, and filtering network traffic in the BSD kernel.
+Classic BPF's primary insights were two-fold:
 
-The original incarnation of BPF was introduced to the world in a 1992 paper by McCanne
-and Jacobson [@bpf] as a new system for capturing and filtering packets at the operating
-system level. In particular, Classic BPF implemented a filter virtual machine based entirely on registers
-as well as a tap mechanism to hook into packets. The *tap* copies network packets and delivers
-them to listening filter applications, while the *filter* determines whether a packet is accepted or not.
+(1) network traffic events are *frequent* and *fast*, and therefore an efficient filtering mechanism was needed; and
+(1) a limited, register-based bytecode being run in an in-kernel virtual machine provides precisely the mechanism described in point (1).
 
-The primary motivating factors behind Classic BPF were the desire to establish an efficient technique for
-capturing and filtering packets. McCanne and Jacobson showed that their approach was significantly more
-efficient than other contemporary packet filtering mechanisms, i.e.\ NIT [@nit] and CSPF [@mogul87];
-unsurprisingly, BPF is the only one of these three systems to have stood the test of time.
+The virtual machine described above was used to implement the *filter* component of BPF, while in-kernel network function
+tracepoints implemented the *tap* component. The tap forwarded packet events to the filter, which then decided what to do
+with the packets according to a user-defined BPF program. McCanne and Jacobson showed that their approach was much faster
+than other contemporary packet filtering techniques, namely NIT [@nit] and CSPF [@mogul87].
 
-Classic BPF is still used to this day in a variety of network diagnostic services, perhaps
-most notably *tcpdump* [@tcpdump] and *libcap*. It is also worth noting that eBPF
-implements a superset of Classic BPF; in other words, Classic BPF forms the basis for many modern eBPF
-programs in Linux.
+While Classic BPF is certainly a powerful technique for filtering packets, Starovoitov
+[@starovoitov13] realized that its tap and filter mechanism represented a desirable
+approach for general system introspection. Therefore, in 2013, he proposed
+*Extended BPF* (eBPF), a superset of Classic BPF, which vastly increased the
+capabilities of the original BPF virtual machine.
+
+Since its original introduction, eBPF has offered a consistent, powerful, and production-safe
+mechanism for general Linux introspection and continues to improve rapidly over time.
+We discuss eBPF in more detail in the following section.
 
 ## eBPF: Linux Tracing Superpowers
+
+\label{ebpf-superpowers}
 
 In 2016, eBPF was described by Brendan Gregg [@gregg16]
 as nothing short of *Linux tracing superpowers*.
@@ -407,7 +420,7 @@ On supported architectures,\footnote{x86-64, SPARC, PowerPC, ARM, arm64, MIPS, a
 eBPF bytecode is compiled into machine code using a *just-in-time* (*JIT*)
 compiler; this both saves memory and reduces the amount of time it takes
 to insert an eBPF program into the kernel. Additionally, since eBPF runs in-kernel
-and communicates with userland via map access and perf events, the number of context switches
+and communicates with userland via direct map access and perf events, the number of context switches
 required between userland and the kernel is greatly diminished, especially compared to approaches
 such as the ptrace system call.
 
@@ -451,11 +464,10 @@ This can be effectively used to bypass the verifier's stack space limitations, w
 in \autoref{verifier-section}.
 
 \begin{table}
-\small
-\begin{center}
 \caption{Various map types available in eBPF programs.}
 \label{ebpf-maps}
-\begin{tabular}{|l|p{4.6in}|}
+\resizebox{\textwidth}{.2\textheight}{
+\begin{tabular}{|l|p{5in}|}
 \hline
 \textbf{Map Type} & \textbf{Description}\\
 \hline
@@ -493,7 +505,7 @@ in \autoref{verifier-section}.
 \texttt{CPUMAP} & Allows for redirection of packets to remote CPUs; used in XDP programs\\
 \hline
 \end{tabular}
-\end{center}
+}
 \end{table}
 
 \FloatBarrier
@@ -538,7 +550,7 @@ the relationship between potentially valid eBPF code and verifiably valid eBPF c
 
 \begin{figure}
 \begin{center}
-\includegraphics[height=.4\paperheight]{../figures/valid-ebpf.png}
+\includegraphics{../figures/valid-ebpf.png}
 \end{center}
 \caption[The set participation of valid C and eBPF programs.]
 {
@@ -638,8 +650,10 @@ In general, intrusion detection systems can either attempt to detect
 anomalies (i.e. mismatches in behavior when compared to normally observed patterns)
 or misuse, which generally refers to matching known attack patterns to observed data [@kemmerer02].
 In general, anomaly-based approaches cover a wider variety of attacks while
-misuse-based approaches tend to yield fewer false positives.
-A hybrid approach between these two techniques is also possible.
+misuse-based approaches tend to yield fewer false positives. Misuse-based approaches
+can also be further broken down into specification-based and signature-based, which
+deal in behavioral blacklists and whitelists respectively.
+A hybrid approach between any of these techniques is also possible.
 
 Data collection is generally either host-based or network based.
 Network-based IDSes examine network traffic and analyze it to detect
@@ -660,9 +674,120 @@ As we will see, the original pH also responds to anomalies by delaying
 system calls [@soma02] and preventing anomalous `execve`s.
 Implementing this functionality in ebpH is a topic for future work (refer to \autoref{potential-improvements-to-ebph}).
 
-### Gathering Data for Intrusion Detection
+### A Survey of Data Collection in Intrusion Detection Systems
 
-TODO: come back here
+We have presented the general classification of intrusion detection systems
+through the establishment of three core elements of an IDS and several
+categories therein. As it relates to eBPF, the *data collection* component of
+intrusion detection systems is of particular interest; what is especially
+exciting about eBPF is its impressive scope, safety, and performance with respect
+to general system introspection; this presents a perfect trifecta of traits for
+collecting system data. As such, it is worth examining data collection
+techniques from various intrusion detection systems in more detail.
+
+We have established that data collection in intrusion detection systems
+can primarily be separated into two relatively broad categories:
+
+(1) host-based data collection which involves collecting data
+about the use and behavior of a local machine; and
+(1) network-based data collection which involves monitoring network traffic
+and looking for established patterns.
+
+While the above two categories are generally sufficient for understanding intrusion
+detection at a high level, there are in fact several distinct subcategories therein.
+\autoref{data-collection-categories} presents an overview of the most common data
+collection subcategories in IDSes.
+
+\begin{figure}
+\includegraphics{../figures/data-collection-categories.png}
+\caption[An overview of the most common data collection categories and subcategories in IDS]
+{An overview of the most common data collection categories and subcategories in IDS,
+as well as a potentially new and promising category, {\itshape general system introspection}, thanks to eBPF.
+This figure primarily synthesizes the technologies presented in \cite{spafford02, stallings07}.}
+\label{data-collection-categories}
+\end{figure}
+
+#### Internal and External Sensors
+
+Kerschbaum et al.\ [@spafford02] introduce the concept of *internal* sensors
+for intrusion detection and contrast them with the far more popular *external* sensors.
+An internal sensor by definition is included in the source code of a
+monitored component, while an external sensor is implemented outside
+of the monitored component. These two categories of sensors each present unique
+advantages and disadvantages [@spafford02]. In particular, external sensors are easily modifiable
+and extensible, although they introduce potential delays, and are generally weaker
+to tampering by intruders; internal sensors minimize overhead (assuming correct implementation)
+and are much more resistant to intruder tampering,
+but suffer from reduced portability, difficulty in implementation,
+and may incur severe performance penalties if implemented incorrectly.
+
+eBPF would fall under the internal sensor classification [@spafford02] due to its implementation within the Linux Kernel;
+however, eBPF presents a rather unique case, as it overcomes many of the disadvantages proposed by Kerschbaum et al.
+while maintaining the advantages. Specifically, eBPF is completely application transparent, portable to any modern
+version of Linux\footnote{Although eBPF is available on all modern kernels, some of its features are specific to the
+very newest versions. In particular, recent verifier updates which allow for increased complexity have only been
+available since version 5.3. See \autoref{ebpf-superpowers} and \autoref{verifier-section} for more details.},
+easy to update and modify, and has guaranteed performance and safety
+due to the verifier.
+
+#### Internal Host-Based Approaches
+
+System call pattern analysis was examined in detail by Forrest et al.\ [@forrest96]
+and culminated in the development of the original pH system [@soma02] on which ebpH
+is based. Somayaji and Inoue [@soma07] compared two methods of organizing system call data for
+intrusion detection (full sequences and lookahead pairs), which we will discuss further in \autoref{ph-lap}.
+
+Kerschbaum et al.\ also describe a generic method of application-specific internal sensors
+through the addition of audit checks in program source code [@spafford02]. However,
+the primary caveat here is that such checks need to be integrated into a specific application
+early enough such that refactoring is minimized [@peng95; @spafford02].
+This approach is also far less generic than other internal sensor approaches described here.
+
+Another potential internal source for data is through host-based network stack
+introspection. Classic BPF [@bpf] and eBPF/XDP [@starovoitov13; @bcc; @xdp] are quite excellent at this.
+Host-based network introspection allows the analysis of network traffic at various points in the kernel's
+networking stack, and XDP packet redirection [@xdp] allows fast detection and response before a packet even reaches
+the main networking stack.
+
+ebpH itself constitutes an internal host-based approach; that is, it uses
+eBPF for in-kernel instrumentation of system calls (internal) on a given host (host-based).
+As we discuss in \autoref{potential-improvements-to-ebph}, a potential avenue for future research
+in ebpH is moving beyond system call monitoring to *general system introspection* (c.f.\ \autoref{data-collection-categories}).
+This is specifically a possibility due to eBPF's unique classification as an internal
+sensor capable of monitoring the entire system dynamically, safely, and with minimal overhead.
+
+#### External Host-Based Approaches
+
+External host-based data collection is very popular in intrusion detection.
+This can be primarily attributed due to the advantages described by Kerschbaum et al.\ [@spafford02],
+particularly with respect to ease of implementation and portability.
+
+AAFID [@spafford00] uses a *combined* internal/external approach based on separate autonomous
+agents running continuously on multiple hosts. These agents make use of various
+data sources, such as external programs (i.e.\ `ps`, `netstat`, and `df`),
+file system state, and network interface packet capture (i.e.\ hooking into the host's networking stack).
+Agents supplement collected data by analyzing audit logs generated by the system [@spafford02].
+
+In 1999, Kuperman and Spafford [@kuperman99] proposed the use of library interpolation
+for intrusion detection in dynamically linked binaries. Library interpolation is
+a method of interposing a custom library implementation between a dynamically
+linked executable and its shared objects. This effectively allows the generation of
+custom audit data on each library call that a process makes.
+
+#### Internal and External Network-Based Approaches
+
+Network-based approaches [@stallings07] to intrusion detection involve the inspection of network traffic
+en route to its destination. This typically comes in the form of inspecting packets headers, payloads, and frequency
+to establish patterns for analysis. Generally, network-based approaches have a choice between using
+either inline (internal) sensors, or passive (external) sensors for data collection [@stallings07].
+An inline sensor either hooks into a network device, or is built into specialized hardware;
+traffic passes directly through the sensor and is analyzed directly.
+
+In contrast, passive sensors create copies of network traffic for analysis. This approach is
+typically favored since it does not introduce delays into the traffic itself, instead
+sacrificing the ability to respond to threats before they reach their destination [@stallings07].
+This result is consistent with Kerschbaum et al.'s observation that external sensor approaches tend to be
+favored over their internal counterparts [@spafford02].
 
 ## Process Homeostasis
 
@@ -826,11 +951,13 @@ Profiles are saved automatically at regular intervals, configurable by the user,
 as well as any time ebpH stops monitoring the system.
 These profiles are automatically loaded every time ebpH starts.
 
-### The ebpH GUI
-
 \footnotetext{The majority of these values are subject to significant
 optimization in future iterations of ebpH. The $2^8$ value is a sensible default chosen by bcc. In practice, many of these events
 are infrequent enough that smaller buffer sizes would be sufficient.}
+
+\clearpage
+
+### The ebpH GUI
 
 The ebpH GUI (hereafter referred to as the GUI) provides a graphical user interface for interacting
 with the daemon. This GUI is still a work in progress and will be improved considerably
@@ -1078,11 +1205,11 @@ will not reject our code.
 The problem of dealing with the eBPF verifier can be expressed in
 the form of several subproblems as follows:
 
-1) Many kernel functions and programming constructs are prohibited in eBPF;
-2) eBPF programs come with a hard stack space limit of 512 bytes;
-3) Dynamic memory allocation is prohibited and memory access requires strict safety checks;
-4) Support for bounded loops is in its infancy and loops will not work without an easy proof that the induction variable will result in termination;
-5) The verifier tends to err on the side of caution and will produce false positives with non-negligible frequency.
+(1) Many kernel functions and programming constructs are prohibited in eBPF;
+(2) eBPF programs come with a hard stack space limit of 512 bytes;
+(3) Dynamic memory allocation is prohibited and memory access requires strict safety checks;
+(4) Support for bounded loops is in its infancy and loops will not work without an easy proof that the induction variable will result in termination;
+(5) The verifier tends to err on the side of caution and will produce false positives with non-negligible frequency.
 
 Subproblem (1) means that, at the moment, there is no simple means of injecting
 system call delay into system calls from within the eBPF program, an important part
@@ -1308,7 +1435,7 @@ in particular, system visibility enhancements to ebpH will almost certainly mani
 through the GUI wherein we will be able to visually present information to the user as they request it.
 
 Future versions of the GUI will also have more options for inspecting and making changes to system profiles.
-Somayaji describes three important operations in his dissertation [@soma2], *tolerize*, *sensitize*, and *normalize*,
+Somayaji describes three important operations in his dissertation [@soma02], *tolerize*, *sensitize*, and *normalize*,
 which have not yet been implemented in ebpH. These options will be added to the GUI when they are implemented to allow
 users to have fine grained control over how ebpH treats the profiles on their system. Additionally, users should be able
 to inspect individual profiles and look at their data in a format that is easy to understand; potentially this could be
