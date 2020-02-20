@@ -1,0 +1,3 @@
+[submodule "code/ebpH"]
+	path = code/ebpH
+	url = git@github.com:willfindlay/ebpH.git
