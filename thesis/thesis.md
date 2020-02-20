@@ -55,12 +55,24 @@ for maintaining operating system stability and security. This is primarily
 due to the many recent advances in system introspection technology; in particular,
 the 2013 introduction of *eBPF* (*Extended Berkeley Packet Filter*)
 into the Linux Kernel [@starovoitov13] along with the recent
-development of more usable interfaces such as *bcc* (*BPF Compiler Collection*)
+development of more usable interfaces such as the *BPF Compiler Collection* (*bcc*)
 [@bcc] has resulted in a highly compelling, performant, and (perhaps most importantly)
-safe subsystem for both kernel and userland
-instrumentation.
+safe subsystem for both kernel and userland instrumentation.
 
-The proposed thesis seeks to test the limits of what eBPF programs are capable of
+This thesis presents *ebpH*, an eBPF implementation of Somayaji's [@soma02] *Process Homeostasis* (*pH*).
+ebpH is an intrusion detection system (IDS) that uses eBPF programs to instrument system calls
+and establish normal behavior for processes, building a profile for each executable on the system;
+subsequently, ebpH can warn the user when it detects process behavior that violates the established
+profiles. Experimental results show that ebpH can detect anomalies in process behavior with negligible
+overhead. <!-- TODO: confirm that these were the results --> Furthermore, ebpH's anomaly detection
+comes with zero risk to the system thanks to the safety guarantees of eBPF, rendering it an ideal
+solution for monitoring production systems.
+
+In this thesis, we present the design and implementation of ebpH, including the technical challenges
+presented by the implementation of an eBPF-based IDS.
+
+<!--
+This thesis seeks to test the limits of what eBPF programs are capable of
 with respect to the domain of computer security; specifically, I present *ebpH*,
 an eBPF-based intrusion detection system based on Anil Somayaji's
 [@soma02] *pH* (*Process Homeostasis*). Preliminary testing
@@ -68,6 +80,7 @@ has shown that ebpH is able to detect anomalies in process behavior by instrumen
 system call tracepoints with negligible overhead. Future work will involve testing and
 iterating on the ebpH prototype, in order to extend its functionality beyond that
 of the current prototype system.
+-->
 
 <!--
 \noindent
@@ -84,7 +97,7 @@ of the current prototype system.
 First and foremost, I would like to thank my advisor, Anil Somayaji, for his
 tireless efforts to ensure the success of this project, as well as for providing
 the original design for pH along with invaluable advice and ideas. Implementing ebpH
-and writing this proposal has been a long process and not without its challenges.
+and writing this thesis has been a long process and not without its challenges.
 Dr. Somayaji's support and guidance have been quintessential to the success of this
 undertaking.
 
@@ -98,7 +111,7 @@ although none of that original code has made it into this iteration of ebpH.
 
 For their love and tremendous support of my education, I would like to thank my parents,
 Mark and Terri-Lyn. Without them, I am certain that none of this would have been possible.
-I would additionally like to thank my mother for suffering through the first draft of this proposal,
+I would additionally like to thank my mother for suffering through the first draft of this thesis,
 and finding the many errors that come with writing a paper this large in Vim with no grammar checker.
 
 Finally, I want to thank my dear friend, Amanda, for all the support she has provided me throughout
@@ -160,7 +173,7 @@ By building and maintaining per-executable behavior profiles, ebpH can dynamical
 processes are behaving outside of the status quo, and notify the user so that they can understand
 exactly what is going on.
 
-A prototype of ebpH has been written using the Python interface provided by *bcc* (*BPF Compiler Collection*) [@bcc],
+A prototype of ebpH has been written using the Python interface provided by the *BPF Compiler Collection* (*bcc*) [@bcc],
 and preliminary tests show that it is capable of monitoring system state under moderate to heavy workloads with negligible
 overhead. What's more, zero kernel panics occurred during ebpH's development and early testing, which simply
 would not have been possible without the safety guarantees that eBPF provides. The rest of this
@@ -1184,18 +1197,22 @@ has been marked as normal, we then run the same test program with an argument to
 ebpH immediately detects the anomalous system calls and flags them.
 These anomalies are then reported to userspace via a perf buffer as shown in \autoref{anomaly-flag}.
 
-![\label{anomaly-flag}The flagged anomalies in the `anomaly` binary as shown in the ebpH logs.](../figures/anomaly.png)
+\begin{lstlisting}[label={anomaly-flag}, caption={The flagged anomaly in the \texttt{anomaly}
+binary as shown in the ebpH logs. Note that ebpH also logs the offending sequence, reordering it
+so that most recent system calls appear on the right.}, language=none]
+WARNING: Anomalies in PID 11162 (anomaly 38803844):
+    MPROTECT, MPROTECT, MPROTECT, MUNMAP, FSTAT, BRK, BRK, WRITE, WRITE
+\end{lstlisting}
 
-From here, we can figure out exactly what went wrong by inspecting the system call sequences produced by `anomaly.c`
-in both cases and comparing them with their respective lookahead pair patterns. \autoref{anomaly-lookahead-comp}
-provides an example of this comparison.
+From here, we can figure out exactly what went wrong by inspecting the system call sequences produced by the `anomaly`
+program, in both cases and comparing them with their respective lookahead pair patterns.
+\autoref{anomaly-lookahead-comp} provides an example of this comparison.
 
 While this contrived example is useful for demonstrating ebpH's anomaly detection,
 process behavior in practice is often more nuanced. ebpH collects at least a week's worth of
 data about a process' system calls before marking it normal, which often corresponds with several branches of execution.
 In a real example, the multiple consecutive write calls might be a perfectly normal execution path for this process;
-by ensuring that we take our time before deciding whether a process' profile has reached acceptable maturity for testing,
-we dramatically decrease the probability of any false positives.
+by ensuring that we take our time before deciding whether a process' profile has reached acceptable maturity for testing, we decrease the probability of any false positives.
 
 \begin{figure}
 \begin{center}
