@@ -1059,9 +1059,19 @@ has been frozen for one week (i.e. system time has reached `normal_time`),
 the profile is then marked normal. Profiles are unfrozen when new behavior is
 observed and anomalies are only flagged in normal profiles.
 
-### Writing Profiles to Disk
+### Writing Profiles to Disk and Reading Profiles from Disk
 
-<!-- TODO: write this -->
+In order to allow profile data to persist across machine reboots, ebpH periodically
+writes profile data to disk, at an interval configurable the user, as well as when
+the BPF program is unloaded by the user. Profiles are read from disk when ebpH first loads.
+
+In the original pH, profile data was saved and loaded in kernelspace [@soma02] which meant that
+it required kernelspace file I/O, which is often regarded as an unsafe practice. ebpH solves
+this problem by moving all file I/O operations into userspace. This is made possible due to the
+bidirectional nature of dataflow with respect to eBPF maps. Specifically, when writing to disk, the daemon
+queries profile data from each entry in the profile map and writes that data to a file (`/var/lib/ebpH/<profile_key>`).
+When reading from disk, the daemon reads profile data from the appropriate files (`/var/lib/ebpH/<profile_key>`)
+and associates that data with keys in the newly created profile map.
 
 ## Tracing Processes
 
