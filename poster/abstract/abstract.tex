@@ -1,0 +1,112 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames*,x11names*}{xcolor}
+%
+\documentclass[
+  12pt]{findlay}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  filecolor=Maroon,
+  citecolor=Green,
+  urlcolor=blue,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage{listings}
+\newcommand{\passthrough}[1]{#1}
+\lstset{defaultdialect=[5.3]Lua}
+\lstset{defaultdialect=[x86masm]Assembler}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+\makeatletter
+\def\@maketitle{%
+  \begin{center}%
+  \let \footnote \thanks
+    {\large\scshape\bfseries \@title \par}%
+    \vskip 1em
+    {\large
+      \begin{tabular}[t]{c}%
+        \@author
+      \end{tabular}}%
+    \vskip 1em%
+    {\large \@date}
+  \end{center}%
+  \par}
+\makeatother
+\usepackage[]{biblatex}
+
+\title{EXTENDED BERKELEY PACKET FILTER FOR INTRUSION DETECTION
+IMPLEMENTATIONS}
+\author{William Findlay\\
+\small School of Computer Science, Carleton University}
+\date{}
+
+\begin{document}
+\maketitle
+
+\thispagestyle{empty}
+
+System introspection is becoming an increasingly attractive option for
+maintaining operating system stability and security. This is primarily
+due to the many recent advances in system introspection technology; in
+particular, the 2013 introduction of \emph{Extended Berkeley Packet
+Filter} (\emph{eBPF}) into the Linux Kernel along with the recent
+development of more usable interfaces such as the \emph{BPF Compiler
+Collection} (\emph{bcc}) has resulted in a highly compelling,
+performant, and (perhaps most importantly) safe subsystem for both
+kernel and userland instrumentation.
+
+The scope, safety, and performance of eBPF system introspection has
+potentially powerful applications in the domain of computer security. In
+order to demonstrate this, we present \emph{ebpH}, an eBPF
+implementation of Somayaji's \emph{Process Homeostasis} (\emph{pH}).
+ebpH is an intrusion detection system (IDS) that uses eBPF programs to
+instrument system calls and establish normal behavior for processes,
+building a profile for each executable on the system; subsequently, ebpH
+can warn the user when it detects process behavior that violates the
+established profiles.
+
+This poster will discuss the design and implementation of ebpH along
+with the technical challenges which occurred along the way. We will
+present experimental data and performance benchmarks that demonstrate
+ebpH's ability to monitor process behavior with minimal overhead.
+Finally, we conclude with a discussion on the merits of eBPF IDS
+implementations and potential avenues for future work therein.
+
+\printbibliography
+
+\end{document}

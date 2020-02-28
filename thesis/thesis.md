@@ -53,13 +53,15 @@ citecolor: Green
 System introspection is becoming an increasingly attractive option
 for maintaining operating system stability and security. This is primarily
 due to the many recent advances in system introspection technology; in particular,
-the 2013 introduction of *eBPF* (*Extended Berkeley Packet Filter*)
+the 2013 introduction of *Extended Berkeley Packet Filter* (*eBPF*)
 into the Linux Kernel [@starovoitov13] along with the recent
 development of more usable interfaces such as the *BPF Compiler Collection* (*bcc*)
 [@bcc] has resulted in a highly compelling, performant, and (perhaps most importantly)
 safe subsystem for both kernel and userland instrumentation.
 
-This thesis presents *ebpH*, an eBPF implementation of Somayaji's [@soma02] *Process Homeostasis* (*pH*).
+The scope, safety, and performance of eBPF system introspection has potentially powerful applications
+in the domain of computer security. In order to demonstrate this, we present
+*ebpH*, an eBPF implementation of Somayaji's [@soma02] *Process Homeostasis* (*pH*).
 ebpH is an intrusion detection system (IDS) that uses eBPF programs to instrument system calls
 and establish normal behavior for processes, building a profile for each executable on the system;
 subsequently, ebpH can warn the user when it detects process behavior that violates the established
@@ -68,8 +70,12 @@ overhead. <!-- TODO: confirm that these were the results --> Furthermore, ebpH's
 comes with zero risk to the system thanks to the safety guarantees of eBPF, rendering it an ideal
 solution for monitoring production systems.
 
-In this thesis, we present the design and implementation of ebpH, including the technical challenges
-presented by the implementation of an eBPF-based IDS.
+This thesis will discuss the design and implementation of ebpH along with the technical
+challenges which occurred along the way. We will present experimental data and performance benchmarks
+that demonstrate ebpH's ability to monitor process behavior with minimal overhead. Finally, we conclude
+with a discussion on the merits of eBPF IDS implementations and potential avenues for future work therein.
+
+ebpH is licensed under GPLv2 and full source code is available at [https://github.com/willfindlay/ebph](https://github.com/willfindlay/ebph).
 
 <!--
 This thesis seeks to test the limits of what eBPF programs are capable of
@@ -436,7 +442,7 @@ in order to generate eBPF bytecode and submit it to the kernel.
 
 \autoref{ebpf-topology} presents an overview of the eBPF workflow with respect to
 the interaction between userland applications and eBPF programs.
-Considering bcc's Python front end as an example: The user writes
+Considering bcc's Python front end as an example: the user writes
 their BPF program in C and a user interface in Python. Using a provided
 BPF class, the C code is used to generate bytecode which is then submitted
 to the verifier to be checked for safety. Assuming the BPF program passes
@@ -525,7 +531,7 @@ Proving the safety of arbitrary code is by definition a difficult problem.
 This is thanks in part to theoretical limitations on what we can actually prove;
 a famous example is the halting problem described by Turing circa 1937 [@turing37].
 This difficulty is further compounded by stricter requirements for safety in the context
-of eBPF. In fact, the problem that we are effectively trying to solve is one of
+of an eBPF program; in fact, the problem that we are effectively trying to solve is one of
 *untrusted* code running in the kernel, an implicitly trusted environment.
 
 To illustrate the importance of this problem of safety with respect to eBPF,
@@ -580,7 +586,7 @@ far from the ideal.
 The immediate exclusion of eBPF programs meeting certain criteria is the crux
 of eBPF's safety guarantees. Unfortunately, it also rather intuitively
 limits what we are actually able to do with eBPF programs. In particular,
-eBPF is not a Turing complete language; it prohibits jump instructions,
+eBPF is not a Turing complete language; it prohibits arbitrary jump instructions,
 cycles in execution graphs, and unverified memory access. Further, we limit
 stack allocations to only 512 bytes -- far too small for many practical use cases.
 From a security perspective, these limitations are a *good thing*, because they allow us to immediately exclude eBPF
@@ -799,7 +805,7 @@ section, we can classify pH as a host-based anomaly detection system that respon
 by both issuing alerts *and* mounting countermeasures to reduce the impact of anomalies;
 in particular pH responds to anomalies by injecting delays into a process' system calls
 proportionally to the number of recent anomalies that have been observed [@soma02].
-It is in this way that pH lives up to its name: These delays make process behavior
+It is in this way that pH lives up to its name: these delays make process behavior
 *homeostatic*.
 
 ### Anomaly Detection Through Lookahead Pairs
@@ -1053,6 +1059,10 @@ has been frozen for one week (i.e. system time has reached `normal_time`),
 the profile is then marked normal. Profiles are unfrozen when new behavior is
 observed and anomalies are only flagged in normal profiles.
 
+### Writing Profiles to Disk
+
+<!-- TODO: write this -->
+
 ## Tracing Processes
 
 Like profiles, process information is also tracked through a global hashmap of process
@@ -1122,7 +1132,7 @@ wipe the process' current sequence of system calls}\\
 \end{center}
 \end{table}
 
-#### Profile Creation and Association
+### Profile Creation and Association
 There are several important considerations here. First, we need a way to assign profiles
 to processes, which is done by instrumenting the `execve` system call using a tracepoint,
 as well as part of its underlying implementation via a kprobe. In particular, we hook
@@ -1142,7 +1152,7 @@ In addition to associating a process with the correct profile, we also wipe
 the process' current sequence of system calls, to ensure that there is no carryover
 between two unrelated profiles when constructing their lookahead pairs.
 
-#### Profile Association and Sequence Duplication
+### Profile Association and Sequence Duplication
 Another special consideration is with respect to `fork` and `clone` family system calls.
 A forked process should begin with the same state as its parent and should (at least initially)
 be associated with the same profile as its parent. A subsequent `execve` (i.e. the `fork`-`execve` pattern)
@@ -1153,21 +1163,48 @@ exists. If ebpH detects an `execve` as outlined above, it will simply overwrite 
 profile association provided by the fork. The parent's current system call sequence
 is also copied to the child to prevent forks from being used to break sequences.
 
-#### Dealing with Signals
+### Dealing with Signal Handlers and Non-Determinism
+As an anomaly-based intrusion detection system, it is critical that ebpH be able to establish
+normal profiles of program behavior in a timely manner. As presented in previous sections,
+establishing the normalcy of a profile requires that the it has been active for at least
+a week and that the ratio of total system calls seen during training to system calls the last
+time the profile was modified be sufficiently large. As a corollary, every time a process makes
+a system call that results in a previously unobserved sequence, this ratio becomes increasingly
+difficult to achieve. In practice, this means that it is much harder to normalize profiles that
+exhibit less deterministic behavior. As a practical example, consider the time required to stabilize
+a relatively simple binary, such as `ls` versus a complex web browser like `firefox`; not only does `firefox`
+make significantly more system calls during an average run, but it is also far more likely to produce
+a previously unseen sequence at any given time.
 
-<!-- TODO: write this -->
+This problem of normalizing profiles is compounded by the non-deterministic behavior introduced by
+signals and signal handlers. This phenomenon was first noted by Amai et al. [@amai05] in a 2005 technical
+paper on the original pH system. In particular, they noted that signal handlers were a significant
+source of non-deterministic behavior in processes that ultimately led to significantly longer
+wait times until profile normalcy. This effect is not difficult to see in practice, especially in the context
+of complex programs that run for extended periods of time, such as the above `firefox` example.
+Suppose that we have some sequence of system calls $(A, B, C, D, E)$ and a signal handler that
+invokes system calls $(F, G, H)$; depending on when this signal is caught during the initial sequence,
+the resulting sequence can vary significantly. For example, we might see $(A, F, G, H, B, C, D, E)$
+in one instance and $(A, B, C, D, F, G, H, E)$ in another. This results in a significant deterioration in profile
+stability, and subsequently profile normalcy times.
 
-#### Reaping Processes
+ebpH deals with the problem of signal handlers in the same manner proposed by Amai et al. [@amai05].
+Specifically, we maintain a stack of system call sequences in each process struct; each time we receive
+a signal, we push a frame onto this stack, and each time we exit our signal handler, we pop the frame.
+This has the effect of temporarily wiping ebpH's memory of a process' current system call sequence
+whenever we enter a signal handler, allowing subsequent lookahead pairs to be unaffected by
+the execution context prior to the handler's invocation. In order to decide when to push, we
+instrument a new eBPF kprobe on the kernel's `do_signal` implementation; this allows us to detect when a process
+receives a signal that will be handled. Subsequently, we detect a return from a signal handler by checking for
+the `re_sigreturn` system call; when ebpH detects such a return, it pops the top frame from the sequence stack.
+
+### Reaping Processes
 ebpH reaps tasks from its process map whenever detects that they have exited.
-By reaping process structs from our map as we are finished with them we ensure that:
-
-a) the map never fills up; and
-b) the map does not consume more memory than necessary.
-
-In order to detect when a task exits, we instrument the `sched_process_exit` tracepoint
-provided by the kernel's trace API. This tracepoint is triggered whenever the scheduler
-handles the termination of a task. We simply determine the task's PID and delete that key from
-our process map.
+By reaping process structs from our map as we are finished with them we ensure that the map
+neither fills up, nor does it consume more memory than necessary. In order to detect when a task exits,
+we instrument the `sched_process_exit` tracepoint provided by the kernel's trace API.
+This tracepoint is triggered whenever the scheduler handles the termination of a task.
+We simply determine the task's PID and delete that key from our process map.
 
 ## Training, Testing, and Anomaly Detection
 
@@ -1246,6 +1283,10 @@ on (\lstinline{write}, \lstinline{write}) for simplicity.
 ### Issuing More Complex Commands
 
 <!-- TODO: write this -->
+
+# Technical Challenges of an eBPF Intrusion Detection System
+
+<!-- TODO: write this section -->
 
 ## Soothing the Verifier
 

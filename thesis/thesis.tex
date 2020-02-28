@@ -115,31 +115,36 @@ Intrusion Detection Implementations}
 System introspection is becoming an increasingly attractive option for
 maintaining operating system stability and security. This is primarily
 due to the many recent advances in system introspection technology; in
-particular, the 2013 introduction of \emph{eBPF} (\emph{Extended
-Berkeley Packet Filter}) into the Linux Kernel \autocite{starovoitov13}
+particular, the 2013 introduction of \emph{Extended Berkeley Packet
+Filter} (\emph{eBPF}) into the Linux Kernel \autocite{starovoitov13}
 along with the recent development of more usable interfaces such as the
 \emph{BPF Compiler Collection} (\emph{bcc}) \autocite{bcc} has resulted
 in a highly compelling, performant, and (perhaps most importantly) safe
 subsystem for both kernel and userland instrumentation.
 
-This thesis presents \emph{ebpH}, an eBPF implementation of Somayaji's
-\autocite{soma02} \emph{Process Homeostasis} (\emph{pH}). ebpH is an
-intrusion detection system (IDS) that uses eBPF programs to instrument
-system calls and establish normal behavior for processes, building a
-profile for each executable on the system; subsequently, ebpH can warn
-the user when it detects process behavior that violates the established
-profiles. Experimental results show that ebpH can detect anomalies in
-process behavior with negligible overhead. Furthermore, ebpH's anomaly
-detection comes with zero risk to the system thanks to the safety
-guarantees of eBPF, rendering it an ideal solution for monitoring
-production systems.
+The scope, safety, and performance of eBPF system introspection has
+potentially powerful applications in the domain of computer security. In
+order to demonstrate this, we present \emph{ebpH}, an eBPF
+implementation of Somayaji's \autocite{soma02} \emph{Process
+Homeostasis} (\emph{pH}). ebpH is an intrusion detection system (IDS)
+that uses eBPF programs to instrument system calls and establish normal
+behavior for processes, building a profile for each executable on the
+system; subsequently, ebpH can warn the user when it detects process
+behavior that violates the established profiles. Experimental results
+show that ebpH can detect anomalies in process behavior with negligible
+overhead. Furthermore, ebpH's anomaly detection comes with zero risk to
+the system thanks to the safety guarantees of eBPF, rendering it an
+ideal solution for monitoring production systems.
 
-Here we describe the rationale behind creating an eBPF intrusion
-detection system, present the design and implementation of ebpH,
-including technical challenges encountered, and early experimental
-results, including performance benchmarks. Finally, we discuss the
-overall viability of eBPF as means of IDS data collection and present
-potential avenues for future work therein.
+This thesis will discuss the design and implementation of ebpH along
+with the technical challenges which occurred along the way. We will
+present experimental data and performance benchmarks that demonstrate
+ebpH's ability to monitor process behavior with minimal overhead.
+Finally, we conclude with a discussion on the merits of eBPF IDS
+implementations and potential avenues for future work therein.
+
+ebpH is licensed under GPLv2 and full source code is available at
+\url{https://github.com/willfindlay/ebph}.
 
 \newpage
 \section*{Acknowledgments}
@@ -577,7 +582,7 @@ order to generate eBPF bytecode and submit it to the kernel.
 
 \autoref{ebpf-topology} presents an overview of the eBPF workflow with
 respect to the interaction between userland applications and eBPF
-programs. Considering bcc's Python front end as an example: The user
+programs. Considering bcc's Python front end as an example: the user
 writes their BPF program in C and a user interface in Python. Using a
 provided BPF class, the C code is used to generate bytecode which is
 then submitted to the verifier to be checked for safety. Assuming the
@@ -676,10 +681,10 @@ Proving the safety of arbitrary code is by definition a difficult
 problem. This is thanks in part to theoretical limitations on what we
 can actually prove; a famous example is the halting problem described by
 Turing circa 1937 \autocite{turing37}. This difficulty is further
-compounded by stricter requirements for safety in the context of eBPF.
-In fact, the problem that we are effectively trying to solve is one of
-\emph{untrusted} code running in the kernel, an implicitly trusted
-environment.
+compounded by stricter requirements for safety in the context of an eBPF
+program; in fact, the problem that we are effectively trying to solve is
+one of \emph{untrusted} code running in the kernel, an implicitly
+trusted environment.
 
 To illustrate the importance of this problem of safety with respect to
 eBPF, let us consider a simple example. We will again consider the
@@ -737,11 +742,11 @@ far from the ideal.
 The immediate exclusion of eBPF programs meeting certain criteria is the
 crux of eBPF's safety guarantees. Unfortunately, it also rather
 intuitively limits what we are actually able to do with eBPF programs.
-In particular, eBPF is not a Turing complete language; it prohibits jump
-instructions, cycles in execution graphs, and unverified memory access.
-Further, we limit stack allocations to only 512 bytes -- far too small
-for many practical use cases. From a security perspective, these
-limitations are a \emph{good thing}, because they allow us to
+In particular, eBPF is not a Turing complete language; it prohibits
+arbitrary jump instructions, cycles in execution graphs, and unverified
+memory access. Further, we limit stack allocations to only 512 bytes --
+far too small for many practical use cases. From a security perspective,
+these limitations are a \emph{good thing}, because they allow us to
 immediately exclude eBPF programs with unverifiable safety; but from a
 usability standpoint, particularly that of a new eBPF developer, the
 trade-off is not without its drawbacks.
@@ -1021,7 +1026,7 @@ both issuing alerts \emph{and} mounting countermeasures to reduce the
 impact of anomalies; in particular pH responds to anomalies by injecting
 delays into a process' system calls proportionally to the number of
 recent anomalies that have been observed \autocite{soma02}. It is in
-this way that pH lives up to its name: These delays make process
+this way that pH lives up to its name: these delays make process
 behavior \emph{homeostatic}.
 
 \hypertarget{anomaly-detection-through-lookahead-pairs}{%
@@ -1368,7 +1373,7 @@ wipe the process' current sequence of system calls}\\
 \end{table}
 
 \hypertarget{profile-creation-and-association}{%
-\paragraph{Profile Creation and
+\subsubsection{Profile Creation and
 Association}\label{profile-creation-and-association}}
 
 There are several important considerations here. First, we need a way to
@@ -1401,7 +1406,7 @@ is no carryover between two unrelated profiles when constructing their
 lookahead pairs.
 
 \hypertarget{profile-association-and-sequence-duplication}{%
-\paragraph{Profile Association and Sequence
+\subsubsection{Profile Association and Sequence
 Duplication}\label{profile-association-and-sequence-duplication}}
 
 Another special consideration is with respect to
@@ -1421,30 +1426,72 @@ overwrite the initial profile association provided by the fork. The
 parent's current system call sequence is also copied to the child to
 prevent forks from being used to break sequences.
 
-\hypertarget{dealing-with-signals}{%
-\paragraph{Dealing with Signals}\label{dealing-with-signals}}
+\hypertarget{dealing-with-signal-handlers-and-non-determinism}{%
+\subsubsection{Dealing with Signal Handlers and
+Non-Determinism}\label{dealing-with-signal-handlers-and-non-determinism}}
+
+As an anomaly-based intrusion detection system, it is critical that ebpH
+be able to establish normal profiles of program behavior in a timely
+manner. As presented in previous sections, establishing the normalcy of
+a profile requires that the it has been active for at least a week and
+that the ratio of total system calls seen during training to system
+calls the last time the profile was modified be sufficiently large. As a
+corollary, every time a process makes a system call that results in a
+previously unobserved sequence, this ratio becomes increasingly
+difficult to achieve. In practice, this means that it is much harder to
+normalize profiles that exhibit less deterministic behavior. As a
+practical example, consider the time required to stabilize a relatively
+simple binary, such as \passthrough{\lstinline!ls!} versus a complex web
+browser like \passthrough{\lstinline!firefox!}; not only does
+\passthrough{\lstinline!firefox!} make significantly more system calls
+during an average run, but it is also far more likely to produce a
+previously unseen sequence at any given time.
+
+This problem of normalizing profiles is compounded by the
+non-deterministic behavior introduced by signals and signal handlers.
+This phenomenon was first noted by Amai et al.~\autocite{amai05} in a
+2005 technical paper on the original pH system. In particular, they
+noted that signal handlers were a significant source of
+non-deterministic behavior in processes that ultimately led to
+significantly longer wait times until profile normalcy. This effect is
+not difficult to see in practice, especially in the context of complex
+programs that run for extended periods of time, such as the above
+\passthrough{\lstinline!firefox!} example. Suppose that we have some
+sequence of system calls \((A, B, C, D, E)\) and a signal handler that
+invokes system calls \((F, G, H)\); depending on when this signal is
+caught during the initial sequence, the resulting sequence can vary
+significantly. For example, we might see \((A, F, G, H, B, C, D, E)\) in
+one instance and \((A, B, C, D, F, G, H, E)\) in another. This results
+in a significant deterioration in profile stability, and subsequently
+profile normalcy times.
+
+ebpH deals with the problem of signal handlers in the same manner
+proposed by Amai et al.~\autocite{amai05}. Specifically, we maintain a
+stack of system call sequences in each process struct; each time we
+receive a signal, we push a frame onto this stack, and each time we exit
+our signal handler, we pop the frame. This has the effect of temporarily
+wiping ebpH's memory of a process' current system call sequence whenever
+we enter a signal handler, allowing subsequent lookahead pairs to be
+unaffected by the execution context prior to the handler's invocation.
+In order to decide when to push, we instrument a new eBPF kprobe on the
+kernel's \passthrough{\lstinline!do\_signal!} implementation; this
+allows us to detect when a process receives a signal that will be
+handled. Subsequently, we detect a return from a signal handler by
+checking for the \passthrough{\lstinline!re\_sigreturn!} system call;
+when ebpH detects such a return, it pops the top frame from the sequence
+stack.
 
 \hypertarget{reaping-processes}{%
-\paragraph{Reaping Processes}\label{reaping-processes}}
+\subsubsection{Reaping Processes}\label{reaping-processes}}
 
 ebpH reaps tasks from its process map whenever detects that they have
 exited. By reaping process structs from our map as we are finished with
-them we ensure that:
-
-\begin{enumerate}
-\def\labelenumi{\alph{enumi})}
-\tightlist
-\item
-  the map never fills up; and
-\item
-  the map does not consume more memory than necessary.
-\end{enumerate}
-
-In order to detect when a task exits, we instrument the
-\passthrough{\lstinline!sched\_process\_exit!} tracepoint provided by
-the kernel's trace API. This tracepoint is triggered whenever the
-scheduler handles the termination of a task. We simply determine the
-task's PID and delete that key from our process map.
+them we ensure that the map neither fills up, nor does it consume more
+memory than necessary. In order to detect when a task exits, we
+instrument the \passthrough{\lstinline!sched\_process\_exit!} tracepoint
+provided by the kernel's trace API. This tracepoint is triggered
+whenever the scheduler handles the termination of a task. We simply
+determine the task's PID and delete that key from our process map.
 
 \hypertarget{training-testing-and-anomaly-detection}{%
 \subsection{Training, Testing, and Anomaly
@@ -1537,6 +1584,10 @@ Processes}\label{examining-profiles-and-processes}}
 \hypertarget{issuing-more-complex-commands}{%
 \subsubsection{Issuing More Complex
 Commands}\label{issuing-more-complex-commands}}
+
+\hypertarget{technical-challenges-of-an-ebpf-intrusion-detection-system}{%
+\section{Technical Challenges of an eBPF Intrusion Detection
+System}\label{technical-challenges-of-an-ebpf-intrusion-detection-system}}
 
 \hypertarget{soothing-the-verifier}{%
 \subsection{Soothing the Verifier}\label{soothing-the-verifier}}
