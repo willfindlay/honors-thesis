@@ -9,25 +9,22 @@ subtitle: |
 date: \today
 subparagraph: yes
 documentclass: findlay
-header-includes: |
-    \addbibresource{../bib/thesis.bib}
-    \makeatletter
-    \def\@maketitle{
-    \begin{center}
-    {\Huge \@title \par}
-    \vskip 1.5em
-    by
-    \vskip 1.5em
-    {\large \bfseries\@author}
-    \vskip 0.5em
-    {\large \itshape \@date}
-    \vfill
-    Under the supervision of Dr.\ Anil Somayaji\\
-    Carleton University
-    \vfill
-    \end{center}
-    }
-    \makeatother
+header-includes:
+    - \addbibresource{../bib/thesis.bib}
+    #- \makeatletter
+    #- \def\@maketitle{
+    #- \begin{center}
+    #- {\Huge \@title \par}
+    #- \vskip 1.5em
+    #- by
+    #- \vskip 1.5em
+    #- {\large \bfseries\@author}
+    #- \vskip 0.5em
+    #- {\large \itshape \@date}
+    #- \end{center}
+    #- }
+    #- \makeatother
+
 classoption: 12pt
 numbersections: true
 # It's annoying that I have to add this but okay pandoc...
@@ -42,6 +39,14 @@ citecolor: Green
 
 <!-- Title page -->
 \thispagestyle{empty}
+
+\begin{center}
+    \large
+    \vfill
+    Under the supervision of Dr.\ Anil Somayaji\\
+    Carleton University
+    \vfill
+\end{center}
 
 \onehalfspacing
 
@@ -898,6 +903,18 @@ faced, and justify why eBPF was ultimately well-suited to an implementation of t
 
 <!-- TODO: update this to discuss several CLI programs, remove GUI, add libebph -->
 
+The userspace components of ebpH are comprised of several distinct and related programs.
+In particular, we can divide these programs into two sets: the *ebpH Daemon* (`ebphd`) and several
+CLI (command line interface) programs used to interact with it. The daemon is responsible for submitting BPF programs
+to the kernel, managing their state, and providing an API to other userspace programs.
+The CLI programs used to interact with the daemon include `ebph-ps`, used to list actively traced processes, threads, and profiles, providing
+information about each, and `ebph-admin`, used to issue commands to the daemon and to check the status of the BPF program.
+In order to issue more complex commands to the BPF program, `ebphd` leverages a userspace shared library, `libebph.so`
+which provides functions that can be connected to arbitrary BPF programs via `uprobes`.
+Earlier versions of ebpH also included a GUI, however the GUI needs to be refactored in order to work with ebpH's new
+architecture and this is currently a topic for future work.
+
+<!--
 The userspace components of ebpH are comprised of two distinct programs.
 The *ebpH Daemon* (*ebpHD*) is responsible for initially compiling and submitting the eBPF program,
 as well as communication between userspace and the in-kernel eBPF program. As part of this communication,
@@ -905,6 +922,7 @@ it loads existing profiles from the disk and saves new and modified profiles to 
 Users can interact with the daemon either directly on the command line or by using the *ebpH GUI*.
 The GUI performs the same basic functions as the command line interface, except it presents information and commands
 in the form of a graphical user interface.
+-->
 
 ### The ebpH Daemon
 
@@ -964,6 +982,14 @@ The daemon also uses direct map access to save and load profiles to and from the
 Profiles are saved automatically at regular intervals, configurable by the user,
 as well as any time ebpH stops monitoring the system.
 These profiles are automatically loaded every time ebpH starts.
+
+### `ebph-ps`
+
+<!-- TODO: write this -->
+
+### `ebph-admin`
+
+<!-- TODO: write this -->
 
 <!--
 

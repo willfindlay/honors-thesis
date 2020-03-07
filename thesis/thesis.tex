@@ -66,23 +66,6 @@
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{5}
 \addbibresource{../bib/thesis.bib}
-\makeatletter
-\def\@maketitle{
-\begin{center}
-{\Huge \@title \par}
-\vskip 1.5em
-by
-\vskip 1.5em
-{\large \bfseries\@author}
-\vskip 0.5em
-{\large \itshape \@date}
-\vfill
-Under the supervision of Dr.\ Anil Somayaji\\
-Carleton University
-\vfill
-\end{center}
-}
-\makeatother
 \usepackage[]{biblatex}
 
 \title{Extended Berkeley Packet Filter for\\
@@ -104,6 +87,14 @@ Intrusion Detection Implementations}
 \counterwithin{lstlisting}{section}
 
 \thispagestyle{empty}
+
+\begin{center}
+    \large
+    \vfill
+    Under the supervision of Dr.\ Anil Somayaji\\
+    Carleton University
+    \vfill
+\end{center}
 
 \onehalfspacing
 
@@ -1141,16 +1132,25 @@ ebpH.}
 \hypertarget{userspace-components}{%
 \subsection{Userspace Components}\label{userspace-components}}
 
-The userspace components of ebpH are comprised of two distinct programs.
-The \emph{ebpH Daemon} (\emph{ebpHD}) is responsible for initially
-compiling and submitting the eBPF program, as well as communication
-between userspace and the in-kernel eBPF program. As part of this
-communication, it loads existing profiles from the disk and saves new
-and modified profiles to the disk at regular intervals. Users can
-interact with the daemon either directly on the command line or by using
-the \emph{ebpH GUI}. The GUI performs the same basic functions as the
-command line interface, except it presents information and commands in
-the form of a graphical user interface.
+The userspace components of ebpH are comprised of several distinct and
+related programs. In particular, we can divide these programs into two
+sets: the \emph{ebpH Daemon} (\passthrough{\lstinline!ebphd!}) and
+several CLI (command line interface) programs used to interact with it.
+The daemon is responsible for submitting BPF programs to the kernel,
+managing their state, and providing an API to other userspace programs.
+The CLI programs used to interact with the daemon include
+\passthrough{\lstinline!ebph-ps!}, used to list actively traced
+processes, threads, and profiles, providing information about each, and
+\passthrough{\lstinline!ebph-admin!}, used to issue commands to the
+daemon and to check the status of the BPF program. In order to issue
+more complex commands to the BPF program,
+\passthrough{\lstinline!ebphd!} leverages a userspace shared library,
+\passthrough{\lstinline!libebph.so!} which provides functions that can
+be connected to arbitrary BPF programs via
+\passthrough{\lstinline!uprobes!}. Earlier versions of ebpH also
+included a GUI, however the GUI needs to be refactored in order to work
+with ebpH's new architecture and this is currently a topic for future
+work.
 
 \hypertarget{the-ebph-daemon}{%
 \subsubsection{The ebpH Daemon}\label{the-ebph-daemon}}
@@ -1217,6 +1217,12 @@ The daemon also uses direct map access to save and load profiles to and
 from the disk. Profiles are saved automatically at regular intervals,
 configurable by the user, as well as any time ebpH stops monitoring the
 system. These profiles are automatically loaded every time ebpH starts.
+
+\hypertarget{ebph-ps}{%
+\subsubsection{\texorpdfstring{\texttt{ebph-ps}}{ebph-ps}}\label{ebph-ps}}
+
+\hypertarget{ebph-admin}{%
+\subsubsection{\texorpdfstring{\texttt{ebph-admin}}{ebph-admin}}\label{ebph-admin}}
 
 \hypertarget{ebph-profiles}{%
 \subsection{ebpH Profiles}\label{ebph-profiles}}
