@@ -1,3 +1,6 @@
 [submodule "code/ebpH"]
 	path = code/ebpH
 	url = git@github.com:willfindlay/ebpH.git
+[submodule "code/bpfbench"]
+	path = code/bpfbench
+	url = git@github.com:willfindlay/bpfbench.git

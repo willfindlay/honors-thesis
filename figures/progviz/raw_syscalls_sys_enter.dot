@@ -1,0 +1,206 @@
+digraph "DOT graph for eBPF program" {
+subgraph "cluster_0" {
+	style="dashed";
+	color="black";
+	label="func_0 ()";
+	fn_0_bb_0 [shape=Mdiamond,style=filled,label="ENTRY"];
+
+	fn_0_bb_2 [shape=record,style=filled,label="{   0: (bf) r6 = r1\l\
+ |    1: (79) r8 = *(u64 *)(r6 +8)\l\
+ |    2: (85) call bpf_get_current_pid_tgid#102256\l\
+ |    3: (63) *(u32 *)(r10 -4) = r0\l\
+ |    4: (b7) r7 = 0\l\
+ |    5: (63) *(u32 *)(r10 -8) = r7\l\
+ |    6: (18) r1 = map[id:2]\l\
+ |    7: BUG_ld_00\l\
+ |    8: (bf) r2 = r10\l\
+ |    9: (07) r2 += -8\l\
+ |   10: (07) r1 += 272\l\
+ |   11: (61) r0 = *(u32 *)(r2 +0)\l\
+ |   12: (35) if r0 \>= 0x1 goto pc+3\l\
+}"];
+
+	fn_0_bb_3 [shape=record,style=filled,label="{  13: (67) r0 \<\<= 3\l\
+ |   14: (0f) r0 += r1\l\
+ |   15: (05) goto pc+1\l\
+}"];
+
+	fn_0_bb_4 [shape=record,style=filled,label="{  16: (b7) r0 = 0\l\
+}"];
+
+	fn_0_bb_5 [shape=record,style=filled,label="{  17: (55) if r0 != 0x0 goto pc+40\l\
+}"];
+
+	fn_0_bb_6 [shape=record,style=filled,label="{  18: (b7) r1 = 0\l\
+ |   19: (73) *(u8 *)(r10 -14) = r1\l\
+ |   20: (b7) r1 = 8807\l\
+ |   21: (6b) *(u16 *)(r10 -16) = r1\l\
+ |   22: (18) r1 = 0x6e69726f74696e6f\l\
+ |   23: BUG_ld_00\l\
+ |   24: (7b) *(u64 *)(r10 -24) = r1\l\
+ |   25: (18) r1 = 0x6d2220726f662065\l\
+ |   26: BUG_ld_00\l\
+ |   27: (7b) *(u64 *)(r10 -32) = r1\l\
+ |   28: (18) r1 = 0x756c617620656e69\l\
+ |   29: BUG_ld_00\l\
+ |   30: (7b) *(u64 *)(r10 -40) = r1\l\
+ |   31: (18) r1 = 0x6d72657465642074\l\
+ |   32: BUG_ld_00\l\
+ |   33: (7b) *(u64 *)(r10 -48) = r1\l\
+ |   34: (18) r1 = 0x6f6e20646c756f43\l\
+ |   35: BUG_ld_00\l\
+ |   36: (7b) *(u64 *)(r10 -56) = r1\l\
+ |   37: (18) r1 = 0x203a7265746e655f\l\
+ |   38: BUG_ld_00\l\
+ |   39: (7b) *(u64 *)(r10 -64) = r1\l\
+ |   40: (18) r1 = 0x7379733a736c6c61\l\
+ |   41: BUG_ld_00\l\
+ |   42: (7b) *(u64 *)(r10 -72) = r1\l\
+ |   43: (18) r1 = 0x637379735f776172\l\
+ |   44: BUG_ld_00\l\
+ |   45: (7b) *(u64 *)(r10 -80) = r1\l\
+ |   46: (18) r2 = map[id:17]\l\
+ |   47: BUG_ld_00\l\
+ |   48: (18) r7 = 0xffffffff\l\
+ |   49: BUG_ld_00\l\
+ |   50: (bf) r4 = r10\l\
+ |   51: (07) r4 += -80\l\
+ |   52: (bf) r1 = r6\l\
+ |   53: (18) r3 = 0xffffffff\l\
+ |   54: BUG_ld_00\l\
+ |   55: (b7) r5 = 67\l\
+}"];
+
+	fn_0_bb_7 [shape=record,style=filled,label="{  56: (85) call bpf_perf_event_output_tp#-56368\l\
+ |   57: (05) goto pc+29\l\
+}"];
+
+	fn_0_bb_8 [shape=record,style=filled,label="{  58: (61) r1 = *(u32 *)(r0 +0)\l\
+ |   59: (15) if r1 == 0x0 goto pc+27\l\
+}"];
+
+	fn_0_bb_9 [shape=record,style=filled,label="{  60: (18) r1 = map[id:8]\l\
+ |   61: BUG_ld_00\l\
+ |   62: (bf) r2 = r10\l\
+ |   63: (07) r2 += -4\l\
+ |   64: (85) call __htab_map_lookup_elem#109232\l\
+ |   65: (15) if r0 == 0x0 goto pc+1\l\
+}"];
+
+	fn_0_bb_10 [shape=record,style=filled,label="{  66: (07) r0 += 56\l\
+}"];
+
+	fn_0_bb_11 [shape=record,style=filled,label="{  67: (15) if r0 == 0x0 goto pc+19\l\
+}"];
+
+	fn_0_bb_12 [shape=record,style=filled,label="{  68: (71) r1 = *(u8 *)(r0 +625)\l\
+ |   69: (15) if r1 == 0x0 goto pc+6\l\
+}"];
+
+	fn_0_bb_13 [shape=record,style=filled,label="{  70: (b7) r1 = 0\l\
+ |   71: (73) *(u8 *)(r0 +625) = r1\l\
+ |   72: (71) r1 = *(u8 *)(r0 +624)\l\
+ |   73: (15) if r1 == 0x0 goto pc+15\l\
+}"];
+
+	fn_0_bb_14 [shape=record,style=filled,label="{  74: (07) r1 += -1\l\
+ |   75: (73) *(u8 *)(r0 +624) = r1\l\
+}"];
+
+	fn_0_bb_15 [shape=record,style=filled,label="{  76: (55) if r8 != 0xf goto pc+10\l\
+}"];
+
+	fn_0_bb_16 [shape=record,style=filled,label="{  77: (18) r1 = map[id:8]\l\
+ |   78: BUG_ld_00\l\
+ |   79: (bf) r2 = r10\l\
+ |   80: (07) r2 += -4\l\
+ |   81: (85) call __htab_map_lookup_elem#109232\l\
+ |   82: (15) if r0 == 0x0 goto pc+1\l\
+}"];
+
+	fn_0_bb_17 [shape=record,style=filled,label="{  83: (07) r0 += 56\l\
+}"];
+
+	fn_0_bb_18 [shape=record,style=filled,label="{  84: (15) if r0 == 0x0 goto pc+2\l\
+}"];
+
+	fn_0_bb_19 [shape=record,style=filled,label="{  85: (b7) r1 = 1\l\
+ |   86: (73) *(u8 *)(r0 +625) = r1\l\
+}"];
+
+	fn_0_bb_20 [shape=record,style=filled,label="{  87: (bf) r0 = r7\l\
+ |   88: (95) exit\l\
+}"];
+
+	fn_0_bb_21 [shape=record,style=filled,label="{  89: (b7) r1 = 107\l\
+ |   90: (6b) *(u16 *)(r10 -24) = r1\l\
+ |   91: (18) r1 = 0x63617473206d6f72\l\
+ |   92: BUG_ld_00\l\
+ |   93: (7b) *(u64 *)(r10 -32) = r1\l\
+ |   94: (18) r1 = 0x662065636e657571\l\
+ |   95: BUG_ld_00\l\
+ |   96: (7b) *(u64 *)(r10 -40) = r1\l\
+ |   97: (18) r1 = 0x657320706f70206f\l\
+ |   98: BUG_ld_00\l\
+ |   99: (7b) *(u64 *)(r10 -48) = r1\l\
+ |  100: (18) r1 = 0x742064656c696146\l\
+ |  101: BUG_ld_00\l\
+ |  102: (7b) *(u64 *)(r10 -56) = r1\l\
+ |  103: (18) r1 = 0x203a7265746e655f\l\
+ |  104: BUG_ld_00\l\
+ |  105: (7b) *(u64 *)(r10 -64) = r1\l\
+ |  106: (18) r1 = 0x7379733a736c6c61\l\
+ |  107: BUG_ld_00\l\
+ |  108: (7b) *(u64 *)(r10 -72) = r1\l\
+ |  109: (18) r1 = 0x637379735f776172\l\
+ |  110: BUG_ld_00\l\
+ |  111: (7b) *(u64 *)(r10 -80) = r1\l\
+ |  112: (18) r2 = map[id:17]\l\
+ |  113: BUG_ld_00\l\
+ |  114: (18) r7 = 0xffffffff\l\
+ |  115: BUG_ld_00\l\
+ |  116: (bf) r4 = r10\l\
+ |  117: (07) r4 += -80\l\
+ |  118: (bf) r1 = r6\l\
+ |  119: (18) r3 = 0xffffffff\l\
+ |  120: BUG_ld_00\l\
+ |  121: (b7) r5 = 58\l\
+ |  122: (05) goto pc-67\l\
+}"];
+
+	fn_0_bb_1 [shape=Mdiamond,style=filled,label="EXIT"];
+
+	fn_0_bb_0:s -> fn_0_bb_2:n [style="solid,bold", color=black, weight=10, constraint=true];
+	fn_0_bb_2:s -> fn_0_bb_3:n [style="solid,bold", color=black, weight=10, constraint=true];
+	fn_0_bb_2:s -> fn_0_bb_4:n [style="solid,bold", color=black, weight=10, constraint=true];
+	fn_0_bb_3:s -> fn_0_bb_5:n [style="solid,bold", color=black, weight=10, constraint=true];
+	fn_0_bb_4:s -> fn_0_bb_5:n [style="solid,bold", color=black, weight=10, constraint=true];
+	fn_0_bb_5:s -> fn_0_bb_6:n [style="solid,bold", color=black, weight=10, constraint=true];
+	fn_0_bb_5:s -> fn_0_bb_8:n [style="solid,bold", color=black, weight=10, constraint=true];
+	fn_0_bb_6:s -> fn_0_bb_7:n [style="solid,bold", color=black, weight=10, constraint=true];
+	fn_0_bb_7:s -> fn_0_bb_20:n [style="solid,bold", color=black, weight=10, constraint=true];
+	fn_0_bb_8:s -> fn_0_bb_9:n [style="solid,bold", color=black, weight=10, constraint=true];
+	fn_0_bb_8:s -> fn_0_bb_20:n [style="solid,bold", color=black, weight=10, constraint=true];
+	fn_0_bb_9:s -> fn_0_bb_10:n [style="solid,bold", color=black, weight=10, constraint=true];
+	fn_0_bb_9:s -> fn_0_bb_11:n [style="solid,bold", color=black, weight=10, constraint=true];
+	fn_0_bb_10:s -> fn_0_bb_11:n [style="solid,bold", color=black, weight=10, constraint=true];
+	fn_0_bb_11:s -> fn_0_bb_12:n [style="solid,bold", color=black, weight=10, constraint=true];
+	fn_0_bb_11:s -> fn_0_bb_20:n [style="solid,bold", color=black, weight=10, constraint=true];
+	fn_0_bb_12:s -> fn_0_bb_13:n [style="solid,bold", color=black, weight=10, constraint=true];
+	fn_0_bb_12:s -> fn_0_bb_15:n [style="solid,bold", color=black, weight=10, constraint=true];
+	fn_0_bb_13:s -> fn_0_bb_14:n [style="solid,bold", color=black, weight=10, constraint=true];
+	fn_0_bb_13:s -> fn_0_bb_21:n [style="solid,bold", color=black, weight=10, constraint=true];
+	fn_0_bb_14:s -> fn_0_bb_15:n [style="solid,bold", color=black, weight=10, constraint=true];
+	fn_0_bb_15:s -> fn_0_bb_16:n [style="solid,bold", color=black, weight=10, constraint=true];
+	fn_0_bb_15:s -> fn_0_bb_20:n [style="solid,bold", color=black, weight=10, constraint=true];
+	fn_0_bb_16:s -> fn_0_bb_17:n [style="solid,bold", color=black, weight=10, constraint=true];
+	fn_0_bb_16:s -> fn_0_bb_18:n [style="solid,bold", color=black, weight=10, constraint=true];
+	fn_0_bb_17:s -> fn_0_bb_18:n [style="solid,bold", color=black, weight=10, constraint=true];
+	fn_0_bb_18:s -> fn_0_bb_19:n [style="solid,bold", color=black, weight=10, constraint=true];
+	fn_0_bb_18:s -> fn_0_bb_20:n [style="solid,bold", color=black, weight=10, constraint=true];
+	fn_0_bb_19:s -> fn_0_bb_20:n [style="solid,bold", color=black, weight=10, constraint=true];
+	fn_0_bb_20:s -> fn_0_bb_21:n [style="solid,bold", color=black, weight=10, constraint=true];
+	fn_0_bb_21:s -> fn_0_bb_7:n [style="solid,bold", color=black, weight=10, constraint=true];
+	fn_0_bb_0:s -> fn_0_bb_1:n [style="invis", constraint=true];
+}
+}
