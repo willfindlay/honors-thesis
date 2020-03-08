@@ -4,17 +4,73 @@
 
 % eBPF stuff below this line ---------------------------------------------------
 
-@techreport{starovoitov13, author={Alexei Starovoitov}, title={tracing filters with BPF},
-year=2013, month={December}, type={RFC Patch}, institution={The Linux Foundation},
-url={https://lkml.org/lkml/2013/12/2/1066},
-howpublished={Mailing List Request for Comments}, number={0/5}}
-@inproceedings{goldstein16, author={Sasha Goldstein}, publisher={USENIX SRECon16 Europe},
-title={The Next Linux Superpower: eBPF Primer}, year={2016}, month={July},
-url={https://www.usenix.org/conference/srecon16europe/program/presentation/goldshtein-ebpf-primer}}
-@misc{bcc, title={iovisor/bcc}, url={https://github.com/iovisor/bcc}, journal={GitHub}, publisher={iovisor}, year={2019}, month={Oct}}
-@misc{gregg16, title={Linux BPF Superpowers}, url={http://www.brendangregg.com/blog/2016-03-05/linux-bpf-superpowers.html}, journal={Linux BPF Superpowers}, publisher={Brendan Gregg's Blog}, author={Gregg, Brendan}, year={2016}, month={Mar}}
+@techreport{starovoitov13,
+  author={Alexei Starovoitov},
+  title={{tracing filters with BPF}},
+  year=2013,
+  month={December},
+  type={RFC Patch},
+  institution={The Linux Foundation},
+  url={https://lkml.org/lkml/2013/12/2/1066},
+  howpublished={Mailing List Request for Comments}, number={0/5}
+}
 
-@misc{starovoitov19a, title={[v2,bpf-next,1/4] bpf: enable program stats 1047415 diff mbox series}, url={https://patchwork.ozlabs.org/patch/1047415/}, journal={Patchwork}, author={Starovoitov, Alexei}, year={2019}, month={Feb}}
+@techreport{starovoitov14,
+  author={Alexei Starovoitov},
+  title={{net: filter: rework/optimize internal BPF interpreter's instruction set}},
+  year=2014,
+  month={March},
+  type={Kernel Patch},
+  institution={The Linux Foundation},
+  url={https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=bd4cf0ed331a275e9bf5a49e 6d0fd55dffc551b8},
+  howpublished={Kernel Patch},
+}
+
+@inproceedings{goldstein16,
+  author={Sasha Goldstein},
+  publisher={USENIX SRECon16 Europe},
+  title={The Next Linux Superpower: eBPF Primer},
+  year={2016},
+  month={July},
+  url={https://www.usenix.org/conference/srecon16europe/program/presentation/goldshtein-ebpf-primer}
+}
+
+@misc{bcc,
+  title={iovisor/bcc},
+  url={https://github.com/iovisor/bcc},
+  journal={GitHub},
+  publisher={iovisor},
+  year={2019},
+  month={Oct}
+}
+
+@misc{gregg16,
+  title={Linux BPF Superpowers},
+  url={http://www.brendangregg.com/blog/2016-03-05/linux-bpf-superpowers.html},
+  journal={Linux BPF Superpowers},
+  publisher={Brendan Gregg's Blog},
+  author={Gregg, Brendan},
+  year={2016},
+  month={Mar}
+}
+
+@misc{starovoitov19a,
+  title={[v2,bpf-next,1/4] bpf: enable program stats 1047415 diff mbox series},
+  url={https://patchwork.ozlabs.org/patch/1047415/},
+  journal={Patchwork},
+  author={Starovoitov, Alexei},
+  year={2019},
+  month={Feb}
+}
+
+% The literal book on eBPF
+@book{gregg19bpf,
+  title={{BPF Performance Tools}},
+  author={Gregg, Brendan},
+  year={2019},
+  isbn={0-13-655482-2},
+  publisher={Addison-Wesley Professional}
+}
 
 % performance
 @article{deri19, title={Combining System Visibility and Security Using eBPF}, url={http://ceur-ws.org/Vol-2315/paper05.pdf}, journal={CEUR-WS}, author={Deri, Luca and Sabella, Samuele and Mainardi, Simone}}
@@ -243,6 +299,7 @@ volume={93}
  address = {New York, NY, USA},
  keywords = {anomaly detection, evasion attacks, host-based intrusion detection},
 }
+% TODO: cite amai sandia 05 from anil ~/pubs as amai05
 
 
 % intrusion detection below this line -------------------------

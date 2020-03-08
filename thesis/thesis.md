@@ -59,7 +59,7 @@ System introspection is becoming an increasingly attractive option
 for maintaining operating system stability and security. This is primarily
 due to the many recent advances in system introspection technology; in particular,
 the 2013 introduction of *Extended Berkeley Packet Filter* (*eBPF*)
-into the Linux Kernel [@starovoitov13] along with the recent
+into the Linux Kernel [@starovoitov13; @starovoitov14] along with the recent
 development of more usable interfaces such as the *BPF Compiler Collection* (*bcc*)
 [@bcc] has resulted in a highly compelling, performant, and (perhaps most importantly)
 safe subsystem for both kernel and userland instrumentation.
@@ -150,7 +150,7 @@ my university career. I couldn't have made it this far without you.
 # Introduction and Motivation
 
 As our computer systems grow increasingly complex, so too does it
-become more and more difficult to gauge precisely what they are doing
+become more difficult to gauge precisely what they are doing
 at any given moment. Modern computers are often running hundreds, if not thousands
 of processes at any given time, the vast majority of which are running silently in
 the background. As a result, users often have a very limited notion of what exactly
@@ -163,7 +163,7 @@ some unfortunate combination of circumstances.
 Recently, a lot of work has been done to help bridge this gap between
 system state and visibility, particularly through the introduction of
 powerful new tools such as *Extended Berkeley Packet Filter* (eBPF).
-Introduced to the Linux Kernel in a 2013 RFC and subsequent kernel patch [@starovoitov13],
+Introduced to the Linux Kernel in a 2013 RFC and subsequent kernel patch [@starovoitov13; @starovoitov14],
 eBPF offers a promising interface for kernel introspection, particularly given its
 scope and unprecedented level of safety therein; although eBPF can examine
 any data structure or function in the kernel through the instrumentation of tracepoints,
@@ -239,7 +239,7 @@ dtrace4linux & A Linux port of DTrace via a loadable kernel module & \cite{dtrac
 \hline
 sysdig & Loadable kernel modules for system monitoring; native support for containers & \cite{sysdig} \\
 \hline
-eBPF & In-kernel virtual machine for running pre-verified bytecode & \cite{bcc, goldstein16, starovoitov13} \\
+eBPF & In-kernel virtual machine for running pre-verified bytecode & \cite{bcc, goldstein16, starovoitov13, starovoitov14} \\
 \hline
 \end{tabular}
 \end{center}
@@ -299,7 +299,7 @@ process, there is always some probability that a bug can slip through the cracks
 in the catastrophic consequences outlined above.
 
 Built-in kernel subsystems for instrumentation seem to be the most desirable choice of any
-of the presented solutions. In fact, eBPF [@starovoitov13] itself constitutes one such solution. However,
+of the presented solutions. In fact, eBPF [@starovoitov13; @starovoitov14] itself constitutes one such solution. However,
 for the time being, we will focus on a few others, namely ftrace [@ftrace] and perf\_events [@manperfeventopen]
 (eBPF programs actually *can* and *do* use both of these interfaces anyway). While both of these solutions are
 safe to use (assuming we trust the user), they suffer from limited documentation and relatively poor user interfaces.
@@ -316,7 +316,7 @@ Linux [@dtrace4linux] (we will examine the dtrace4linux implementation with
 more scrutiny later in this section).
 
 In general, the original Dtrace and the current version of eBPF share much of the same
-family and cover similar use cases [@cantrill04; @starovoitov13].
+family and cover similar use cases [@cantrill04; @starovoitov13; @starovoitov14].
 This includes perhaps most notably dynamic instrumentation
 in both userspace and kernelspace, arbitrary context instrumentation (i.e.\ the ability
 to instrument essentially any aspect of the system), and guarantees of safety
@@ -383,7 +383,7 @@ with the packets according to a user-defined BPF program. McCanne and Jacobson s
 than other contemporary packet filtering techniques, namely NIT [@nit] and CSPF [@mogul87].
 
 While Classic BPF is certainly a powerful technique for filtering packets, Starovoitov
-[@starovoitov13] realized that its tap and filter mechanism represented a desirable
+[@starovoitov13; @starovoitov14] realized that its tap and filter mechanism represented a desirable
 approach for general system introspection. Therefore, in 2013, he proposed
 *Extended BPF* (eBPF), a superset of Classic BPF, which vastly increased the
 capabilities of the original BPF virtual machine.
@@ -442,20 +442,18 @@ From the perspective of a user, the eBPF workflow is surprisingly simple.
 Users can elect to write eBPF bytecode directly (not recommended) or use one
 of many front ends to write in higher level languages that are then used to
 generate the respective bytecode. bcc [@bcc] offers front ends for several languages including
-Python, Go, C/C++; users write eBPF programs in C and interact with bcc's API
+Python, Go, and C++; users write eBPF programs in C and interact with bcc's API
 in order to generate eBPF bytecode and submit it to the kernel.
 
-\autoref{ebpf-topology} presents an overview of the eBPF workflow with respect to
-the interaction between userland applications and eBPF programs.
-Considering bcc's Python front end as an example: the user writes
-their BPF program in C and a user interface in Python. Using a provided
-BPF class, the C code is used to generate bytecode which is then submitted
-to the verifier to be checked for safety. Assuming the BPF program passes
-all required checks, it is then loaded into an in-kernel virtual machine. From there,
-we are able to attach onto various probes and tracepoints, both in the kernel and in userland.
+\autoref{ebpf-topology} presents an overview of eBPF's architecture and dataflow,
+including the interaction between userspace programs, eBPF programs in kernelspace,
+and the rest of the kernel. This interaction occurs via the `bpf(2)` system call [@man-bpf]
+which is used to load and verify BPF programs, issue commands to BPF programs, and
+interact with eBPF maps. These maps are the mechanism for sending data between BPF
+programs and other BPF programs or BPF programs and userspace.
 
 \begin{figure}
-\includegraphics{../figures/eBPF-topology.png}
+\includegraphics{../figures/ebpf-arch.png}
 \caption[Basic topology of eBPF with respect to userland and the kernel]{
 Basic topology of eBPF with respect to userland and the kernel.
 Note the bidirectional nature of dataflow between userspace and kernelspace
@@ -463,9 +461,7 @@ using maps.}
 \label{ebpf-topology}
 \end{figure}
 
-The main data structure used in eBPF is the map; these maps are used to store
-data as well as for communication between userspace and the eBPF program. There are several
-map types available in eBPF programs which cover a wide variety of use cases.
+There are several map types available in eBPF which cover a wide variety of use cases.
 These map types along with a brief description are provided in \autoref{ebpf-maps} [@man-bpf; @fleming17; @bcc].
 Thanks to this wide arsenal of maps, eBPF developers have a powerful set of both general-purpose
 and specialized data structures at their disposal; as we will see in coming sections,
@@ -475,8 +471,17 @@ to be copied into a general purpose `HASH` map (refer to \autoref{appendix-bigda
 This can be effectively used to bypass the verifier's stack space limitations, which are discussed in detail
 in \autoref{verifier-section}.
 
+<!--
+Considering bcc's Python front end as an example:
+the user writes their BPF program in C and a user interface in Python. Using a provided
+BPF class, the C code is used to generate bytecode which is then submitted
+to the verifier to be checked for safety. Assuming the BPF program passes
+all required checks, it is then loaded into an in-kernel virtual machine. From there,
+we are able to attach onto various probes and tracepoints, both in the kernel and in userland.
+-->
+
 \begin{table}
-\caption{Various map types available in eBPF programs.}
+    \caption{Various map types \cite{bcc, gregg19bpf} available in eBPF programs, as of kernel 5.3.}
 \label{ebpf-maps}
 \resizebox{\textwidth}{.2\textheight}{
 \begin{tabular}{|l|p{5in}|}
@@ -616,7 +621,8 @@ of what a system call is and how programs use them to communicate with the kerne
 
 At the time of writing this paper, the Linux Kernel [@unistd] supports
 an impressive 436 distinct system calls, and this number generally grows
-with subsequent releases. In general, userspace implements a subset of these
+with subsequent releases. In general, userspace libraries such as the C standard library
+implement a subset of these
 system calls, with the exact specifications varying depending on architecture.
 These system calls are used to request services from the operating system kernel;
 for example, a program that needs to write to a file would make an `open` call
@@ -756,7 +762,7 @@ early enough such that refactoring is minimized [@peng95; @spafford02].
 This approach is also far less generic than other internal sensor approaches described here.
 
 Another potential internal source for data is through host-based network stack
-introspection. Classic BPF [@bpf] and eBPF/XDP [@starovoitov13; @bcc; @xdp] are quite excellent at this.
+introspection. Classic BPF [@bpf] and eBPF/XDP [@starovoitov13; @starovoitov14; @bcc; @xdp] are quite excellent at this.
 Host-based network introspection allows the analysis of network traffic at various points in the kernel's
 networking stack, and XDP packet redirection [@xdp] allows fast detection and response before a packet even reaches
 the main networking stack.
@@ -1584,7 +1590,6 @@ controlling the potential future adoption of ebpH, and is therefore important to
 \clearpage
 \addcontentsline{toc}{section}{References}
 \printbibliography
-\renewcommand{\printbibliography}{\relax}
 \clearpage
 
 # Appendix A eBPF Design Patterns {.unnumbered}
@@ -1599,5 +1604,3 @@ controlling the potential future adoption of ebpH, and is therefore important to
 -->
 
 \FloatBarrier
-
-# <!-- Ugly hack to suppress bib at the end -->
