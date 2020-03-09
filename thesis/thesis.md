@@ -1388,6 +1388,60 @@ code due to a false positive, there is simply no better solution than to try a d
 Fortunately, well-constructed eBPF programs do not often suffer from false verifier positives,
 particularly as one learns the nuances of how the verifier works and how to coax it into accepting programs.
 
+# Measuring ebpH's Overhead
+
+<!-- TODO: write this section when experiments are done -->
+
+## Methodology
+
+Since ebpH's kernelspace functionality resides in system call hooks, we can get an
+idea of what overhead it imposes on the system by running macro- and micro-benchmarks
+on the time required to make system calls. Initially, I planned to use `syscount` [@syscount]
+from `bcc-tools` for this purpose, however this tool currently has a race condition
+that may affect results due to its use of `BPF_HASH` rather than `BPF_PERCPU_ARRAY` for
+data storage (c.f. \autoref{ebpf-maps} on page \pageref{ebpf-maps}). Instead, a custom
+benchmarking tool, `bpfbench`\footnotemark{}, was written in eBPF for this purpose. Like `syscount`,
+`bpfbench` measures system call overhead by taking the difference of `ktime` (in nanoseconds)
+between system call entry and return; this difference along with the number of calls
+observed is stored in an eBPF map for later analysis. Unlike `syscount`, `bpfbench`
+stores this data in a per-cpu array, aggregating data at the end when necessary; this means
+that neither the system call count nor the system call overhead is subject to race conditions
+like its predecessor. See \autoref{bpfbench} for the BPF portion of `bpfbench`'s source code.
+\footnotetext{Full source code available at \url{https://github.com/willfindlay/bpfbench}.}
+
+`bpfbench` was used to measure the overhead of system calls on various systems, including
+a server used in production, personal computers, and a CCSL (Carleton Computer Security Lab) workstation.
+
+## Results
+
+## Using ebpH on a Personal Computer
+
+\begin{table}
+    \caption{Top 20 most frequent system calls from the \code{arch-3day} dataset, sorted by percent overhead. Smaller
+    overhead is better.}
+    \input{../tables/arch-3day/overhead-by-count.tex}
+\end{table}
+
+\begin{table}
+    \caption{Top 20 highest overhead system calls from the \code{arch-3day} dataset, sorted by percent overhead. Smaller
+    overhead is better.}
+    \input{../tables/arch-3day/overhead-by-overhead.tex}
+\end{table}
+
+# Future Work
+
+<!-- TODO: write this section -->
+
+## Security Analysis
+
+## Controlling for Further Sources of Non-Deterministic Behavior
+
+## Automating ebpH Response
+
+## General System Introspection and the Future of ebpH
+
+<!-- TODO: replace all of the following with the above two -->
+
 # Methodology and Future Work
 
 While the ebpH prototype is certainly capable of monitoring a system for anomalies,
@@ -1592,7 +1646,10 @@ controlling the potential future adoption of ebpH, and is therefore important to
 \printbibliography
 \clearpage
 
-# Appendix A eBPF Design Patterns {.unnumbered}
+\appendix
+\appendixpage
+
+# eBPF Design Patterns
 
 \label{ebpf-design-patterns}
 
@@ -1604,3 +1661,11 @@ controlling the potential future adoption of ebpH, and is therefore important to
 -->
 
 \FloatBarrier
+
+\clearpage
+
+# `bpfbench` Source Code
+
+\label{bpfbench}
+
+\lil[language=c, caption={The BPF program behind \code{bpfbench}.}, label={appendix-bigdata}]{../code/bpfbench/src/bpf/bpf_program.c}
