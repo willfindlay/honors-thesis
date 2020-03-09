@@ -43,7 +43,7 @@
   title={iovisor/bcc},
   url={https://github.com/iovisor/bcc},
   journal={{GitHub}},
-  publisher={{IOVisor}},
+  author={{IOVisor}},
   year={2019},
   month={Oct}
 }
@@ -122,7 +122,7 @@
   title={syscount.py},
   url={https://github.com/iovisor/bcc/blob/master/tools/syscount.py},
   journal={{GitHub}},
-  publisher={{IOVisor}},
+  author={{IOVisor}},
   year={2019},
   month={Oct}
 }
@@ -303,11 +303,11 @@
   title={strace},
   url={https://strace.io/},
   journal={strace},
-  publisher={Strace project}
+  author={{Strace Project}}
 }
 @manual{manstrace,
   title={{strace(1) Linux User's Manual}},
-  organization={{Strace project}},
+  organization={{Strace Project}},
   edition={5.3},
   year={2019},
   month={September},
@@ -333,7 +333,7 @@
   title={{Understanding How SystemTap Works Red Hat Enterprise Linux 5}},
   url={https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/5/html/systemtap_beginners_guide/understanding-how-systemtap-works},
   journal={{Red Hat Customer Portal}},
-  publisher={Red Hat}
+  author={{Red Hat}}
 }
 @misc{merey17,
   title={{Introducing stapbpf - SystemTap's New BPF Backend}},
@@ -357,56 +357,108 @@
 
 % perf_events
 @manual{manperfeventopen,
- title="perf\_event\_open(2) Linux User's Manual",
- author={Weaver, Vince},
- year="2019",
- month="October",
+  title="perf\_event\_open(2) Linux User's Manual",
+  author={Weaver, Vince},
+  year="2019",
+  month="October",
 }
-@misc{perf-security, title={Perf Security}, url={https://github.com/torvalds/linux/blob/master/Documentation/admin-guide/perf-security.rst}, journal={GitHub}, publisher={The Linux Foundation}, author={Budankov, Alexey and Corbet, Jonathan}, year={2019}, month={Feb}}
+% FIXME: not currently using this... is it useful???
+@misc{perf-security,
+  title={Perf Security},
+  url={https://github.com/torvalds/linux/blob/master/Documentation/admin-guide/perf-security.rst},
+  journal={{GitHub}},
+  publisher={{The Linux Foundation}},
+  author={Budankov, Alexey and Corbet, Jonathan},
+  year={2019},
+  month={Feb}
+}
 
 % LTTng
-@misc{lttng, title={LTTng v2.11 - LTTng Documentation}, url={https://lttng.org/docs/v2.11/}, journal={LTTng}, publisher={The LTTng project}, year={2019}, month={Oct}}
+@misc{lttng,
+  title={{LTTng v2.11 - LTTng Documentation}},
+  url={https://lttng.org/docs/v2.11/},
+  journal={{LTTng}},
+  publisher={{The LTTng Project}},
+  year={2019},
+  month={Oct}
+}
 
 % original dtrace paper
 @inproceedings{cantrill04,
- author={Cantrill, Bryan M. and Shapiro, Michael W. and Leventhal, Adam H.},
- title={Dynamic Instrumentation of Production Systems},
- booktitle={Proceedings of the Annual Conference on USENIX Annual Technical Conference},
- series={ATEC '04},
- year={2004},
- location={Boston, MA},
- pages={2--2},
- numpages={1},
- url={https://www.usenix.org/legacy/publications/library/proceedings/usenix04/tech/general/full_papers/cantrill/cantrill.pdf},
- publisher={USENIX Association},
- address={Berkeley, CA, USA},
+  author={Cantrill, Bryan M. and Shapiro, Michael W. and Leventhal, Adam H.},
+  title={{Dynamic Instrumentation of Production Systems}},
+  booktitle={{Proceedings of the Annual Conference on USENIX Annual Technical Conference}},
+  series={{ATEC '04}},
+  year={2004},
+  location={Boston, MA},
+  pages={2--2},
+  numpages={1},
+  url={https://www.usenix.org/legacy/publications/library/proceedings/usenix04/tech/general/full_papers/cantrill/cantrill.pdf},
+  publisher={{USENIX Association}},
+  address={Berkeley, CA, USA},
 }
 % B Gregg Dtrace book
-@book{gregg14, place={Upper Saddle River}, title={DTrace: dynamic tracing in Oracle Solaris, Mac OS X and FreeBSD}, publisher={Prentice Hall}, author={Gregg, Brendan and Mauro, Jim and Cantrill, Bryan M.}, year={2014}}
+@book{gregg14,
+  place={Upper Saddle River},
+  title={{DTrace: dynamic tracing in Oracle Solaris, Mac OS X and FreeBSD}},
+  publisher={Prentice Hall},
+  author={Gregg, Brendan and Mauro, Jim and Cantrill, Bryan M.},
+  year={2014}
+}
+% dtrace4linux, port of DTrace for the Linux kernel
+@misc{dtrace4linux,
+  title={dtrace4linux/linux},
+  url={https://github.com/dtrace4linux/linux},
+  journal={GitHub},
+  publisher={{dtrace4linux Project}},
+  author={Fox, Paul D},
+  year={2019},
+  month={Sep}
+}
 
-% dtrace4linux
-@misc{dtrace4linux, title={dtrace4linux/linux}, url={https://github.com/dtrace4linux/linux}, journal={GitHub}, publisher={dtrace4linux project}, author={Fox, Paul D}, year={2019}, month={Sep}}
-% Why eBPF is better than dtrace
-@misc{gregg18, title={bpftrace (DTrace 2.0) for Linux 2018}, url={http://www.brendangregg.com/blog/2018-10-08/dtrace-for-linux-2018.html}, journal={Brendan Gregg's Blog}, author={Gregg, Brendan}, year={2018}, month={Oct}}
-% bpftrace
-@misc{bpftrace, title={iovisor/bpftrace}, url={https://github.com/iovisor/bpftrace}, journal={GitHub}, publisher={Iovisor}, year={2019}, month={Nov}}
-% dtrace being reimplemented in eBPF
+% Dtrace being reimplemented in eBPF
 @techreport{vanhees19,
-   AUTHOR="Van Hees, Kris",
-   TITLE="{bpf, trace, dtrace: DTrace BPF program type implementation and sample use}",
-   HOWPUBLISHED={Internet Requests for Comments},
-   TYPE="{RFC Patch}",
-   NUMBER={00/11},
-   PAGES={1-56},
-   YEAR={2019},
-   MONTH={May},
-   PUBLISHER="{lwn.net}",
-   INSTITUTION="{The Linux Foundation}",
-   URL={https://lwn.net/Articles/788995/}
-   }
+   author={Van Hees, Kris},
+   title={{BPF, Trace, DTrace: DTrace BPF Program Type Implementation and Sample Use}},
+   howpublished={Internet Requests for Comments},
+   type={RFC Patch},
+   number={00/11},
+   pages={1-56},
+   year={2019},
+   month={May},
+   publisher={lwn.net},
+   institution={The Linux Foundation},
+   url={https://lwn.net/Articles/788995/}
+}
+
+% BPFTrace stuff, also related to DTrace
+% Why eBPF is better than dtrace
+@misc{gregg18,
+  title={{bpftrace (DTrace 2.0) for Linux 2018}},
+  url={http://www.brendangregg.com/blog/2018-10-08/dtrace-for-linux-2018.html},
+  journal={Brendan Gregg's Blog},
+  author={Gregg, Brendan},
+  year={2018},
+  month={Oct}
+}
+@misc{bpftrace,
+    title={iovisor/bpftrace},
+    url={https://github.com/iovisor/bpftrace},
+    journal={GitHub},
+    author={{IOVisor}},
+    year={2019},
+    month={Nov}
+}
 
 % sysdig
-@misc{sysdig, title={draios/sysdig}, url={https://github.com/draios/sysdig}, journal={GitHub}, publisher={Sysdig Inc.}, year={2019}, month={Nov}}
+@misc{sysdig,
+  title={draios/sysdig},
+  url={https://github.com/draios/sysdig},
+  journal={GitHub},
+  author={{Sysdig Inc.}},
+  year={2019},
+  month={Nov}
+}
 
 % Linux background below this line ------------------------------------------
 

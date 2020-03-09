@@ -42,7 +42,7 @@ def top_overhead_table(data, top=20):
 
     # Rename columns
     data = data.rename(columns={'syscall':'System Call', 't-base':r't-base($\mu$s/call)',
-        't-ebph':r't-ebpH($\mu$s/call)', 'overhead':r'Overhead(\%)'})
+        't-ebph':r't-ebpH($\mu$s/call)', 'overhead':r'Overhead(\%)', 'count':'Count'})
     data.to_latex(index=0, escape=0, buf=TOP_OVERHEAD_PATH)
 
 def top_count_table(data, top=20):
