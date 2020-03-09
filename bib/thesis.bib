@@ -4,6 +4,7 @@
 
 % eBPF stuff below this line ---------------------------------------------------
 
+% eBPF RFC
 @techreport{starovoitov13,
   author={Alexei Starovoitov},
   title={{tracing filters with BPF}},
@@ -15,6 +16,7 @@
   howpublished={Mailing List Request for Comments}, number={0/5}
 }
 
+% eBPF patch
 @techreport{starovoitov14,
   author={Alexei Starovoitov},
   title={{net: filter: rework/optimize internal BPF interpreter's instruction set}},
@@ -26,26 +28,29 @@
   howpublished={Kernel Patch},
 }
 
+% Goldstein talk
 @inproceedings{goldstein16,
   author={Sasha Goldstein},
   publisher={USENIX SRECon16 Europe},
-  title={The Next Linux Superpower: eBPF Primer},
+  title={{The Next Linux Superpower: eBPF Primer}},
   year={2016},
   month={July},
   url={https://www.usenix.org/conference/srecon16europe/program/presentation/goldshtein-ebpf-primer}
 }
 
+% bcc GitHub
 @misc{bcc,
   title={iovisor/bcc},
   url={https://github.com/iovisor/bcc},
-  journal={GitHub},
-  publisher={iovisor},
+  journal={{GitHub}},
+  publisher={{IOVisor}},
   year={2019},
   month={Oct}
 }
 
+% Linux BPF superpowers - Gregg talk
 @misc{gregg16,
-  title={Linux BPF Superpowers},
+  title={{Linux BPF Superpowers}},
   url={http://www.brendangregg.com/blog/2016-03-05/linux-bpf-superpowers.html},
   journal={Linux BPF Superpowers},
   publisher={Brendan Gregg's Blog},
@@ -54,6 +59,7 @@
   month={Mar}
 }
 
+% Patch enabling program stats, FIXME: probably won't use this
 @misc{starovoitov19a,
   title={[v2,bpf-next,1/4] bpf: enable program stats 1047415 diff mbox series},
   url={https://patchwork.ozlabs.org/patch/1047415/},
@@ -72,172 +78,289 @@
   publisher={Addison-Wesley Professional}
 }
 
+% bpf manpage
+@manual{man-bpf,
+ title="bpf(2) Linux Programmer's Manual",
+ organization="Linux",
+ year="2019",
+ month="August",
+}
+
+% XDP
+@inproceedings{xdp,
+  author={H{\o}iland-J{\o}rgensen, Toke and Brouer, Jesper Dangaard and Borkmann, Daniel and Fastabend, John and Herbert, Tom and Ahern, David and Miller, David},
+  title={{The eXpress Data Path: Fast Programmable Packet Processing in the Operating System Kernel}},
+  booktitle={{Proceedings of the 14th International Conference on Emerging Networking Experiments and Technologies}},
+  series={CoNEXT '18},
+  year={2018},
+  isbn={978-1-4503-6080-7},
+  location={Heraklion, Greece},
+  pages={54--66},
+  numpages={13},
+  url={http://doi.acm.org/10.1145/3281411.3281443},
+  doi={10.1145/3281411.3281443},
+  acmid={3281443},
+  publisher={ACM},
+  address={New York, NY, USA},
+  keywords={BPF, DPDK, XDP, programmable networking},
+}
+
+% Corbet article about eBPF, FIXME: either use it or lose it
+@misc{corbet14,
+  title={{BPF: the universal in-kernel virtual machine}},
+  url={https://lwn.net/Articles/599755/},
+  journal={[LWN.net]},
+  publisher={LWN},
+  author={Corbet, Jonathan},
+  year={2014},
+  month={May}
+}
+
 % Tooling below this line ---------------------------------------------------
 
 @misc{syscount,
   title={syscount.py},
   url={https://github.com/iovisor/bcc/blob/master/tools/syscount.py},
   journal={{GitHub}},
-  publisher={{Iovisor}},
+  publisher={{IOVisor}},
   year={2019},
   month={Oct}
 }
 
-% performance
-@article{deri19, title={Combining System Visibility and Security Using eBPF}, url={http://ceur-ws.org/Vol-2315/paper05.pdf}, journal={CEUR-WS}, author={Deri, Luca and Sabella, Samuele and Mainardi, Simone}}
-
-% verifier stuff below this line --------------------------------------
-@misc{fleming17, title={A thorough introduction to eBPF}, url={https://lwn.net/Articles/740157/}, journal={[LWN.net]}, author={Fleming, Matt}, year={2017}, month={Dec}}
-% turing completeness
-@article{bonafiglia16, title={Enabling NFV Services on Resource-Constrained CPEs}, DOI={10.1109/cloudnet.2016.24}, journal={2016 5th IEEE International Conference on Cloud Networking (Cloudnet)}, author={Bonafiglia, Roberto and Miano, Sebastiano and Nuccio, Sergio and Risso, Fulvio and Sapio, Amedeo}, year={2016}}
-% bounded loop support
-@misc{starovoitov19, title={bpf: introduce bounded loops}, url={https://git.kernel.org/pub/scm/linux/kernel/git/davem/net-next.git/commit/?id=2589726d12a1b12eaaa93c7f1ea64287e383c7a5}, journal={kernel/git/davem/net-next.git - Netdev Group's -next networking tree}, publisher={The Linux Foundation}, author={Starovoitov, Alexei and Borkmann, Daniel}, year={2019}, month={Jun}}
-% more bounded loops stuff
-@misc{rybczynska19, title={Bounded loops in BPF for the 5.3 kernel}, url={https://lwn.net/Articles/794934/}, journal={[LWN.net]}, author={Rybczyńska, Marta}, year={2019}, month={Jul}}
-% more bounded loops stuff
-@misc{corbet18, title={Bounded loops in BPF programs}, url={https://lwn.net/Articles/773605/}, journal={[LWN.net]}, publisher={[LWN.net]}, author={Corbet, Jonathan}, year={2018}, month={Dec}}
-% seahorn paper
-@article{gershuni19, title={Simple and precise static analysis of untrusted Linux kernel extensions}, DOI={10.1145/3314221.3314590}, journal={Proceedings of the 40th ACM SIGPLAN Conference on Programming Language Design and Implementation - PLDI 2019}, author={Gershuni, Elazar and Amit, Nadav and Gurfinkel, Arie and Narodytska, Nina and Navas, Jorge A. and Rinetzky, Noam and Ryzhyk, Leonid and Sagiv, Mooly}, year={2019}, month={Jun}}
-
-% XDP
-@inproceedings{xdp,
- author = {H{\o}iland-J{\o}rgensen, Toke and Brouer, Jesper Dangaard and Borkmann, Daniel and Fastabend, John and Herbert, Tom and Ahern, David and Miller, David},
- title = {The eXpress Data Path: Fast Programmable Packet Processing in the Operating System Kernel},
- booktitle = {Proceedings of the 14th International Conference on Emerging Networking Experiments and Technologies},
- series = {CoNEXT '18},
- year = {2018},
- isbn = {978-1-4503-6080-7},
- location = {Heraklion, Greece},
- pages = {54--66},
- numpages = {13},
- url = {http://doi.acm.org/10.1145/3281411.3281443},
- doi = {10.1145/3281411.3281443},
- acmid = {3281443},
- publisher = {ACM},
- address = {New York, NY, USA},
- keywords = {BPF, DPDK, XDP, programmable networking},
-}
+% Classic BPF stuff below this line ------------------------------------------
 
 % Classic BPF
 @article{bpf,
-author={Steven McCanne and Van Jacobson},
-year={1992},
-title={The BSD Packet Filter: A New Architecture for User-level Packet Capture},
-journal={USENIX winter},
-url={https://www.tcpdump.org/papers/bpf-usenix93.pdf},
-volume={93}
+  author={Steven McCanne and Van Jacobson},
+  year={1992},
+  title={{The BSD Packet Filter: A New Architecture for User-level Packet Capture}},
+  journal={{USENIX Winter}},
+  url={https://www.tcpdump.org/papers/bpf-usenix93.pdf},
+  volume={93}
 }
+% CSPF (competitor to classic BPF)
 @inproceedings{mogul87,
- author = {Mogul, J. and Rashid, R. and Accetta, M.},
- title = {The Packer Filter: An Efficient Mechanism for User-level Network Code},
- booktitle = {Proceedings of the Eleventh ACM Symposium on Operating Systems Principles},
- series = {SOSP '87},
- year = {1987},
- isbn = {0-89791-242-X},
- location = {Austin, Texas, USA},
- pages = {39--51},
- numpages = {13},
- url = {http://doi.acm.org/10.1145/41457.37505},
- doi = {10.1145/41457.37505},
- acmid = {37505},
- publisher = {ACM},
- address = {New York, NY, USA},
+  author={Mogul, J. and Rashid, R. and Accetta, M.},
+  title={{The Packer Filter: An Efficient Mechanism for User-level Network Code}},
+  booktitle={{Proceedings of the Eleventh ACM Symposium on Operating Systems Principles}},
+  series={{SOSP '87}},
+  year={1987},
+  isbn={0-89791-242-X},
+  location={Austin, Texas, USA},
+  pages={39--51},
+  numpages={13},
+  url={http://doi.acm.org/10.1145/41457.37505},
+  doi={10.1145/41457.37505},
+  acmid={37505},
+  publisher={ACM},
+  address={New York, NY, USA},
 }
-@manual{nit, organization={Sun Microsystems Inc.},
-    title={NIT(4p) SunOS 4.1.1 Reference Manual},
-    howpublished={Reference Manual},
-    place={Mountain View, CA},
-    month={September},
-    year={1990}}
-@misc{tcpdump, title={Tcpdump/Libpcap public repository}, url={https://www.tcpdump.org/}, journal={TCPDUMP/LIBPCAP public repository}, publisher={Tcpdump}, year={2010}, month={Sep}}
-@misc{corbet14, title={BPF: the universal in-kernel virtual machine}, url={https://lwn.net/Articles/599755/}, journal={[LWN.net]}, publisher={LWN}, author={Corbet, Jonathan}, year={2014}, month={May}}
-
-% bpf manpage
-@manual{man-bpf,
- title      = "bpf(2) Linux Programmer's Manual",
- organization  = "Linux",
- year       = "2019",
- month      = "August",
+% NIT (competitor to classic BPF)
+@manual{nit,
+  organization={{Sun Microsystems Inc.}},
+  title={{NIT(4p) SunOS 4.1.1 Reference Manual}},
+  howpublished={Reference Manual},
+  place={Mountain View, CA},
+  month={September},
+  year={1990}
 }
 
-% Halting problem
+% tcpdump, uses classic BPF, TODO: need to use this in classic BPF background maybe
+@misc{tcpdump,
+  title={{Tcpdump/Libpcap public repository}},
+  url={https://www.tcpdump.org/},
+  journal={TCPDUMP/LIBPCAP public repository},
+  publisher={Tcpdump},
+  year={2010},
+  month={Sep}
+}
+
+% Performance stuff below this line ------------------------------------------
+
+@article{deri19,
+  title={{Combining System Visibility and Security Using eBPF}},
+  url={http://ceur-ws.org/Vol-2315/paper05.pdf},
+  journal={{CEUR-WS}},
+  author={Deri, Luca and Sabella, Samuele and Mainardi, Simone}
+}
+
+% verifier stuff below this line --------------------------------------
+
+% Intro to BPF article, Fleming 2017
+@misc{fleming17,
+  title={{A thorough introduction to eBPF}},
+  url={https://lwn.net/Articles/740157/},
+  journal={{[LWN.net]}},
+  author={Fleming, Matt},
+  year={2017},
+  month={Dec}
+}
+
+% Turing completeness of BPF, FIXME: probably delete this, replace with something better
+%                                    this might be useful for something else though
+@article{bonafiglia16,
+  title={{Enabling NFV Services on Resource-Constrained CPEs}},
+  DOI={10.1109/cloudnet.2016.24},
+  journal={{2016 5th IEEE International Conference on Cloud Networking (Cloudnet)}},
+  author={Bonafiglia, Roberto and Miano, Sebastiano and Nuccio, Sergio and Risso, Fulvio and Sapio, Amedeo},
+  year={2016}
+}
+
+% Bounded loop support (next three entries)
+@misc{starovoitov19,
+  title={{bpf: introduce bounded loops}},
+  url={https://git.kernel.org/pub/scm/linux/kernel/git/davem/net-next.git/commit/?id=2589726d12a1b12eaaa93c7f1ea64287e383c7a5},
+  journal={{kernel/git/davem/net-next.git - Netdev Group's -next networking tree}}, publisher={The Linux Foundation},
+  author={Starovoitov, Alexei and Borkmann, Daniel},
+  year={2019},
+  month={Jun}
+}
+@misc{rybczynska19,
+  title={{Bounded loops in BPF for the 5.3 kernel}},
+  url={https://lwn.net/Articles/794934/},
+  journal={{[LWN.net]}},
+  author={Rybczyńska, Marta},
+  year={2019},
+  month={Jul}
+}
+@misc{corbet18,
+  title={{Bounded loops in BPF programs}},
+  url={https://lwn.net/Articles/773605/},
+  journal={[LWN.net]},
+  publisher={[LWN.net]},
+  author={Corbet, Jonathan},
+  year={2018},
+  month={Dec}
+}
+
+% SeaHorn paper (verifier stuff), FIXME: maybe remove this, not using currently
+@article{gershuni19,
+  title={{Simple and Precise Static Analysis of Untrusted Linux Kernel Extensions}},
+  DOI={10.1145/3314221.3314590},
+  journal={{Proceedings of the 40th ACM SIGPLAN Conference on Programming Language Design and Implementation - PLDI 2019}},
+  author={Gershuni, Elazar and Amit, Nadav and Gurfinkel, Arie and Narodytska, Nina and Navas, Jorge A. and Rinetzky, Noam and Ryzhyk, Leonid and Sagiv, Mooly},
+  year={2019},
+  month={Jun}
+}
+
+% Halting problem, eBPF verifier stuff
 @article{turing37,
-    author = {Turing, A. M.},
-    title = "{On Computable Numbers, with an Application to the Entscheidungsproblem}",
-    journal = {Proceedings of the London Mathematical Society},
-    volume = {s2-42},
-    number = {1},
-    pages = {230-265},
-    year = {1937},
-    month = {01},
-    issn = {0024-6115},
-    doi = {10.1112/plms/s2-42.1.230},
-    url = {https://doi.org/10.1112/plms/s2-42.1.230},
-    eprint = {http://oup.prod.sis.lan/plms/article-pdf/s2-42/1/230/4317544/s2-42-1-230.pdf},
+    author={Turing, A. M.},
+    title="{On Computable Numbers, with an Application to the Entscheidungsproblem}",
+    journal={Proceedings of the London Mathematical Society},
+    volume={s2-42},
+    number={1},
+    pages={230-265},
+    year={1937},
+    month={01},
+    issn={0024-6115},
+    doi={10.1112/plms/s2-42.1.230},
+    url={https://doi.org/10.1112/plms/s2-42.1.230},
+    eprint={http://oup.prod.sis.lan/plms/article-pdf/s2-42/1/230/4317544/s2-42-1-230.pdf},
 }
 
 % Denial of service
 @inproceedings{hussain03,
- author = {Hussain, Alefiya and Heidemann, John and Heidemann, John and Papadopoulos, Christos},
- title = {A Framework for Classifying Denial of Service Attacks},
- booktitle = {Proceedings of the 2003 Conference on Applications, Technologies, Architectures, and Protocols for Computer Communications},
- series = {SIGCOMM '03},
- year = {2003},
- isbn = {1-58113-735-4},
- location = {Karlsruhe, Germany},
- pages = {99--110},
- numpages = {12},
- url = {http://doi.acm.org.proxy.library.carleton.ca/10.1145/863955.863968},
- doi = {10.1145/863955.863968},
- acmid = {863968},
- publisher = {ACM},
- address = {New York, NY, USA},
- keywords = {denial of service attacks, measurement, security, time series analysis},
+  author={Hussain, Alefiya and Heidemann, John and Heidemann, John and Papadopoulos, Christos},
+  title={{A Framework for Classifying Denial of Service Attacks}},
+  booktitle={{Proceedings of the 2003 Conference on Applications, Technologies, Architectures, and Protocols for Computer Communications}},
+  series={{SIGCOMM '03}},
+  year={2003},
+  isbn={1-58113-735-4},
+  location={Karlsruhe, Germany},
+  pages={99--110},
+  numpages={12},
+  url={http://doi.acm.org.proxy.library.carleton.ca/10.1145/863955.863968},
+  doi={10.1145/863955.863968},
+  acmid={863968},
+  publisher={ACM},
+  address={New York, NY, USA},
+  keywords={denial of service attacks, measurement, security, time series analysis},
 }
-
-
 
 % Other introspection background below this line -------------------------------
-% ltrace
-@inbook{rubirabranco07, place={Ottawa, Ontario, Canada}, title={Ltrace Internals}, volume={1}, url={https://www.linuxsecrets.com/kdocs/mirror/ols2007v1.pdf#page=41}, booktitle={Proceedings of the Linux Symposium}, author={Rubira Branco, Rodrigo}, pages={41–52}}
+
+% ltrace (next two entries)
+@inbook{rubirabranco07,
+  place={Ottawa, Ontario, Canada},
+  title={Ltrace Internals},
+  volume={1},
+  url={https://www.linuxsecrets.com/kdocs/mirror/ols2007v1.pdf#page=41},
+  booktitle={Proceedings of the Linux Symposium},
+  author={Rubira Branco, Rodrigo},
+  pages={41–52}
+}
 @manual{manltrace,
- title      = "ltrace(1) Linux User's Manual",
- author     = {Cespedes, Juan and Machata, Petr},
- organization  = "Ltrace project",
- year       = "2013",
- month      = "January",
+  title="ltrace(1) Linux User's Manual",
+  author={Cespedes, Juan and Machata, Petr},
+  organization="Ltrace project",
+  year="2013",
+  month="January",
 }
 
-% strace
-@misc{strace, title={strace}, url={https://strace.io/}, journal={strace}, publisher={Strace project}}
+% strace (next entries)
+@misc{strace,
+  title={strace},
+  url={https://strace.io/},
+  journal={strace},
+  publisher={Strace project}
+}
 @manual{manstrace,
- title      = "strace(1) Linux User's Manual",
- organization  = "Strace project",
- edition    = "5.3",
- year       = "2019",
- month      = "September",
+  title={{strace(1) Linux User's Manual}},
+  organization={{Strace project}},
+  edition={5.3},
+  year={2019},
+  month={September},
 }
-% ptrace system call
+% ptrace system call (underlying implementation of strace) (next two entries)
 @manual{manptrace,
- title      = "ptrace(2) Linux User's Manual",
- year       = "2019",
- month      = "October",
+  title={{ptrace(2) Linux User's Manual}},
+  year={2019},
+  month={October},
 }
-@inbook{keniston07, place={Ottawa, Ontario, Canada}, title={Ptrace, Utrace, Uprobes: Lightweight, Dynamic Tracing of User Apps}, volume={1}, url={https://www.linuxsecrets.com/kdocs/mirror/ols2007v1.pdf#page=41}, booktitle={Proceedings of the Linux Symposium}, author={Keniston, Jim and Mavinakayanahalli, Ananth and Panchamukhi, Prasanna and Prasad, Vara}, pages={215–224}}
+@inbook{keniston07,
+  place={Ottawa, Ontario, Canada},
+  title={{Ptrace, Utrace, Uprobes: Lightweight, Dynamic Tracing of User Apps}},
+  volume={1},
+  url={https://www.linuxsecrets.com/kdocs/mirror/ols2007v1.pdf#page=41},
+  booktitle={{Proceedings of the Linux Symposium}},
+  author={Keniston, Jim and Mavinakayanahalli, Ananth and Panchamukhi, Prasanna and Prasad, Vara},
+  pages={215–224}
+}
 
-% systemtap
-@misc{systemtap, title={Understanding How SystemTap Works Red Hat Enterprise Linux 5}, url={https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/5/html/systemtap_beginners_guide/understanding-how-systemtap-works}, journal={Red Hat Customer Portal}, publisher={Red Hat}}
-@misc{merey17, title={Introducing stapbpf - SystemTap's new BPF backend}, url={https://developers.redhat.com/blog/2017/12/13/introducing-stapbpf-systemtaps-new-bpf-backend/}, journal={Red Hat Developer}, publisher={Red Hat}, author={Merey, Aaron}, year={2017}, month={Dec}}
+% systemtap (next two entries)
+@misc{systemtap,
+  title={{Understanding How SystemTap Works Red Hat Enterprise Linux 5}},
+  url={https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/5/html/systemtap_beginners_guide/understanding-how-systemtap-works},
+  journal={{Red Hat Customer Portal}},
+  publisher={Red Hat}
+}
+@misc{merey17,
+  title={{Introducing stapbpf - SystemTap's New BPF Backend}},
+  url={https://developers.redhat.com/blog/2017/12/13/introducing-stapbpf-systemtaps-new-bpf-backend/},
+  journal={{Red Hat Developer}},
+  publisher={Red Hat},
+  author={Merey, Aaron},
+  year={2017},
+  month={Dec}
+}
 
 % ftrace
-@misc{ftrace, title={Documentation/ftrace.txt}, url={https://lwn.net/Articles/290277/}, journal={[LWN.net]}, publisher={Red Hat}, author={Rostedt, Steven}, year={2008}}
+@misc{ftrace,
+  title={{Documentation/ftrace.txt}},
+  url={https://lwn.net/Articles/290277/},
+  journal={[LWN.net]},
+  publisher={Red Hat},
+  author={Rostedt, Steven},
+  year={2008}
+}
 
 % perf_events
 @manual{manperfeventopen,
- title      = "perf\_event\_open(2) Linux User's Manual",
- author    = {Weaver, Vince},
- year       = "2019",
- month      = "October",
+ title="perf\_event\_open(2) Linux User's Manual",
+ author={Weaver, Vince},
+ year="2019",
+ month="October",
 }
 @misc{perf-security, title={Perf Security}, url={https://github.com/torvalds/linux/blob/master/Documentation/admin-guide/perf-security.rst}, journal={GitHub}, publisher={The Linux Foundation}, author={Budankov, Alexey and Corbet, Jonathan}, year={2019}, month={Feb}}
 
@@ -246,17 +369,17 @@ volume={93}
 
 % original dtrace paper
 @inproceedings{cantrill04,
- author = {Cantrill, Bryan M. and Shapiro, Michael W. and Leventhal, Adam H.},
- title = {Dynamic Instrumentation of Production Systems},
- booktitle = {Proceedings of the Annual Conference on USENIX Annual Technical Conference},
- series = {ATEC '04},
- year = {2004},
- location = {Boston, MA},
- pages = {2--2},
- numpages = {1},
- url = {https://www.usenix.org/legacy/publications/library/proceedings/usenix04/tech/general/full_papers/cantrill/cantrill.pdf},
- publisher = {USENIX Association},
- address = {Berkeley, CA, USA},
+ author={Cantrill, Bryan M. and Shapiro, Michael W. and Leventhal, Adam H.},
+ title={Dynamic Instrumentation of Production Systems},
+ booktitle={Proceedings of the Annual Conference on USENIX Annual Technical Conference},
+ series={ATEC '04},
+ year={2004},
+ location={Boston, MA},
+ pages={2--2},
+ numpages={1},
+ url={https://www.usenix.org/legacy/publications/library/proceedings/usenix04/tech/general/full_papers/cantrill/cantrill.pdf},
+ publisher={USENIX Association},
+ address={Berkeley, CA, USA},
 }
 % B Gregg Dtrace book
 @book{gregg14, place={Upper Saddle River}, title={DTrace: dynamic tracing in Oracle Solaris, Mac OS X and FreeBSD}, publisher={Prentice Hall}, author={Gregg, Brendan and Mauro, Jim and Cantrill, Bryan M.}, year={2014}}
@@ -269,16 +392,16 @@ volume={93}
 @misc{bpftrace, title={iovisor/bpftrace}, url={https://github.com/iovisor/bpftrace}, journal={GitHub}, publisher={Iovisor}, year={2019}, month={Nov}}
 % dtrace being reimplemented in eBPF
 @techreport{vanhees19,
-   AUTHOR = "Van Hees, Kris",
-   TITLE = "{bpf, trace, dtrace: DTrace BPF program type implementation and sample use}",
-   HOWPUBLISHED = {Internet Requests for Comments},
+   AUTHOR="Van Hees, Kris",
+   TITLE="{bpf, trace, dtrace: DTrace BPF program type implementation and sample use}",
+   HOWPUBLISHED={Internet Requests for Comments},
    TYPE="{RFC Patch}",
    NUMBER={00/11},
-   PAGES = {1-56},
-   YEAR = {2019},
-   MONTH = {May},
-   PUBLISHER = "{lwn.net}",
-   INSTITUTION = "{The Linux Foundation}",
+   PAGES={1-56},
+   YEAR={2019},
+   MONTH={May},
+   PUBLISHER="{lwn.net}",
+   INSTITUTION="{The Linux Foundation}",
    URL={https://lwn.net/Articles/788995/}
    }
 
@@ -294,21 +417,21 @@ volume={93}
 % lookahead pairs
 @inbook{soma07, place={New York, New York}, title={Lookahead Pairs and Full Sequences: A Tale of Two Anomaly Detection Methods}, url={http://people.scs.carleton.ca/~soma/pubs/inoue-albany2007.pdf}, booktitle={Proceedings of the 2nd Annual Symposium on Information Assurance Academic track of the 10th Annual 2007 NYS Cyber Security Conference}, publisher={NYS Cyber Security Conference}, author={Somayaji, Anil Buntwal and Inoue, Hajime}, year={2007}, pages={9–19}}
 @inproceedings{wagner02,
- author = {Wagner, David and Soto, Paolo},
- title = {Mimicry Attacks on Host-based Intrusion Detection Systems},
- booktitle = {Proceedings of the 9th ACM Conference on Computer and Communications Security},
- series = {CCS '02},
- year = {2002},
- isbn = {1-58113-612-9},
- location = {Washington, DC, USA},
- pages = {255--264},
- numpages = {10},
- url = {http://doi.acm.org/10.1145/586110.586145},
- doi = {10.1145/586110.586145},
- acmid = {586145},
- publisher = {ACM},
- address = {New York, NY, USA},
- keywords = {anomaly detection, evasion attacks, host-based intrusion detection},
+ author={Wagner, David and Soto, Paolo},
+ title={Mimicry Attacks on Host-based Intrusion Detection Systems},
+ booktitle={Proceedings of the 9th ACM Conference on Computer and Communications Security},
+ series={CCS '02},
+ year={2002},
+ isbn={1-58113-612-9},
+ location={Washington, DC, USA},
+ pages={255--264},
+ numpages={10},
+ url={http://doi.acm.org/10.1145/586110.586145},
+ doi={10.1145/586110.586145},
+ acmid={586145},
+ publisher={ACM},
+ address={New York, NY, USA},
+ keywords={anomaly detection, evasion attacks, host-based intrusion detection},
 }
 % TODO: cite amai sandia 05 from anil ~/pubs as amai05
 
@@ -329,45 +452,45 @@ month={April},}
 
 % Internal Sensors and Embedded Detectors
 @article{spafford02,
-author = {Kerschbaum, Florian and Spafford, Eugene and Zamboni, Diego},
-year = {2002},
-month = {01},
-pages = {23-70},
-title = {Using Internal Sensors and Embedded Detectors for Intrusion Detection.},
-volume = {10},
-journal = {Journal of Computer Security},
-doi = {10.3233/JCS-2002-101-203}
+author={Kerschbaum, Florian and Spafford, Eugene and Zamboni, Diego},
+year={2002},
+month={01},
+pages={23-70},
+title={Using Internal Sensors and Embedded Detectors for Intrusion Detection.},
+volume={10},
+journal={Journal of Computer Security},
+doi={10.3233/JCS-2002-101-203}
 }
 @book{peng95, place={Summit, NJ}, title={Software error analysis}, publisher={Silicon Press}, author={Peng, Wendy W. and Wallace, Dolores R.}, year={1995}}
 
 % library interpolation
 @article{kuperman99,
-author = {Kuperman, Benjamin and Spafford, Eugene},
-year = {1999},
-month = {09},
-pages = {},
-title = {Generation of Application Level Audit Data via Library Interposition}
+author={Kuperman, Benjamin and Spafford, Eugene},
+year={1999},
+month={09},
+pages={},
+title={Generation of Application Level Audit Data via Library Interposition}
 }
 
 % Spaff AAFID
 @article{spafford00,
- author = {Spafford, Eugene H. and Zamboni, Diego},
- title = {Intrusion Detection Using Autonomous Agents},
- journal = {Comput. Netw.},
- issue_date = {Oct. 2000},
- volume = {34},
- number = {4},
- month = oct,
- year = {2000},
- issn = {1389-1286},
- pages = {547--570},
- numpages = {24},
- url = {http://dx.doi.org/10.1016/S1389-1286(00)00136-5},
- doi = {10.1016/S1389-1286(00)00136-5},
- acmid = {361120},
- publisher = {Elsevier North-Holland, Inc.},
- address = {New York, NY, USA},
- keywords = {Perl, distributed systems, intrusion detection, security, software agents},
+ author={Spafford, Eugene H. and Zamboni, Diego},
+ title={Intrusion Detection Using Autonomous Agents},
+ journal={Comput. Netw.},
+ issue_date={Oct. 2000},
+ volume={34},
+ number={4},
+ month=oct,
+ year={2000},
+ issn={1389-1286},
+ pages={547--570},
+ numpages={24},
+ url={http://dx.doi.org/10.1016/S1389-1286(00)00136-5},
+ doi={10.1016/S1389-1286(00)00136-5},
+ acmid={361120},
+ publisher={Elsevier North-Holland, Inc.},
+ address={New York, NY, USA},
+ keywords={Perl, distributed systems, intrusion detection, security, software agents},
 }
 
 % inline sensors and passive sensors for network-based stuff
