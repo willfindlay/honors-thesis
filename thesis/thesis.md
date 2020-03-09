@@ -907,8 +907,6 @@ faced, and justify why eBPF was ultimately well-suited to an implementation of t
 
 ## Userspace Components
 
-<!-- TODO: update this to discuss several CLI programs, remove GUI, add libebph -->
-
 The userspace components of ebpH are comprised of several distinct and related programs.
 In particular, we can divide these programs into two sets: the *ebpH Daemon* (`ebphd`) and several
 CLI (command line interface) programs used to interact with it. The daemon is responsible for submitting BPF programs
@@ -1146,6 +1144,7 @@ While we keep track of every system call made by a process, we pay special atten
 calls which are directly related to profile creation, association, and disassociation. These system calls
 and their respective side effects are summarized in \autoref{ebph-syscalls}.
 
+<!-- TODO FIXME: this table is wrong now.... we are using sched tracepoints for most of these.... fix it! -->
 \begin{table}
 \caption{Important system calls in ebpH.}
 \label{ebph-syscalls}
@@ -1412,6 +1411,8 @@ like its predecessor. See \autoref{bpfbench} for the BPF portion of `bpfbench`'s
 `bpfbench` was used to measure the overhead of system calls on various systems, including
 a server used in production, personal computers, and a CCSL (Carleton Computer Security Lab) workstation.
 
+<!-- TODO: finish this!! -->
+
 ## Results
 
 ## Using ebpH on a Personal Computer
@@ -1430,7 +1431,7 @@ a server used in production, personal computers, and a CCSL (Carleton Computer S
 
 # Future Work
 
-<!-- TODO: write this section -->
+<!-- TODO: write this section and all subsections -->
 
 ## Security Analysis
 
@@ -1440,7 +1441,11 @@ a server used in production, personal computers, and a CCSL (Carleton Computer S
 
 ## General System Introspection and the Future of ebpH
 
-<!-- TODO: replace all of the following with the above two -->
+
+
+
+
+<!-- TODO: replace all of the following with the above two sections -->
 
 # Methodology and Future Work
 
