@@ -462,87 +462,127 @@
 
 % Linux background below this line ------------------------------------------
 
-@misc{unistd, title={torvalds/linux }, url={https://github.com/torvalds/linux/blob/master/include/uapi/asm-generic/unistd.h}, journal={GitHub}, publisher={The Linux Foundation}, author={Torvalds, Linus}}
+@misc{unistd,
+  title={linux/uapi/asm-generic/unistd.h},
+  url={https://github.com/torvalds/linux/blob/master/include/uapi/asm-generic/unistd.h},
+  journal={{GitHub}},
+  publisher={{The Linux Foundation}},
+  author={Torvalds, Linus}
+}
 
 % pH background below this line ---------------------------------------------
-@phdthesis{soma02, title={Operating system stability and security through process homeostasis}, url={https://people.scs.carleton.ca/~soma/pubs/soma-diss.pdf}, journal={Operating system stability and security through process homeostasis}, school={Anil Somayaji}, author={Somayaji, Anil Buntwal.}, year={2002}}
-% lookahead pairs
-@inbook{soma07, place={New York, New York}, title={Lookahead Pairs and Full Sequences: A Tale of Two Anomaly Detection Methods}, url={http://people.scs.carleton.ca/~soma/pubs/inoue-albany2007.pdf}, booktitle={Proceedings of the 2nd Annual Symposium on Information Assurance Academic track of the 10th Annual 2007 NYS Cyber Security Conference}, publisher={NYS Cyber Security Conference}, author={Somayaji, Anil Buntwal and Inoue, Hajime}, year={2007}, pages={9–19}}
-@inproceedings{wagner02,
- author={Wagner, David and Soto, Paolo},
- title={Mimicry Attacks on Host-based Intrusion Detection Systems},
- booktitle={Proceedings of the 9th ACM Conference on Computer and Communications Security},
- series={CCS '02},
- year={2002},
- isbn={1-58113-612-9},
- location={Washington, DC, USA},
- pages={255--264},
- numpages={10},
- url={http://doi.acm.org/10.1145/586110.586145},
- doi={10.1145/586110.586145},
- acmid={586145},
- publisher={ACM},
- address={New York, NY, USA},
- keywords={anomaly detection, evasion attacks, host-based intrusion detection},
+
+% pH thesis
+@phdthesis{soma02,
+  title={{Operating System Stability and Security through Process Homeostasis}},
+  url={https://people.scs.carleton.ca/~soma/pubs/soma-diss.pdf},
+  journal={{Operating System Stability and Security through Process Homeostasis}}, school={University of New Mexico},
+  author={Somayaji, Anil Buntwal.},
+  year={2002}
 }
-% TODO: cite amai sandia 05 from anil ~/pubs as amai05
+% lookahead pairs
+@inbook{soma07,
+  place={New York, New York},
+  title={{Lookahead Pairs and Full Sequences: A Tale of Two Anomaly Detection Methods}},
+  url={http://people.scs.carleton.ca/~soma/pubs/inoue-albany2007.pdf},
+  booktitle={{Proceedings of the 2nd Annual Symposium on Information Assurance Academic track of the 10th Annual 2007 NYS Cyber Security Conference}},
+  publisher={NYS Cyber Security Conference},
+  author={Somayaji, Anil Buntwal and Inoue, Hajime},
+  year={2007},
+  pages={9–19}
+}
+% mimicry attack paper, TODO: make sure to reference this in future work re. security analysis
+@inproceedings{wagner02,
+  author={Wagner, David and Soto, Paolo},
+  title={{Mimicry Attacks on Host-based Intrusion Detection Systems}},
+  booktitle={Proceedings of the 9th ACM Conference on Computer and Communications Security},
+  series={CCS '02},
+  year={2002},
+  isbn={1-58113-612-9},
+  location={Washington, DC, USA},
+  pages={255--264},
+  numpages={10},
+  url={http://doi.acm.org/10.1145/586110.586145},
+  doi={10.1145/586110.586145},
+  acmid={586145},
+  publisher={ACM},
+  address={New York, NY, USA},
+  keywords={anomaly detection, evasion attacks, host-based intrusion detection},
+}
+% Signal-aware sequences
+@techreport{amai05,
+   title = {{An Immunological Basis for High-Reliability Systems Control}},
+   author = {Amai, Wendy A and Walther, Eleanor A and Somayaji, Anil B},
+   group = {Sandia},
+   institution = {Sandia National Laboratories},
+   month = {March},
+   year = {2005},
+}
 
 
 % intrusion detection below this line -------------------------
 @ARTICLE{kemmerer02,
-author={R. A. {Kemmerer} and G. {Vigna}},
-journal={Computer},
-title={Intrusion detection: a brief history and overview},
-year={2002},
-volume={35},
-number={4},
-pages={supl27-supl30},
-keywords={security of data;intrusion detection;data collection;system effectiveness;network wide analysis;data security;Intrusion detection;History;Operating systems;Data analysis;Cameras;Turning;Protection;Computer security;Computerized monitoring;Printers},
-doi={10.1109/MC.2002.1012428},
-ISSN={1558-0814},
-month={April},}
+  author={R. A. {Kemmerer} and G. {Vigna}},
+  journal={IEEE Security and Privacy 2002},
+  title={{Intrusion Detection: A Brief History and Overview}},
+  year={2002},
+  volume={35},
+  number={4},
+  pages={27-30},
+  keywords={security of data;intrusion detection;data collection;system effectiveness;network wide analysis;data security;Intrusion detection;History;Operating systems;Data analysis;Cameras;Turning;Protection;Computer security;Computerized monitoring;Printers},
+  doi={10.1109/MC.2002.1012428},
+  ISSN={1558-0814},
+  month={April},
+}
 
 % Internal Sensors and Embedded Detectors
 @article{spafford02,
-author={Kerschbaum, Florian and Spafford, Eugene and Zamboni, Diego},
-year={2002},
-month={01},
-pages={23-70},
-title={Using Internal Sensors and Embedded Detectors for Intrusion Detection.},
-volume={10},
-journal={Journal of Computer Security},
-doi={10.3233/JCS-2002-101-203}
+  author={Kerschbaum, Florian and Spafford, Eugene and Zamboni, Diego},
+  year={2002},
+  month={01},
+  pages={23-70},
+  title={{Using Internal Sensors and Embedded Detectors for Intrusion Detection}},
+  volume={10},
+  journal={Journal of Computer Security},
+  doi={10.3233/JCS-2002-101-203}
 }
-@book{peng95, place={Summit, NJ}, title={Software error analysis}, publisher={Silicon Press}, author={Peng, Wendy W. and Wallace, Dolores R.}, year={1995}}
+% Cost of refactoring, cited along with the above
+@book{peng95,
+  place={Summit, NJ},
+  title={{Software Error Analysis}},
+  publisher={Silicon Press},
+  author={Peng, Wendy W. and Wallace, Dolores R.},
+  year={1995}
+}
 
-% library interpolation
+% Library interpolation
 @article{kuperman99,
-author={Kuperman, Benjamin and Spafford, Eugene},
-year={1999},
-month={09},
-pages={},
-title={Generation of Application Level Audit Data via Library Interposition}
+  author={Kuperman, Benjamin and Spafford, Eugene},
+  year={1999},
+  month={09},
+  pages={},
+  title={{Generation of Application Level Audit Data via Library Interposition}}
 }
 
 % Spaff AAFID
 @article{spafford00,
- author={Spafford, Eugene H. and Zamboni, Diego},
- title={Intrusion Detection Using Autonomous Agents},
- journal={Comput. Netw.},
- issue_date={Oct. 2000},
- volume={34},
- number={4},
- month=oct,
- year={2000},
- issn={1389-1286},
- pages={547--570},
- numpages={24},
- url={http://dx.doi.org/10.1016/S1389-1286(00)00136-5},
- doi={10.1016/S1389-1286(00)00136-5},
- acmid={361120},
- publisher={Elsevier North-Holland, Inc.},
- address={New York, NY, USA},
- keywords={Perl, distributed systems, intrusion detection, security, software agents},
+  author={Spafford, Eugene H. and Zamboni, Diego},
+  title={{Intrusion Detection Using Autonomous Agents}},
+  journal={Comput. Netw.},
+  issue_date={Oct. 2000},
+  volume={34},
+  number={4},
+  month=oct,
+  year={2000},
+  issn={1389-1286},
+  pages={547--570},
+  numpages={24},
+  url={http://dx.doi.org/10.1016/S1389-1286(00)00136-5},
+  doi={10.1016/S1389-1286(00)00136-5},
+  acmid={361120},
+  publisher={Elsevier North-Holland, Inc.},
+  address={New York, NY, USA},
+  keywords={Perl, distributed systems, intrusion detection, security, software agents},
 }
 
 % inline sensors and passive sensors for network-based stuff
