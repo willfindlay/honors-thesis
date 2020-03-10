@@ -1199,7 +1199,6 @@ struct ebpH_profile
     u8 normal;          /* Is the profile normal? */
     u64 normal_time;    /* Minimum system time required for normalcy */
     u64 anomalies;      /* Number of anomalies in the profile */
-    u64 key;            /* Uniquely computed executable key */
     char comm[128];     /* Name of the executable file */
 };
 \end{lstlisting}
@@ -1652,8 +1651,23 @@ to coax it into accepting programs.
 \hypertarget{measuring-ebphs-overhead}{%
 \section{Measuring ebpH's Overhead}\label{measuring-ebphs-overhead}}
 
+One of the primary advantages of eBPF is its relatively low overhead
+\autocite{gregg19bpf,starovoitov13,starovoitov14} compared to many other
+system introspection solutions (c.f. \autoref{tracing-section} and
+\autoref{ebpf-superpowers}). In order to justify this claim in the
+context of an eBPF intrusion detection system, we need to ascertain the
+overhead associated with running ebpH on a variety of systems under a
+variety of workloads (artificial and otherwise). Here we describe the
+tests that were conducted in order to determine this overhead.
+\autoref{methodology-section} outlines the systems and tools used for
+testing and provides an overview of the collected datasets. The
+specifics of each benchmarking test along with the results are provided
+in \autoref{results-section}.
+
 \hypertarget{methodology}{%
 \subsection{Methodology}\label{methodology}}
+
+\label{methodology-section}
 
 Since ebpH's kernelspace functionality resides in system call hooks, we
 can get an idea of what overhead it imposes on the system by running
@@ -1679,17 +1693,76 @@ conditions like its predecessor. See \autoref{bpfbench} for the BPF
 portion of \passthrough{\lstinline!bpfbench!}'s source code.
 \footnotetext{Full source code available at \url{https://github.com/willfindlay/bpfbench}.}
 
-\passthrough{\lstinline!bpfbench!} was used to measure the overhead of
-system calls on various systems, including a server used in production,
-personal computers, and a CCSL (Carleton Computer Security Lab)
-workstation.
+Macro- and micro-benchmarking data was collected on various systems,
+including a server used in production, a personal computer, and a CCSL
+(Carleton Computer Security Lab) workstation. Tests were run under a
+variety of workloads and benchmarking data was collected using
+\passthrough{\lstinline!bpfbench!}. For each dataset, the same test was
+conducted on the system twice: once with ebpH running, and once without.
+\autoref{systems} summarizes each of the systems used for the collection
+of benchmarking data and \autoref{datasets} provides a description of
+each dataset, including the system and the workload tested.
+
+\begin{table}
+    \caption{Systems used for the collection of ebpH benchmarking data.}
+    \label{systems}
+\begin{tabular}{>{\ttfamily}ll}
+\toprule
+      System &                               Description \\
+\midrule
+        arch &                      Personal workstation \\
+      bronte &                          CCSL workstation \\
+ homeostasis &  Mediawiki server for COMP3000 class wiki \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}
+    \caption{ebpH benchmarking datasets.}
+    \label{datasets}
+\begin{tabular}{>{\ttfamily}l>{\ttfamily}llp{2.3in}}
+\toprule
+          Dataset &       System &           Workload &                                                                                     Description \\
+\midrule
+        arch-3day &         arch &         Normal use &                              Macrobenchmark using bpfbench, 3 days with ebpH and 3 days without \\
+       arch-close &         arch &         Artificial &  Microbenchmark using bpfbench, running 1,000,000 close(2) system calls with invalid arguments. \\
+        arch-7day &       bronte &               Idle &                              Macrobenchmark using bpfbench, 7 days with ebpH and 7 days without \\
+ homeostasis-7day &  homeostasis &         Production &                              Macrobenchmark using bpfbench, 7 days with ebpH and 7 days without \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\FloatBarrier
+
+After benchmarking data was collected, overhead was calculated according
+to the following equation: \begin{align*}
+    \text{Overhead}_\text{syscall} &= \frac{T_{\text{ebph}_{\text{syscall}}} - T_{\text{base}_{\text{syscall}}}} {T_{\text{base}_{\text{syscall}}}}
+    \intertext{where,}
+    T_{\text{syscall}} &= \frac{\text{Total time}}{\text{Number of occurrences}}
+    \intertext{as measured by \texttt{bpfbench}.}
+\end{align*}
 
 \hypertarget{results}{%
 \subsection{Results}\label{results}}
 
-\hypertarget{using-ebph-on-a-personal-computer}{%
-\subsection{Using ebpH on a Personal
-Computer}\label{using-ebph-on-a-personal-computer}}
+\label{results-section}
+
+\hypertarget{bronte-macro-benchmark}{%
+\subsubsection{\texorpdfstring{\texttt{bronte}
+Macro-Benchmark}{bronte Macro-Benchmark}}\label{bronte-macro-benchmark}}
+
+\hypertarget{homeostasis-macro-benchmark}{%
+\subsubsection{\texorpdfstring{\texttt{homeostasis}
+Macro-Benchmark}{homeostasis Macro-Benchmark}}\label{homeostasis-macro-benchmark}}
+
+\hypertarget{arch-close-micro-benchmark}{%
+\subsubsection{\texorpdfstring{\texttt{arch-close}
+Micro-Benchmark}{arch-close Micro-Benchmark}}\label{arch-close-micro-benchmark}}
+
+\hypertarget{arch-3day-macro-benchmark-using-ebph-on-a-personal-computer}{%
+\subsubsection{\texorpdfstring{\texttt{arch-3day} Macro-Benchmark: Using
+ebpH on a Personal
+Computer}{arch-3day Macro-Benchmark: Using ebpH on a Personal Computer}}\label{arch-3day-macro-benchmark-using-ebph-on-a-personal-computer}}
 
 \begin{table}
     \caption{Top 20 most frequent system calls from the \code{arch-3day} dataset, sorted by percent overhead. Smaller
@@ -1978,6 +2051,6 @@ Code}{bpfbench Source Code}}\label{bpfbench-source-code}}
 
 \label{bpfbench}
 
-\lil[language=c, caption={The BPF program behind \code{bpfbench}.}, label={appendix-bigdata}]{../code/bpfbench/src/bpf/bpf_program.c}
+\lil[language=c, caption={The eBPF component of \code{bpfbench}.}, label={appendix-bigdata}]{../code/bpfbench/src/bpf/bpf_program.c}
 
 \end{document}

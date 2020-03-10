@@ -1047,7 +1047,6 @@ struct ebpH_profile
     u8 normal;          /* Is the profile normal? */
     u64 normal_time;    /* Minimum system time required for normalcy */
     u64 anomalies;      /* Number of anomalies in the profile */
-    u64 key;            /* Uniquely computed executable key */
     char comm[128];     /* Name of the executable file */
 };
 \end{lstlisting}
@@ -1391,7 +1390,19 @@ particularly as one learns the nuances of how the verifier works and how to coax
 
 <!-- TODO: write this section when experiments are done -->
 
+One of the primary advantages of eBPF is its relatively low overhead [@gregg19bpf; @starovoitov13; @starovoitov14]
+compared to many other system introspection solutions (c.f. \autoref{tracing-section} and \autoref{ebpf-superpowers}).
+In order to justify this claim in the context of an eBPF intrusion detection system,
+we need to ascertain the overhead associated with running ebpH on a variety of
+systems under a variety of workloads (artificial and otherwise). Here we
+describe the tests that were conducted in order to determine this overhead.
+\autoref{methodology-section} outlines the systems and tools used for testing and
+provides an overview of the collected datasets.
+The specifics of each benchmarking test along with the results are provided in \autoref{results-section}.
+
 ## Methodology
+
+\label{methodology-section}
 
 Since ebpH's kernelspace functionality resides in system call hooks, we can get an
 idea of what overhead it imposes on the system by running macro- and micro-benchmarks
@@ -1408,14 +1419,66 @@ that neither the system call count nor the system call overhead is subject to ra
 like its predecessor. See \autoref{bpfbench} for the BPF portion of `bpfbench`'s source code.
 \footnotetext{Full source code available at \url{https://github.com/willfindlay/bpfbench}.}
 
-`bpfbench` was used to measure the overhead of system calls on various systems, including
-a server used in production, personal computers, and a CCSL (Carleton Computer Security Lab) workstation.
+Macro- and micro-benchmarking data was collected on various systems, including a server used in production,
+a personal computer, and a CCSL (Carleton Computer Security Lab) workstation. Tests were run
+under a variety of workloads and benchmarking data was collected using `bpfbench`.
+For each dataset, the same test was conducted on the system twice: once with ebpH running, and once without.
+\autoref{systems} summarizes each of the systems used for the collection of benchmarking data
+and \autoref{datasets} provides a description of each dataset, including the system and the workload
+tested.
+
+\begin{table}
+    \caption{Systems used for the collection of ebpH benchmarking data.}
+    \label{systems}
+\begin{tabular}{>{\ttfamily}ll}
+\toprule
+      System &                               Description \\
+\midrule
+        arch &                      Personal workstation \\
+      bronte &                          CCSL workstation \\
+ homeostasis &  Mediawiki server for COMP3000 class wiki \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}
+    \caption{ebpH benchmarking datasets.}
+    \label{datasets}
+\begin{tabular}{>{\ttfamily}l>{\ttfamily}llp{2.3in}}
+\toprule
+          Dataset &       System &           Workload &                                                                                     Description \\
+\midrule
+        arch-3day &         arch &         Normal use &                              Macrobenchmark using bpfbench, 3 days with ebpH and 3 days without \\
+       arch-close &         arch &         Artificial &  Microbenchmark using bpfbench, running 1,000,000 close(2) system calls with invalid arguments. \\
+        arch-7day &       bronte &               Idle &                              Macrobenchmark using bpfbench, 7 days with ebpH and 7 days without \\
+ homeostasis-7day &  homeostasis &         Production &                              Macrobenchmark using bpfbench, 7 days with ebpH and 7 days without \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\FloatBarrier
+
+After benchmarking data was collected, overhead was calculated according to the following equation:
+\begin{align*}
+    \text{Overhead}_\text{syscall} &= \frac{T_{\text{ebph}_{\text{syscall}}} - T_{\text{base}_{\text{syscall}}}} {T_{\text{base}_{\text{syscall}}}}
+    \intertext{where,}
+    T_{\text{syscall}} &= \frac{\text{Total time}}{\text{Number of occurrences}}
+    \intertext{as measured by \texttt{bpfbench}.}
+\end{align*}
 
 <!-- TODO: finish this!! -->
 
 ## Results
 
-## Using ebpH on a Personal Computer
+\label{results-section}
+
+### `bronte` Macro-Benchmark
+
+### `homeostasis` Macro-Benchmark
+
+### `arch-close` Micro-Benchmark
+
+### `arch-3day` Macro-Benchmark: Using ebpH on a Personal Computer
 
 \begin{table}
     \caption{Top 20 most frequent system calls from the \code{arch-3day} dataset, sorted by percent overhead. Smaller
@@ -1673,4 +1736,4 @@ controlling the potential future adoption of ebpH, and is therefore important to
 
 \label{bpfbench}
 
-\lil[language=c, caption={The BPF program behind \code{bpfbench}.}, label={appendix-bigdata}]{../code/bpfbench/src/bpf/bpf_program.c}
+\lil[language=c, caption={The eBPF component of \code{bpfbench}.}, label={appendix-bigdata}]{../code/bpfbench/src/bpf/bpf_program.c}
