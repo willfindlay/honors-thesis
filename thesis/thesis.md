@@ -1405,7 +1405,7 @@ The specifics of each benchmarking test along with the results are provided in \
 \label{methodology-section}
 
 Since ebpH's kernelspace functionality resides in system call hooks, we can get an
-idea of what overhead it imposes on the system by running macro- and micro-benchmarks
+idea of what overhead it imposes on the system by running macro-benchmarks
 on the time required to make system calls. Initially, I planned to use `syscount` [@syscount]
 from `bcc-tools` for this purpose, however this tool currently has a race condition
 that may affect results due to its use of `BPF_HASH` rather than `BPF_PERCPU_ARRAY` for
@@ -1419,12 +1419,14 @@ that neither the system call count nor the system call overhead is subject to ra
 like its predecessor. See \autoref{bpfbench} for the BPF portion of `bpfbench`'s source code.
 \footnotetext{Full source code available at \url{https://github.com/willfindlay/bpfbench}.}
 
-Macro- and micro-benchmarking data was collected on various systems, including a server used in production,
+Macro-benchmarking data was collected on various systems, including a server used in production,
 a personal computer, and a CCSL (Carleton Computer Security Lab) workstation. Tests were run
 under a variety of workloads and benchmarking data was collected using `bpfbench`.
 For each dataset, the same test was conducted on the system twice: once with ebpH running, and once without.
+All ebpH data was collected while ebpH was monitoring the entire system (i.e. started immediately on
+boot via a `systemd` unit) and running with normal parameters and logging settings.
 \autoref{systems} summarizes each of the systems used for the collection of benchmarking data
-and \autoref{datasets} provides a description of each dataset, including the system and the workload
+and \autoref{macro-datasets} provides a description of each dataset, including the system and the workload
 tested.
 
 \begin{table}
@@ -1442,16 +1444,15 @@ tested.
 \end{table}
 
 \begin{table}
-    \caption{ebpH benchmarking datasets.}
-    \label{datasets}
+\caption{ebpH macro-benchmarking datasets.}
+\label{macro-datasets}
 \begin{tabular}{>{\ttfamily}l>{\ttfamily}llp{2.3in}}
 \toprule
-\multicolumn{1}{l}{Dataset} & \multicolumn{1}{l}{System} &    Workload &                                                                                     Description \\
+\multicolumn{1}{l}{Dataset} & \multicolumn{1}{l}{System} & Workload & Description \\
 \midrule
-                  arch-3day &                       arch &  Normal use &                              Macrobenchmark using bpfbench, 3 days with ebpH and 3 days without \\
-                 arch-close &                       arch &  Artificial &  Microbenchmark using bpfbench, running 1,000,000 close(2) system calls with invalid arguments. \\
-                  arch-7day &                     bronte &        Idle &                              Macrobenchmark using bpfbench, 7 days with ebpH and 7 days without \\
-           homeostasis-7day &                homeostasis &  Production &                              Macrobenchmark using bpfbench, 7 days with ebpH and 7 days without \\
+bronte-7day & bronte & Idle & \texttt{bpfbench}, 7 days with ebpH and 7 days without \\
+homeostasis-7day & homeostasis & Production & \texttt{bpfbench}, 7 days with ebpH and 7 days without \\
+arch-3day & arch & Normal use & \texttt{bpfbench}, 3 days with ebpH and 3 days without \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -1459,12 +1460,32 @@ tested.
 \FloatBarrier
 
 After benchmarking data was collected, overhead was calculated according to the following equation:
+
 \begin{align*}
     \text{Overhead}_\text{syscall} &= \frac{T_{\text{ebph}_{\text{syscall}}} - T_{\text{base}_{\text{syscall}}}} {T_{\text{base}_{\text{syscall}}}}
     \intertext{where,}
     T_{\text{syscall}} &= \frac{\text{Total time}}{\text{Number of occurrences}}
     \intertext{as measured by \texttt{bpfbench}.}
 \end{align*}
+
+In addition to system call overhead, we are also interested in how ebpH affects overall system performance.
+In particular, ebpH should have negligible impact on normal system use. In order to ascertain this, micro-benchmarking
+data was collected for a variety of test cases. \autoref{micro-datasets} provides a description of each micro-benchmark dataset,
+including the system and the workload tested. Additional details of each micro-benchmark test are provided in their respective
+results sections.
+
+\begin{table}
+\caption{ebpH micro-benchmarking datasets.}
+\label{micro-datasets}
+\begin{tabular}{>{\ttfamily}l>{\ttfamily}llp{2.3in}}
+\toprule
+\multicolumn{1}{l}{Dataset} & \multicolumn{1}{l}{System} & Workload & Description \\
+\midrule
+arch-close & arch & Artificial & Microbenchmark using bpfbench, running 1,000,000 close(2) system calls with invalid arguments. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 
 ## Results
 
@@ -1473,20 +1494,6 @@ After benchmarking data was collected, overhead was calculated according to the 
 ### `bronte` Macro-Benchmark
 
 ### `homeostasis` Macro-Benchmark
-
-### `arch-close` Micro-Benchmark
-
-`sudo bpfbench 1h ebph-results.log -r ./close 1000000`
-
-`sudo bpfbench 1h base-results.log -r ./close 1000000`
-
-\begin{table}
-    \caption[\code{close} system call overhead from the \code{arch-close} dataset]{\code{close}
-    system call overhead from the \code{arch-close} dataset. Tests were run on a program
-    that made 1,000,000 calls to \code{close(999)}. $T_\text{base}$ refers to a normal system, while $T_\text{ebpH}$
-    refers to a system running ebpH.}
-    \input{../tables/arch-close/overheads.tex}
-\end{table}
 
 ### `arch-3day` Macro-Benchmark: Using ebpH on a Personal Computer
 
@@ -1501,6 +1508,25 @@ After benchmarking data was collected, overhead was calculated according to the 
     overhead is better.}
     %\input{../tables/arch-3day/overhead-by-overhead.tex}
 \end{table}
+
+### `arch-close` Micro-Benchmark
+
+\begin{center}
+\code{sudo bpfbench 1h base-results.log -r ./close 1000000}
+
+\code{sudo bpfbench 1h ebph-results.log -r ./close 1000000}
+\end{center}
+
+\begin{table}
+    \caption[\code{close} system call overhead from the \code{arch-close} dataset]{\code{close}
+    system call overhead from the \code{arch-close} dataset. Tests were run on a program
+    that made 1,000,000 calls to \code{close(999)}. $T_\text{base}$ refers to a normal system, while $T_\text{ebpH}$
+    refers to a system running ebpH.}
+    \input{../tables/arch-close/overheads.tex}
+\end{table}
+
+
+## Comparing Results with the Original pH
 
 # Future Work
 
@@ -1746,4 +1772,4 @@ controlling the potential future adoption of ebpH, and is therefore important to
 
 \label{bpfbench}
 
-\lil[language=c, caption={The eBPF component of \code{bpfbench}.}, label={appendix-bigdata}]{../code/bpfbench/src/bpf/bpf_program.c}
+\lil[language=c, caption={The eBPF component of \code{bpfbench}.}]{../code/bpfbench/src/bpf/bpf_program.c}
