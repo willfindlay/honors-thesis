@@ -1462,7 +1462,8 @@ arch-3day & arch & Normal use & \texttt{bpfbench}, 3 days with ebpH and 3 days w
 After benchmarking data was collected, overhead was calculated according to the following equation:
 
 \begin{align*}
-    \text{Overhead}_\text{syscall} &= \frac{T_{\text{ebph}_{\text{syscall}}} - T_{\text{base}_{\text{syscall}}}} {T_{\text{base}_{\text{syscall}}}}
+    \text{Overhead}_\text{syscall} &= \frac{T_{\text{ebph}_{\text{syscall}}}
+    - T_{\text{base}_{\text{syscall}}}} {T_{\text{base}_{\text{syscall}}}}
     \intertext{where,}
     T_{\text{syscall}} &= \frac{\text{Total time}}{\text{Number of occurrences}}
     \intertext{as measured by \texttt{bpfbench}.}
@@ -1481,7 +1482,7 @@ results sections.
 \toprule
 \multicolumn{1}{l}{Dataset} & \multicolumn{1}{l}{System} & Workload & Description \\
 \midrule
-arch-close & arch & Artificial & Microbenchmark using bpfbench, running 1,000,000 close(2) system calls with invalid arguments. \\
+    arch-close & arch & Artificial & Microbenchmark using \texttt{bpfbench}, running 1,000,000 close(2) system calls with invalid arguments. \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -1760,8 +1761,8 @@ controlling the potential future adoption of ebpH, and is therefore important to
 \lil[language=c, caption={Handling large datatypes in eBPF programs.}, label={appendix-bigdata}]{../code/design_patterns/bigdata.c}
 
 <!-- TODO: Add the following:
-                Setting runtime parameters with arrays
-                Issuing commands with shared library + uprobes
+            Setting runtime parameters with arrays
+            Issuing commands with shared library + uprobes
 -->
 
 \FloatBarrier
