@@ -6,69 +6,78 @@ import argparse
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 parser = argparse.ArgumentParser()
-parser.add_argument('base', type=str)
-parser.add_argument('ebph', type=str)
-parser.add_argument('out_dir', type=str)
-parser.add_argument('--needsavg', action='store_true')
+parser.add_argument('-b', '--base', type=str, nargs='+', required=1, help='base data')
+parser.add_argument('-e', '--ebph', type=str, nargs='+', required=1, help='ebpH data')
+parser.add_argument('-o', '--out', type=str, required=1, help='Path to output table')
+parser.add_argument('--noavg', action='store_true', help='Do not average times')
 args = parser.parse_args(sys.argv[1:])
 
-TOP_OVERHEAD_PATH = os.path.join(args.out_dir, 'overhead-by-overhead.tex')
-TOP_COUNT_PATH = os.path.join(args.out_dir, 'overhead-by-count.tex')
+pd.options.display.float_format = '{:.2f}'.format
 
-def combine(base, ebph):
-    base = base.rename(columns={'time':'t-base', 'count':'c-base'})
-    ebph = ebph.rename(columns={'time':'t-ebph', 'count':'c-ebph'})
-    data = pd.merge(base, ebph)
-    data.loc[:, 'count'] = data[:]['c-base'] + data[:]['c-ebph']
-    data.loc[:, 'time'] = data[:]['t-base'] + data[:]['t-ebph']
-    data = data.sort_values(['count', 'time'], ascending=[0, 0])
-
-    data = data.drop(columns=['c-base', 'c-ebph', 'time'])
-    data = data.loc[:, ['syscall', 'count', 't-base', 't-ebph']]
-
-    data.loc[:, 'overhead'] = (data[:]['t-ebph'] - data[:]['t-base']) / data[:]['t-base'] * 100
-
+def read_benchmarks(*files):
+    """
+    Read benchmarking data from ss files and return a series of data frames.
+    """
+    data = []
+    for f in files:
+        data.append(pd.read_csv(f, sep=r'\s+', skiprows=5, error_bad_lines=0, names=['syscall', 'count', 'time']))
     return data
 
-def top_overhead_table(data, top=20):
+def merge_frames(*data):
+    """
+    Merge many frames together. Should not be called on "averaged" data.
+    """
+    result = pd.concat(*data).groupby(['syscall'], as_index=False)[["count", "time"]].sum()
+    return result
+
+def average_times(data):
+    """
+    Convert time to average time.
+    """
+    data.loc[:, 'time'] = data.loc[:, 'time'] / data.loc[:, 'count']
+
+def calculate(base, ebph):
+    """
+    Join tables and calculate values.
+    """
+    data = pd.merge(base, ebph, on=['syscall'], suffixes=('_base', '_ebph'))
+    # Overhead
+    data.loc[:, 'overhead'] = (data[:]['time_ebph'] - data[:]['time_base']) / data[:]['time_base'] * 100
+    # Total count
+    data.loc[:, 'total_count'] = data[:]['count_ebph'] + data[:]['count_base']
+    # Percent of data points
+    data.loc[:, 'percent_data'] = data[:]['total_count'] / sum(data[:]['total_count']) * 100
+    return data
+
+def export_table(data, path, top=20, sort='total_count'):
+    """
+    Export final table as LaTeX table.
+    """
+    # Sort and slice data
+    data = data.sort_values(sort, ascending=0)
+    data = data[:top][['syscall', 'time_base', 'time_ebph', 'overhead']]
+    # Export table, after renaming columns
     data[:]['syscall'] =  data[:]['syscall'].str.replace('_', r'\_')
+    data = data.rename(columns={
+        'syscall':r'\multicolumn{1}{l}{System Call}',
+        'time_base':r'$T_{\text{base}}$ ($\mu$s)',
+        'time_ebph':r'$T_{\text{ebpH}}$ ($\mu$s)',
+        'overhead':r'\% Overhead'})
+    data.to_latex(index=0, escape=0, buf=path, column_format=r'>{\ttfamily}lrrrr')
 
-    # Sort then top
-    data = data.sort_values(['overhead'], ascending=[0])
-    data = data[:top]
+if __name__ == '__main__':
+    base = merge_frames(read_benchmarks(*args.base))
+    if not args.noavg:
+        average_times(base)
 
-    # Rename columns
-    data = data.rename(columns={'syscall':'System Call', 't-base':r't-base($\mu$s/call)',
-        't-ebph':r't-ebpH($\mu$s/call)', 'overhead':r'Overhead(\%)', 'count':'Count'})
-    data.to_latex(index=0, escape=0, buf=TOP_OVERHEAD_PATH)
+    ebph = merge_frames(read_benchmarks(*args.ebph))
+    if not args.noavg:
+        average_times(ebph)
 
-def top_count_table(data, top=20):
-    data[:]['syscall'] =  data[:]['syscall'].str.replace('_', r'\_')
+    data = calculate(base, ebph)
+    print(data)
+    export_table(data, args.out)
 
-    # Top then sort
-    data = data[:top]
-    data = data.sort_values(['overhead'], ascending=[0])
-
-    # Rename columns
-    data = data.rename(columns={'syscall':'System Call', 't-base':r't-base($\mu$s/call)',
-        't-ebph':r't-ebpH($\mu$s/call)', 'overhead':r'Overhead(\%)', 'count':'Count'})
-    data.to_latex(index=0, escape=0, buf=TOP_COUNT_PATH)
-
-base = pd.read_csv(args.base, sep=r'\s+', skiprows=5, error_bad_lines=0, names=['syscall', 'count', 'time'])
-if args.needsavg:
-    base.loc[:, 'time'] = base[:]['time'] / base[:]['count']
-base = base.sort_values(['count', 'time'], ascending=[0, 0])
-
-ebph = pd.read_csv(args.ebph, sep=r'\s+', skiprows=5, error_bad_lines=0, names=['syscall', 'count', 'time'])
-if args.needsavg:
-    ebph.loc[:, 'time'] = ebph[:]['time'] / ebph[:]['count']
-ebph = ebph.sort_values(['count', 'time'], ascending=[0, 0])
-
-top_overhead_table(combine(base, ebph))
-top_count_table(combine(base, ebph))
-
-#print(ebph[:20][['syscall', 'count', 'time']].to_latex(index=0))
-#
-#plot = ebph.plot(x='syscall', y='time', kind='bar')

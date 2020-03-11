@@ -1432,11 +1432,11 @@ tested.
     \label{systems}
 \begin{tabular}{>{\ttfamily}ll}
 \toprule
-      System &                               Description \\
+\multicolumn{1}{l}{System} &                               Description \\
 \midrule
-        arch &                      Personal workstation \\
-      bronte &                          CCSL workstation \\
- homeostasis &  Mediawiki server for COMP3000 class wiki \\
+                      arch &                      Personal workstation \\
+                    bronte &                          CCSL workstation \\
+               homeostasis &  Mediawiki server for COMP3000 class wiki \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -1446,12 +1446,12 @@ tested.
     \label{datasets}
 \begin{tabular}{>{\ttfamily}l>{\ttfamily}llp{2.3in}}
 \toprule
-          Dataset &       System &           Workload &                                                                                     Description \\
+\multicolumn{1}{l}{Dataset} & \multicolumn{1}{l}{System} &    Workload &                                                                                     Description \\
 \midrule
-        arch-3day &         arch &         Normal use &                              Macrobenchmark using bpfbench, 3 days with ebpH and 3 days without \\
-       arch-close &         arch &         Artificial &  Microbenchmark using bpfbench, running 1,000,000 close(2) system calls with invalid arguments. \\
-        arch-7day &       bronte &               Idle &                              Macrobenchmark using bpfbench, 7 days with ebpH and 7 days without \\
- homeostasis-7day &  homeostasis &         Production &                              Macrobenchmark using bpfbench, 7 days with ebpH and 7 days without \\
+                  arch-3day &                       arch &  Normal use &                              Macrobenchmark using bpfbench, 3 days with ebpH and 3 days without \\
+                 arch-close &                       arch &  Artificial &  Microbenchmark using bpfbench, running 1,000,000 close(2) system calls with invalid arguments. \\
+                  arch-7day &                     bronte &        Idle &                              Macrobenchmark using bpfbench, 7 days with ebpH and 7 days without \\
+           homeostasis-7day &                homeostasis &  Production &                              Macrobenchmark using bpfbench, 7 days with ebpH and 7 days without \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -1466,8 +1466,6 @@ After benchmarking data was collected, overhead was calculated according to the 
     \intertext{as measured by \texttt{bpfbench}.}
 \end{align*}
 
-<!-- TODO: finish this!! -->
-
 ## Results
 
 \label{results-section}
@@ -1478,18 +1476,30 @@ After benchmarking data was collected, overhead was calculated according to the 
 
 ### `arch-close` Micro-Benchmark
 
+`sudo bpfbench 1h ebph-results.log -r ./close 1000000`
+
+`sudo bpfbench 1h base-results.log -r ./close 1000000`
+
+\begin{table}
+    \caption[\code{close} system call overhead from the \code{arch-close} dataset]{\code{close}
+    system call overhead from the \code{arch-close} dataset. Tests were run on a program
+    that made 1,000,000 calls to \code{close(999)}. $T_\text{base}$ refers to a normal system, while $T_\text{ebpH}$
+    refers to a system running ebpH.}
+    \input{../tables/arch-close/overheads.tex}
+\end{table}
+
 ### `arch-3day` Macro-Benchmark: Using ebpH on a Personal Computer
 
 \begin{table}
     \caption{Top 20 most frequent system calls from the \code{arch-3day} dataset, sorted by percent overhead. Smaller
     overhead is better.}
-    \input{../tables/arch-3day/overhead-by-count.tex}
+    %\input{../tables/arch-3day/overhead-by-count.tex}
 \end{table}
 
 \begin{table}
     \caption{Top 20 highest overhead system calls from the \code{arch-3day} dataset, sorted by percent overhead. Smaller
     overhead is better.}
-    \input{../tables/arch-3day/overhead-by-overhead.tex}
+    %\input{../tables/arch-3day/overhead-by-overhead.tex}
 \end{table}
 
 # Future Work

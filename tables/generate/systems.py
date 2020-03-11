@@ -6,7 +6,10 @@ data.insert(0, 'System', ['arch', 'bronte', 'homeostasis'])
 data.insert(1, 'Description', ['Personal workstation', 'CCSL workstation', 'Mediawiki server for COMP3000 class wiki'])
 
 with pd.option_context("max_colwidth", 1000):
-    print(data.to_latex(index=0, column_format=r'>{\ttfamily}ll'))
+    data = data.rename(columns={
+        'System': r'\multicolumn{1}{l}{System}'
+        })
+    print(data.to_latex(index=0, escape=0, column_format=r'>{\ttfamily}ll'))
 
 data = pd.DataFrame(columns=['System', 'Dataset', 'Workload', 'Description'])
 data.loc[len(data)] = ['arch', 'arch-3day', 'Normal use', 'Macrobenchmark using bpfbench, 3 days with ebpH and 3 days without']
@@ -18,4 +21,8 @@ data = data.sort_values(by=['System', 'Dataset'])
 
 with pd.option_context("max_colwidth", 1000):
     data = data.reindex(columns=['Dataset', 'System', 'Workload', 'Description'])
-    print(data.to_latex(index=0, column_format=r'>{\ttfamily}l>{\ttfamily}llp{2.3in}'))
+    data = data.rename(columns={
+        'Dataset': r'\multicolumn{1}{l}{Dataset}',
+        'System': r'\multicolumn{1}{l}{System}'
+        })
+    print(data.to_latex(index=0, escape=0, column_format=r'>{\ttfamily}l>{\ttfamily}llp{2.3in}'))
