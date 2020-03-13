@@ -1741,7 +1741,8 @@ After benchmarking data was collected, overhead was calculated according
 to the following equation:
 
 \begin{align*}
-    \text{Overhead}_\text{syscall} &= \frac{T_{\text{ebph}_{\text{syscall}}} - T_{\text{base}_{\text{syscall}}}} {T_{\text{base}_{\text{syscall}}}}
+    \text{Overhead}_\text{syscall} &= \frac{T_{\text{ebph}_{\text{syscall}}}
+    - T_{\text{base}_{\text{syscall}}}} {T_{\text{base}_{\text{syscall}}}}
     \intertext{where,}
     T_{\text{syscall}} &= \frac{\text{Total time}}{\text{Number of occurrences}}
     \intertext{as measured by \texttt{bpfbench}.}

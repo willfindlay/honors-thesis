@@ -11,7 +11,7 @@ import seaborn as sns
 parser = argparse.ArgumentParser()
 parser.add_argument('-b', '--base', type=str, nargs='+', required=1, help='base data')
 parser.add_argument('-e', '--ebph', type=str, nargs='+', required=1, help='ebpH data')
-parser.add_argument('-o', '--out', type=str, required=1, help='Path to output table')
+parser.add_argument('-o', '--out', type=str, help='Path to output table')
 parser.add_argument('--noavg', action='store_true', help='Do not average times')
 args = parser.parse_args(sys.argv[1:])
 
@@ -52,13 +52,24 @@ def calculate(base, ebph):
     data.loc[:, 'percent_data'] = data[:]['total_count'] / sum(data[:]['total_count']) * 100
     return data
 
-def export_table(data, path, top=20, sort='total_count'):
+def strip_outliers(data):
+    # FIXME: change this
+    data = data[data['time_base'] < 7]
+    data = data[np.abs(data['overhead'] - data['overhead'].mean() <= (3 * data['overhead'].std()))]
+    return data
+
+def sort_and_filter(data, top=20, sort='total_count'):
+    # Sort and slice data
+    data = data.sort_values(sort, ascending=0)
+    data = data[:top]
+    return data
+
+def export_table(data, path):
     """
     Export final table as LaTeX table.
     """
-    # Sort and slice data
-    data = data.sort_values(sort, ascending=0)
-    data = data[:top][['syscall', 'time_base', 'time_ebph', 'overhead']]
+    # Keep columns we care about
+    data = data[['syscall', 'time_base', 'time_ebph', 'overhead']]
     # Export table, after renaming columns
     data[:]['syscall'] =  data[:]['syscall'].str.replace('_', r'\_')
     data = data.rename(columns={
@@ -78,6 +89,9 @@ if __name__ == '__main__':
         average_times(ebph)
 
     data = calculate(base, ebph)
+    data = strip_outliers(data)
+    data = sort_and_filter(data)
     print(data)
-    export_table(data, args.out)
+    if args.out:
+        export_table(data, args.out)
 

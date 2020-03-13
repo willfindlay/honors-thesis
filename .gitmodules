@@ -4,3 +4,6 @@
 [submodule "code/bpfbench"]
 	path = code/bpfbench
 	url = git@github.com:willfindlay/bpfbench.git
+[submodule "experiments/lmbench"]
+	path = experiments/lmbench
+	url = https://github.com/intel/lmbench.git

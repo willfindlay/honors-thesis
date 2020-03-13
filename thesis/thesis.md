@@ -1173,6 +1173,7 @@ wipe the process' current sequence of system calls}\\
 \end{table}
 
 ### Profile Creation and Association
+
 There are several important considerations here. First, we need a way to assign profiles
 to processes, which is done by instrumenting the `execve` system call using a tracepoint,
 as well as part of its underlying implementation via a kprobe. In particular, we hook
@@ -1193,6 +1194,7 @@ the process' current sequence of system calls, to ensure that there is no carryo
 between two unrelated profiles when constructing their lookahead pairs.
 
 ### Profile Association and Sequence Duplication
+
 Another special consideration is with respect to `fork` and `clone` family system calls.
 A forked process should begin with the same state as its parent and should (at least initially)
 be associated with the same profile as its parent. A subsequent `execve` (i.e. the `fork`-`execve` pattern)
@@ -1204,6 +1206,7 @@ profile association provided by the fork. The parent's current system call seque
 is also copied to the child to prevent forks from being used to break sequences.
 
 ### Dealing with Signal Handlers and Non-Determinism
+
 As an anomaly-based intrusion detection system, it is critical that ebpH be able to establish
 normal profiles of program behavior in a timely manner. As presented in previous sections,
 establishing the normalcy of a profile requires that the it has been active for at least
@@ -1239,6 +1242,7 @@ receives a signal that will be handled. Subsequently, we detect a return from a 
 the `re_sigreturn` system call; when ebpH detects such a return, it pops the top frame from the sequence stack.
 
 ### Reaping Processes
+
 ebpH reaps tasks from its process map whenever detects that they have exited.
 By reaping process structs from our map as we are finished with them we ensure that the map
 neither fills up, nor does it consume more memory than necessary. In order to detect when a task exits,
@@ -1326,9 +1330,11 @@ on (\lstinline{write}, \lstinline{write}) for simplicity.
 
 # Technical Challenges of an eBPF Intrusion Detection System
 
-<!-- TODO: write this section -->
+<!-- TODO: write this section, FIXME: add more subsections for other technical challenges -->
 
 ## Soothing the Verifier
+
+<!-- FIXME: potentially go over or replace this section -->
 
 The development of ebpH elicited many challenges with respect to the eBPF verifier.
 As we have seen in \autoref{verifier-section}, eBPF programs become more difficult to verify
@@ -1388,8 +1394,6 @@ particularly as one learns the nuances of how the verifier works and how to coax
 
 # Measuring ebpH's Overhead
 
-<!-- TODO: write this section when experiments are done -->
-
 One of the primary advantages of eBPF is its relatively low overhead [@gregg19bpf; @starovoitov13; @starovoitov14]
 compared to many other system introspection solutions (c.f. \autoref{tracing-section} and \autoref{ebpf-superpowers}).
 In order to justify this claim in the context of an eBPF intrusion detection system,
@@ -1443,6 +1447,8 @@ tested.
 \end{tabular}
 \end{table}
 
+<!-- TODO: finalize this -->
+
 \begin{table}
 \caption{ebpH macro-benchmarking datasets.}
 \label{macro-datasets}
@@ -1475,6 +1481,8 @@ data was collected for a variety of test cases. \autoref{micro-datasets} provide
 including the system and the workload tested. Additional details of each micro-benchmark test are provided in their respective
 results sections.
 
+<!-- TODO: finalize this -->
+
 \begin{table}
 \caption{ebpH micro-benchmarking datasets.}
 \label{micro-datasets}
@@ -1494,9 +1502,15 @@ arch-close & arch & Artificial & Microbenchmark using bpfbench, running 1,000,00
 
 ### `bronte` Macro-Benchmark
 
+<!-- TODO: fill this -->
+
 ### `homeostasis` Macro-Benchmark
 
+<!-- TODO: fill this -->
+
 ### `arch-3day` Macro-Benchmark: Using ebpH on a Personal Computer
+
+<!-- TODO: fill this -->
 
 \begin{table}
     \caption{Top 20 most frequent system calls from the \code{arch-3day} dataset, sorted by percent overhead. Smaller
@@ -1511,6 +1525,8 @@ arch-close & arch & Artificial & Microbenchmark using bpfbench, running 1,000,00
 \end{table}
 
 ### `arch-close` Micro-Benchmark
+
+<!-- FIXME: maybe remove this -->
 
 \begin{center}
 \code{sudo bpfbench 1h base-results.log -r ./close 1000000}
@@ -1529,18 +1545,27 @@ arch-close & arch & Artificial & Microbenchmark using bpfbench, running 1,000,00
 
 ## Comparing Results with the Original pH
 
+<!-- TODO: write this section -->
+
 # Future Work
 
 <!-- TODO: write this section and all subsections -->
 
 ## Security Analysis
 
+<!-- TODO: write this section -->
+
 ## Controlling for Further Sources of Non-Deterministic Behavior
+
+<!-- TODO: write this section -->
 
 ## Automating ebpH Response
 
+<!-- TODO: write this section -->
+
 ## General System Introspection and the Future of ebpH
 
+<!-- TODO: write this section -->
 
 
 
