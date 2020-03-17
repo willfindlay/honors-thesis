@@ -10,3 +10,6 @@
 [submodule "experiments/libMicro"]
 	path = experiments/libMicro
 	url = https://github.com/rzezeski/libMicro.git
+[submodule "experiments/microbench"]
+	path = experiments/microbench
+	url = git@github.com:willfindlay/microbench.git
