@@ -1,11 +1,11 @@
 \begin{tabular}{>{\ttfamily}lrrrr}
 \toprule
-\multicolumn{1}{l}{System Call} &  $T_{\text{base}}$ ($\mu$s) &  $T_{\text{ebpH}}$ ($\mu$s) &  \% Overhead \\
+\multicolumn{1}{l}{System Call} & $T_{\text{base}}$ ($\mu$s) & $T_{\text{ebpH}}$ ($\mu$s) &  \% Overhead \\
 \midrule
-                        recvmsg &                        6.04 &                        6.81 &        12.79 \\
-                      setitimer &                        2.36 &                        3.15 &        33.40 \\
-                         writev &                       16.75 &                       17.37 &         3.74 \\
-                    epoll\_wait &                   192150.41 &                   275373.69 &        43.31 \\
-                          ioctl &                      124.04 &                      183.21 &        47.70 \\
+                        recvmsg &             6.037 (0.4476) &             6.809 (0.4476) &        12.79 \\
+                      setitimer &             2.361 (0.4476) &             3.150 (0.4476) &        33.40 \\
+                         writev &            16.748 (0.4475) &            17.373 (0.4475) &         3.74 \\
+                    epoll\_wait &        192150.407 (1.7889) &        275373.692 (1.7889) &        43.31 \\
+                          ioctl &           124.040 (0.4462) &           183.209 (0.4462) &        47.70 \\
 \bottomrule
 \end{tabular}

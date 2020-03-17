@@ -7,3 +7,6 @@
 [submodule "experiments/lmbench"]
 	path = experiments/lmbench
 	url = https://github.com/intel/lmbench.git
+[submodule "experiments/libMicro"]
+	path = experiments/libMicro
+	url = https://github.com/rzezeski/libMicro.git

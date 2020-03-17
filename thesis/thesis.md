@@ -11,6 +11,8 @@ subparagraph: yes
 documentclass: findlay
 header-includes:
     - \addbibresource{../bib/thesis.bib}
+    - \floatplacement{figure}{!htbp}
+    - \floatplacement{table}{!htb}
     #- \makeatletter
     #- \def\@maketitle{
     #- \begin{center}
@@ -1457,7 +1459,7 @@ tested.
 \multicolumn{1}{l}{Dataset} & \multicolumn{1}{l}{System} & Workload & Description \\
 \midrule
 bronte-7day & bronte & Idle & \texttt{bpfbench}, 7 days with ebpH and 7 days without \\
-homeostasis-7day & homeostasis & Production & \texttt{bpfbench}, 7 days with ebpH and 7 days without \\
+homeostasis-3day & homeostasis & Production & \texttt{bpfbench}, 3 days with ebpH and 3 days without \\
 arch-3day & arch & Normal use & \texttt{bpfbench}, 3 days with ebpH and 3 days without \\
 \bottomrule
 \end{tabular}
@@ -1495,14 +1497,72 @@ arch-close & arch & Artificial & Microbenchmark using bpfbench, running 1,000,00
 \end{tabular}
 \end{table}
 
-
 ## Results
 
 \label{results-section}
 
+In this section, we present the results of several macro and micro-benchmarks to
+ascertain the overhead caused by running ebpH.
+
 ### `bronte` Macro-Benchmark
 
 <!-- TODO: fill this -->
+
+A macro-benchmark of all system calls was run using `bpfbench` for a period of 14 days on `bronte`, a workstation
+in the CCSL lab at Carleton University. For the first seven days, the system had been running ebpH since boot, and so
+all processes were being monitored. ebpH was run with normal parameters, profile saving and loading enabled,
+and logging enabled. For the final seven days, the benchmark was taken without ebpH. All benchmarks for this test
+were run under an idle workload. After concluding the benchmark tests, overhead was compared between ebpH and
+non-ebpH data in order to ascertain what effect ebpH had on the system.
+
+\begin{table}
+    \caption{Top 20 most frequent system calls from the \code{bronte-7day} dataset after discarding outliers.
+    Smaller overhead is better. Standard deviations from the mean are given in parentheses.}
+    \label{bronte_7day}
+    \input{../data/bench/bronte-7day/overhead.tex}
+\end{table}
+
+\autoref{bronte_7day} presents the results of the benchmark. In order to eliminate outliers,
+we exclude results more than 3 standard deviations from the mean. Outliers may be
+caused by a number of factors, since we are measuring the entire system over an arbitrary period of time,
+although one common explanation would be blocking system calls taking an inordinate amount of time to finish.
+Indeed, of the six data points discarded that would have made it into the top 20, all six were system calls
+with some blocking component: `futex(2)`, `select(2)`, `poll(2)`, `epoll_pwait(2)`, `pselect6(2)`, and `ioctl(2)`.
+The first five all directly block until some event occurs, while many `ioctl(2)` implementations
+involve some degree of locking within the device driver.
+
+Of the data presented in \autoref{bronte_7day}, the `bpf(2)` system call represents the most extreme
+overhead, with an overhead of $691\%$ and a standard deviation of $2.48$. This high deviation is explicable
+by the fact that many of the `bpf(2)` system calls made directly by ebpH involve direct map reads and writes of
+several megabytes at a time when saving and loading profiles to and from disk. When ebpH is not running, the
+`bpf(2)` system calls made by other BPF-related programs on the system generally do not involve
+such intensive operations.
+
+\begin{table}
+    \caption{Top 20 most frequent system calls with base times of less than 7 microseconds
+    from the \code{bronte-7day} dataset after discarding outliers.
+    Smaller overhead is better. Standard deviations from the mean are given in parentheses.}
+    \label{bronte_7day_small}
+    \input{../data/bench/bronte-7day/overhead-small-times.tex}
+\end{table}
+
+Other points in the dataset shown in \autoref{bronte_7day} generally do not present with overhead higher
+than about $130\%$. While $130\%$ may seem high, it is important to remember that these overheads
+are on system calls that have an execution time of a few microseconds. In practice, ebpH is only
+adding a few microseconds of additional execution to these system calls, a slowdown that will likely
+go unnoticed by users. If we focus on system calls with a very small execution time, in the order
+of 7 microseconds or less base time, we see that this pattern holds, with the exception of the `bpf(2)`
+call described above. \autoref{bronte_7day_small} shows the 20 most frequent system calls with base times
+of less than 7 microseconds. \autoref{bronte_7day_small_times_fig} and \autoref{bronte_7day_small_overheads_fig}
+show barplots of times and overheads respectively for system calls with base times of less than 7 microseconds.
+
+![\label{bronte_7day_small_times_fig}Times for system calls with base times of less than 7 microseconds.
+Standard error shown as error bars.](../data/bench/bronte-7day/times-small-times.png){width=70%}
+
+![\label{bronte_7day_small_overheads_fig}Overheads for system calls with base times of less than 7 microseconds.
+Standard error shown as error bars.](../data/bench/bronte-7day/overheads-small-times.png){width=70%}
+
+\FloatBarrier
 
 ### `homeostasis` Macro-Benchmark
 

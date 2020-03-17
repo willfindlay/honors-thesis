@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <sys/time.h>
+#include <sys/wait.h>
 
 #define SEC_USEC 1000000
 
@@ -11,10 +12,18 @@ char *lsargs[] = {"/usr/bin/ls"};
 
 void create_children(int count)
 {
+    int pid;
     for (int i = 0; i < count; i++)
     {
-        if (!fork())
+        pid = fork();
+        if (!pid)
+        {
             execve(lsargs[0], lsargs, environ);
+        }
+        else
+        {
+            wait(NULL);
+        }
     }
 }
 
