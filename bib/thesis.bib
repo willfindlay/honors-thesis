@@ -586,9 +586,13 @@
 }
 
 % inline sensors and passive sensors for network-based stuff
-@book{stallings07, title={Computer security: principles and practice}, url={http://www.informit.com/articles/article.aspx?p=782118}, author={Stallings, William and Brown, Lawrie}}
+@book{stallings07,
+  title={Computer security: principles and practice},
+  url={http://www.informit.com/articles/article.aspx?p=782118},
+  author={Stallings, William and Brown, Lawrie}
+}
 
-% system call stuff
+% A sense of self for UNIX processes paper
 @INPROCEEDINGS{forrest96,
 author={S. {Forrest} and S. A. {Hofmeyr} and A. {Somayaji} and T. A. {Longstaff}},
 booktitle={Proceedings 1996 IEEE Symposium on Security and Privacy},
@@ -600,4 +604,99 @@ pages={120-128},
 keywords={Unix;security of data;living systems;Unix processes;anomaly detection;computer security systems;immune systems;UNIX programs;Immune system;Computer security;Protection;Computer science;Operating systems;Cryptography;Skin;Biomembranes;Robustness;Software engineering},
 doi={10.1109/SECPRI.1996.502675},
 ISSN={1081-6011},
-month={May},}
+month={May},
+}
+
+% Benchmarking stuff below this line --------------------------------------------------------------
+@manual{x11perf,
+  title={{x11perf(1)}},
+  author={Joel McCormack and Phil Karlton and Susan Angebranndt and Chris Kent and Keith Packard and Graeme Gill},
+  url={https://www.x.org/releases/X11R7.7/doc/man/man1/x11perf.1.xhtml},
+  organization={{Xorg}},
+}
+@manual{x11perfcomp,
+  title={{x11perfcomp(1)}},
+  author={Mark Moraes and Joel McCormack},
+  url={https://www.x.org/releases/X11R7.7/doc/man/man1/x11perfcomp.1.xhtml},
+  organization={{Xorg}},
+}
+@misc{s1bench,
+  author={Brendan Gregg},
+  title={{s1bench}},
+  url={https://github.com/brendangregg/Misc/blob/master/s1bench/s1bench.c},
+  year={2018},
+  month={Feb}
+}
+
+@inproceedings{lmbench,
+  title={{lmbench: Portable tools for performance analysis}},
+  author={McVoy, Larry W and Staelin, Carl and others},
+  booktitle={{USENIX annual technical conference}},
+  pages={279--294},
+  year={1996},
+  organization={{USENIX}},
+  location={San Diego, CA, USA}
+}
+@misc{lmbenchgit,
+  author={McVoy, Larry W },
+  title={{lmbench}},
+  url={https://github.com/intel/lmbench},
+  year={2019},
+  organization={Intel},
+  month={Dec}
+}
+
+@article{lmbenchex1,
+author = {Degermark, Mikael and Brodnik, Andrej and Carlsson, Svante and Pink, Stephen},
+title = {Small Forwarding Tables for Fast Routing Lookups},
+year = {1997},
+issue_date = {October 1997},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+volume = {27},
+number = {4},
+issn = {0146-4833},
+url = {https://doi-org.proxy.library.carleton.ca/10.1145/263109.263133},
+doi = {10.1145/263109.263133},
+journal = {SIGCOMM Comput. Commun. Rev.},
+month = oct,
+pages = {3–14},
+numpages = {12}
+}
+@article{lmbenchex2,
+author = {Barham, Paul and Dragovic, Boris and Fraser, Keir and Hand, Steven and Harris, Tim and Ho, Alex and Neugebauer, Rolf and Pratt, Ian and Warfield, Andrew},
+title = {Xen and the Art of Virtualization},
+year = {2003},
+issue_date = {December 2003},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+volume = {37},
+number = {5},
+issn = {0163-5980},
+url = {https://doi-org.proxy.library.carleton.ca/10.1145/1165389.945462},
+doi = {10.1145/1165389.945462},
+journal = {SIGOPS Oper. Syst. Rev.},
+month = oct,
+pages = {164–177},
+numpages = {14},
+keywords = {hypervisors, virtual machine monitors, paravirtualization}
+}
+@inproceedings{lmbenchex3,
+author = {Soltesz, Stephen and P\"{o}tzl, Herbert and Fiuczynski, Marc E. and Bavier, Andy and Peterson, Larry},
+title = {Container-Based Operating System Virtualization: A Scalable, High-Performance Alternative to Hypervisors},
+year = {2007},
+isbn = {9781595936363},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi-org.proxy.library.carleton.ca/10.1145/1272996.1273025},
+doi = {10.1145/1272996.1273025},
+booktitle = {Proceedings of the 2nd ACM SIGOPS/EuroSys European Conference on Computer Systems 2007},
+pages = {275–287},
+numpages = {13},
+keywords = {operating, Linux-VServer, Xen, hypervisor, system, alternative, container, virtualization},
+location = {Lisbon, Portugal},
+series = {EuroSys ’07}
+}
+
+
+

@@ -4,8 +4,6 @@
 \documentclass[
   12pt]{findlay}
 \addbibresource{../bib/thesis.bib}
-\floatplacement{figure}{!htbp}
-\floatplacement{table}{!htb}
 
 \makeatletter
 \@ifundefined{KOMAClassName}{% if non-KOMA class
@@ -1172,6 +1170,8 @@ system. These profiles are automatically loaded every time ebpH starts.
 \hypertarget{ebph-profiles}{%
 \subsection{ebpH Profiles}\label{ebph-profiles}}
 
+\label{ebph_profiles}
+
 In order to monitor process behavior, ebpH keeps track of a unique
 profile (\autoref{ebph-profile-struct}) for each executable on the
 system. It does this by maintaining a hashmap of profiles, hashed by a
@@ -1251,6 +1251,8 @@ anomalies are only flagged in normal profiles.
 \hypertarget{writing-profiles-to-disk-and-reading-profiles-from-disk}{%
 \subsubsection{Writing Profiles to Disk and Reading Profiles from
 Disk}\label{writing-profiles-to-disk-and-reading-profiles-from-disk}}
+
+\label{writing_to_disk}
 
 In order to allow profile data to persist across machine reboots, ebpH
 periodically writes profile data to disk, at an interval configurable
@@ -1766,7 +1768,9 @@ results sections.
 \toprule
 \multicolumn{1}{l}{Dataset} & \multicolumn{1}{l}{System} & Workload & Description \\
 \midrule
-arch-close & arch & Artificial & Microbenchmark using bpfbench, running 1,000,000 close(2) system calls with invalid arguments. \\
+    bronte-process & bronte & Artificial & Three process creation microbenchmarks, 1,000,000 trials each, with and without ebpH \\
+    bronte-x11perf & bronte & Artificial & \texttt{x11perf} \cite{x11perf, x11perfcomp} full benchmarking suite, with and without ebpH \\
+    bronte-s1bench & bronte & Artificial & \texttt{s1bench} \cite{s1bench} microbenchmark by Brendan Gregg, with and without ebpH \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -1795,12 +1799,34 @@ workload. After concluding the benchmark tests, overhead was compared
 between ebpH and non-ebpH data in order to ascertain what effect ebpH
 had on the system.
 
+The tests were run as follows:
+
+\begin{lstlisting}[language=sh]
+# enable ebphd systemd unit and reboot
+sudo systemctl enable ebphd && reboot now
+# test with ebpH for one week
+sudo bpfbench -d 1w ebph-results.log
+# stop ebphd
+sudo systemctl stop ebphd
+# test without ebpH for one week
+sudo bpfbench -d 1w base-results.log
+\end{lstlisting}
+
 \begin{table}
-    \caption{Top 20 most frequent system calls from the \code{bronte-7day} dataset after discarding outliers.
-    Smaller overhead is better. Standard deviations from the mean are given in parentheses.}
+    \caption{Top 20 most frequent system calls with base times of under 3$\mu$s from the \code{bronte-7day}
+    dataset (after discarding outliers). Smaller overhead is better.}
     \label{bronte_7day}
-    \input{../data/bench/bronte-7day/overhead.tex}
+    \input{../data/bench/bronte-7day/under_3us_times.tex}
 \end{table}
+
+\begin{figure}
+\centering
+\includegraphics{../data/bench/bronte-7day/under_3us_times.png}
+\caption{\label{bronte_lmbench_syscall_graph}Top 20 most frequent system
+calls with base times of under 3\(\mu\)s from the \code{bronte-7day}
+dataset (after discarding outliers). Smaller difference in times is
+better. Standard error is given as error bars.}
+\end{figure}
 
 \autoref{bronte_7day} presents the results of the benchmark. In order to
 eliminate outliers, we exclude results more than 3 standard deviations
@@ -1828,14 +1854,6 @@ the \passthrough{\lstinline!bpf(2)!} system calls made by other
 BPF-related programs on the system generally do not involve such
 intensive operations.
 
-\begin{table}
-    \caption{Top 20 most frequent system calls with base times of less than 7 microseconds
-    from the \code{bronte-7day} dataset after discarding outliers.
-    Smaller overhead is better. Standard deviations from the mean are given in parentheses.}
-    \label{bronte_7day_small}
-    \input{../data/bench/bronte-7day/overhead-small-times.tex}
-\end{table}
-
 Other points in the dataset shown in \autoref{bronte_7day} generally do
 not present with overhead higher than about \(130\%\). While \(130\%\)
 may seem high, it is important to remember that these overheads are on
@@ -1852,22 +1870,6 @@ system calls with base times of less than 7 microseconds.
 overheads respectively for system calls with base times of less than 7
 microseconds.
 
-\begin{figure}
-\centering
-\includegraphics[width=0.7\textwidth,height=\textheight]{../data/bench/bronte-7day/times-small-times.png}
-\caption{\label{bronte_7day_small_times_fig}Times for system calls with
-base times of less than 7 microseconds. Standard error shown as error
-bars.}
-\end{figure}
-
-\begin{figure}
-\centering
-\includegraphics[width=0.7\textwidth,height=\textheight]{../data/bench/bronte-7day/overheads-small-times.png}
-\caption{\label{bronte_7day_small_overheads_fig}Overheads for system
-calls with base times of less than 7 microseconds. Standard error shown
-as error bars.}
-\end{figure}
-
 \FloatBarrier
 
 \hypertarget{homeostasis-macro-benchmark}{%
@@ -1879,35 +1881,97 @@ Macro-Benchmark}{homeostasis Macro-Benchmark}}\label{homeostasis-macro-benchmark
 ebpH on a Personal
 Computer}{arch-3day Macro-Benchmark: Using ebpH on a Personal Computer}}\label{arch-3day-macro-benchmark-using-ebph-on-a-personal-computer}}
 
-\begin{table}
-    \caption{Top 20 most frequent system calls from the \code{arch-3day} dataset, sorted by percent overhead. Smaller
-    overhead is better.}
-    %\input{../tables/arch-3day/overhead-by-count.tex}
-\end{table}
+\hypertarget{bronte-lmbench-measuring-system-latency-with-lmbench-micro-benchmark}{%
+\subsubsection{\texorpdfstring{\texttt{bronte-lmbench}: Measuring System
+Latency with \texttt{lmbench}
+Micro-Benchmark}{bronte-lmbench: Measuring System Latency with lmbench Micro-Benchmark}}\label{bronte-lmbench-measuring-system-latency-with-lmbench-micro-benchmark}}
+
+McVoy's \passthrough{\lstinline!lmbench!} \autocite{lmbench,lmbenchgit}
+is a Linux micro-benchmarking suite that has seen prominent use in
+academia \autocite{lmbenchex1,lmbenchex2,lmbenchex3} for establishing
+various performance metrics of UNIX-like systems. In particular, we are
+interested in the \emph{OS}-category benchmarks provided by
+\passthrough{\lstinline!lmbench!}, especially \emph{system call latency}
+and \emph{dynamic process creation latency}. The former will give us a
+better idea of how much overhead ebpH imposes on simple (short execution
+time, and non-blocking) system calls while the latter will allow us to
+conjecture about ebpH's overhead in practice.
+
+1000 ebpH and 1000 non-ebpH trials were run on
+\passthrough{\lstinline!bronte!} and results were then averaged and
+compared to determine overhead. \autoref{bronte_lmbench_syscall} and
+\autoref{bronte_lmbench_syscall_graph} show the system call latency
+results and \autoref{bronte_lmbench_process} and
+\autoref{bronte_lmbench_process_graph} show the dynamic process creation
+latency results.
 
 \begin{table}
-    \caption{Top 20 highest overhead system calls from the \code{arch-3day} dataset, sorted by percent overhead. Smaller
-    overhead is better.}
-    %\input{../tables/arch-3day/overhead-by-overhead.tex}
+    \caption{Results of the system call benchmarks from the \code{bronte-lmbench} dataset.
+    Standard deviations are given in parentheses, smaller overhead is better.}
+    \label{bronte_lmbench_syscall}
+    \input{../data/bench/bronte-lmbench/syscall_results.tex}
 \end{table}
 
-\hypertarget{arch-close-micro-benchmark}{%
-\subsubsection{\texorpdfstring{\texttt{arch-close}
-Micro-Benchmark}{arch-close Micro-Benchmark}}\label{arch-close-micro-benchmark}}
-
-\begin{center}
-\code{sudo bpfbench 1h base-results.log -r ./close 1000000}
-
-\code{sudo bpfbench 1h ebph-results.log -r ./close 1000000}
-\end{center}
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth,height=\textheight]{../data/bench/bronte-lmbench/syscall_times.png}
+\caption{\label{bronte_lmbench_syscall_graph}Mean system call times from
+the \code{bronte-lmbench} dataset. Smaller difference in times is
+better. Standard deviation is given as error bars.}
+\end{figure}
 
 \begin{table}
-    \caption[\code{close} system call overhead from the \code{arch-close} dataset]{\code{close}
-    system call overhead from the \code{arch-close} dataset. Tests were run on a program
-    that made 1,000,000 calls to \code{close(999)}. $T_\text{base}$ refers to a normal system, while $T_\text{ebpH}$
-    refers to a system running ebpH.}
-    \input{../tables/arch-close/overheads.tex}
+    \caption{Results of the process creation benchmarks from the \code{bronte-lmbench} dataset.
+    Standard deviations are given in parentheses, smaller overhead is better.}
+    \label{bronte_lmbench_process}
+    \input{../data/bench/bronte-lmbench/process_results.tex}
 \end{table}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth,height=\textheight]{../data/bench/bronte-lmbench/process_times.png}
+\caption{\label{bronte_lmbench_process_graph}Mean process creation times
+from the \code{bronte-lmbench} dataset. Smaller difference in times is
+better. Standard deviation is given as error bars.}
+\end{figure}
+
+According to the results of the micro-benchmark, ebpH adds negligible
+overhead to the execution time of the
+\passthrough{\lstinline!fork+exit!} program. The specific overhead was
+measured to be \(-0.58\%\), but this perceived ``performance
+improvement'' is well within the margin of error for measurements.
+Actual overhead is like to be on the order of about \(0\) to \(3\%\).
+This result is consistent with macro-benchmarking data from the
+\passthrough{\lstinline!bronte-7day!} dataset where the base and ebpH
+times for the \passthrough{\lstinline!clone(2)!} system call were
+105.553 and 106.649 respectively, a difference of just over 1
+microsecond.
+
+For the \passthrough{\lstinline!fork+execve!} program, ebpH added only
+about 54 microseconds of overhead, or a difference of about \(9.95\%\).
+This result is \emph{significantly} better than the results for the
+original pH system \autocite{soma02}, but the difference can be
+explained by the fact that ebpH does not need to load profiles when
+programs first execute -- the profiles are already resident in the
+profile map; the only exception to this rule is that space for
+additional profiles needs to be allocated as the map fills (c.f.
+\autoref{ebph_profiles}) or when ebpH first loads (c.f.
+\autoref{writing_to_disk}).
+
+Similarly, ebpH outperforms the original pH system \autocite{soma02} on
+the \passthrough{\lstinline!fork+/bin/sh!} test. For this test, ebpH
+added just over 155 microseconds of overhead, a difference of about
+\(10.45\%\). The overhead increase can be attributed to the fact that
+invoking a shell to execute a binary involves many more system
+calls\footnotemark{} than the traditional \passthrough{\lstinline!fork!}
+and \passthrough{\lstinline!exec!} pattern. More system calls implies
+more opportunities for ebpH's per-system call overhead to impact
+performance. Even so, this \(10.45\%\) performance loss is essentially
+imperceptible on individual runs and therefore would not impact system
+behavior from the user's perspective under normal workloads.
+\footnotetext{111 or so additional system calls per execution (and 11 executions per run), to be more precise.}
+
+\FloatBarrier
 
 \hypertarget{comparing-results-with-the-original-ph}{%
 \subsection{Comparing Results with the Original

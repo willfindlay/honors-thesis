@@ -1,0 +1,9 @@
+\begin{tabular}{>{\ttfamily}lrrrr}
+\toprule
+\multicolumn{1}{l}{Test} &    Count & $T_{\text{base}}$ ($\mu$s) & $T_{\text{ebpH}}$ ($\mu$s) &     \% Overhead \\
+\midrule
+                   clone &  1000000 &           177.901 (1.0333) &           180.035 (1.0280) &  1.199 (1.1263) \\
+              clone/exec &  1000000 &          1460.690 (0.0702) &          1575.653 (0.0586) &  7.870 (0.3425) \\
+                  system &  1000000 &          2498.645 (0.9630) &          2745.369 (0.9694) &  9.874 (0.7837) \\
+\bottomrule
+\end{tabular}
