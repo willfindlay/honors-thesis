@@ -17,17 +17,17 @@ def parse_lmbench_data(csv):
     data = []
     with open(csv) as f:
         for line in f:
-            match = re.match(r'Simple\s+([^:]+): (\d+\.\d*)', line)
+            match = re.match(r'Process\s+([^:]+): (\d+\.\d*)', line)
             if not match:
                 continue
             data.append((match[1], np.float(match[2])))
-    data = pd.DataFrame(data, columns=['syscall', 'time'])
-    data.loc[data['syscall'] == 'syscall', 'syscall'] = 'getppid'
-    data = data.groupby('syscall', as_index=False).agg({'time': [ 'mean', 'std', 'sem']})
+    data = pd.DataFrame(data, columns=['program', 'time'])
+    data.loc[data['program'] == 'program', 'program'] = 'getppid'
+    data = data.groupby('program', as_index=False).agg({'time': [ 'mean', 'std', 'sem']})
     return data
 
 def operate(base, ebph):
-    data = base.merge(ebph, on=['syscall'], suffixes=['_base', '_ebph'])
+    data = base.merge(ebph, on=['program'], suffixes=['_base', '_ebph'])
     data['overhead'] = (data['time_ebph', 'mean'] - data['time_base', 'mean']) / data['time_base', 'mean'] * 100
     data['increase'] = (data['time_ebph', 'mean'] - data['time_base', 'mean'])
     data = data.sort_values([('time_base', 'mean')], ascending=[1])
@@ -41,10 +41,9 @@ def lmbench_to_tex(data, buf):
     data = data.drop(columns=['time_base', 'time_ebph'])
     data['time_base'] = new_time_base
     data['time_ebph'] = new_time_ebph
-    data = data[['syscall', 'time_base', 'time_ebph', 'increase', 'overhead']]
-    data['syscall'] =  data['syscall'].str.replace('_', r'\_')
+    data = data[['program', 'time_base', 'time_ebph', 'increase', 'overhead']]
     data = data.rename(columns={
-        'syscall': r'\multicolumn{1}{l}{System Call}',
+        'program': r'\multicolumn{1}{l}{Program}',
         'time_base': r'$T_\text{base}$ ($\mu$s)',
         'time_ebph': r'$T_\text{ebpH}$ ($\mu$s)',
         'increase':r'Diff. ($\mu$s)',
@@ -65,17 +64,16 @@ def lmbench_to_figs(data):
 
     plot = data.plot(yerr={'time_base_mean': data['time_base_std'], 'time_ebph_mean': data['time_ebph_std']},
             y=['time_base_mean', 'time_ebph_mean'],
-            x='syscall',
+            x='program',
             kind='bar',
             capsize=4)
-    plot.set_xlabel("System Call")
+    plot.set_xlabel("Program")
     plot.set_ylabel(r"Time ($\mu$s)")
     plot.legend(['Base', 'ebpH'])
-    plot.get_figure().savefig('syscall_times.png', bbox_inches='tight', dpi=200)
+    plot.get_figure().savefig('process_times.png', bbox_inches='tight', dpi=200)
 
-base = parse_lmbench_data('./results/base-1000.log')
-ebph = parse_lmbench_data('./results/ebph-1000.log')
+base = parse_lmbench_data('./results/processes/base-1000.log')
+ebph = parse_lmbench_data('./results/processes/ebph-1000.log')
 data = operate(base, ebph)
-print(lmbench_to_tex(data, 'syscall_results.tex'))
+print(lmbench_to_tex(data, 'process_results.tex'))
 lmbench_to_figs(data)
-

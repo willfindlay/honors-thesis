@@ -1,0 +1,13 @@
+\begin{tabular}{>{\ttfamily}lrrrr}
+\toprule
+\multicolumn{1}{l}{System Call} & $T_\text{base}$ ($\mu$s) & $T_\text{ebpH}$ ($\mu$s) & Diff. ($\mu$s) & \% Overhead \\
+\midrule
+                          close &                    0.483 &                    1.037 &          0.554 &      114.70 \\
+                          fstat &                    0.659 &                    1.210 &          0.551 &       83.61 \\
+                        getppid &                    0.756 &                    1.585 &          0.829 &      109.66 \\
+                           stat &                    1.042 &                    2.112 &          1.070 &      102.69 \\
+                           open &                    1.782 &                    2.284 &          0.502 &       28.17 \\
+                          write &                   13.576 &                   19.980 &          6.404 &       47.17 \\
+                           read &                   45.982 &                   60.200 &         14.218 &       30.92 \\
+\bottomrule
+\end{tabular}

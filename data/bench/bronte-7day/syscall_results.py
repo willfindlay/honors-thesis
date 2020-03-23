@@ -57,21 +57,35 @@ def bpfbench_to_tex(data, prefix):
     # Export
     data.to_latex(index=0, escape=0, buf=f'{prefix}.tex', column_format=r'>{\ttfamily}lrrrr')
 
-def bpfbench_to_time_graphs(data, prefix, figsize=(8, 4)):
+def bpfbench_to_time_graphs(data, prefix, figsize=(8, 6)):
     data = data.copy()
+    data = data.sort_values('time_base')
     stderr = data.sem().to_dict()
     plot = data.plot(
             yerr=stderr,
             y=['time_base', 'time_ebph'],
             x='syscall',
             kind='bar',
-            capsize=4,
+            capsize=2,
             figsize=figsize,
             )
     plot.set_xlabel("System Call")
     plot.set_ylabel(r"Time ($\mu$s)")
     plot.legend(['Base', 'ebpH'])
     plot.get_figure().savefig(f'{prefix}.png', type='png', bbox_inches='tight', dpi=200)
+
+def ttest_times(data):
+    base = data['time_base']
+    ebph = data['time_ebph']
+
+    alpha = 0.05
+    ttest = sp.stats.ttest_ind(base, ebph)
+    print(ttest)
+
+    if ttest.pvalue / 2 < alpha and ttest.statistic > 0:
+        print('reject H0 base > ebpH')
+    else:
+        print('accept H0 base > ebpH')
 
 # Parse data
 base = parse_bpfbench_data('base.log')
@@ -86,9 +100,16 @@ under_3us = data.copy()
 under_3us = under_3us[under_3us['time_base'] < 3]
 under_3us = under_3us.sort_values('count_base')[:20]
 bpfbench_to_tex(under_3us, 'under_3us_times')
-bpfbench_to_time_graphs(under_3us, 'under_3us_times', (8, 8))
+bpfbench_to_time_graphs(under_3us, 'under_3us_times')
 
-top_20 = data.copy()
-top_20 = top_20.sort_values('count_base')[:20]
-bpfbench_to_tex(top_20, 'top_20')
+lmbench_parity = data.copy()
+lmbench_parity = lmbench_parity[data['syscall'].isin(['getppid', 'write', 'read', 'fstat', 'stat', 'open', 'close'])]
+bpfbench_to_tex(lmbench_parity, 'lmbench_parity_times')
+bpfbench_to_time_graphs(lmbench_parity, 'lmbench_parity_times')
+
+#top_20 = data.copy()
+#top_20 = top_20.sort_values('count_base')[:20]
+#bpfbench_to_tex(top_20, 'top_20')
 #bpfbench_to_time_graphs(top_20, 'top_20', (8, 11))
+
+ttest_times(data)

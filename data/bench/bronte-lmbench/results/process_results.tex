@@ -1,0 +1,9 @@
+\begin{tabular}{>{\ttfamily}lrrrr}
+\toprule
+\multicolumn{1}{l}{Program} & $T_\text{base}$ ($\mu$s) & $T_\text{ebpH}$ ($\mu$s) & Diff. ($\mu$s) & \% Overhead \\
+\midrule
+                  fork+exit &         196.795 (6.6845) &         195.656 (6.1970) &         -1.140 &       -0.58 \\
+                fork+execve &        542.112 (10.8958) &        596.077 (12.8336) &         53.965 &        9.95 \\
+            fork+/bin/sh -c &       1488.232 (14.7249) &       1643.726 (18.1702) &        155.494 &       10.45 \\
+\bottomrule
+\end{tabular}

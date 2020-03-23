@@ -80,10 +80,10 @@
 
 % bpf manpage
 @manual{man-bpf,
- title={{bpf(2) Linux Programmer's Manual}},
- organization="Linux",
- year="2019",
- month="August",
+  title={{bpf(2) Linux Programmer's Manual}},
+  organization="Linux",
+  year="2019",
+  month="August",
 }
 
 % XDP
@@ -460,16 +460,6 @@
   month={Nov}
 }
 
-% Linux background below this line ------------------------------------------
-
-@misc{unistd,
-  title={linux/uapi/asm-generic/unistd.h},
-  url={https://github.com/torvalds/linux/blob/master/include/uapi/asm-generic/unistd.h},
-  journal={{GitHub}},
-  publisher={{The Linux Foundation}},
-  author={Torvalds, Linus}
-}
-
 % pH background below this line ---------------------------------------------
 
 % pH thesis
@@ -607,6 +597,90 @@ ISSN={1081-6011},
 month={May},
 }
 
+% Linux and Linux security background below this line ------------------------------------------
+
+% select(2) manpage
+@manual{man_select,
+  title={{select(2) Linux Programmer's Manual}},
+  organization="Linux",
+  year="2019",
+  month="Nov",
+}
+
+% rt_sigreturn(2) manpage
+@manual{man_sigreturn,
+  title={{sigreturn(2) Linux Programmer's Manual}},
+  organization="Linux",
+  year="2017",
+  month="Sept",
+}
+
+% system(3) manpage
+@manual{man_system,
+  title={{system(3) Linux Programmer's Manual}},
+  organization="Linux",
+  year="2019",
+  month="March",
+}
+
+% Kernel buffer overflows
+@inproceedings{chen11,
+  author = {Chen, Haogang and Mao, Yandong and Wang, Xi and Zhou, Dong and Zeldovich, Nickolai and Kaashoek, M. Frans},
+  title = {Linux Kernel Vulnerabilities: State-of-the-Art Defenses and Open Problems},
+  year = {2011},
+  isbn = {9781450311793},
+  publisher = {Association for Computing Machinery},
+  address = {New York, NY, USA},
+  url = {https://doi-org.proxy.library.carleton.ca/10.1145/2103799.2103805},
+  doi = {10.1145/2103799.2103805},
+  booktitle = {Proceedings of the Second Asia-Pacific Workshop on Systems},
+  articleno = {Article 5},
+  numpages = {5},
+  location = {Shanghai, China},
+  series = {APSys ’11}
+}
+
+% System call numbers
+@misc{unistd,
+  title={linux/uapi/asm-generic/unistd.h},
+  url={https://github.com/torvalds/linux/blob/master/include/uapi/asm-generic/unistd.h},
+  journal={{GitHub}},
+  publisher={{The Linux Foundation}},
+  author={Torvalds, Linus}
+}
+
+% Jaeger book
+@book{jaeger08,
+  place={San Rafael, CA},
+  title={{Operating System Security}},
+  publisher={Morgan \& Claypool Publishers},
+  author={Jaeger, Trent},
+  year={2008},
+}
+
+% Tools and Jewels
+@misc{vanoorschot19,
+  title={{Computer Security and the Internet: Tools and Jewels}},
+  url={https://people.scs.carleton.ca/~paulv/toolsjewels.html},
+  journal={Computer Security and the Internet: Tools and Jewels},
+  publisher={Springer},
+  author={van Oorschot, Paul C},
+  year={2019},
+  month={Sep},
+  urldate={2020-01-12}
+}
+
+% The reference monitor
+@techreport{anderson72,
+  title={{Computer Security Technology Planning Study}},
+  author={Anderson, James P},
+  month={Oct},
+  year={1972},
+  institution={US Air Force},
+  url={http://seclab.cs.ucdavis.edu/projects/history/CD/ande72a.pdf}
+}
+
+
 % Benchmarking stuff below this line --------------------------------------------------------------
 @manual{x11perf,
   title={{x11perf(1)}},
@@ -648,34 +722,34 @@ month={May},
 
 @article{lmbenchex1,
 author = {Degermark, Mikael and Brodnik, Andrej and Carlsson, Svante and Pink, Stephen},
-title = {Small Forwarding Tables for Fast Routing Lookups},
+title = {{Small Forwarding Tables for Fast Routing Lookups}},
 year = {1997},
 issue_date = {October 1997},
-publisher = {Association for Computing Machinery},
+publisher = {{Association for Computing Machinery}},
 address = {New York, NY, USA},
 volume = {27},
 number = {4},
 issn = {0146-4833},
 url = {https://doi-org.proxy.library.carleton.ca/10.1145/263109.263133},
 doi = {10.1145/263109.263133},
-journal = {SIGCOMM Comput. Commun. Rev.},
+journal = {{SIGCOMM Comput. Commun. Rev.}},
 month = oct,
 pages = {3–14},
 numpages = {12}
 }
 @article{lmbenchex2,
 author = {Barham, Paul and Dragovic, Boris and Fraser, Keir and Hand, Steven and Harris, Tim and Ho, Alex and Neugebauer, Rolf and Pratt, Ian and Warfield, Andrew},
-title = {Xen and the Art of Virtualization},
+title = {{Xen and the Art of Virtualization}},
 year = {2003},
 issue_date = {December 2003},
-publisher = {Association for Computing Machinery},
+publisher = {{Association for Computing Machinery}},
 address = {New York, NY, USA},
 volume = {37},
 number = {5},
 issn = {0163-5980},
 url = {https://doi-org.proxy.library.carleton.ca/10.1145/1165389.945462},
 doi = {10.1145/1165389.945462},
-journal = {SIGOPS Oper. Syst. Rev.},
+journal = {{SIGOPS Oper. Syst. Rev.}},
 month = oct,
 pages = {164–177},
 numpages = {14},
@@ -683,10 +757,10 @@ keywords = {hypervisors, virtual machine monitors, paravirtualization}
 }
 @inproceedings{lmbenchex3,
 author = {Soltesz, Stephen and P\"{o}tzl, Herbert and Fiuczynski, Marc E. and Bavier, Andy and Peterson, Larry},
-title = {Container-Based Operating System Virtualization: A Scalable, High-Performance Alternative to Hypervisors},
+title = {{Container-Based Operating System Virtualization: A Scalable, High-Performance Alternative to Hypervisors}},
 year = {2007},
 isbn = {9781595936363},
-publisher = {Association for Computing Machinery},
+publisher = {{Association for Computing Machinery}},
 address = {New York, NY, USA},
 url = {https://doi-org.proxy.library.carleton.ca/10.1145/1272996.1273025},
 doi = {10.1145/1272996.1273025},
@@ -696,6 +770,14 @@ numpages = {13},
 keywords = {operating, Linux-VServer, Xen, hypervisor, system, alternative, container, virtualization},
 location = {Lisbon, Portugal},
 series = {EuroSys ’07}
+}
+@inproceedings{lmbenchex4,
+  title={{Linux Security Modules: General Security Support for the Linux Kernel}},
+  author={Morris, James and Smalley, Stephen and Kroah-Hartman, Greg},
+  booktitle={USENIX Security Symposium},
+  pages={17--31},
+  year={2002},
+  organization={{ACM Berkeley, CA}}
 }
 
 
