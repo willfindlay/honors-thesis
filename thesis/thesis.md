@@ -108,12 +108,13 @@ Dr. Somayaji's support and guidance have been quintessential to the success of t
 undertaking.
 
 I would also like to thank the members and contributors of the *Iovisor Project*,
-especially Yonghong Song (https://github.com/yonghong-song) and Teng Qin (https://github.com/palmtenor)
+especially Yonghong Song\footnote{\url{https://github.com/yonghong-song}}
+and Teng Qin\footnote{\url{https://github.com/palmtenor}}
 for their guidance and willingness to respond to issues and questions related to the *bcc* project.
-Brendan Gregg's (http://www.brendangregg.com; https://github.com/brendangregg)
+Brendan Gregg's\footnote{\url{https://github.com/brendangregg} and \url{http://www.brendangregg.com}}
 writings and talks have been a great source of inspiration, especially with respect to background research.
-Sasha Goldstein's (https://github.com/goldshtn) *syscount.py* was an invaluable basis for my earliest proof-of-concept experimentation,
-although none of that original code has made it into this iteration of ebpH.
+Sasha Goldstein's\footnote{\url{https://github.com/goldshtn}} *syscount.py* was an invaluable basis
+for my earliest proof-of-concept experimentation, although none of that original code has made it into this iteration of ebpH.
 
 For their love and tremendous support of my education, I would like to thank my parents,
 Mark and Terri-Lyn. Without them, I am certain that none of this would have been possible.
@@ -217,8 +218,8 @@ relevant to GNU/Linux systems.
     \toprule
 \multicolumn{1}{l}{name} & Interface and Implementation & Citations\\
     \midrule
-strace & Uses the \texttt{ptrace} system call to trace userland processes & \cite{strace, manstrace}  \\
-ltrace & Uses the \texttt{ptrace} system call to trace library calls in userland processes & \cite{rubirabranco07, manltrace}  \\
+strace & Uses the \texttt{ptrace} system call to trace an invidivual userspace process & \cite{strace, manstrace}  \\
+ltrace & Uses the \texttt{ptrace} system call to trace library calls in an individual userland process & \cite{rubirabranco07, manltrace}  \\
 SystemTap & Dynamically generates loadable kernel modules for instrumentation; newer versions can optionally use eBPF as a backend instead &  \cite{systemtap, merey17}\\
 ftrace & Sysfs pseudo filesystem for tracepoint instrumentation located at \texttt{/sys/kernel/debug/tracing} & \cite{ftrace}\\
 perf\_events & Linux subsystem that collects performance events and returns them to userspace & \cite{manperfeventopen}  \\
@@ -274,7 +275,11 @@ deep and powerful tracing solution given their ability to instrument the entire 
 the kernel itself. Their primary detriment is a lack of safety guarantees with respect to the modules
 themselves. No matter how vetted or credible a piece of software might be, running it natively in
 the kernel always comports with an inherent level of risk; buggy code might cause system failure,
-loss of data, or other unintended and potentially catastrophic consequences.
+loss of data, or other unintended and potentially catastrophic consequences. Additionally,
+such kernel-module-based solutions are highly reliant on specific versions of the Linux kernel;
+changes to Linux's API may cause them to break, which in turn requires updates; these updates
+then increase the risk of introducing bugs into the codebase, which may in turn lead to the
+aforementioned consequences of code failure in kernelspace.
 
 Custom tracing solutions through kernel modules carry essentially the same risks.
 No sane manager would consent to running untrusted, unvetted code natively in the kernel
@@ -438,24 +443,14 @@ which is used to load and verify BPF programs, issue commands to BPF programs, a
 interact with eBPF maps. These maps are the mechanism for sending data between BPF
 programs and other BPF programs or BPF programs and userspace.
 
-\begin{figure}
-\includegraphics{../figures/ebpf-arch.png}
+\begin{figure}[p]
+    \includegraphics[width=0.8\textwidth]{../figures/ebpf-arch.png}
 \caption[Basic topology of eBPF with respect to userland and the kernel]{
 Basic topology of eBPF with respect to userland and the kernel.
 Note the bidirectional nature of dataflow between userspace and kernelspace
 using maps.}
 \label{ebpf-topology}
 \end{figure}
-
-There are several map types available in eBPF which cover a wide variety of use cases.
-These map types along with a brief description are provided in \autoref{ebpf-maps} [@man-bpf; @fleming17; @bcc].
-Thanks to this wide arsenal of maps, eBPF developers have a powerful set of both general-purpose
-and specialized data structures at their disposal; as we will see in coming sections,
-many of these maps are quite versatile and have use cases beyond what might initially
-seem pertinent. For example, the `ARRAY` map type may be used to initialize large data structures
-to be copied into a general purpose `HASH` map (refer to \autoref{appendix-bigdata} in \autoref{ebpf-design-patterns}).
-This can be effectively used to bypass the verifier's stack space limitations, which are discussed in detail
-in \autoref{verifier-section}.
 
 <!--
 Considering bcc's Python front end as an example:
@@ -466,34 +461,46 @@ all required checks, it is then loaded into an in-kernel virtual machine. From t
 we are able to attach onto various probes and tracepoints, both in the kernel and in userland.
 -->
 
-\begin{table}
-    \caption{Various map types \cite{bcc, gregg19bpf} available in eBPF programs, as of kernel 5.3.}
-\label{ebpf-maps}
-\resizebox{\textwidth}{.2\textheight}{
-\begin{tabular}{>{\ttfamily}lp{5in}}
-\toprule
-\multicolumn{1}{l}{Map Type} & Description\\
-\midrule
-HASH & A hashtable of key-value pairs\\
-ARRAY & An array indexed by integers; members are zero-initialized\\
-PROG\_ARRAY & A specialized array to hold file descriptors to other BPF programs; used for tail calls\\
-PERF\_EVENT\_ARRAY & Holds perf event counters for hardware monitoring\\
-PERCPU\_HASH & Like \texttt{HASH} but stores a different copy for each CPU context\\
-PERCPU\_ARRAY & Like \texttt{ARRAY} but stores a different copy for each CPU context\\
-STACK\_TRACE & Stores stack traces for userspace or kernerlspace functions\\
-CGROUP\_ARRAY & Stores pointers to cgroups\\
-LRU\_HASH & Like a \texttt{HASH} except least recently used values are removed to make space\\
-LRU\_PERCPU\_HASH & Like \texttt{LRU\_HASH} but stores a different copy for each CPU context\\
-LPM\_TRIE & A "Longest Prefix Matching" trie optimized for efficient traversal\\
-ARRAY\_OF\_MAPS & An \texttt{ARRAY} of file descriptors into other maps\\
-HASH\_OF\_MAPS & A \texttt{HASH} of file descriptors into other maps\\
-DEVMAP & Maps the \texttt{ifindex} of various network devices; used in XDP programs\\
-SOCKMAP & Holds references to \texttt{sock} structs; used for socket redirection\\
-CPUMAP & Allows for redirection of packets to remote CPUs; used in XDP programs\\
-\bottomrule
+\begin{table}[p]
+    \caption[Various map types available in eBPF programs, as of Linux 5.3]{
+        Various map types \cite{bcc, gregg19bpf} available in eBPF programs, as of Linux 5.3.
+    }
+    \label{ebpf-maps}
+    \resizebox{\textwidth}{.2\textheight}{
+    \begin{tabular}{>{\ttfamily}lp{5in}}
+    \toprule
+    \multicolumn{1}{l}{Map Type} & Description\\
+    \midrule
+    HASH & A hashtable of key-value pairs\\
+    ARRAY & An array indexed by integers; members are zero-initialized\\
+    PROG\_ARRAY & A specialized array to hold file descriptors to other BPF programs; used for tail calls\\
+    PERF\_EVENT\_ARRAY & Holds perf event counters for hardware monitoring\\
+    PERCPU\_HASH & Like \texttt{HASH} but stores a different copy for each CPU context\\
+    PERCPU\_ARRAY & Like \texttt{ARRAY} but stores a different copy for each CPU context\\
+    STACK\_TRACE & Stores stack traces for userspace or kernerlspace functions\\
+    CGROUP\_ARRAY & Stores pointers to cgroups\\
+    LRU\_HASH & Like a \texttt{HASH} except least recently used values are removed to make space\\
+    LRU\_PERCPU\_HASH & Like \texttt{LRU\_HASH} but stores a different copy for each CPU context\\
+    LPM\_TRIE & A "Longest Prefix Matching" trie optimized for efficient traversal\\
+    ARRAY\_OF\_MAPS & An \texttt{ARRAY} of file descriptors into other maps\\
+    HASH\_OF\_MAPS & A \texttt{HASH} of file descriptors into other maps\\
+    DEVMAP & Maps the \texttt{ifindex} of various network devices; used in XDP programs\\
+    SOCKMAP & Holds references to \texttt{sock} structs; used for socket redirection\\
+    CPUMAP & Allows for redirection of packets to remote CPUs; used in XDP programs\\
+    \bottomrule
 \end{tabular}
 }
 \end{table}
+
+There are several map types available in eBPF which cover a wide variety of use cases.
+These map types along with a brief description are provided in \autoref{ebpf-maps} [@man-bpf; @fleming17; @bcc].
+Thanks to this wide arsenal of maps, eBPF developers have a powerful set of both general-purpose
+and specialized data structures at their disposal; as we will see in coming sections,
+many of these maps are quite versatile and have use cases beyond what might initially
+seem pertinent. For example, the `ARRAY` map type may be used to initialize large data structures
+to be copied into a general purpose `HASH` map (refer to \autoref{appendix-bigdata} in \autoref{ebpf-design-patterns}).
+This can be effectively used to bypass the verifier's stack space limitations, which are discussed in detail
+in \autoref{verifier-section}.
 
 \FloatBarrier
 
@@ -524,7 +531,6 @@ the call to `schedule()` will never succeed, and program $B$ effectively constit
 denial of service attack [@hussain03] on our system, intentional or otherwise; allowing untrusted
 users to load this code into our kernel spells immediate disaster for our system.
 
-<!-- TODO: add something about memory access here -->
 By the same token, unbounded memory access attempts within a BPF program may permit
 buffer overflows, which may in turn be manipulated to gain arbitrary code execution in kernelspace [@chen11]
 (the kind that actually *can* damage the system). In order to aid static analysis of memory access, the verifier
@@ -542,32 +548,26 @@ here means \emph{computationally easier}, certainly not trivial.}
 to prove this property for a subset of all eBPF programs. \autoref{valid-ebpf} depicts
 the relationship between potentially valid eBPF code and verifiably valid eBPF code.
 
-\begin{figure}
-\begin{center}
-\includegraphics{../figures/valid-ebpf.png}
-\end{center}
-\caption[The set participation of valid C and eBPF programs.]
-{
-The set participation of valid C and eBPF programs.
-Valid eBPF programs written in C constitute a small subset of all valid C programs. Verifiably valid eBPF programs
-constitute an even smaller subset therein.
-}
-\label{valid-ebpf}
+\begin{figure}[p]
+    \caption[The set participation of valid C and eBPF programs.]{
+        The set participation of valid C and eBPF programs.
+        Valid eBPF programs written in C constitute a small subset of all valid C programs.
+        Verifiably valid eBPF programs constitute an even smaller subset therein.
+    }
+    \label{valid-ebpf}
+    \includegraphics[height=.4\textheight]{../figures/valid-ebpf.png}
 \end{figure}
 
-\begin{figure}
-\begin{center}
-\includegraphics{../figures/complexity-verifiability.png}
-\end{center}
-\caption[Complexity and verifiability of eBPF programs.]
-{
-Complexity and verifiability of eBPF programs.
-Safety guarantees for eBPF programs rely on certain compromises.
-Ideally we would like to have a relationship as shown on the bottom;
-in practice, we have something that is getting closer over time, but is still
-far from the ideal.
-}
-\label{complexity-verifiability}
+\begin{figure}[p]
+    \caption[Complexity and verifiability of eBPF programs.]{
+        Complexity and verifiability of eBPF programs.
+        Safety guarantees for eBPF programs rely on certain compromises.
+        Ideally we would like to have a relationship as shown on the bottom;
+        in practice, we have something that is getting closer over time, but is still
+        far from the ideal.
+    }
+    \label{complexity-verifiability}
+    \includegraphics[height=.4\textheight]{../figures/complexity-verifiability.png}
 \end{figure}
 
 The immediate exclusion of eBPF programs meeting certain criteria is the crux
@@ -632,27 +632,24 @@ Intrusion detection systems can be broadly classified into several categories ba
 technique(s), and response. \autoref{ids-overview} presents a broad and incomplete
 overview of these categories.
 
-\begin{figure}
-\begin{center}
-\includegraphics{../figures/ids-overview.png}
-\end{center}
-\caption[An overview of the basic categories of IDS.]
-{
-A broad overview of the basic categories of IDS.
-The current version of ebpH can be classified according to the
-categories labeled in \textbf{boldface}. Note that intrusion detection
-system classification can often be more nuanced than the basic overview presented
-here. However, this should present a good enough overview to understand IDSes in
-the context of ebpH.
-}
-\label{ids-overview}
+\begin{figure}[p]
+    \caption[An overview of the basic categories of IDS]{
+        A broad overview of the basic categories of IDS.
+        The current version of ebpH can be classified according to the
+        categories that have been \underline{underlined}. Note that intrusion detection
+        system classification can often be more nuanced than the basic overview presented
+        here. However, this should present a good enough overview to understand IDSes in
+        the context of ebpH.
+    }
+    \label{ids-overview}
+    \includegraphics{../figures/ids-overview.png}
 \end{figure}
 
 In general, intrusion detection systems can either attempt to detect
 anomalies (i.e. mismatches in behavior when compared to normally observed patterns)
-or misuse, which generally refers to matching known attack patterns to observed data [@kemmerer02].
+or signature-based, which generally refers to matching known attack patterns to observed data [@kemmerer02; @vanoorschot19].
 In general, anomaly-based approaches cover a wider variety of attacks while
-misuse-based approaches tend to yield fewer false positives. Misuse-based approaches
+signature-based approaches tend to yield fewer false positives. Misuse-based approaches
 can also be further broken down into specification-based and signature-based, which
 deal in behavioral blacklists and whitelists respectively.
 A hybrid approach between any of these techniques is also possible.
@@ -673,8 +670,8 @@ anomaly detection system that responds to anomalies by issuing alerts.
 This is generally quite similar to the original pH (\autoref{process-homeostasis})
 with one major exception:
 As we will see, the original pH also responds to anomalies by delaying
-system calls [@soma02] and preventing anomalous `execve`s.
-Implementing this functionality in ebpH is a topic for future work (refer to \autoref{potential-improvements-to-ebph}).
+system calls outright and preventing anomalous `execve(2)` calls [@soma02].
+Implementing this functionality in ebpH is a topic for future work (c.f. \autoref{response_automation}).
 
 ### A Survey of Data Collection in Intrusion Detection Systems
 
@@ -700,13 +697,14 @@ detection at a high level, there are in fact several distinct subcategories ther
 \autoref{data-collection-categories} presents an overview of the most common data
 collection subcategories in IDSes.
 
-\begin{figure}
-\includegraphics{../figures/data-collection-categories.png}
-\caption[An overview of the most common data collection categories and subcategories in IDS]
-{An overview of the most common data collection categories and subcategories in IDS,
-as well as a potentially new and promising category, {\itshape general system introspection}, thanks to eBPF.
-This figure primarily synthesizes the technologies presented in \cite{spafford02, stallings07}.}
-\label{data-collection-categories}
+\begin{figure}[p]
+    \caption[An overview of the most common data collection categories and subcategories in IDS]{
+        An overview of the most common data collection categories and subcategories in IDS,
+        as well as a potentially new and promising category, {\itshape general system introspection}, thanks to eBPF.
+        This figure primarily synthesizes the technologies presented in \cite{spafford02, stallings07}.
+    }
+    \label{data-collection-categories}
+    \includegraphics{../figures/data-collection-categories.png}
 \end{figure}
 
 #### Internal and External Sensors
@@ -753,7 +751,7 @@ the main networking stack.
 
 ebpH itself constitutes an internal host-based approach; that is, it uses
 eBPF for in-kernel instrumentation of system calls (internal) on a given host (host-based).
-As we discuss in \autoref{potential-improvements-to-ebph}, a potential avenue for future research
+As we discuss in \autoref{general_introspection}, a potential avenue for future research
 in ebpH is moving beyond system call monitoring to *general system introspection* (c.f.\ \autoref{data-collection-categories}).
 This is specifically a possibility due to eBPF's unique classification as an internal
 sensor capable of monitoring the entire system dynamically, safely, and with minimal overhead.
@@ -858,13 +856,16 @@ The primary reason for this gap in functionality is that a solution still needs 
 developed that works well with the eBPF paradigm; in particular, injecting delays via
 eBPF tracepoints or probes seems untenable due to the verifier's refusal to accommodate
 the code required for such an implementation. The addition of system call delays into
-ebpH is currently a topic for future work (see \autoref{potential-improvements-to-ebph}).
+ebpH is currently a topic for future work (c.f. \autoref{response_automation}).
 
 <!--
 ## Other Related Work
+TODO: maybe write this if we have time???
 -->
 
 # Implementing ebpH
+
+<!-- TODO: revise, starting here -->
 
 At a high level, ebpH is an intrusion detection system that profiles executable behavior
 by sequencing the system calls that processes make to the kernel; this essentially
@@ -872,27 +873,34 @@ serves as an implementation of the original pH system described by Somayaji [@so
 What makes ebpH unique is its use of an eBPF program for system call instrumentation
 and profiling (in contrast to the original pH which was implemented as a Linux 2.2 kernel patch).
 
-ebpH can be thought of as a combination of several distinct components, functioning in two
-different parts of the system: userspace, and kernelspace (specifically within the eBPF virtual machine).
-In particular it includes a daemon, a CLI, and a GUI (described in \autoref{userspace-components})
-as well as an eBPF program (described in \autoref{ebph-profiles} and onwards).
-The dataflow between these components is depicted in \autoref{ebph-dataflow}.
+ebpH can be thought of as a combination of several distinct components, functioning in both
+userspace and kernelspace. In particular it includes a daemon and several CLI programs
+(described in \autoref{userspace-components}) in userspace as well as several BPF programs in kernelspace
+(described in \autoref{ebph-profiles} and onwards). The userspace components interact
+with each other through sending requests and replies over a UNIX domain socket and the daemon
+interacts with the BPF program via direct access to hashmaps and polling perf event buffers.
+The architecture of ebpH is depicted in \autoref{ebph-dataflow}.
+This section will present the design and implementation of ebpH, with a particular emphasis
+on both the similarities and differences between ebpH and the original pH [@soma02].
 
-In order to implement the ebpH prototype described here, it was necessary to
-circumvent several challenges associated with the eBPF verifier and make several
-critical design choices with respect to dataflow between userspace and the eBPF
-virtual machine running in the kernel.
-This section attempts to explain these design choices, describe any specific challenges
-faced, and justify why eBPF was ultimately well-suited to an implementation of this nature.
-
-![\label{ebph-dataflow}The dataflow between various components of ebpH.](../figures/ebph-dataflow.png){height=40%}
+\begin{figure}
+    \caption[The architecture of ebpH]{
+        The architecture of ebpH. Note how the interaction between userspace programs
+        and BPF programs is centered around the ebpH daemon. \code{ebph-admin} and \code{ebph-ps}
+        are used to issue commands to and query info from the daemon, which interacts with the BPF
+        programs on their behalf. The BPF programs instrument various kernel functions which are triggered
+        by system calls from userspace.
+    }
+    \label{ebph-dataflow}
+    \includegraphics[height=.4\textheight]{../figures/ebph-dataflow.png}
+\end{figure}
 
 \FloatBarrier
 
 ## Userspace Components
 
 The userspace components of ebpH are comprised of several distinct and related programs.
-In particular, we can divide these programs into two sets: the *ebpH Daemon* (`ebphd`) and several
+In particular, we can divide these programs into two sets: the ebpH daemon (`ebphd`) and several
 CLI (command line interface) programs used to interact with it. The daemon is responsible for submitting BPF programs
 to the kernel, managing their state, and providing an API to other userspace programs.
 The CLI programs used to interact with the daemon include `ebph-ps`, used to list actively traced processes, threads, and profiles, providing
@@ -901,16 +909,6 @@ In order to issue more complex commands to the BPF program, `ebphd` leverages a 
 which provides functions that can be connected to arbitrary BPF programs via `uprobes`.
 Earlier versions of ebpH also included a GUI, however the GUI needs to be refactored in order to work with ebpH's new
 architecture and this is currently a topic for future work.
-
-<!--
-The userspace components of ebpH are comprised of two distinct programs.
-The *ebpH Daemon* (*ebpHD*) is responsible for initially compiling and submitting the eBPF program,
-as well as communication between userspace and the in-kernel eBPF program. As part of this communication,
-it loads existing profiles from the disk and saves new and modified profiles to the disk at regular intervals.
-Users can interact with the daemon either directly on the command line or by using the *ebpH GUI*.
-The GUI performs the same basic functions as the command line interface, except it presents information and commands
-in the form of a graphical user interface.
--->
 
 ### The ebpH Daemon
 
@@ -938,60 +936,107 @@ Profiles are saved automatically at regular intervals, configurable by the user,
 as well as any time ebpH stops monitoring the system.
 These profiles are automatically loaded every time ebpH starts.
 
-<!-- TODO: add new event categories, remove old ones -->
-\begin{table}
-\caption{Main event categories in ebpH.}
-\label{bpf-events}
-\begin{center}
-\begin{tabular}{>{\ttfamily}lp{2.6in}l}
-\toprule
-\multicolumn{1}{l}{Event} & Description & Memory Overhead\tablefootnote{
-The majority of these values are subject to significant
-optimization in future iterations of ebpH. The $2^8$ value is a sensible default chosen by bcc. In practice, many of these events
-are infrequent enough that smaller buffer sizes would be sufficient.
-}\\
-\midrule
-ebpH\_on\_anomaly & Reports anomalies in specific processes
-and which profile they were associated with & $2^{8} \text{ pages}$\\
-ebpH\_on\_create\_profile & Reports when new profiles are created & $2^{8} \text{ pages}$\\
-ebpH\_on\_pid\_assoc & Reports new associations between PIDs and profiles & $2^{8} \text{ pages}$\\
-ebpH\_error & A generic event for reporting errors to userspace & $2^{2} \text{ pages}$\\
-ebpH\_warning & A generic event for reporting warnings to userspace & $2^{2} \text{ pages}$\\
-ebpH\_debug & A generic event for reporting debug information to userspace & $2^{2} \text{ pages}$\\
-ebpH\_info & A generic event for reporting general information to userspace & $2^{2} \text{ pages}$\\
-\bottomrule
-\end{tabular}
-\end{center}
-\end{table}
-
-### `ebph-ps`
-
-<!-- TODO: write this -->
-
-### `ebph-admin`
-
-<!-- TODO: write this -->
-
-<!--
-
-TODO: move this into future work
-
-### The ebpH GUI
-
-The ebpH GUI (hereafter referred to as the GUI) provides a graphical user interface for interacting
-with the daemon. This GUI is still a work in progress and will be improved considerably
-during the testing and iteration phase (see \autoref{methodology-and-future-work}). In its current incarnation,
-the GUI can be used to inspect profiles, examine the overall state of ebpH, and check
-the ebpH logs. It can also be used to issue rudimentary commands such as profile deletion.
-Future versions of the GUI will include more commands for controlling the state of ebpH,
-as well as increased system visibility and more information about processes and profiles.
-\autoref{early-gui} depicts an early version of the GUI.
-
-![\label{early-gui}A screenshot of an early version of the ebpH GUI.](../figures/early_gui.png)
+<!-- FIXME later: this table footnote is showing up PAGES later... WTF?! -->
+\begin{longtable}{>{\ttfamily}lp{2.6in}l}
+    \caption{Main perf event categories in ebpH.}
+    \label{bpf-events}\\
+    \toprule
+    \multicolumn{1}{l}{Event} & Description & Memory Overhead\tablefootnote{
+    The majority of these values are subject to significant
+    optimization in future iterations of ebpH. The $2^8$ value is a sensible default chosen by bcc. In practice, many of these events
+    are infrequent enough that smaller buffer sizes would be sufficient.
+    }\\
+    \midrule
+    \endfirsthead
+    \endhead
+    ebpH\_on\_executable\_processed & Reports when a profile has been created & $2^{8} \text{ pages}$\\
+    ebpH\_on\_anomaly & Reports anomalies in specific processes and which profile they were associated with & $2^{8} \text{ pages}$\\
+    ebpH\_on\_anomaly\_limit & Reports when a profile hits its anomaly limit & $2^{8} \text{ pages}$\\
+    ebpH\_on\_tolerize\_limit & Reports when a process hits its tolerize limit & $2^{8} \text{ pages}$\\
+    ebpH\_on\_start\_normal & Reports when a profile starts normal monitoring & $2^{8} \text{ pages}$\\
+    ebpH\_on\_new\_sequence & Reports new sequences for logging (when enabled) & $2^{8} \text{ pages}$\\
+    ebpH\_warning & Reports generic warnings & $2^{2} \text{ pages}$\\
+    ebpH\_error & Reports generic errors & $2^{2} \text{ pages}$\\
+    \bottomrule
+\end{longtable}
 
 \FloatBarrier
 
--->
+In order to facilitate communication with the daemon, `ebphd` exposes a UNIX domain stream socket
+at `/var/run/ebph.sock`. This socket is owned by the superuser, `root`, and has permissions `600`
+in order to prevent unauthorized processes from attempting to issue commands to the daemon.
+The CLI applications, `ebph-ps` (c.f. \autoref{ebph_ps_sec}) and `ebph-admin` (c.f. \autoref{ebph_admin_sec}),
+use this socket to send commands to and receive replies from the daemon.
+
+### `ebph-ps`
+
+\label{ebph_ps_sec}
+
+`ebph-ps` is the most common tool that a system administrator will use to get a quick overview of
+process state on their system with respect to ebpH profiles. When run with its default settings,
+`ebph-ps` lists all currently monitored processes on the system with their PID, comm, current status
+(e.g. training, frozen, or normal), total system call count, system calls since last modification,
+anomaly count, and normal time. When the user invokes `ebph-ps`, it sends a JSON-encoded request
+to the daemon via the `ebphd`'s UNIX domain stream socket. The daemon replies on that same
+socket with a JSON-encoded list of processes or profiles. Users who are acquainted with the popular
+`ps` command line utility will find `ebph-ps`'s interface quite familiar. \autoref{ebph_ps_out}
+shows sample output from `ebph-ps` running on a system.
+
+\lil[
+    numbers=none,
+    label={ebph_ps_out},
+    caption={[Sample output from \texttt{ebph-ps}]
+    Sample output from \texttt{ebph-ps}.}]
+{../code/sample_outputs/ebph-ps.out}
+
+In addition to listing information per-process, `ebph-ps` can also show information
+per-thread using an optional `-t` flag. This can be used to get an idea of the number
+of tasks that ebpH is *actually* monitoring (since ebpH's view of a "process" is actually
+an individual thread rather than the entire thread group).
+Further, the `-p` flag can be specified to list all profiles on the system
+instead of processes. This can be used to find duplicate profiles for pruning, find the key
+associated with a given profile, or get an idea of the overall behavior of all
+binaries on the system. \autoref{ebph_ps_p_out} shows a truncated example of listing
+all profiles on a system using the `-p` flag.
+
+\lil[
+    numbers=none,
+    label={ebph_ps_p_out},
+    caption={[Sample output from \texttt{ebph-ps -p}]
+    Sample output from \texttt{ebph-ps -p}.
+    Note how the \texttt{PID} column has been replaced with the profile \texttt{KEY} and
+    \texttt{ebph-ps} now lists each profile exactly once, regardless of whether
+    the profile is currently running.}]
+{../code/sample_outputs/ebph-ps-p.out}
+
+### `ebph-admin`
+
+\label{ebph_admin_sec}
+
+`ebph-admin` is responsible for issuing more complex commands to ebpH, as well as making
+generic queries about ebpH's status. Status queries include information about whether ebpH
+is currently monitoring, how many system calls it has observed, how many process and threads
+are currently being monitored, and how many profiles are loaded in memory.
+
+Complex commands are issued via `libebph.so`, a dynamic library written in C whose job it
+is to expose functions that are then attached to the BPF program via uprobes. These uprobes
+are restricted to only trace calls that originate from the daemon's own PID, which prevents
+another binary from simply loading that library code and issuing unauthorized commands to the
+BPF program. \autoref{ebph_admin_request} depicts the process of using `ebph-admin` to make
+a request to the daemon.
+
+\begin{figure}
+    \caption[Dataflow of a request from \texttt{ebph-admin}]{
+        Dataflow of a request from \texttt{ebph-admin}.
+        The program issues requests to the daemon, which then either
+        directly accesses a map or triggers the execution of a uprobe
+        BPF program with \texttt{libebph.so}, depending on the complexity
+        of the request. Note that malicious applications cannot abuse \texttt{libebph.so}
+        to issue their own commands -- only the daemon can do this.
+    }
+    \label{ebph_admin_request}
+    \includegraphics[width=.8\textwidth]{../figures/ebph-admin.png}
+\end{figure}
 
 ## ebpH Profiles
 
@@ -1009,7 +1054,7 @@ where $<<$ is the left bitshift operation. In other words, we take the filesyste
 device ID in the upper 32 bits of our key, and the inode number in the lower 32 bits.
 This method provides a simple and efficient way to uniquely map keys to profiles.
 
-\begin{lstlisting}[float={ht}, language=c, label={ebph-profile-struct}, caption={A simplified
+\begin{lstlisting}[language=c, label={ebph-profile-struct}, caption={A simplified
 definition of the ebpH profile struct.}]
 struct ebpH_profile_data
 {
@@ -1030,8 +1075,7 @@ struct ebpH_profile
 };
 \end{lstlisting}
 
-<!-- TODO: update following description to include training and testing data -->
-
+<!-- FIXME: update following description to include training and testing data -->
 The profile itself is a C data structure that keeps track of information about the
 executable, as well as a sparse two-dimensional array of lookahead pairs [@soma07] to
 keep track of system call patterns. Each entry in this array consists of an
@@ -1040,21 +1084,20 @@ distance $i$ between the two calls. When we observe this distance, we set the co
 to `1`. Otherwise, it remains `0`. Each profile maintains lookahead pairs for each possible pair of
 system calls. \autoref{lookahead-ls} presents a sample (`read`, `close`) lookahead pair for the `ls` binary.
 
+\FloatBarrier
+
 \begin{figure}
-\begin{center}
-\includegraphics[height=0.45\paperheight]{../figures/lookahead-ls.png}
-\end{center}
-\caption[A sample (\lstinline{read}, \lstinline{close}) lookahead pair in the ebpH profile for \lstinline{ls}.]
-{
-A sample (\lstinline{read}, \lstinline{close}) lookahead pair in the ebpH profile for \lstinline{ls}.
-(a) shows the lookahead pair and (b) shows two relevant system call sequences, separated by several omitted calls.
-Note that the first three system calls in both the first and second sequence are responsible for
-the two least significant bits of the lookahead pair.
-}
-\label{lookahead-ls}
+    \caption[A sample (\lstinline{read}, \lstinline{close}) lookahead pair in the ebpH profile for \lstinline{ls}.]{
+        A sample (\lstinline{read}, \lstinline{close}) lookahead pair in the ebpH profile for \lstinline{ls}.
+        (a) shows the lookahead pair and (b) shows two relevant system call sequences, separated by several omitted calls.
+        Note that the first three system calls in both the first and second sequence are responsible for
+        the two least significant bits of the lookahead pair.
+    }
+    \label{lookahead-ls}
+    \includegraphics[height=0.4\textheight]{../figures/lookahead-ls.png}
 \end{figure}
 
-Each process (\autoref{tracing-processes}) is associated with
+Each process (c.f. \autoref{tracing-processes}) is associated with
 exactly one profile at a time. Profile association is updated whenever
 we observe a process making a call to `execve`. Whenever a process makes
 a system call, ebpH looks up its associated profile, and sets the appropriate
@@ -1090,7 +1133,7 @@ structs. The process struct's primary purpose is to maintain the association bet
 a process and its profile, maintain a sequence of system calls, and keep track of various metadata.
 See \autoref{ebph-process-struct} for a simplified definition of the ebpH process struct.
 
-\begin{lstlisting}[float={ht}, language=c, label={ebph-process-struct}, caption={A simplified
+\begin{lstlisting}[language=c, label={ebph-process-struct}, caption={A simplified
 definition of the ebpH process struct.}]
 struct ebpH_sequence
 {
@@ -1115,74 +1158,80 @@ struct ebpH_process
 };
 \end{lstlisting}
 
-ebpH monitors process behavior by instrumenting tracepoints for both system call entry and return.
-The nine most recent system calls made by each process are stored in its respective
-process struct, and are used to set the correct lookahead pairs in the associated profile
-struct.
+ebpH monitors process behavior by instrumenting tracepoints all system calls.
+On every system call return, ebpH adds the corresponding system call number to the process'
+current sequence (ebpH actually maintains a *stack* of sequences in order to handle non-deterministic
+behavior; this will be covered in more detail shortly). This sequence is subsequently used to index
+into the corresponding profile's lookahead pairs and flip the correct bits. If the process' profile is normal,
+new sequences will trigger ebpH's anomaly detection mechanism and a warning will be sent to userspace.
 
-While we keep track of every system call made by a process, we pay special attention to a select few system
-calls which are directly related to profile creation, association, and disassociation. These system calls
-and their respective side effects are summarized in \autoref{ebph-syscalls}.
+In addition to the system call tracepoints described above, ebpH also keeps track of a few other tracepoints to
+keep track of profile creation, process creation and deletion, and profile association on `exec`-family system calls.
+The `sched` family exposes the necessary tracepoints in order to do this. Additionally, ebpH defines
+one kprobe in order to detect when a process invokes its signal handler. \autoref{ebph-tracepoints} summarizes the
+tracepoints and kprobes used by ebpH along with their side effects on ebpH's state.
 
-<!-- TODO FIXME: this table is wrong now.... we are using sched tracepoints for most of these.... fix it! -->
 \begin{table}
-\caption{Important system calls in ebpH.}
-\label{ebph-syscalls}
-\begin{center}
-\begin{tabular}{|l|p{2.4in}|p{2.6in}|}
-\hline
-\textbf{System Call} & \textbf{Description} & \textbf{ebpH Side Effect}\\
-\hline
-\hline
-\texttt{execve} & Execute a program & \multirow{4}{2.6in}{(Re)associate a process with a profile, creating the profile if necessary;
-wipe the process' current sequence of system calls}\\
-&&\\
-\cline{1-2}
-\texttt{execveat} & Execute a program & \\
-&&\\
-\hline
-\texttt{fork} & Create a new process by duplicating calling process & \multirow{3}{2.6in}{Start tracing a process and associate with parent's profile; also copy the parent process' current sequence into the child}\\
-\cline{1-2}
-\texttt{vfork} & Create a child process and block parent &\\
-\cline{1-2}
-\texttt{clone} & Create a new process or thread &\\
-\hline
-\texttt{rt\_sigreturn} & Return from a signal handler & Pop the frame at the top of the process' sequence stack\\
-\hline
-\end{tabular}
-\end{center}
+    \caption{eBPF tracepoints and kprobes used in ebpH.}
+    \label{ebph-tracepoints}
+    \begin{tabular}{>{\ttfamily}lp{2.4in}p{2.4in}}
+        \toprule
+        \multicolumn{1}{l}{Tracepoint/Kprobe} & Description & ebpH Side Effect\\
+        \midrule
+        sys\_enter & Tracepoint invoked just after system call entry &
+            Check for return from a signal handler and pop from sequence stack if necessary\\
+        sys\_exit & Tracepoint invoked just before system call return &
+            Operate on per-process system call sequences and per-profile lookahead pairs\\
+        sched\_process\_fork & Tracepoint invoked just after a call to \texttt{fork(2)},
+            \texttt{vfork(2)}, or \texttt{clone(2)} &
+            Create a new process struct and add it to the hashmap\\
+        sched\_process\_exec & Tracepoint invoked just after an \texttt{exec}-family system call&
+            Create a profile if necessary, adding it to the hashmap, and associate it with a process\\
+        sched\_process\_exit & Tracepoint invoked just after a thread exits &
+            Delete a process struct from the hashmap\\
+        get\_signal & Kretprobe invoked when a process' signal handler is about to be called &
+            Push a new frame onto the process' sequence stack\\
+        \bottomrule
+    \end{tabular}
 \end{table}
 
 ### Profile Creation and Association
 
 There are several important considerations here. First, we need a way to assign profiles
-to processes, which is done by instrumenting the `execve` system call using a tracepoint,
-as well as part of its underlying implementation via a kprobe. In particular, we hook
-the `do_open_execat` kernel function in order to access the file's inode and filesystem
-device number. This information is used to compute a key that uniquely maps to an individual executable
+to processes, which is done by instrumenting the result of an `execve(2)` system call using the
+`sched_process_exec` tracepoint. This tracepoint allows us to access information provide by the
+`linux_bin_prm` struct, which is used to store information about the executable or interpreted script
+that `execve(2)` has loaded. In particular, the executables inode and filesystem device number are used
+in combination to compute a key that uniquely maps to an individual executable
 on disk. Without this, we would be unable to differentiate between two paths that
-resolve to a binary with the same name, for example `/usr/bin/ls` and `./ls`.
-
-The entry and exit points to the `execve` system call are used to differentiate a true
-`execve` call from the kernel routines responsible for loading shared libraries, which both
-invoke the aforementioned `do_open_execat` subroutine. When we first hit an `execve`,
-we set an indicator variable in the process struct to say that we are in the middle of an `execve`.
-Subsequent calls to `do_open_execat` are then ignored until we hit `execve`'s return tracepoint
-and unset the indicator variable.
+resolve to a binary with the same name, for example `/usr/bin/ls` and `./ls`; this is due to
+an unfortunate nuance in `execve(2)`'s treatment of pathnames (i.e. it only considers relative paths
+when provided in order to save on memory).
 
 In addition to associating a process with the correct profile, we also wipe
 the process' current sequence of system calls, to ensure that there is no carryover
-between two unrelated profiles when constructing their lookahead pairs.
+between two unrelated profiles when constructing their lookahead pairs. This is important
+in order to prevent `execve(2)` calls from being used to construct artificially good sequences
+in a profile which may be later used to mask malicious behavior [@soma02].
+
+<!--
+The entry and exit points to the `execve(2)` system call are used to differentiate a true
+`execve(2)` call from the kernel routines responsible for loading shared libraries, which both
+invoke the aforementioned `do_open_execat` subroutine. When we first hit an `execve(2)`,
+we set an indicator variable in the process struct to say that we are in the middle of an `execve(2)`.
+Subsequent calls to `do_open_execat` are then ignored until we hit `execve(2)`'s return tracepoint
+and unset the indicator variable.
+-->
 
 ### Profile Association and Sequence Duplication
 
-Another special consideration is with respect to `fork` and `clone` family system calls.
+Another special consideration is with respect to `fork(2)` and `clone(2)` family system calls.
 A forked process should begin with the same state as its parent and should (at least initially)
-be associated with the same profile as its parent. A subsequent `execve` (i.e. the `fork`-`execve` pattern)
+be associated with the same profile as its parent. A subsequent `execve(2)` (i.e. the `fork`-`execve` pattern)
 would then overwrite this association.
-In order to accomplish this, we instrument tracepoints for the `fork`, `vfork`, and `clone`
+In order to accomplish this, we instrument tracepoints for the `fork(2)`, `vfork(2)`, and `clone(2)`
 system calls, ensuring that we associate the child process with the parent's profile, if it
-exists. If ebpH detects an `execve` as outlined above, it will simply overwrite the initial
+exists. If ebpH detects an `execve(2)` as outlined above, it will simply overwrite the initial
 profile association provided by the fork. The parent's current system call sequence
 is also copied to the child to prevent forks from being used to break sequences.
 
@@ -1212,7 +1261,7 @@ Suppose that we have some sequence of system calls $(A, B, C, D, E)$ and a signa
 invokes system calls $(F, G, H)$; depending on when this signal is caught during the initial sequence,
 the resulting sequence can vary significantly. For example, we might see $(A, F, G, H, B, C, D, E)$
 in one instance and $(A, B, C, D, F, G, H, E)$ in another. This results in a significant deterioration in profile
-stability, and subsequently profile normalcy times.
+stability, and subsequently in profile normalcy times.
 
 ebpH deals with the problem of signal handlers in the same manner proposed by Amai et al. [@amai05].
 Specifically, we maintain a stack of system call sequences in each process struct; each time we receive
@@ -1253,7 +1302,7 @@ by ebpH if the profile has been previously marked normal.
 
 \protect\enlargethispage*{\baselineskip}
 
-\lil[language=c, label={anomaly.c}, caption={A simple program to demonstrate anomaly detection in ebpH.}]{../code/ebpH/misc/anomaly.c}
+\lil[language=c, label={anomaly.c}, caption={\texttt{anomaly.c}, a simple program to demonstrate anomaly detection in ebpH.}]{../code/ebpH/misc/anomaly.c}
 
 In order to test this, we artificially lower ebpH's normal time to three seconds instead of one week.
 Then, we run our test program several times with no arguments to establish normal behavior. Once the profile
@@ -1261,7 +1310,8 @@ has been marked as normal, we then run the same test program with an argument to
 ebpH immediately detects the anomalous system calls and flags them.
 These anomalies are then reported to userspace via a perf buffer as shown in \autoref{anomaly-flag}.
 
-\begin{lstlisting}[label={anomaly-flag}, caption={The flagged anomaly in the \texttt{anomaly}
+\begin{lstlisting}[label={anomaly-flag}, numbers=none, caption={[The flagged anomaly in the \texttt{anomaly}
+binary as shown in the ebpH logs]The flagged anomaly in the \texttt{anomaly}
 binary as shown in the ebpH logs. Note that ebpH also logs the offending sequence, reordering it
 so that most recent system calls appear on the right.}, language=none]
 WARNING: Anomalies in PID 11162 (anomaly 38803844):
@@ -1339,7 +1389,7 @@ system call delay into system calls from within the eBPF program, an important p
 of the original pH's functionality [@soma02]. Kernel scheduling and delay functions do not work
 in eBPF due to unsafe jump instructions, and so other means of
 delaying processes need to be explored. This is currently a topic for future
-work (see \autoref{potential-improvements-to-ebph}).
+work (c.f. \autoref{response_automation}). <!-- FIXME: change this so it makes sense in light of BPF signals -->
 
 From subproblems (2) and (3), one immediate issue arises: with no means of explicit dynamic memory allocation and
 a stack space limit of 512 bytes, how do we instantiate the large structs described in previous sections?
@@ -1412,38 +1462,57 @@ under a variety of workloads and benchmarking data was collected using `bpfbench
 For each dataset, the same test was conducted on the system twice: once with ebpH running, and once without.
 All ebpH data was collected while ebpH was monitoring the entire system (i.e. started immediately on
 boot via a `systemd` unit) and running with normal parameters and logging settings.
-\autoref{systems} summarizes each of the systems used for the collection of benchmarking data
+\autoref{systems} summarizes each of the systems used for the collection of benchmarking data,
+including relevant hardware specifications,
 and \autoref{macro-datasets} provides a description of each dataset, including the system and the workload
 tested.
 
 \begin{table}
-    \caption{Systems used for the collection of ebpH benchmarking data.}
+    \caption[Systems used for the collection of ebpH benchmarking data]
+    {
+        Systems used for the collection of ebpH benchmarking data.
+    }
     \label{systems}
-\begin{tabular}{>{\ttfamily}ll}
-\toprule
-\multicolumn{1}{l}{System} &                               Description \\
-\midrule
-                      arch &                      Personal workstation \\
-                    bronte &                          CCSL workstation \\
-               homeostasis &  Mediawiki server for COMP3000 class wiki \\
-\bottomrule
-\end{tabular}
+    \begin{tabular}{>{\ttfamily}llll}
+        \toprule
+        \multicolumn{1}{l}{System} & Description & \multicolumn{2}{l}{Hardware Specifications}\\
+        \midrule
+        \multirow{4}{*}{arch} & \multirow{4}{*}{Personal workstation}
+            &   CPU  & Intel i7-7700K (8) @ 4.500GHz\\
+            & & GPU  & NVIDIA GeForce GTX 1070\\
+            & & RAM  & 16GB DDR4 3000MT/s\\
+            & & Disk & 1TB Samsung NVMe M.2 SSD\\
+        \hline
+        \multirow{4}{*}{bronte} & \multirow{4}{*}{CCSL workstation}
+            &   CPU  & AMD Ryzen 7 1700 (16) @ 3.000GHz\\
+            & & GPU  & AMD Radeon RX\\
+            & & RAM  & 32GB DDR4 1200MT/s\\
+            & & Disk & 250GB Samsung SATA SSD 850\\
+        \hline
+        \multirow{4}{*}{homeostasis} & \multirow{4}{*}{Mediawiki server}
+            &   CPU  & Intel i7-3615QM (8) @ 2.300GHz\\
+            & & GPU  & Integrated\\
+            & & RAM  & 16GB DDR3 1600MT/s\\
+            & & Disk & 500GB Crucial CT525MX3\\
+        \bottomrule
+    \end{tabular}
 \end{table}
 
 <!-- TODO: finalize this -->
-
 \begin{table}
-\caption{ebpH macro-benchmarking datasets.}
-\label{macro-datasets}
-\begin{tabular}{>{\ttfamily}l>{\ttfamily}llp{2.3in}}
-\toprule
-\multicolumn{1}{l}{Dataset} & \multicolumn{1}{l}{System} & Workload & Description \\
-\midrule
-bronte-7day & bronte & Idle & \texttt{bpfbench}, 7 days with ebpH and 7 days without \\
-homeostasis-3day & homeostasis & Production & \texttt{bpfbench}, 3 days with ebpH and 3 days without \\
-arch-3day & arch & Normal use & \texttt{bpfbench}, 3 days with ebpH and 3 days without \\
-\bottomrule
-\end{tabular}
+    \caption[ebpH macro-benchmarking datasets]{
+        ebpH macro-benchmarking datasets.
+    }
+    \label{macro-datasets}
+    \begin{tabular}{>{\ttfamily}l>{\ttfamily}llp{2.3in}}
+        \toprule
+        \multicolumn{1}{l}{Dataset} & \multicolumn{1}{l}{System} & Workload & Description \\
+        \midrule
+        bronte-7day & bronte & Idle & \texttt{bpfbench}, 7 days with ebpH and 7 days without \\
+        homeostasis-3day & homeostasis & Production & \texttt{bpfbench}, 3 days with ebpH and 3 days without \\
+        arch-3day & arch & Normal use & \texttt{bpfbench}, 3 days with ebpH and 3 days without \\
+        \bottomrule
+    \end{tabular}
 \end{table}
 
 \FloatBarrier
@@ -1464,21 +1533,22 @@ data was collected for a variety of test cases. \autoref{micro-datasets} provide
 including the system and the workload tested. Additional details of each micro-benchmark test are provided in their respective
 results sections.
 
-<!-- TODO: finalize this -->
-
+<!-- FIXME: this is not accurate... fix it when we are done getting all our data -->
 \begin{table}
-\caption{ebpH micro-benchmarking datasets.}
-\label{micro-datasets}
-\begin{tabular}{>{\ttfamily}l>{\ttfamily}llp{3in}}
-\toprule
-\multicolumn{1}{l}{Dataset} & \multicolumn{1}{l}{System} & Workload & Description \\
-\midrule
-    bronte-lmbench & bronte & Artificial & OS micro-benchmarks from the
-        \texttt{lmbench} \cite{lmbench, lmbenchgit} suite, with and without ebpH \\
-    arch-x11perf & arch & Artificial & \texttt{x11perf} \cite{x11perf, x11perfcomp} full benchmarking suite, with and without ebpH \\
-    %bronte-s1bench & bronte & Artificial & \texttt{s1bench} \cite{s1bench} microbenchmark by Brendan Gregg, with and without ebpH \\
-\bottomrule
-\end{tabular}
+    \caption[ebpH micro-benchmarking datasets]{
+        ebpH micro-benchmarking datasets.
+    }
+    \label{micro-datasets}
+    \begin{tabular}{>{\ttfamily}l>{\ttfamily}llp{3in}}
+    \toprule
+    \multicolumn{1}{l}{Dataset} & \multicolumn{1}{l}{System} & Workload & Description \\
+    \midrule
+        bronte-lmbench & bronte & Artificial & OS micro-benchmarks from the
+            \texttt{lmbench} \cite{lmbench, lmbenchgit} suite, with and without ebpH \\
+        arch-x11perf & arch & Artificial & \texttt{x11perf} \cite{x11perf, x11perfcomp} full benchmarking suite, with and without ebpH \\
+        %bronte-s1bench & bronte & Artificial & \texttt{s1bench} \cite{s1bench} microbenchmark by Brendan Gregg, with and without ebpH \\
+    \bottomrule
+    \end{tabular}
 \end{table}
 
 ## Results
@@ -1512,78 +1582,17 @@ Simple system call and `select(2)` latency will give us an idea of how ebpH affe
 signal handler latency will show the overhead caused by both ebpH's treatment of the underlying system calls
 as well as the signal-aware stack discussed in \autoref{non_determinism}. Finally, the process creation and IPC
 latency metrics will provide a better picture of ebpH's overhead in a more practical context.
-
-<!-- TODO: rework the following to fit with new data -->
-<!--
-100 ebpH and 100 non-ebpH *OS*-category trials were run on `bronte`, a workstation in the CCSL (Carleton Computer Security Lab)
+1000 ebpH and 1000 non-ebpH OS-category trials were run on `bronte`, a workstation in the CCSL (Carleton Computer Security Lab)
 at Carleton University. The results were then averaged and compared to determine overhead.
-\autoref{bronte_lmbench_syscall} and \autoref{bronte_lmbench_syscall_graph}
-show the system call latency results and \autoref{bronte_lmbench_process} and \autoref{bronte_lmbench_process_graph}
-show the dynamic process creation latency results.
-
-\begin{table}
-    \caption{Results of the system call benchmarks from the \code{bronte-lmbench} dataset.
-    Standard deviations are given in parentheses, smaller overhead is better. Note that the \code{open/close}
-    benchmark shows the times of \emph{both} system calls taken together, which explains why the difference
-    between base and ebpH times is doubled. This was an unfortunate design choice by the developers of \code{lmbench}.}
-    \label{bronte_lmbench_syscall}
-    \input{../data/bench/bronte-lmbench/syscall_results.tex}
-\end{table}
-
-![\label{bronte_lmbench_syscall_graph}Mean system call times from the \code{bronte-lmbench} dataset.
-Smaller difference in times is better.
-Standard deviation is given as error bars.](../data/bench/bronte-lmbench/syscall_times.png){width=60%}
-
-As shown in \autoref{bronte_lmbench_syscall}, ebpH adds non-negligible overhead to simple system calls.
-However, this result is misleading, as the actual difference between base and ebpH times is less than
-a microsecond (about one third of a microsecond to be precise). As soon as base times for system calls
-approach one microsecond, (e.g. in the case of `stat(2)`), overhead drops significantly. For extremely
-short calls like `getppid(2)`, the overhead is just over $600\%$, which is representative of the
-worst case. As shown in \autoref{bronte_lmbench_process}, the overhead imposed on practical operations
-such as process creation generally does not exceed $11\%$.
-
-\begin{table}
-    \caption{Results of the process creation benchmarks from the \code{bronte-lmbench} dataset.
-    Standard deviations are given in parentheses, smaller overhead is better.}
-    \label{bronte_lmbench_process}
-    \input{../data/bench/bronte-lmbench/process_results.tex}
-\end{table}
-
-![\label{bronte_lmbench_process_graph}Mean process creation times from the \code{bronte-lmbench} dataset.
-Smaller difference in times is better.
-Standard deviation is given as error bars.](../data/bench/bronte-lmbench/process_times.png){width=60%}
-
-According to the results shown in \autoref{bronte_lmbench_process}, ebpH adds negligible overhead
-to the execution time of the `fork+exit` program. The specific overhead was measured to be
-$-0.58\%$, but this perceived "performance improvement" is well within the margin of error for
-measurements. Actual overhead is like to be on the order of about $0$ to $3\%$. This result is consistent
-with macro-benchmarking data from the `bronte-7day` dataset where the base and ebpH times for the
-`clone(2)` system call were 105.553 and 106.649 respectively, a difference of just over 1 microsecond.
-
-For the `fork+execve` program, ebpH added only about 54 microseconds of overhead,
-or a difference of about $9.95\%$. This result is *significantly* better than the results
-for the original pH system [@soma02], but the difference can be explained by the fact that
-ebpH does not need to load profiles when programs first execute -- the profiles
-are already resident in the profile map; the only exception to this rule is that space for
-additional profiles needs to be allocated as the map fills (c.f. \autoref{ebph_profiles})
-or when ebpH first loads (c.f. \autoref{writing_to_disk}).
-
-Similarly, ebpH outperforms the original pH system [@soma02] on the `fork+/bin/sh` test.
-For this test, ebpH added just over 155 microseconds of overhead, a difference
-of about $10.45\%$. The overhead increase can be attributed to the fact that invoking a shell to execute a binary
-involves many more system calls\footnote{111 or so additional system calls per execution (and 11 executions per run),
-to be more precise.} than the traditional `fork` and `exec` pattern. More system calls implies
-more opportunities for ebpH's per-system call overhead to impact performance. Even so, this $10.45\%$
-performance loss is essentially imperceptible on individual runs and therefore would not impact
-system behavior from the user's perspective under normal workloads.
--->
 
 <!-- syscalls -->
 \begin{table}
-    \caption{Results of the system call benchmarks from the \code{bronte-lmbench} dataset.
-    Standard deviations are given in parentheses and smaller overhead is better. Note that the \code{open/close}
-    benchmark shows the times of \emph{both} system calls taken together, which explains why the difference
-    between base and ebpH times is doubled. This was an unfortunate design choice by the developers of \code{lmbench}.}
+    \caption[Results of the system call benchmarks from the \code{bronte-lmbench} dataset]{
+        Results of the system call benchmarks from the \code{bronte-lmbench} dataset.
+        Standard deviations are given in parentheses and smaller overhead is better. Note that the \code{open/close}
+        benchmark shows the times of \emph{both} system calls taken together, which explains why the difference
+        between base and ebpH times is doubled. This was an unfortunate design choice by the developers of \code{lmbench}.
+    }
     \label{bronte_lmbench_syscall}
     \input{../data/bench/bronte-lmbench/syscall_results.tex}
 \end{table}
@@ -1603,16 +1612,18 @@ As shown in \autoref{bronte_lmbench_syscall}, ebpH adds non-negligible overhead 
 However, this result is misleading, as the actual difference between base and ebpH times is less than
 a microsecond (about one third of a microsecond to be more precise). As soon as base times for system calls
 approach one microsecond, (e.g. in the case of `stat(2)`), overhead drops significantly. For extremely
-short calls like `getppid(2)`, the overhead is just over $600\%$, which is representative of the
-worst case, but longer system calls like `stat(2)`, overhead drops to about $67\%$. This overhead is
+short calls like `getppid(2)`, the overhead is just over $614\%$, which is representative of the
+worst case, but longer system calls like `stat(2)`, overhead drops to about $66\%$. This overhead is
 more representative of the general case.
 
 \FloatBarrier
 
 <!-- select -->
 \begin{table}
-    \caption{Results of the \code{select(2)} benchmarks from the \code{bronte-lmbench} dataset.
-    Standard deviations are given in parentheses and smaller overhead is better.}
+    \caption[Results of the \code{select(2)} benchmarks from the \code{bronte-lmbench} dataset]{
+        Results of the \code{select(2)} benchmarks from the \code{bronte-lmbench} dataset.
+        Standard deviations are given in parentheses and smaller overhead is better.
+    }
     \label{bronte_lmbench_select}
     \input{../data/bench/bronte-lmbench/select_results.tex}
 \end{table}
@@ -1641,16 +1652,18 @@ here is that the overhead incurred by ebpH is occurring during time that would o
 As discussed in \autoref{non_determinism}, ebpH makes use of special logic to separate the non-deterministic
 behavior caused by signal handlers from other observed process behavior. \autoref{bronte_lmbench_signal}
 shows that the overhead imposed on the execution of simple signal handlers is relatively low, around
-41\%. This result is especially impressive considering that it includes the standard per-system-call overhead
+39\%. This result is especially impressive considering that it includes the standard per-system-call overhead
 (c.f. \autoref{bronte_lmbench_syscall}) imposed on `rt_sigreturn(2)` [@man_sigreturn],
 which is invoked upon return from a signal handler.
 
 <!-- signal -->
 \begin{table}
-    \caption{Results of the signal handler benchmarks from the \code{bronte-lmbench} dataset.
-    "Installation" represents the registration of a signal handler with \code{rt_sigaction(2)} and
-    "Handler" represents the time taken to complete a simple signal handler.
-    Standard deviations are given in parentheses and smaller overhead is better.}
+    \caption[Results of the signal handler benchmarks from the \code{bronte-lmbench} dataset]{
+        Results of the signal handler benchmarks from the \code{bronte-lmbench} dataset.
+        "Installation" represents the registration of a signal handler with \code{rt_sigaction(2)} and
+        "Handler" represents the time taken to complete a simple signal handler.
+        Standard deviations are given in parentheses and smaller overhead is better.
+    }
     \label{bronte_lmbench_signal}
     \input{../data/bench/bronte-lmbench/signal_results.tex}
 \end{table}
@@ -1683,24 +1696,25 @@ This roughly corresponds to the implementation of the C standard library's `syst
 
 The above three methods of process creation each involve increasing degrees of complexity with respect
 to their system calls and, as a corollary, the overhead caused by ebpH increases for each one. Stating with
-`fork+exit`, \autoref{bronte_lmbench_process} shows that ebpH imposes at most negligible overhead on
-process creation. The actual result shows a performance *improvement* with ebpH, but this is well within
-the margin of error for the test and actual overhead is likely on the order of less than 1\%.
+`fork+exit`, \autoref{bronte_lmbench_process} shows that ebpH imposes very little overhead on basic process
+creation, on the order of 5 microseconds, or about 2.7\%.
 
 The `fork+execve` case introduces more overhead, due to the special operations that ebpH must perform
 when a process first executes, such as looking up a binary's inode information and associating it with a profile
 (creating this profile if it does not yet exist). While this operation is not free, it is inexpensive relative
-to the existing overhead of an `execve(2)` system call and imposes a total performance overhead of just 6\%.
+to the existing overhead of an `execve(2)` system call and imposes a total performance overhead of just 8\%.
 
 Finally, `fork+/bin/sh -c` imposes the most overhead of all three methods; this makes sense as it involves
 *two* `execve(2)` calls, one for `/bin/sh` and one for the "hello world" program, as well as the additional
-per-system-call overhead from `/bin/sh` itself. Still, the overhead for this method is only about 8.5\%,
+per-system-call overhead from `/bin/sh` itself. Still, the overhead for this method is only about 10\%,
 which is acceptable in practice.
 
 <!-- processes -->
 \begin{table}
-    \caption{Results of the process creation benchmarks from the \code{bronte-lmbench} dataset.
-    Standard deviations are given in parentheses and smaller overhead is better.}
+    \caption[Results of the process creation benchmarks from the \code{bronte-lmbench} dataset]{
+        Results of the process creation benchmarks from the \code{bronte-lmbench} dataset.
+        Standard deviations are given in parentheses and smaller overhead is better.
+    }
     \label{bronte_lmbench_process}
     \input{../data/bench/bronte-lmbench/process_results.tex}
 \end{table}
@@ -1719,7 +1733,8 @@ which is acceptable in practice.
 \FloatBarrier
 
 \autoref{bronte_lmbench_ipc} shows the overhead caused by ebpH on two methods of IPC, pipes and
-Unix domain stream sockets. In both cases, the overhead caused by ebpH does not exceed 25\%.
+Unix domain stream sockets. UNIX stream socket IPC, ebpH imposes an overhead of 1.7 microseconds,
+or about 18\%. For pipes, it imposes an overhead of 1.25 microseconds, or about 28\%.
 <!-- FIXME: come back here and say more -->
 
 <!-- IPC -->
@@ -1747,7 +1762,7 @@ Unix domain stream sockets. In both cases, the overhead caused by ebpH does not 
 
 ### `bronte-7day` Macro-Benchmark
 
-<!-- TODO: come back and finalize this -->
+<!-- FIXME: this section needs to be revised when the new 7-day macro-benchmark is done -->
 
 In order to get an idea of how ebpH interacts with the system as a whole, I ran a macro-benchmark of all
 system calls using `bpfbench` for a period of 14 days on `bronte`, the same CCSL workstation tested in \autoref{lmbench_section}.
@@ -1781,15 +1796,23 @@ here. \autoref{bronte_7day} and \autoref{bronte_7day_graph} present the top 20 m
 with execution time of less than $3\mu$s from the `bronte-7day` dataset.
 
 \begin{table}
-    \caption{Top 20 most frequent system calls with base times of under 3$\mu$s from the \code{bronte-7day}
-    dataset (after discarding outliers). Smaller overhead is better.}
+    \caption[Top 20 most frequent system calls with base times of under 3$\mu$s from the \code{bronte-7day} dataset]{
+        Top 20 most frequent system calls with base times of under 3$\mu$s from the \code{bronte-7day}
+        dataset (after discarding outliers). Smaller overhead is better.
+    }
     \label{bronte_7day}
     \input{../data/bench/bronte-7day/under_3us_times.tex}
 \end{table}
 
-![\label{bronte_7day_graph}Top 20 most frequent system calls with base
-times of under 3$\mu$s from the \code{bronte-7day} dataset (after discarding outliers).
-Smaller difference in times is better. Standard error is given as error bars.](../data/bench/bronte-7day/under_3us_times.png){width=60%}
+\begin{figure}
+    \caption[Top 20 most frequent system calls with base times of under 3$\mu$s from the \code{bronte-7day} dataset]{
+        Top 20 most frequent system calls with base times of under 3$\mu$s from the
+        \code{bronte-7day} dataset (after discarding outliers).
+        Smaller difference in times is better. Standard error is given as error bars.
+    }
+    \label{bronte_7day_graph}
+    \includegraphics[width=.6\textwidth]{../data/bench/bronte-7day/under_3us_times.png}
+\end{figure}
 
 <!--
 Of the data presented in \autoref{bronte_7day}, the `bpf(2)` system call represents the most extreme
@@ -1827,33 +1850,33 @@ of the impact of ebpH on a real system, since they capture the behavior of the s
 We will have an opportunity to compare these results with a system under load in subsequent sections.
 
 \begin{table}
-    \caption{Selected system calls from the \code{bronte-7day} dataset, for easy
-    comparison with the \code{lmbench} data from \autoref{lmbench_section}.}
+    \caption[Selected system calls from the \code{bronte-7day} dataset]{
+        Selected system calls from the \code{bronte-7day} dataset, for easy
+        comparison with the \code{lmbench} data from \autoref{lmbench_section}.
+    }
     \label{bronte_7day_parity}
     \input{../data/bench/bronte-7day/lmbench_parity_times.tex}
 \end{table}
 
-![\label{bronte_7day_parity_graph}Selected system calls from the \code{bronte-7day} dataset,
-for easy comparison with the \code{lmbench} data from \autoref{lmbench_section}.
-Smaller difference in times is better. Standard error is given as error bars.](../data/bench/bronte-7day/lmbench_parity_times.png){width=60%}
-
-<!--
-![\label{bronte_7day_small_times_fig}Times for system calls with base times of less than 7 microseconds.
-Standard error shown as error bars.](../data/bench/bronte-7day/times-small-times.png){width=70%}
-
-![\label{bronte_7day_small_overheads_fig}Overheads for system calls with base times of less than 7 microseconds.
-Standard error shown as error bars.](../data/bench/bronte-7day/overheads-small-times.png){width=70%}
--->
+\begin{figure}
+    \caption[Selected system calls from the \code{bronte-7day} dataset]{
+        Selected system calls from the \code{bronte-7day} dataset, for easy
+        comparison with the \code{lmbench} data from \autoref{lmbench_section}.
+        Smaller difference in times is better. Standard error is given as error bars.
+    }
+    \label{bronte_7day_parity_graph}
+    \includegraphics[width=.6\textwidth]{../data/bench/bronte-7day/lmbench_parity_times.png}
+\end{figure}
 
 \FloatBarrier
 
 ### `homeostasis-3day` Macro-Benchmark: ebpH in Production
 
-<!-- TODO: fill this -->
+<!-- TODO: fill this on Monday the 30th -->
 
 ### `arch-3day` Macro-Benchmark: ebpH on a Personal Computer
 
-<!-- TODO: fill this -->
+<!-- TODO: fill this on Monday the 30th -->
 
 <!--
 \begin{table}
@@ -1869,40 +1892,6 @@ Standard error shown as error bars.](../data/bench/bronte-7day/overheads-small-t
 \end{table}
 -->
 
-<!--
-### `bronte-s1bench`: `close(2)` and Think Loop Micro-Benchmark
-
-This micro-benchmark was collected using Brendan Gregg's `s1bench` [@s1bench], a micro-benchmarking tool
-that consists of the following:
-
-1) Idle processor cycles to establish a control on processor speed;
-1) A large memory allocation and population of said memory;
-1) A busy loop of `close(2)` calls (supplied with invalid arguments so that they fail) and several memory reads over a specified
-`stride` length to simulate "thinking".
-
-Four `s1bench` tests were run, two tests running under `bpfbench` to collect additional data about system call overhead,
-and two normal tests. Each set of two tests consisted of base data and ebpH data. All `s1bench` tests were run with the following
-parameters:
-
-- `spintime` = 300ms
-- `allocsize` = $100 \times 1024 \times 1024$ bytes
-- `reads_per_syscall` = 2000
-- `read_stridesize` = 64
-- `runtime` = 60000ms (1 minute)
-
-\begin{table}
-    \caption{Results of \code{s1bench} \textbf{without} \code{bpfbench}.}
-    \label{s1bench_nobpfbench}
-    \input{../data/bench/bronte-s1bench/results/results-nobpfbench.tex}
-\end{table}
-
-\begin{table}
-    \caption{Results of \code{s1bench} \textbf{with} \code{bpfbench}.}
-    \label{s1bench_nobpfbench}
-    \input{../data/bench/bronte-s1bench/results/results-bpfbench.tex}
-\end{table}
--->
-
 ## Comparing Results with the Original pH
 
 <!-- TODO: come back here -->
@@ -1913,9 +1902,9 @@ methodology surrounding the testing of ebpH was designed to closely mimic that o
 original dissertation [@soma02]. In particular, the `lmbench` and `x11perf` micro-benchmarks will
 be especially informative in this regard.
 
-# Future Work
+# Discussion
 
-<!-- TODO: write this section and all subsections -->
+# Future Work
 
 This thesis was primarily focused on three important points:
 
@@ -1939,22 +1928,67 @@ Master of Computer Science thesis. In this section, I will be covering the follo
 
 <!-- TODO: write this section -->
 
+## Automating ebpH Response
+
+\label{response_automation}
+
+ebpH's predecessor, pH [@soma02], was capable of responding to attacks by issuing delays
+to system calls proportionally to recent anomalous behavior. The current version of ebpH lacks
+this functionality due to implementation constraints imposed by eBPF. However, recent additions to
+eBPF have made it more conducive to automated response [@gregg19bpf]. In particular, Linux 5.3
+introduced two critical helpers [@bcc] for policy enforcement from BPF: `bpf_signal` and `bpf_override_return`.
+
+`bpf_signal` provides the ability for BPF programs to send arbitrary signals to the current task
+directly from kernelspace. Since the signal is coming from the kernel, it will be delivered instantly,
+without the usual delays associated with sending signals from userspace. By sending a process the signal
+`SIGSTOP` [@man_signal], it will be possible to stop its execution in *real time*, during the offending
+system call. Subsequently, a `SIGCONT` [@man_signal] can be issued to wake the process once its delay has
+been observed. This second signal could either be sent from userspace (since we no longer have the same
+sense of urgency associated with the initial response) or issued from some frequently invoked BPF tracepoint,
+for example `sched_switch`.
+
+`bpf_override_return` could be used to implement the second response category employed in pH [@soma02]:
+`execve(2)` abortion, cited by Somayaji's dissertation as being necessary to defeat certain classes of
+attacks (e.g. buffer overflows for shell code execution). With `bpf_override_return`, ebpH can issue targeted
+error injections one of the helper functions used by `execve(2)`-family calls to load binaries.
+
+By combining the above two techniques, it will be possible to convert ebpH into a fully functional
+intrusion prevention system, like its predecessor. Signals can be used to implement process delays
+and targeted error injections can be used to implement `execve(2)` abortion. With these two changes,
+ebpH's functionality will become a superset of the original pH's, which will facilitate direct
+comparison between the two systems when conducting a security analysis (c.f. \autoref{security-analysis}).
+
 ## Security Analysis
 
 <!-- TODO: write this section -->
 
-## Automating ebpH Response
-
-<!-- TODO: write this section -->
+In order to measure ebpH's effectiveness at detecting and (in future versions) mitigating attacks,
+it is necessary to conduct a thorough security analysis.
 
 ## General System Introspection and the Future of ebpH
 
+\label{general_introspection}
+
 <!-- TODO: write this section -->
 
+## Refactoring the ebpH GUI and Conducting a Usability Study
 
+<!-- TODO: write this section -->
 
+<!-- NOTE: maybe we can re-use some of this?
+The ebpH GUI (hereafter referred to as the GUI) provides a graphical user interface for interacting
+with the daemon. This GUI is still a work in progress and will be improved considerably
+during the testing and iteration phase (see \autoref{methodology-and-future-work}). In its current incarnation,
+the GUI can be used to inspect profiles, examine the overall state of ebpH, and check
+the ebpH logs. It can also be used to issue rudimentary commands such as profile deletion.
+Future versions of the GUI will include more commands for controlling the state of ebpH,
+as well as increased system visibility and more information about processes and profiles.
+\autoref{early-gui} depicts an early version of the GUI.
+-->
 
-<!-- TODO: replace all of the following with the above two sections -->
+<!-- FIXME: replace all of the following with the above two sections -->
+
+<!--
 
 # Methodology and Future Work
 
@@ -2132,7 +2166,6 @@ It should also not be overlooked that, in many cases, increased system state vis
 benefits to the experienced user. For example, an experienced system administrator could use a future version of ebpH
 to find vulnerabilities in their system before an attack even occurs.
 
-<!--
 TODO: move this to new future work section along with previous GUI section
 
 ## Improvements to the ebpH GUI
