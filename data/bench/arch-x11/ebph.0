@@ -1,0 +1,742 @@
+x11perf - X11 performance program, version 1.2
+The X.Org Foundation server version 12007000 on :0.0
+from arch
+Mon Mar 30 15:56:15 2020
+
+Sync time adjustment is 0.0136 msecs.
+
+  700000000 reps @   0.0000 msec (139000000.0/sec): Dot
+  700000000 reps @   0.0000 msec (140000000.0/sec): Dot
+  700000000 reps @   0.0000 msec (141000000.0/sec): Dot
+  700000000 reps @   0.0000 msec (140000000.0/sec): Dot
+  700000000 reps @   0.0000 msec (142000000.0/sec): Dot
+ 3500000000 trep @   0.0000 msec (140000000.0/sec): Dot
+
+  600000000 reps @   0.0000 msec (105000000.0/sec): 1x1 rectangle
+  600000000 reps @   0.0000 msec (106000000.0/sec): 1x1 rectangle
+  600000000 reps @   0.0000 msec (108000000.0/sec): 1x1 rectangle
+  600000000 reps @   0.0000 msec (107000000.0/sec): 1x1 rectangle
+  600000000 reps @   0.0000 msec (102000000.0/sec): 1x1 rectangle
+ 3000000000 trep @   0.0000 msec (105000000.0/sec): 1x1 rectangle
+
+  600000000 reps @   0.0000 msec (102000000.0/sec): 10x10 rectangle
+  600000000 reps @   0.0000 msec (107000000.0/sec): 10x10 rectangle
+  600000000 reps @   0.0000 msec (105000000.0/sec): 10x10 rectangle
+  600000000 reps @   0.0000 msec (106000000.0/sec): 10x10 rectangle
+  600000000 reps @   0.0000 msec (106000000.0/sec): 10x10 rectangle
+ 3000000000 trep @   0.0000 msec (105000000.0/sec): 10x10 rectangle
+
+   32400000 reps @   0.0002 msec (6090000.0/sec): 100x100 rectangle
+   32400000 reps @   0.0002 msec (6080000.0/sec): 100x100 rectangle
+   32400000 reps @   0.0002 msec (6090000.0/sec): 100x100 rectangle
+   32400000 reps @   0.0002 msec (6090000.0/sec): 100x100 rectangle
+   32400000 reps @   0.0002 msec (6090000.0/sec): 100x100 rectangle
+  162000000 trep @   0.0002 msec (6090000.0/sec): 100x100 rectangle
+
+    2000000 reps @   0.0039 msec (255000.0/sec): 500x500 rectangle
+    2000000 reps @   0.0039 msec (255000.0/sec): 500x500 rectangle
+    2000000 reps @   0.0039 msec (254000.0/sec): 500x500 rectangle
+    2000000 reps @   0.0039 msec (254000.0/sec): 500x500 rectangle
+    2000000 reps @   0.0039 msec (254000.0/sec): 500x500 rectangle
+   10000000 trep @   0.0039 msec (254000.0/sec): 500x500 rectangle
+
+  600000000 reps @   0.0000 msec (105000000.0/sec): 1x1 stippled rectangle (8x8 stipple)
+  600000000 reps @   0.0000 msec (104000000.0/sec): 1x1 stippled rectangle (8x8 stipple)
+  600000000 reps @   0.0000 msec (103000000.0/sec): 1x1 stippled rectangle (8x8 stipple)
+  600000000 reps @   0.0000 msec (102000000.0/sec): 1x1 stippled rectangle (8x8 stipple)
+  600000000 reps @   0.0000 msec (98600000.0/sec): 1x1 stippled rectangle (8x8 stipple)
+ 3000000000 trep @   0.0000 msec (102000000.0/sec): 1x1 stippled rectangle (8x8 stipple)
+
+  600000000 reps @   0.0000 msec (108000000.0/sec): 10x10 stippled rectangle (8x8 stipple)
+  600000000 reps @   0.0000 msec (104000000.0/sec): 10x10 stippled rectangle (8x8 stipple)
+  600000000 reps @   0.0000 msec (108000000.0/sec): 10x10 stippled rectangle (8x8 stipple)
+  600000000 reps @   0.0000 msec (107000000.0/sec): 10x10 stippled rectangle (8x8 stipple)
+  600000000 reps @   0.0000 msec (106000000.0/sec): 10x10 stippled rectangle (8x8 stipple)
+ 3000000000 trep @   0.0000 msec (107000000.0/sec): 10x10 stippled rectangle (8x8 stipple)
+
+   32400000 reps @   0.0002 msec (6070000.0/sec): 100x100 stippled rectangle (8x8 stipple)
+   32400000 reps @   0.0002 msec (6070000.0/sec): 100x100 stippled rectangle (8x8 stipple)
+   32400000 reps @   0.0002 msec (6080000.0/sec): 100x100 stippled rectangle (8x8 stipple)
+   32400000 reps @   0.0002 msec (6080000.0/sec): 100x100 stippled rectangle (8x8 stipple)
+   32400000 reps @   0.0002 msec (6080000.0/sec): 100x100 stippled rectangle (8x8 stipple)
+  162000000 trep @   0.0002 msec (6080000.0/sec): 100x100 stippled rectangle (8x8 stipple)
+
+    2000000 reps @   0.0040 msec (252000.0/sec): 500x500 stippled rectangle (8x8 stipple)
+    2000000 reps @   0.0040 msec (252000.0/sec): 500x500 stippled rectangle (8x8 stipple)
+    2000000 reps @   0.0040 msec (253000.0/sec): 500x500 stippled rectangle (8x8 stipple)
+    2000000 reps @   0.0040 msec (252000.0/sec): 500x500 stippled rectangle (8x8 stipple)
+    2000000 reps @   0.0040 msec (252000.0/sec): 500x500 stippled rectangle (8x8 stipple)
+   10000000 trep @   0.0040 msec (252000.0/sec): 500x500 stippled rectangle (8x8 stipple)
+
+  600000000 reps @   0.0000 msec (102000000.0/sec): 1x1 opaque stippled rectangle (8x8 stipple)
+  600000000 reps @   0.0000 msec (104000000.0/sec): 1x1 opaque stippled rectangle (8x8 stipple)
+  600000000 reps @   0.0000 msec (101000000.0/sec): 1x1 opaque stippled rectangle (8x8 stipple)
+  600000000 reps @   0.0000 msec (103000000.0/sec): 1x1 opaque stippled rectangle (8x8 stipple)
+  600000000 reps @   0.0000 msec (106000000.0/sec): 1x1 opaque stippled rectangle (8x8 stipple)
+ 3000000000 trep @   0.0000 msec (103000000.0/sec): 1x1 opaque stippled rectangle (8x8 stipple)
+
+  600000000 reps @   0.0000 msec (105000000.0/sec): 10x10 opaque stippled rectangle (8x8 stipple)
+  600000000 reps @   0.0000 msec (104000000.0/sec): 10x10 opaque stippled rectangle (8x8 stipple)
+  600000000 reps @   0.0000 msec (108000000.0/sec): 10x10 opaque stippled rectangle (8x8 stipple)
+  600000000 reps @   0.0000 msec (106000000.0/sec): 10x10 opaque stippled rectangle (8x8 stipple)
+  600000000 reps @   0.0000 msec (105000000.0/sec): 10x10 opaque stippled rectangle (8x8 stipple)
+ 3000000000 trep @   0.0000 msec (106000000.0/sec): 10x10 opaque stippled rectangle (8x8 stipple)
+
+   32400000 reps @   0.0002 msec (6070000.0/sec): 100x100 opaque stippled rectangle (8x8 stipple)
+   32400000 reps @   0.0002 msec (6070000.0/sec): 100x100 opaque stippled rectangle (8x8 stipple)
+   32400000 reps @   0.0002 msec (6070000.0/sec): 100x100 opaque stippled rectangle (8x8 stipple)
+   32400000 reps @   0.0002 msec (6070000.0/sec): 100x100 opaque stippled rectangle (8x8 stipple)
+   32400000 reps @   0.0002 msec (6070000.0/sec): 100x100 opaque stippled rectangle (8x8 stipple)
+  162000000 trep @   0.0002 msec (6070000.0/sec): 100x100 opaque stippled rectangle (8x8 stipple)
+
+    2000000 reps @   0.0040 msec (253000.0/sec): 500x500 opaque stippled rectangle (8x8 stipple)
+    2000000 reps @   0.0040 msec (252000.0/sec): 500x500 opaque stippled rectangle (8x8 stipple)
+    2000000 reps @   0.0040 msec (253000.0/sec): 500x500 opaque stippled rectangle (8x8 stipple)
+    2000000 reps @   0.0040 msec (252000.0/sec): 500x500 opaque stippled rectangle (8x8 stipple)
+    2000000 reps @   0.0040 msec (252000.0/sec): 500x500 opaque stippled rectangle (8x8 stipple)
+   10000000 trep @   0.0040 msec (252000.0/sec): 500x500 opaque stippled rectangle (8x8 stipple)
+
+  600000000 reps @   0.0000 msec (106000000.0/sec): 1x1 tiled rectangle (4x4 tile)
+  600000000 reps @   0.0000 msec (102000000.0/sec): 1x1 tiled rectangle (4x4 tile)
+  600000000 reps @   0.0000 msec (106000000.0/sec): 1x1 tiled rectangle (4x4 tile)
+  600000000 reps @   0.0000 msec (104000000.0/sec): 1x1 tiled rectangle (4x4 tile)
+  600000000 reps @   0.0000 msec (105000000.0/sec): 1x1 tiled rectangle (4x4 tile)
+ 3000000000 trep @   0.0000 msec (105000000.0/sec): 1x1 tiled rectangle (4x4 tile)
+
+  600000000 reps @   0.0000 msec (102000000.0/sec): 10x10 tiled rectangle (4x4 tile)
+  600000000 reps @   0.0000 msec (106000000.0/sec): 10x10 tiled rectangle (4x4 tile)
+  600000000 reps @   0.0000 msec (105000000.0/sec): 10x10 tiled rectangle (4x4 tile)
+  600000000 reps @   0.0000 msec (106000000.0/sec): 10x10 tiled rectangle (4x4 tile)
+  600000000 reps @   0.0000 msec (108000000.0/sec): 10x10 tiled rectangle (4x4 tile)
+ 3000000000 trep @   0.0000 msec (105000000.0/sec): 10x10 tiled rectangle (4x4 tile)
+
+   32400000 reps @   0.0002 msec (6070000.0/sec): 100x100 tiled rectangle (4x4 tile)
+   32400000 reps @   0.0002 msec (6080000.0/sec): 100x100 tiled rectangle (4x4 tile)
+   32400000 reps @   0.0002 msec (6070000.0/sec): 100x100 tiled rectangle (4x4 tile)
+   32400000 reps @   0.0002 msec (6080000.0/sec): 100x100 tiled rectangle (4x4 tile)
+   32400000 reps @   0.0002 msec (6070000.0/sec): 100x100 tiled rectangle (4x4 tile)
+  162000000 trep @   0.0002 msec (6080000.0/sec): 100x100 tiled rectangle (4x4 tile)
+
+    2000000 reps @   0.0040 msec (252000.0/sec): 500x500 tiled rectangle (4x4 tile)
+    2000000 reps @   0.0040 msec (252000.0/sec): 500x500 tiled rectangle (4x4 tile)
+    2000000 reps @   0.0040 msec (252000.0/sec): 500x500 tiled rectangle (4x4 tile)
+    2000000 reps @   0.0040 msec (252000.0/sec): 500x500 tiled rectangle (4x4 tile)
+    2000000 reps @   0.0040 msec (252000.0/sec): 500x500 tiled rectangle (4x4 tile)
+   10000000 trep @   0.0040 msec (252000.0/sec): 500x500 tiled rectangle (4x4 tile)
+
+   30000000 reps @   0.0002 msec (5970000.0/sec): 1x1 stippled rectangle (17x15 stipple)
+   30000000 reps @   0.0002 msec (5970000.0/sec): 1x1 stippled rectangle (17x15 stipple)
+   30000000 reps @   0.0002 msec (5980000.0/sec): 1x1 stippled rectangle (17x15 stipple)
+   30000000 reps @   0.0002 msec (5980000.0/sec): 1x1 stippled rectangle (17x15 stipple)
+   30000000 reps @   0.0002 msec (5970000.0/sec): 1x1 stippled rectangle (17x15 stipple)
+  150000000 trep @   0.0002 msec (5980000.0/sec): 1x1 stippled rectangle (17x15 stipple)
+
+   30000000 reps @   0.0002 msec (4220000.0/sec): 10x10 stippled rectangle (17x15 stipple)
+   30000000 reps @   0.0002 msec (4220000.0/sec): 10x10 stippled rectangle (17x15 stipple)
+   30000000 reps @   0.0002 msec (4220000.0/sec): 10x10 stippled rectangle (17x15 stipple)
+   30000000 reps @   0.0002 msec (4230000.0/sec): 10x10 stippled rectangle (17x15 stipple)
+   30000000 reps @   0.0002 msec (4230000.0/sec): 10x10 stippled rectangle (17x15 stipple)
+  150000000 trep @   0.0002 msec (4220000.0/sec): 10x10 stippled rectangle (17x15 stipple)
+
+    2520000 reps @   0.0022 msec (452000.0/sec): 100x100 stippled rectangle (17x15 stipple)
+    2520000 reps @   0.0022 msec (452000.0/sec): 100x100 stippled rectangle (17x15 stipple)
+    2520000 reps @   0.0022 msec (452000.0/sec): 100x100 stippled rectangle (17x15 stipple)
+    2520000 reps @   0.0022 msec (454000.0/sec): 100x100 stippled rectangle (17x15 stipple)
+    2520000 reps @   0.0022 msec (454000.0/sec): 100x100 stippled rectangle (17x15 stipple)
+   12600000 trep @   0.0022 msec (453000.0/sec): 100x100 stippled rectangle (17x15 stipple)
+
+     100000 reps @   0.0541 msec ( 18500.0/sec): 500x500 stippled rectangle (17x15 stipple)
+     100000 reps @   0.0545 msec ( 18300.0/sec): 500x500 stippled rectangle (17x15 stipple)
+     100000 reps @   0.0545 msec ( 18400.0/sec): 500x500 stippled rectangle (17x15 stipple)
+     100000 reps @   0.0544 msec ( 18400.0/sec): 500x500 stippled rectangle (17x15 stipple)
+     100000 reps @   0.0544 msec ( 18400.0/sec): 500x500 stippled rectangle (17x15 stipple)
+     500000 trep @   0.0544 msec ( 18400.0/sec): 500x500 stippled rectangle (17x15 stipple)
+
+   30000000 reps @   0.0002 msec (5980000.0/sec): 1x1 opaque stippled rectangle (17x15 stipple)
+   30000000 reps @   0.0002 msec (5980000.0/sec): 1x1 opaque stippled rectangle (17x15 stipple)
+   30000000 reps @   0.0002 msec (5980000.0/sec): 1x1 opaque stippled rectangle (17x15 stipple)
+   30000000 reps @   0.0002 msec (5980000.0/sec): 1x1 opaque stippled rectangle (17x15 stipple)
+   30000000 reps @   0.0002 msec (5980000.0/sec): 1x1 opaque stippled rectangle (17x15 stipple)
+  150000000 trep @   0.0002 msec (5980000.0/sec): 1x1 opaque stippled rectangle (17x15 stipple)
+
+   30000000 reps @   0.0002 msec (4340000.0/sec): 10x10 opaque stippled rectangle (17x15 stipple)
+   30000000 reps @   0.0002 msec (4360000.0/sec): 10x10 opaque stippled rectangle (17x15 stipple)
+   30000000 reps @   0.0002 msec (4360000.0/sec): 10x10 opaque stippled rectangle (17x15 stipple)
+   30000000 reps @   0.0002 msec (4300000.0/sec): 10x10 opaque stippled rectangle (17x15 stipple)
+   30000000 reps @   0.0002 msec (4290000.0/sec): 10x10 opaque stippled rectangle (17x15 stipple)
+  150000000 trep @   0.0002 msec (4330000.0/sec): 10x10 opaque stippled rectangle (17x15 stipple)
+
+    2520000 reps @   0.0022 msec (451000.0/sec): 100x100 opaque stippled rectangle (17x15 stipple)
+    2520000 reps @   0.0022 msec (451000.0/sec): 100x100 opaque stippled rectangle (17x15 stipple)
+    2520000 reps @   0.0022 msec (451000.0/sec): 100x100 opaque stippled rectangle (17x15 stipple)
+    2520000 reps @   0.0022 msec (451000.0/sec): 100x100 opaque stippled rectangle (17x15 stipple)
+    2520000 reps @   0.0022 msec (451000.0/sec): 100x100 opaque stippled rectangle (17x15 stipple)
+   12600000 trep @   0.0022 msec (451000.0/sec): 100x100 opaque stippled rectangle (17x15 stipple)
+
+     100000 reps @   0.0540 msec ( 18500.0/sec): 500x500 opaque stippled rectangle (17x15 stipple)
+     100000 reps @   0.0541 msec ( 18500.0/sec): 500x500 opaque stippled rectangle (17x15 stipple)
+     100000 reps @   0.0541 msec ( 18500.0/sec): 500x500 opaque stippled rectangle (17x15 stipple)
+     100000 reps @   0.0542 msec ( 18500.0/sec): 500x500 opaque stippled rectangle (17x15 stipple)
+     100000 reps @   0.0542 msec ( 18500.0/sec): 500x500 opaque stippled rectangle (17x15 stipple)
+     500000 trep @   0.0541 msec ( 18500.0/sec): 500x500 opaque stippled rectangle (17x15 stipple)
+
+  200000000 reps @   0.0000 msec (22400000.0/sec): 1x1 tiled rectangle (17x15 tile)
+  200000000 reps @   0.0000 msec (22500000.0/sec): 1x1 tiled rectangle (17x15 tile)
+  200000000 reps @   0.0000 msec (22600000.0/sec): 1x1 tiled rectangle (17x15 tile)
+  200000000 reps @   0.0000 msec (22700000.0/sec): 1x1 tiled rectangle (17x15 tile)
+  200000000 reps @   0.0000 msec (22700000.0/sec): 1x1 tiled rectangle (17x15 tile)
+ 1000000000 trep @   0.0000 msec (22600000.0/sec): 1x1 tiled rectangle (17x15 tile)
+
+   50000000 reps @   0.0001 msec (9670000.0/sec): 10x10 tiled rectangle (17x15 tile)
+   50000000 reps @   0.0001 msec (9370000.0/sec): 10x10 tiled rectangle (17x15 tile)
+   50000000 reps @   0.0001 msec (9290000.0/sec): 10x10 tiled rectangle (17x15 tile)
+   50000000 reps @   0.0001 msec (9350000.0/sec): 10x10 tiled rectangle (17x15 tile)
+   50000000 reps @   0.0001 msec (9450000.0/sec): 10x10 tiled rectangle (17x15 tile)
+  250000000 trep @   0.0001 msec (9420000.0/sec): 10x10 tiled rectangle (17x15 tile)
+
+    2880000 reps @   0.0019 msec (526000.0/sec): 100x100 tiled rectangle (17x15 tile)
+    2880000 reps @   0.0019 msec (525000.0/sec): 100x100 tiled rectangle (17x15 tile)
+    2880000 reps @   0.0019 msec (527000.0/sec): 100x100 tiled rectangle (17x15 tile)
+    2880000 reps @   0.0019 msec (528000.0/sec): 100x100 tiled rectangle (17x15 tile)
+    2880000 reps @   0.0019 msec (525000.0/sec): 100x100 tiled rectangle (17x15 tile)
+   14400000 trep @   0.0019 msec (526000.0/sec): 100x100 tiled rectangle (17x15 tile)
+
+     200000 reps @   0.0383 msec ( 26100.0/sec): 500x500 tiled rectangle (17x15 tile)
+     200000 reps @   0.0380 msec ( 26300.0/sec): 500x500 tiled rectangle (17x15 tile)
+     200000 reps @   0.0379 msec ( 26400.0/sec): 500x500 tiled rectangle (17x15 tile)
+     200000 reps @   0.0381 msec ( 26300.0/sec): 500x500 tiled rectangle (17x15 tile)
+     200000 reps @   0.0380 msec ( 26300.0/sec): 500x500 tiled rectangle (17x15 tile)
+    1000000 trep @   0.0381 msec ( 26300.0/sec): 500x500 tiled rectangle (17x15 tile)
+
+   30000000 reps @   0.0002 msec (6090000.0/sec): 1x1 stippled rectangle (161x145 stipple)
+   30000000 reps @   0.0002 msec (5990000.0/sec): 1x1 stippled rectangle (161x145 stipple)
+   30000000 reps @   0.0002 msec (6140000.0/sec): 1x1 stippled rectangle (161x145 stipple)
+   30000000 reps @   0.0002 msec (6290000.0/sec): 1x1 stippled rectangle (161x145 stipple)
+   30000000 reps @   0.0002 msec (6250000.0/sec): 1x1 stippled rectangle (161x145 stipple)
+  150000000 trep @   0.0002 msec (6150000.0/sec): 1x1 stippled rectangle (161x145 stipple)
+
+   30000000 reps @   0.0002 msec (4450000.0/sec): 10x10 stippled rectangle (161x145 stipple)
+   30000000 reps @   0.0002 msec (4400000.0/sec): 10x10 stippled rectangle (161x145 stipple)
+   30000000 reps @   0.0002 msec (4470000.0/sec): 10x10 stippled rectangle (161x145 stipple)
+   30000000 reps @   0.0002 msec (4460000.0/sec): 10x10 stippled rectangle (161x145 stipple)
+   30000000 reps @   0.0002 msec (4450000.0/sec): 10x10 stippled rectangle (161x145 stipple)
+  150000000 trep @   0.0002 msec (4440000.0/sec): 10x10 stippled rectangle (161x145 stipple)
+
+    2160000 reps @   0.0026 msec (392000.0/sec): 100x100 stippled rectangle (161x145 stipple)
+    2160000 reps @   0.0025 msec (393000.0/sec): 100x100 stippled rectangle (161x145 stipple)
+    2160000 reps @   0.0025 msec (394000.0/sec): 100x100 stippled rectangle (161x145 stipple)
+    2160000 reps @   0.0025 msec (393000.0/sec): 100x100 stippled rectangle (161x145 stipple)
+    2160000 reps @   0.0025 msec (394000.0/sec): 100x100 stippled rectangle (161x145 stipple)
+   10800000 trep @   0.0025 msec (393000.0/sec): 100x100 stippled rectangle (161x145 stipple)
+
+      90000 reps @   0.0600 msec ( 16700.0/sec): 500x500 stippled rectangle (161x145 stipple)
+      90000 reps @   0.0609 msec ( 16400.0/sec): 500x500 stippled rectangle (161x145 stipple)
+      90000 reps @   0.0596 msec ( 16800.0/sec): 500x500 stippled rectangle (161x145 stipple)
+      90000 reps @   0.0596 msec ( 16800.0/sec): 500x500 stippled rectangle (161x145 stipple)
+      90000 reps @   0.0595 msec ( 16800.0/sec): 500x500 stippled rectangle (161x145 stipple)
+     450000 trep @   0.0599 msec ( 16700.0/sec): 500x500 stippled rectangle (161x145 stipple)
+
+   40000000 reps @   0.0002 msec (6090000.0/sec): 1x1 opaque stippled rectangle (161x145 stipple)
+   40000000 reps @   0.0002 msec (6070000.0/sec): 1x1 opaque stippled rectangle (161x145 stipple)
+   40000000 reps @   0.0002 msec (6060000.0/sec): 1x1 opaque stippled rectangle (161x145 stipple)
+   40000000 reps @   0.0002 msec (6070000.0/sec): 1x1 opaque stippled rectangle (161x145 stipple)
+   40000000 reps @   0.0002 msec (6140000.0/sec): 1x1 opaque stippled rectangle (161x145 stipple)
+  200000000 trep @   0.0002 msec (6080000.0/sec): 1x1 opaque stippled rectangle (161x145 stipple)
+
+   30000000 reps @   0.0002 msec (4440000.0/sec): 10x10 opaque stippled rectangle (161x145 stipple)
+   30000000 reps @   0.0002 msec (4440000.0/sec): 10x10 opaque stippled rectangle (161x145 stipple)
+   30000000 reps @   0.0002 msec (4460000.0/sec): 10x10 opaque stippled rectangle (161x145 stipple)
+   30000000 reps @   0.0002 msec (4510000.0/sec): 10x10 opaque stippled rectangle (161x145 stipple)
+   30000000 reps @   0.0002 msec (4460000.0/sec): 10x10 opaque stippled rectangle (161x145 stipple)
+  150000000 trep @   0.0002 msec (4460000.0/sec): 10x10 opaque stippled rectangle (161x145 stipple)
+
+    2160000 reps @   0.0025 msec (393000.0/sec): 100x100 opaque stippled rectangle (161x145 stipple)
+    2160000 reps @   0.0025 msec (393000.0/sec): 100x100 opaque stippled rectangle (161x145 stipple)
+    2160000 reps @   0.0025 msec (393000.0/sec): 100x100 opaque stippled rectangle (161x145 stipple)
+    2160000 reps @   0.0025 msec (393000.0/sec): 100x100 opaque stippled rectangle (161x145 stipple)
+    2160000 reps @   0.0025 msec (393000.0/sec): 100x100 opaque stippled rectangle (161x145 stipple)
+   10800000 trep @   0.0025 msec (393000.0/sec): 100x100 opaque stippled rectangle (161x145 stipple)
+
+      90000 reps @   0.0603 msec ( 16600.0/sec): 500x500 opaque stippled rectangle (161x145 stipple)
+      90000 reps @   0.0606 msec ( 16500.0/sec): 500x500 opaque stippled rectangle (161x145 stipple)
+      90000 reps @   0.0605 msec ( 16500.0/sec): 500x500 opaque stippled rectangle (161x145 stipple)
+      90000 reps @   0.0605 msec ( 16500.0/sec): 500x500 opaque stippled rectangle (161x145 stipple)
+      90000 reps @   0.0606 msec ( 16500.0/sec): 500x500 opaque stippled rectangle (161x145 stipple)
+     450000 trep @   0.0605 msec ( 16500.0/sec): 500x500 opaque stippled rectangle (161x145 stipple)
+
+  200000000 reps @   0.0000 msec (22500000.0/sec): 1x1 tiled rectangle (161x145 tile)
+  200000000 reps @   0.0000 msec (22500000.0/sec): 1x1 tiled rectangle (161x145 tile)
+  200000000 reps @   0.0000 msec (22800000.0/sec): 1x1 tiled rectangle (161x145 tile)
+  200000000 reps @   0.0000 msec (22400000.0/sec): 1x1 tiled rectangle (161x145 tile)
+  200000000 reps @   0.0000 msec (22700000.0/sec): 1x1 tiled rectangle (161x145 tile)
+ 1000000000 trep @   0.0000 msec (22600000.0/sec): 1x1 tiled rectangle (161x145 tile)
+
+  200000000 reps @   0.0000 msec (20300000.0/sec): 10x10 tiled rectangle (161x145 tile)
+  200000000 reps @   0.0000 msec (20400000.0/sec): 10x10 tiled rectangle (161x145 tile)
+  200000000 reps @   0.0000 msec (20500000.0/sec): 10x10 tiled rectangle (161x145 tile)
+  200000000 reps @   0.0000 msec (20100000.0/sec): 10x10 tiled rectangle (161x145 tile)
+  200000000 reps @   0.0000 msec (20400000.0/sec): 10x10 tiled rectangle (161x145 tile)
+ 1000000000 trep @   0.0000 msec (20300000.0/sec): 10x10 tiled rectangle (161x145 tile)
+
+   14400000 reps @   0.0004 msec (2420000.0/sec): 100x100 tiled rectangle (161x145 tile)
+   14400000 reps @   0.0004 msec (2420000.0/sec): 100x100 tiled rectangle (161x145 tile)
+   14400000 reps @   0.0004 msec (2420000.0/sec): 100x100 tiled rectangle (161x145 tile)
+   14400000 reps @   0.0004 msec (2420000.0/sec): 100x100 tiled rectangle (161x145 tile)
+   14400000 reps @   0.0004 msec (2420000.0/sec): 100x100 tiled rectangle (161x145 tile)
+   72000000 trep @   0.0004 msec (2420000.0/sec): 100x100 tiled rectangle (161x145 tile)
+
+     600000 reps @   0.0097 msec (104000.0/sec): 500x500 tiled rectangle (161x145 tile)
+     600000 reps @   0.0097 msec (104000.0/sec): 500x500 tiled rectangle (161x145 tile)
+     600000 reps @   0.0097 msec (104000.0/sec): 500x500 tiled rectangle (161x145 tile)
+     600000 reps @   0.0097 msec (104000.0/sec): 500x500 tiled rectangle (161x145 tile)
+     600000 reps @   0.0097 msec (104000.0/sec): 500x500 tiled rectangle (161x145 tile)
+    3000000 trep @   0.0097 msec (104000.0/sec): 500x500 tiled rectangle (161x145 tile)
+
+  200000000 reps @   0.0000 msec (22700000.0/sec): 1x1 tiled rectangle (216x208 tile)
+  200000000 reps @   0.0000 msec (22600000.0/sec): 1x1 tiled rectangle (216x208 tile)
+  200000000 reps @   0.0000 msec (22600000.0/sec): 1x1 tiled rectangle (216x208 tile)
+  200000000 reps @   0.0000 msec (22800000.0/sec): 1x1 tiled rectangle (216x208 tile)
+  200000000 reps @   0.0000 msec (22700000.0/sec): 1x1 tiled rectangle (216x208 tile)
+ 1000000000 trep @   0.0000 msec (22700000.0/sec): 1x1 tiled rectangle (216x208 tile)
+
+  200000000 reps @   0.0000 msec (21400000.0/sec): 10x10 tiled rectangle (216x208 tile)
+  200000000 reps @   0.0000 msec (21400000.0/sec): 10x10 tiled rectangle (216x208 tile)
+  200000000 reps @   0.0000 msec (21300000.0/sec): 10x10 tiled rectangle (216x208 tile)
+  200000000 reps @   0.0000 msec (21300000.0/sec): 10x10 tiled rectangle (216x208 tile)
+  200000000 reps @   0.0000 msec (21100000.0/sec): 10x10 tiled rectangle (216x208 tile)
+ 1000000000 trep @   0.0000 msec (21300000.0/sec): 10x10 tiled rectangle (216x208 tile)
+
+   14400000 reps @   0.0004 msec (2500000.0/sec): 100x100 tiled rectangle (216x208 tile)
+   14400000 reps @   0.0004 msec (2500000.0/sec): 100x100 tiled rectangle (216x208 tile)
+   14400000 reps @   0.0004 msec (2500000.0/sec): 100x100 tiled rectangle (216x208 tile)
+   14400000 reps @   0.0004 msec (2500000.0/sec): 100x100 tiled rectangle (216x208 tile)
+   14400000 reps @   0.0004 msec (2490000.0/sec): 100x100 tiled rectangle (216x208 tile)
+   72000000 trep @   0.0004 msec (2500000.0/sec): 100x100 tiled rectangle (216x208 tile)
+
+     600000 reps @   0.0093 msec (107000.0/sec): 500x500 tiled rectangle (216x208 tile)
+     600000 reps @   0.0093 msec (107000.0/sec): 500x500 tiled rectangle (216x208 tile)
+     600000 reps @   0.0093 msec (107000.0/sec): 500x500 tiled rectangle (216x208 tile)
+     600000 reps @   0.0093 msec (107000.0/sec): 500x500 tiled rectangle (216x208 tile)
+     600000 reps @   0.0093 msec (107000.0/sec): 500x500 tiled rectangle (216x208 tile)
+    3000000 trep @   0.0093 msec (107000.0/sec): 500x500 tiled rectangle (216x208 tile)
+
+  400000000 reps @   0.0000 msec (71500000.0/sec): 1-pixel line segment
+  400000000 reps @   0.0000 msec (71400000.0/sec): 1-pixel line segment
+  400000000 reps @   0.0000 msec (71700000.0/sec): 1-pixel line segment
+  400000000 reps @   0.0000 msec (71000000.0/sec): 1-pixel line segment
+  400000000 reps @   0.0000 msec (71000000.0/sec): 1-pixel line segment
+ 2000000000 trep @   0.0000 msec (71300000.0/sec): 1-pixel line segment
+
+  400000000 reps @   0.0000 msec (66100000.0/sec): 10-pixel line segment
+  400000000 reps @   0.0000 msec (65100000.0/sec): 10-pixel line segment
+  400000000 reps @   0.0000 msec (66100000.0/sec): 10-pixel line segment
+  400000000 reps @   0.0000 msec (66900000.0/sec): 10-pixel line segment
+  400000000 reps @   0.0000 msec (65900000.0/sec): 10-pixel line segment
+ 2000000000 trep @   0.0000 msec (66000000.0/sec): 10-pixel line segment
+
+   80000000 reps @   0.0001 msec (14500000.0/sec): 100-pixel line segment
+   80000000 reps @   0.0001 msec (14500000.0/sec): 100-pixel line segment
+   80000000 reps @   0.0001 msec (14500000.0/sec): 100-pixel line segment
+   80000000 reps @   0.0001 msec (14500000.0/sec): 100-pixel line segment
+   80000000 reps @   0.0001 msec (14500000.0/sec): 100-pixel line segment
+  400000000 trep @   0.0001 msec (14500000.0/sec): 100-pixel line segment
+
+   20000000 reps @   0.0004 msec (2840000.0/sec): 500-pixel line segment
+   20000000 reps @   0.0004 msec (2850000.0/sec): 500-pixel line segment
+   20000000 reps @   0.0004 msec (2840000.0/sec): 500-pixel line segment
+   20000000 reps @   0.0004 msec (2850000.0/sec): 500-pixel line segment
+   20000000 reps @   0.0004 msec (2840000.0/sec): 500-pixel line segment
+  100000000 trep @   0.0004 msec (2840000.0/sec): 500-pixel line segment
+
+   80000000 reps @   0.0001 msec (14500000.0/sec): 100-pixel line segment (1 kid)
+   80000000 reps @   0.0001 msec (14500000.0/sec): 100-pixel line segment (1 kid)
+   80000000 reps @   0.0001 msec (14500000.0/sec): 100-pixel line segment (1 kid)
+   80000000 reps @   0.0001 msec (14500000.0/sec): 100-pixel line segment (1 kid)
+   80000000 reps @   0.0001 msec (14500000.0/sec): 100-pixel line segment (1 kid)
+  400000000 trep @   0.0001 msec (14500000.0/sec): 100-pixel line segment (1 kid)
+
+   80000000 reps @   0.0001 msec (14600000.0/sec): 100-pixel line segment (2 kids)
+   80000000 reps @   0.0001 msec (14600000.0/sec): 100-pixel line segment (2 kids)
+   80000000 reps @   0.0001 msec (14600000.0/sec): 100-pixel line segment (2 kids)
+   80000000 reps @   0.0001 msec (14600000.0/sec): 100-pixel line segment (2 kids)
+   80000000 reps @   0.0001 msec (14600000.0/sec): 100-pixel line segment (2 kids)
+  400000000 trep @   0.0001 msec (14600000.0/sec): 100-pixel line segment (2 kids)
+
+   80000000 reps @   0.0001 msec (14600000.0/sec): 100-pixel line segment (3 kids)
+   80000000 reps @   0.0001 msec (14600000.0/sec): 100-pixel line segment (3 kids)
+   80000000 reps @   0.0001 msec (14600000.0/sec): 100-pixel line segment (3 kids)
+   80000000 reps @   0.0001 msec (14600000.0/sec): 100-pixel line segment (3 kids)
+   80000000 reps @   0.0001 msec (14600000.0/sec): 100-pixel line segment (3 kids)
+  400000000 trep @   0.0001 msec (14600000.0/sec): 100-pixel line segment (3 kids)
+
+   80000000 reps @   0.0001 msec (14300000.0/sec): 10-pixel dashed segment
+   80000000 reps @   0.0001 msec (14300000.0/sec): 10-pixel dashed segment
+   80000000 reps @   0.0001 msec (14400000.0/sec): 10-pixel dashed segment
+   80000000 reps @   0.0001 msec (14500000.0/sec): 10-pixel dashed segment
+   80000000 reps @   0.0001 msec (14600000.0/sec): 10-pixel dashed segment
+  400000000 trep @   0.0001 msec (14400000.0/sec): 10-pixel dashed segment
+
+   10000000 reps @   0.0005 msec (1970000.0/sec): 100-pixel dashed segment
+   10000000 reps @   0.0005 msec (1990000.0/sec): 100-pixel dashed segment
+   10000000 reps @   0.0005 msec (1990000.0/sec): 100-pixel dashed segment
+   10000000 reps @   0.0005 msec (1990000.0/sec): 100-pixel dashed segment
+   10000000 reps @   0.0005 msec (1970000.0/sec): 100-pixel dashed segment
+   50000000 trep @   0.0005 msec (1980000.0/sec): 100-pixel dashed segment
+
+    8000000 reps @   0.0007 msec (1470000.0/sec): 100-pixel double-dashed segment
+    8000000 reps @   0.0007 msec (1470000.0/sec): 100-pixel double-dashed segment
+    8000000 reps @   0.0007 msec (1470000.0/sec): 100-pixel double-dashed segment
+    8000000 reps @   0.0007 msec (1470000.0/sec): 100-pixel double-dashed segment
+    8000000 reps @   0.0007 msec (1470000.0/sec): 100-pixel double-dashed segment
+   40000000 trep @   0.0007 msec (1470000.0/sec): 100-pixel double-dashed segment
+
+  400000000 reps @   0.0000 msec (67700000.0/sec): 10-pixel horizontal line segment
+  400000000 reps @   0.0000 msec (67300000.0/sec): 10-pixel horizontal line segment
+  400000000 reps @   0.0000 msec (65000000.0/sec): 10-pixel horizontal line segment
+  400000000 reps @   0.0000 msec (65900000.0/sec): 10-pixel horizontal line segment
+  400000000 reps @   0.0000 msec (66000000.0/sec): 10-pixel horizontal line segment
+ 2000000000 trep @   0.0000 msec (66400000.0/sec): 10-pixel horizontal line segment
+
+  400000000 reps @   0.0000 msec (67800000.0/sec): 100-pixel horizontal line segment
+  400000000 reps @   0.0000 msec (66000000.0/sec): 100-pixel horizontal line segment
+  400000000 reps @   0.0000 msec (66900000.0/sec): 100-pixel horizontal line segment
+  400000000 reps @   0.0000 msec (68000000.0/sec): 100-pixel horizontal line segment
+  400000000 reps @   0.0000 msec (67700000.0/sec): 100-pixel horizontal line segment
+ 2000000000 trep @   0.0000 msec (67300000.0/sec): 100-pixel horizontal line segment
+
+  300000000 reps @   0.0000 msec (48400000.0/sec): 500-pixel horizontal line segment
+  300000000 reps @   0.0000 msec (48300000.0/sec): 500-pixel horizontal line segment
+  300000000 reps @   0.0000 msec (48100000.0/sec): 500-pixel horizontal line segment
+  300000000 reps @   0.0000 msec (47900000.0/sec): 500-pixel horizontal line segment
+  300000000 reps @   0.0000 msec (48400000.0/sec): 500-pixel horizontal line segment
+ 1500000000 trep @   0.0000 msec (48200000.0/sec): 500-pixel horizontal line segment
+
+  500000000 reps @   0.0000 msec (80000000.0/sec): 10-pixel vertical line segment
+  500000000 reps @   0.0000 msec (80100000.0/sec): 10-pixel vertical line segment
+  500000000 reps @   0.0000 msec (80200000.0/sec): 10-pixel vertical line segment
+  500000000 reps @   0.0000 msec (79400000.0/sec): 10-pixel vertical line segment
+  500000000 reps @   0.0000 msec (79900000.0/sec): 10-pixel vertical line segment
+ 2500000000 trep @   0.0000 msec (79900000.0/sec): 10-pixel vertical line segment
+
+  400000000 reps @   0.0000 msec (74200000.0/sec): 100-pixel vertical line segment
+  400000000 reps @   0.0000 msec (73100000.0/sec): 100-pixel vertical line segment
+  400000000 reps @   0.0000 msec (73700000.0/sec): 100-pixel vertical line segment
+  400000000 reps @   0.0000 msec (75300000.0/sec): 100-pixel vertical line segment
+  400000000 reps @   0.0000 msec (75000000.0/sec): 100-pixel vertical line segment
+ 2000000000 trep @   0.0000 msec (74300000.0/sec): 100-pixel vertical line segment
+
+  200000000 reps @   0.0000 msec (25300000.0/sec): 500-pixel vertical line segment
+  200000000 reps @   0.0000 msec (25300000.0/sec): 500-pixel vertical line segment
+  200000000 reps @   0.0000 msec (25300000.0/sec): 500-pixel vertical line segment
+  200000000 reps @   0.0000 msec (25300000.0/sec): 500-pixel vertical line segment
+  200000000 reps @   0.0000 msec (25300000.0/sec): 500-pixel vertical line segment
+ 1000000000 trep @   0.0000 msec (25300000.0/sec): 500-pixel vertical line segment
+
+   40000000 reps @   0.0002 msec (4810000.0/sec): 10x1 wide horizontal line segment
+   40000000 reps @   0.0002 msec (4850000.0/sec): 10x1 wide horizontal line segment
+   40000000 reps @   0.0002 msec (4760000.0/sec): 10x1 wide horizontal line segment
+   40000000 reps @   0.0002 msec (4690000.0/sec): 10x1 wide horizontal line segment
+   40000000 reps @   0.0002 msec (4800000.0/sec): 10x1 wide horizontal line segment
+  200000000 trep @   0.0002 msec (4780000.0/sec): 10x1 wide horizontal line segment
+
+   20000000 reps @   0.0004 msec (2410000.0/sec): 100x10 wide horizontal line segment
+   20000000 reps @   0.0004 msec (2400000.0/sec): 100x10 wide horizontal line segment
+   20000000 reps @   0.0004 msec (2410000.0/sec): 100x10 wide horizontal line segment
+   20000000 reps @   0.0004 msec (2420000.0/sec): 100x10 wide horizontal line segment
+   20000000 reps @   0.0004 msec (2410000.0/sec): 100x10 wide horizontal line segment
+  100000000 trep @   0.0004 msec (2410000.0/sec): 100x10 wide horizontal line segment
+
+    5000000 reps @   0.0010 msec (982000.0/sec): 500x50 wide horizontal line segment
+    5000000 reps @   0.0010 msec (976000.0/sec): 500x50 wide horizontal line segment
+    5000000 reps @   0.0010 msec (974000.0/sec): 500x50 wide horizontal line segment
+    5000000 reps @   0.0010 msec (975000.0/sec): 500x50 wide horizontal line segment
+    5000000 reps @   0.0010 msec (980000.0/sec): 500x50 wide horizontal line segment
+   25000000 trep @   0.0010 msec (977000.0/sec): 500x50 wide horizontal line segment
+
+   40000000 reps @   0.0002 msec (4770000.0/sec): 10x1 wide vertical line segment
+   40000000 reps @   0.0002 msec (4730000.0/sec): 10x1 wide vertical line segment
+   40000000 reps @   0.0002 msec (4750000.0/sec): 10x1 wide vertical line segment
+   40000000 reps @   0.0002 msec (4690000.0/sec): 10x1 wide vertical line segment
+   40000000 reps @   0.0002 msec (4720000.0/sec): 10x1 wide vertical line segment
+  200000000 trep @   0.0002 msec (4730000.0/sec): 10x1 wide vertical line segment
+
+   20000000 reps @   0.0004 msec (2400000.0/sec): 100x10 wide vertical line segment
+   20000000 reps @   0.0004 msec (2410000.0/sec): 100x10 wide vertical line segment
+   20000000 reps @   0.0004 msec (2420000.0/sec): 100x10 wide vertical line segment
+   20000000 reps @   0.0004 msec (2410000.0/sec): 100x10 wide vertical line segment
+   20000000 reps @   0.0004 msec (2400000.0/sec): 100x10 wide vertical line segment
+  100000000 trep @   0.0004 msec (2410000.0/sec): 100x10 wide vertical line segment
+
+   10000000 reps @   0.0010 msec (996000.0/sec): 500x50 wide vertical line segment
+   10000000 reps @   0.0010 msec (1000000.0/sec): 500x50 wide vertical line segment
+   10000000 reps @   0.0010 msec (1000000.0/sec): 500x50 wide vertical line segment
+   10000000 reps @   0.0010 msec (996000.0/sec): 500x50 wide vertical line segment
+   10000000 reps @   0.0010 msec (993000.0/sec): 500x50 wide vertical line segment
+   50000000 trep @   0.0010 msec (998000.0/sec): 500x50 wide vertical line segment
+
+  500000000 reps @   0.0000 msec (90000000.0/sec): 1-pixel line
+  500000000 reps @   0.0000 msec (88700000.0/sec): 1-pixel line
+  500000000 reps @   0.0000 msec (89400000.0/sec): 1-pixel line
+  500000000 reps @   0.0000 msec (88700000.0/sec): 1-pixel line
+  500000000 reps @   0.0000 msec (87300000.0/sec): 1-pixel line
+ 2500000000 trep @   0.0000 msec (88800000.0/sec): 1-pixel line
+
+  400000000 reps @   0.0000 msec (80800000.0/sec): 10-pixel line
+  400000000 reps @   0.0000 msec (81300000.0/sec): 10-pixel line
+  400000000 reps @   0.0000 msec (79800000.0/sec): 10-pixel line
+  400000000 reps @   0.0000 msec (80700000.0/sec): 10-pixel line
+  400000000 reps @   0.0000 msec (80600000.0/sec): 10-pixel line
+ 2000000000 trep @   0.0000 msec (80600000.0/sec): 10-pixel line
+
+   80000000 reps @   0.0001 msec (14600000.0/sec): 100-pixel line
+   80000000 reps @   0.0001 msec (14600000.0/sec): 100-pixel line
+   80000000 reps @   0.0001 msec (14600000.0/sec): 100-pixel line
+   80000000 reps @   0.0001 msec (14600000.0/sec): 100-pixel line
+   80000000 reps @   0.0001 msec (14600000.0/sec): 100-pixel line
+  400000000 trep @   0.0001 msec (14600000.0/sec): 100-pixel line
+
+   20000000 reps @   0.0004 msec (2830000.0/sec): 500-pixel line
+   20000000 reps @   0.0004 msec (2830000.0/sec): 500-pixel line
+   20000000 reps @   0.0004 msec (2830000.0/sec): 500-pixel line
+   20000000 reps @   0.0004 msec (2830000.0/sec): 500-pixel line
+   20000000 reps @   0.0004 msec (2830000.0/sec): 500-pixel line
+  100000000 trep @   0.0004 msec (2830000.0/sec): 500-pixel line
+
+   80000000 reps @   0.0001 msec (13800000.0/sec): 10-pixel dashed line
+   80000000 reps @   0.0001 msec (13800000.0/sec): 10-pixel dashed line
+   80000000 reps @   0.0001 msec (13800000.0/sec): 10-pixel dashed line
+   80000000 reps @   0.0001 msec (13800000.0/sec): 10-pixel dashed line
+   80000000 reps @   0.0001 msec (14100000.0/sec): 10-pixel dashed line
+  400000000 trep @   0.0001 msec (13900000.0/sec): 10-pixel dashed line
+
+   10000000 reps @   0.0005 msec (1970000.0/sec): 100-pixel dashed line
+   10000000 reps @   0.0005 msec (1970000.0/sec): 100-pixel dashed line
+   10000000 reps @   0.0005 msec (1960000.0/sec): 100-pixel dashed line
+   10000000 reps @   0.0005 msec (1960000.0/sec): 100-pixel dashed line
+   10000000 reps @   0.0005 msec (1960000.0/sec): 100-pixel dashed line
+   50000000 trep @   0.0005 msec (1960000.0/sec): 100-pixel dashed line
+
+    8000000 reps @   0.0007 msec (1480000.0/sec): 100-pixel double-dashed line
+    8000000 reps @   0.0007 msec (1470000.0/sec): 100-pixel double-dashed line
+    8000000 reps @   0.0007 msec (1480000.0/sec): 100-pixel double-dashed line
+    8000000 reps @   0.0007 msec (1480000.0/sec): 100-pixel double-dashed line
+    8000000 reps @   0.0007 msec (1470000.0/sec): 100-pixel double-dashed line
+   40000000 trep @   0.0007 msec (1470000.0/sec): 100-pixel double-dashed line
+
+   30000000 reps @   0.0003 msec (3930000.0/sec): 10x1 wide line
+   30000000 reps @   0.0003 msec (3900000.0/sec): 10x1 wide line
+   30000000 reps @   0.0003 msec (3900000.0/sec): 10x1 wide line
+   30000000 reps @   0.0003 msec (3910000.0/sec): 10x1 wide line
+   30000000 reps @   0.0003 msec (3900000.0/sec): 10x1 wide line
+  150000000 trep @   0.0003 msec (3910000.0/sec): 10x1 wide line
+
+    6000000 reps @   0.0009 msec (1140000.0/sec): 100x10 wide line
+    6000000 reps @   0.0009 msec (1140000.0/sec): 100x10 wide line
+    6000000 reps @   0.0009 msec (1140000.0/sec): 100x10 wide line
+    6000000 reps @   0.0009 msec (1130000.0/sec): 100x10 wide line
+    6000000 reps @   0.0009 msec (1130000.0/sec): 100x10 wide line
+   30000000 trep @   0.0009 msec (1140000.0/sec): 100x10 wide line
+
+    1500000 reps @   0.0034 msec (292000.0/sec): 500x50 wide line
+    1500000 reps @   0.0033 msec (306000.0/sec): 500x50 wide line
+    1500000 reps @   0.0033 msec (305000.0/sec): 500x50 wide line
+    1500000 reps @   0.0033 msec (305000.0/sec): 500x50 wide line
+    1500000 reps @   0.0036 msec (275000.0/sec): 500x50 wide line
+    7500000 trep @   0.0034 msec (296000.0/sec): 500x50 wide line
+
+    2000000 reps @   0.0027 msec (365000.0/sec): 100x10 wide dashed line
+    2000000 reps @   0.0028 msec (364000.0/sec): 100x10 wide dashed line
+    2000000 reps @   0.0027 msec (364000.0/sec): 100x10 wide dashed line
+    2000000 reps @   0.0027 msec (364000.0/sec): 100x10 wide dashed line
+    2000000 reps @   0.0027 msec (365000.0/sec): 100x10 wide dashed line
+   10000000 trep @   0.0027 msec (364000.0/sec): 100x10 wide dashed line
+
+    2000000 reps @   0.0032 msec (315000.0/sec): 100x10 wide double-dashed line
+    2000000 reps @   0.0032 msec (314000.0/sec): 100x10 wide double-dashed line
+    2000000 reps @   0.0032 msec (314000.0/sec): 100x10 wide double-dashed line
+    2000000 reps @   0.0032 msec (314000.0/sec): 100x10 wide double-dashed line
+    2000000 reps @   0.0032 msec (314000.0/sec): 100x10 wide double-dashed line
+   10000000 trep @   0.0032 msec (314000.0/sec): 100x10 wide double-dashed line
+
+    2000000 reps @   0.0028 msec (358000.0/sec): 10x10 rectangle outline
+    2000000 reps @   0.0029 msec (350000.0/sec): 10x10 rectangle outline
+    2000000 reps @   0.0028 msec (353000.0/sec): 10x10 rectangle outline
+    2000000 reps @   0.0028 msec (351000.0/sec): 10x10 rectangle outline
+    2000000 reps @   0.0028 msec (352000.0/sec): 10x10 rectangle outline
+   10000000 trep @   0.0028 msec (353000.0/sec): 10x10 rectangle outline
+
+   10800000 reps @   0.0006 msec (1790000.0/sec): 100x100 rectangle outline
+   10800000 reps @   0.0006 msec (1790000.0/sec): 100x100 rectangle outline
+   10800000 reps @   0.0006 msec (1770000.0/sec): 100x100 rectangle outline
+   10800000 reps @   0.0005 msec (1820000.0/sec): 100x100 rectangle outline
+   10800000 reps @   0.0006 msec (1800000.0/sec): 100x100 rectangle outline
+   54000000 trep @   0.0006 msec (1790000.0/sec): 100x100 rectangle outline
+
+   10000000 reps @   0.0005 msec (1830000.0/sec): 500x500 rectangle outline
+   10000000 reps @   0.0006 msec (1810000.0/sec): 500x500 rectangle outline
+   10000000 reps @   0.0006 msec (1800000.0/sec): 500x500 rectangle outline
+   10000000 reps @   0.0006 msec (1790000.0/sec): 500x500 rectangle outline
+   10000000 reps @   0.0006 msec (1800000.0/sec): 500x500 rectangle outline
+   50000000 trep @   0.0006 msec (1810000.0/sec): 500x500 rectangle outline
+
+    2000000 reps @   0.0027 msec (366000.0/sec): 10x10 wide rectangle outline
+    2000000 reps @   0.0029 msec (351000.0/sec): 10x10 wide rectangle outline
+    2000000 reps @   0.0028 msec (351000.0/sec): 10x10 wide rectangle outline
+    2000000 reps @   0.0029 msec (350000.0/sec): 10x10 wide rectangle outline
+    2000000 reps @   0.0029 msec (350000.0/sec): 10x10 wide rectangle outline
+   10000000 trep @   0.0028 msec (354000.0/sec): 10x10 wide rectangle outline
+
+   10800000 reps @   0.0006 msec (1750000.0/sec): 100x100 wide rectangle outline
+   10800000 reps @   0.0006 msec (1750000.0/sec): 100x100 wide rectangle outline
+   10800000 reps @   0.0006 msec (1780000.0/sec): 100x100 wide rectangle outline
+   10800000 reps @   0.0006 msec (1720000.0/sec): 100x100 wide rectangle outline
+   10800000 reps @   0.0006 msec (1710000.0/sec): 100x100 wide rectangle outline
+   54000000 trep @   0.0006 msec (1740000.0/sec): 100x100 wide rectangle outline
+
+    4000000 reps @   0.0016 msec (635000.0/sec): 500x500 wide rectangle outline
+    4000000 reps @   0.0016 msec (639000.0/sec): 500x500 wide rectangle outline
+    4000000 reps @   0.0016 msec (634000.0/sec): 500x500 wide rectangle outline
+    4000000 reps @   0.0016 msec (635000.0/sec): 500x500 wide rectangle outline
+    4000000 reps @   0.0016 msec (633000.0/sec): 500x500 wide rectangle outline
+   20000000 trep @   0.0016 msec (635000.0/sec): 500x500 wide rectangle outline
+
+   60000000 reps @   0.0001 msec (12000000.0/sec): 1-pixel circle
+   60000000 reps @   0.0001 msec (12000000.0/sec): 1-pixel circle
+   60000000 reps @   0.0001 msec (11800000.0/sec): 1-pixel circle
+   60000000 reps @   0.0001 msec (11800000.0/sec): 1-pixel circle
+   60000000 reps @   0.0001 msec (12100000.0/sec): 1-pixel circle
+  300000000 trep @   0.0001 msec (11900000.0/sec): 1-pixel circle
+
+   30000000 reps @   0.0002 msec (4150000.0/sec): 10-pixel circle
+   30000000 reps @   0.0002 msec (4360000.0/sec): 10-pixel circle
+   30000000 reps @   0.0002 msec (4360000.0/sec): 10-pixel circle
+   30000000 reps @   0.0002 msec (4360000.0/sec): 10-pixel circle
+   30000000 reps @   0.0002 msec (4360000.0/sec): 10-pixel circle
+  150000000 trep @   0.0002 msec (4320000.0/sec): 10-pixel circle
+
+    4000000 reps @   0.0016 msec (612000.0/sec): 100-pixel circle
+    4000000 reps @   0.0016 msec (614000.0/sec): 100-pixel circle
+    4000000 reps @   0.0016 msec (613000.0/sec): 100-pixel circle
+    4000000 reps @   0.0016 msec (611000.0/sec): 100-pixel circle
+    4000000 reps @   0.0016 msec (613000.0/sec): 100-pixel circle
+   20000000 trep @   0.0016 msec (613000.0/sec): 100-pixel circle
+
+    1000000 reps @   0.0079 msec (126000.0/sec): 500-pixel circle
+    1000000 reps @   0.0079 msec (126000.0/sec): 500-pixel circle
+    1000000 reps @   0.0079 msec (126000.0/sec): 500-pixel circle
+    1000000 reps @   0.0079 msec (127000.0/sec): 500-pixel circle
+    1000000 reps @   0.0079 msec (126000.0/sec): 500-pixel circle
+    5000000 trep @   0.0079 msec (126000.0/sec): 500-pixel circle
+
+    4000000 reps @   0.0016 msec (614000.0/sec): 100-pixel dashed circle
+    4000000 reps @   0.0016 msec (615000.0/sec): 100-pixel dashed circle
+    4000000 reps @   0.0016 msec (613000.0/sec): 100-pixel dashed circle
+    4000000 reps @   0.0016 msec (614000.0/sec): 100-pixel dashed circle
+    4000000 reps @   0.0016 msec (611000.0/sec): 100-pixel dashed circle
+   20000000 trep @   0.0016 msec (613000.0/sec): 100-pixel dashed circle
+
+    3000000 reps @   0.0023 msec (431000.0/sec): 100-pixel double-dashed circle
+    3000000 reps @   0.0023 msec (430000.0/sec): 100-pixel double-dashed circle
+    3000000 reps @   0.0023 msec (430000.0/sec): 100-pixel double-dashed circle
+    3000000 reps @   0.0023 msec (431000.0/sec): 100-pixel double-dashed circle
+    3000000 reps @   0.0023 msec (430000.0/sec): 100-pixel double-dashed circle
+   15000000 trep @   0.0023 msec (430000.0/sec): 100-pixel double-dashed circle
+
+   30000000 reps @   0.0002 msec (4210000.0/sec): 10-pixel wide circle
+   30000000 reps @   0.0002 msec (4310000.0/sec): 10-pixel wide circle
+   30000000 reps @   0.0002 msec (4260000.0/sec): 10-pixel wide circle
+   30000000 reps @   0.0002 msec (4220000.0/sec): 10-pixel wide circle
+   30000000 reps @   0.0002 msec (4210000.0/sec): 10-pixel wide circle
+  150000000 trep @   0.0002 msec (4240000.0/sec): 10-pixel wide circle
+
+    4000000 reps @   0.0015 msec (672000.0/sec): 100-pixel wide circle
+    4000000 reps @   0.0015 msec (671000.0/sec): 100-pixel wide circle
+    4000000 reps @   0.0015 msec (670000.0/sec): 100-pixel wide circle
+    4000000 reps @   0.0015 msec (671000.0/sec): 100-pixel wide circle
+    4000000 reps @   0.0015 msec (670000.0/sec): 100-pixel wide circle
+   20000000 trep @   0.0015 msec (670000.0/sec): 100-pixel wide circle
+
+     750000 reps @   0.0069 msec (146000.0/sec): 500-pixel wide circle
+     750000 reps @   0.0068 msec (146000.0/sec): 500-pixel wide circle
+     750000 reps @   0.0069 msec (146000.0/sec): 500-pixel wide circle
+     750000 reps @   0.0069 msec (146000.0/sec): 500-pixel wide circle
+     750000 reps @   0.0068 msec (148000.0/sec): 500-pixel wide circle
+    3750000 trep @   0.0068 msec (146000.0/sec): 500-pixel wide circle
+
+     400000 reps @   0.0163 msec ( 61200.0/sec): 100-pixel wide dashed circle
+     400000 reps @   0.0161 msec ( 61900.0/sec): 100-pixel wide dashed circle
+     400000 reps @   0.0162 msec ( 61900.0/sec): 100-pixel wide dashed circle
+     400000 reps @   0.0162 msec ( 61800.0/sec): 100-pixel wide dashed circle
+     400000 reps @   0.0161 msec ( 61900.0/sec): 100-pixel wide dashed circle
+    2000000 trep @   0.0162 msec ( 61800.0/sec): 100-pixel wide dashed circle
+
+     400000 reps @   0.0156 msec ( 64100.0/sec): 100-pixel wide double-dashed circle
+     400000 reps @   0.0155 msec ( 64400.0/sec): 100-pixel wide double-dashed circle
+     400000 reps @   0.0162 msec ( 61900.0/sec): 100-pixel wide double-dashed circle
+     400000 reps @   0.0156 msec ( 64000.0/sec): 100-pixel wide double-dashed circle
+     400000 reps @   0.0156 msec ( 64100.0/sec): 100-pixel wide double-dashed circle
+    2000000 trep @   0.0157 msec ( 63700.0/sec): 100-pixel wide double-dashed circle
+
+   30000000 reps @   0.0002 msec (4530000.0/sec): 10-pixel partial circle
+   30000000 reps @   0.0002 msec (4660000.0/sec): 10-pixel partial circle
+   30000000 reps @   0.0002 msec (4590000.0/sec): 10-pixel partial circle
+   30000000 reps @   0.0002 msec (4580000.0/sec): 10-pixel partial circle
+   30000000 reps @   0.0002 msec (4590000.0/sec): 10-pixel partial circle
+  150000000 trep @   0.0002 msec (4590000.0/sec): 10-pixel partial circle
+
+    5940000 reps @   0.0011 msec (922000.0/sec): 100-pixel partial circle
+    5940000 reps @   0.0010 msec (960000.0/sec): 100-pixel partial circle
+    5940000 reps @   0.0011 msec (951000.0/sec): 100-pixel partial circle
+    5940000 reps @   0.0011 msec (897000.0/sec): 100-pixel partial circle
+    5940000 reps @   0.0011 msec (933000.0/sec): 100-pixel partial circle
+   29700000 trep @   0.0011 msec (932000.0/sec): 100-pixel partial circle
+
+    4000000 reps @   0.0014 msec (704000.0/sec): 10-pixel wide partial circle
+    4000000 reps @   0.0014 msec (726000.0/sec): 10-pixel wide partial circle
+    4000000 reps @   0.0014 msec (725000.0/sec): 10-pixel wide partial circle
+    4000000 reps @   0.0014 msec (725000.0/sec): 10-pixel wide partial circle
+    4000000 reps @   0.0014 msec (725000.0/sec): 10-pixel wide partial circle
+   20000000 trep @   0.0014 msec (721000.0/sec): 10-pixel wide partial circle
+
+    1386000 reps @   0.0039 msec (259000.0/sec): 100-pixel wide partial circle
+    1386000 reps @   0.0039 msec (259000.0/sec): 100-pixel wide partial circle
+    1386000 reps @   0.0039 msec (259000.0/sec): 100-pixel wide partial circle
+    1386000 reps @   0.0039 msec (256000.0/sec): 100-pixel wide partial circle
+    1386000 reps @   0.0038 msec (266000.0/sec): 100-pixel wide partial circle
+    6930000 trep @   0.0038 msec (260000.0/sec): 100-pixel wide partial circle
+
+ 1000000000 reps @   0.0000 msec (196000000.0/sec): 1-pixel solid circle
+ 1000000000 reps @   0.0000 msec (193000000.0/sec): 1-pixel solid circle
+ 1000000000 reps @   0.0000 msec (196000000.0/sec): 1-pixel solid circle
+ 1000000000 reps @   0.0000 msec (196000000.0/sec): 1-pixel solid circle
+ 1000000000 reps @   0.0000 msec (193000000.0/sec): 1-pixel solid circle
+ 5000000000 trep @   0.0000 msec (195000000.0/sec): 1-pixel solid circle
+
+   70000000 reps @   0.0001 msec (12000000.0/sec): 10-pixel solid circle
+   70000000 reps @   0.0001 msec (12100000.0/sec): 10-pixel solid circle
+   70000000 reps @   0.0001 msec (12500000.0/sec): 10-pixel solid circle
+   70000000 reps @   0.0001 msec (12000000.0/sec): 10-pixel solid circle
+   70000000 reps @   0.0001 msec (12200000.0/sec): 10-pixel solid circle
+  350000000 trep @   0.0001 msec (12100000.0/sec): 10-pixel solid circle
+
+    8000000 reps @   0.0007 msec (1470000.0/sec): 100-pixel solid circle
+    8000000 reps @   0.0007 msec (1470000.0/sec): 100-pixel solid circle
+    8000000 reps @   0.0007 msec (1470000.0/sec): 100-pixel solid circle
+    8000000 reps @   0.0007 msec (1470000.0/sec): 100-pixel solid circle
+    8000000 reps @   0.0007 msec (1470000.0/sec): 100-pixel solid circle
+   40000000 trep @   0.0007 msec (1470000.0/sec): 100-pixel solid circle
+
+     800000 reps @   0.0080 msec (125000.0/sec): 500-pixel solid circle
+     800000 reps @   0.0080 msec (125000.0/sec): 500-pixel solid circle
+     800000 reps @   0.0080 msec (125000.0/sec): 500-pixel solid circle
+     800000 reps @   0.0080 msec (125000.0/sec): 500-pixel solid circle
+     800000 reps @   0.0080 msec (125000.0/sec): 500-pixel solid circle
+    4000000 trep @   0.0080 msec (125000.0/sec): 500-pixel solid circle
+
+   40000000 reps @   0.0002 msec (5910000.0/sec): 10-pixel fill chord partial circle
+   40000000 reps @   0.0002 msec (6170000.0/sec): 10-pixel fill chord partial circle
+   40000000 reps @   0.0002 msec (6170000.0/sec): 10-pixel fill chord partial circle
+   40000000 reps @   0.0002 msec (6170000.0/sec): 10-pixel fill chord partial circle
+   40000000 reps @   0.0002 msec (6210000.0/sec): 10-pixel fill chord partial circle
+  200000000 trep @   0.0002 msec (6120000.0/sec): 10-pixel fill chord partial circle
+
