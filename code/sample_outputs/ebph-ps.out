@@ -1,0 +1,22 @@
+PID  COMM             STATUS   COUNT     LAST_MOD ANOMALIES NORMAL TIME
+727  lightdm          Training 58177     1543     0         2020-02-23 16:13:54
+739  Xorg             Training 80663410  1115643  0         2020-02-23 16:13:53
+742  accounts-daemon  Training 172644    22043    0         2020-02-26 20:18:40
+747  polkitd          Training 461714    4454     0         2020-03-03 15:00:18
+799  lightdm          Training 58177     1543     0         2020-02-23 16:13:54
+817  systemd          Training 93688     8133     0         2020-03-03 15:00:19
+824  i3               Training 5043705   59416    0         2020-03-03 15:21:55
+831  dbus-daemon      Training 61979     3620     0         2020-02-23 16:13:54
+835  redshift         Training 366557    136577   0         2020-02-26 20:18:57
+864  polybar          Training 16085886  14860    0         2020-02-26 20:48:56
+866  xbindkeys        Training 12890     1227     0         2020-02-23 16:13:59
+868  volnoti          Training 21305     3329     0         2020-02-23 16:13:59
+872  pulseaudio       Training 16869390  1292     0         2020-02-23 16:13:59
+873  rtkit-daemon     Training 104315    23351    0         2020-02-26 20:18:58
+878  gsettings-hel... Training 9924      124      0         2020-02-23 16:14:00
+885  alacritty        Training 47085184  10249    0         2020-03-03 15:21:55
+908  zsh              Training 21847582  194246   0         2020-03-03 15:21:56
+917  python3.8        Training 28569801  4254     0         2020-02-21 15:01:42
+1071 sudo             Training 3640      2407     0         2020-04-01 10:09:15
+1072 python3.8        Training 28569801  4254     0         2020-02-21 15:01:42
+

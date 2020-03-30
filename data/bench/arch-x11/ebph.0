@@ -740,3 +740,24 @@ Sync time adjustment is 0.0136 msecs.
    40000000 reps @   0.0002 msec (6210000.0/sec): 10-pixel fill chord partial circle
   200000000 trep @   0.0002 msec (6120000.0/sec): 10-pixel fill chord partial circle
 
+    6480000 reps @   0.0008 msec (1270000.0/sec): 100-pixel fill chord partial circle
+    6480000 reps @   0.0009 msec (1170000.0/sec): 100-pixel fill chord partial circle
+    6480000 reps @   0.0008 msec (1290000.0/sec): 100-pixel fill chord partial circle
+    6480000 reps @   0.0007 msec (1340000.0/sec): 100-pixel fill chord partial circle
+    6480000 reps @   0.0008 msec (1230000.0/sec): 100-pixel fill chord partial circle
+   32400000 trep @   0.0008 msec (1260000.0/sec): 100-pixel fill chord partial circle
+
+   40000000 reps @   0.0002 msec (6190000.0/sec): 10-pixel fill slice partial circle
+   40000000 reps @   0.0002 msec (6080000.0/sec): 10-pixel fill slice partial circle
+   40000000 reps @   0.0002 msec (5980000.0/sec): 10-pixel fill slice partial circle
+   40000000 reps @   0.0002 msec (6140000.0/sec): 10-pixel fill slice partial circle
+   40000000 reps @   0.0002 msec (6100000.0/sec): 10-pixel fill slice partial circle
+  200000000 trep @   0.0002 msec (6100000.0/sec): 10-pixel fill slice partial circle
+
+    6480000 reps @   0.0009 msec (1160000.0/sec): 100-pixel fill slice partial circle
+    6480000 reps @   0.0009 msec (1160000.0/sec): 100-pixel fill slice partial circle
+    6480000 reps @   0.0009 msec (1160000.0/sec): 100-pixel fill slice partial circle
+    6480000 reps @   0.0009 msec (1150000.0/sec): 100-pixel fill slice partial circle
+    6480000 reps @   0.0009 msec (1160000.0/sec): 100-pixel fill slice partial circle
+   32400000 trep @   0.0009 msec (1160000.0/sec): 100-pixel fill slice partial circle
+
