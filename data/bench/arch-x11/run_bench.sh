@@ -1,12 +1,12 @@
 #! /bin/sh
 
-COUNT=5
+COUNT=1
 
-echo "Testing ebpH"
-for i in `seq 0 $(( COUNT - 1 ))`; do
-    echo "Test ebpH $i"
-    x11perf -all > ebph.$i
-done
+#echo "Testing ebpH"
+#for i in `seq 0 $(( COUNT - 1 ))`; do
+#    echo "Test ebpH $i"
+#    x11perf -all > ebph.$i
+#done
 
 sudo systemctl stop ebphd
 

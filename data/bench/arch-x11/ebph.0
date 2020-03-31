@@ -761,3 +761,1921 @@ Sync time adjustment is 0.0136 msecs.
     6480000 reps @   0.0009 msec (1160000.0/sec): 100-pixel fill slice partial circle
    32400000 trep @   0.0009 msec (1160000.0/sec): 100-pixel fill slice partial circle
 
+   25000000 reps @   0.0002 msec (4680000.0/sec): 10-pixel ellipse
+   25000000 reps @   0.0002 msec (4690000.0/sec): 10-pixel ellipse
+   25000000 reps @   0.0002 msec (4390000.0/sec): 10-pixel ellipse
+   25000000 reps @   0.0002 msec (4400000.0/sec): 10-pixel ellipse
+   25000000 reps @   0.0002 msec (4420000.0/sec): 10-pixel ellipse
+  125000000 trep @   0.0002 msec (4510000.0/sec): 10-pixel ellipse
+
+    6000000 reps @   0.0013 msec (742000.0/sec): 100-pixel ellipse
+    6000000 reps @   0.0014 msec (720000.0/sec): 100-pixel ellipse
+    6000000 reps @   0.0014 msec (741000.0/sec): 100-pixel ellipse
+    6000000 reps @   0.0014 msec (737000.0/sec): 100-pixel ellipse
+    6000000 reps @   0.0013 msec (746000.0/sec): 100-pixel ellipse
+   30000000 trep @   0.0014 msec (737000.0/sec): 100-pixel ellipse
+
+     800000 reps @   0.0063 msec (159000.0/sec): 500-pixel ellipse
+     800000 reps @   0.0063 msec (159000.0/sec): 500-pixel ellipse
+     800000 reps @   0.0063 msec (159000.0/sec): 500-pixel ellipse
+     800000 reps @   0.0063 msec (159000.0/sec): 500-pixel ellipse
+     800000 reps @   0.0063 msec (159000.0/sec): 500-pixel ellipse
+    4000000 trep @   0.0063 msec (159000.0/sec): 500-pixel ellipse
+
+    5000000 reps @   0.0014 msec (714000.0/sec): 100-pixel dashed ellipse
+    5000000 reps @   0.0014 msec (719000.0/sec): 100-pixel dashed ellipse
+    5000000 reps @   0.0014 msec (717000.0/sec): 100-pixel dashed ellipse
+    5000000 reps @   0.0014 msec (716000.0/sec): 100-pixel dashed ellipse
+    5000000 reps @   0.0014 msec (711000.0/sec): 100-pixel dashed ellipse
+   25000000 trep @   0.0014 msec (715000.0/sec): 100-pixel dashed ellipse
+
+    5000000 reps @   0.0020 msec (507000.0/sec): 100-pixel double-dashed ellipse
+    5000000 reps @   0.0020 msec (505000.0/sec): 100-pixel double-dashed ellipse
+    5000000 reps @   0.0020 msec (505000.0/sec): 100-pixel double-dashed ellipse
+    5000000 reps @   0.0020 msec (505000.0/sec): 100-pixel double-dashed ellipse
+    5000000 reps @   0.0020 msec (504000.0/sec): 100-pixel double-dashed ellipse
+   25000000 trep @   0.0020 msec (505000.0/sec): 100-pixel double-dashed ellipse
+
+   10000000 reps @   0.0005 msec (1910000.0/sec): 10-pixel wide ellipse
+   10000000 reps @   0.0005 msec (1920000.0/sec): 10-pixel wide ellipse
+   10000000 reps @   0.0005 msec (1950000.0/sec): 10-pixel wide ellipse
+   10000000 reps @   0.0005 msec (1950000.0/sec): 10-pixel wide ellipse
+   10000000 reps @   0.0005 msec (1950000.0/sec): 10-pixel wide ellipse
+   50000000 trep @   0.0005 msec (1940000.0/sec): 10-pixel wide ellipse
+
+    1250000 reps @   0.0046 msec (216000.0/sec): 100-pixel wide ellipse
+    1250000 reps @   0.0046 msec (216000.0/sec): 100-pixel wide ellipse
+    1250000 reps @   0.0046 msec (215000.0/sec): 100-pixel wide ellipse
+    1250000 reps @   0.0047 msec (214000.0/sec): 100-pixel wide ellipse
+    1250000 reps @   0.0047 msec (211000.0/sec): 100-pixel wide ellipse
+    6250000 trep @   0.0047 msec (214000.0/sec): 100-pixel wide ellipse
+
+     400000 reps @   0.0236 msec ( 42400.0/sec): 500-pixel wide ellipse
+     400000 reps @   0.0233 msec ( 43000.0/sec): 500-pixel wide ellipse
+     400000 reps @   0.0234 msec ( 42800.0/sec): 500-pixel wide ellipse
+     400000 reps @   0.0229 msec ( 43600.0/sec): 500-pixel wide ellipse
+     400000 reps @   0.0238 msec ( 42000.0/sec): 500-pixel wide ellipse
+    2000000 trep @   0.0234 msec ( 42800.0/sec): 500-pixel wide ellipse
+
+     250000 reps @   0.0221 msec ( 45300.0/sec): 100-pixel wide dashed ellipse
+     250000 reps @   0.0213 msec ( 46900.0/sec): 100-pixel wide dashed ellipse
+     250000 reps @   0.0213 msec ( 47000.0/sec): 100-pixel wide dashed ellipse
+     250000 reps @   0.0213 msec ( 47000.0/sec): 100-pixel wide dashed ellipse
+     250000 reps @   0.0213 msec ( 47000.0/sec): 100-pixel wide dashed ellipse
+    1250000 trep @   0.0214 msec ( 46700.0/sec): 100-pixel wide dashed ellipse
+
+     200000 reps @   0.0256 msec ( 39100.0/sec): 100-pixel wide double-dashed ellipse
+     200000 reps @   0.0256 msec ( 39000.0/sec): 100-pixel wide double-dashed ellipse
+     200000 reps @   0.0256 msec ( 39000.0/sec): 100-pixel wide double-dashed ellipse
+     200000 reps @   0.0291 msec ( 34400.0/sec): 100-pixel wide double-dashed ellipse
+     200000 reps @   0.0257 msec ( 39000.0/sec): 100-pixel wide double-dashed ellipse
+    1000000 trep @   0.0263 msec ( 38000.0/sec): 100-pixel wide double-dashed ellipse
+
+   27000000 reps @   0.0002 msec (4590000.0/sec): 10-pixel partial ellipse
+   27000000 reps @   0.0002 msec (4330000.0/sec): 10-pixel partial ellipse
+   27000000 reps @   0.0002 msec (4430000.0/sec): 10-pixel partial ellipse
+   27000000 reps @   0.0002 msec (4650000.0/sec): 10-pixel partial ellipse
+   27000000 reps @   0.0002 msec (4400000.0/sec): 10-pixel partial ellipse
+  135000000 trep @   0.0002 msec (4470000.0/sec): 10-pixel partial ellipse
+
+    7200000 reps @   0.0010 msec (1000000.0/sec): 100-pixel partial ellipse
+    7200000 reps @   0.0010 msec (1000000.0/sec): 100-pixel partial ellipse
+    7200000 reps @   0.0010 msec (1000000.0/sec): 100-pixel partial ellipse
+    7200000 reps @   0.0010 msec (1000000.0/sec): 100-pixel partial ellipse
+    7200000 reps @   0.0010 msec (1010000.0/sec): 100-pixel partial ellipse
+   36000000 trep @   0.0010 msec (1000000.0/sec): 100-pixel partial ellipse
+
+    2700000 reps @   0.0020 msec (489000.0/sec): 10-pixel wide partial ellipse
+    2700000 reps @   0.0019 msec (523000.0/sec): 10-pixel wide partial ellipse
+    2700000 reps @   0.0019 msec (523000.0/sec): 10-pixel wide partial ellipse
+    2700000 reps @   0.0019 msec (521000.0/sec): 10-pixel wide partial ellipse
+    2700000 reps @   0.0019 msec (522000.0/sec): 10-pixel wide partial ellipse
+   13500000 trep @   0.0019 msec (515000.0/sec): 10-pixel wide partial ellipse
+
+     720000 reps @   0.0081 msec (123000.0/sec): 100-pixel wide partial ellipse
+     720000 reps @   0.0081 msec (123000.0/sec): 100-pixel wide partial ellipse
+     720000 reps @   0.0081 msec (123000.0/sec): 100-pixel wide partial ellipse
+     720000 reps @   0.0082 msec (122000.0/sec): 100-pixel wide partial ellipse
+     720000 reps @   0.0085 msec (117000.0/sec): 100-pixel wide partial ellipse
+    3600000 trep @   0.0082 msec (122000.0/sec): 100-pixel wide partial ellipse
+
+   80000000 reps @   0.0001 msec (15700000.0/sec): 10-pixel filled ellipse
+   80000000 reps @   0.0001 msec (15800000.0/sec): 10-pixel filled ellipse
+   80000000 reps @   0.0001 msec (15700000.0/sec): 10-pixel filled ellipse
+   80000000 reps @   0.0001 msec (15700000.0/sec): 10-pixel filled ellipse
+   80000000 reps @   0.0001 msec (15800000.0/sec): 10-pixel filled ellipse
+  400000000 trep @   0.0001 msec (15800000.0/sec): 10-pixel filled ellipse
+
+   10000000 reps @   0.0006 msec (1560000.0/sec): 100-pixel filled ellipse
+   10000000 reps @   0.0006 msec (1560000.0/sec): 100-pixel filled ellipse
+   10000000 reps @   0.0006 msec (1560000.0/sec): 100-pixel filled ellipse
+   10000000 reps @   0.0006 msec (1590000.0/sec): 100-pixel filled ellipse
+   10000000 reps @   0.0006 msec (1570000.0/sec): 100-pixel filled ellipse
+   50000000 trep @   0.0006 msec (1570000.0/sec): 100-pixel filled ellipse
+
+    2000000 reps @   0.0041 msec (245000.0/sec): 500-pixel filled ellipse
+    2000000 reps @   0.0041 msec (245000.0/sec): 500-pixel filled ellipse
+    2000000 reps @   0.0041 msec (245000.0/sec): 500-pixel filled ellipse
+    2000000 reps @   0.0041 msec (245000.0/sec): 500-pixel filled ellipse
+    2000000 reps @   0.0041 msec (245000.0/sec): 500-pixel filled ellipse
+   10000000 trep @   0.0041 msec (245000.0/sec): 500-pixel filled ellipse
+
+   54000000 reps @   0.0002 msec (6600000.0/sec): 10-pixel fill chord partial ellipse
+   54000000 reps @   0.0001 msec (6690000.0/sec): 10-pixel fill chord partial ellipse
+   54000000 reps @   0.0001 msec (6860000.0/sec): 10-pixel fill chord partial ellipse
+   54000000 reps @   0.0002 msec (6620000.0/sec): 10-pixel fill chord partial ellipse
+   54000000 reps @   0.0001 msec (6800000.0/sec): 10-pixel fill chord partial ellipse
+  270000000 trep @   0.0001 msec (6710000.0/sec): 10-pixel fill chord partial ellipse
+
+   10800000 reps @   0.0006 msec (1800000.0/sec): 100-pixel fill chord partial ellipse
+   10800000 reps @   0.0006 msec (1800000.0/sec): 100-pixel fill chord partial ellipse
+   10800000 reps @   0.0006 msec (1790000.0/sec): 100-pixel fill chord partial ellipse
+   10800000 reps @   0.0006 msec (1790000.0/sec): 100-pixel fill chord partial ellipse
+   10800000 reps @   0.0006 msec (1790000.0/sec): 100-pixel fill chord partial ellipse
+   54000000 trep @   0.0006 msec (1800000.0/sec): 100-pixel fill chord partial ellipse
+
+   54000000 reps @   0.0002 msec (6330000.0/sec): 10-pixel fill slice partial ellipse
+   54000000 reps @   0.0002 msec (6430000.0/sec): 10-pixel fill slice partial ellipse
+   54000000 reps @   0.0002 msec (6610000.0/sec): 10-pixel fill slice partial ellipse
+   54000000 reps @   0.0002 msec (6430000.0/sec): 10-pixel fill slice partial ellipse
+   54000000 reps @   0.0002 msec (6470000.0/sec): 10-pixel fill slice partial ellipse
+  270000000 trep @   0.0002 msec (6450000.0/sec): 10-pixel fill slice partial ellipse
+
+   10800000 reps @   0.0006 msec (1710000.0/sec): 100-pixel fill slice partial ellipse
+   10800000 reps @   0.0006 msec (1580000.0/sec): 100-pixel fill slice partial ellipse
+   10800000 reps @   0.0006 msec (1580000.0/sec): 100-pixel fill slice partial ellipse
+   10800000 reps @   0.0006 msec (1580000.0/sec): 100-pixel fill slice partial ellipse
+   10800000 reps @   0.0006 msec (1570000.0/sec): 100-pixel fill slice partial ellipse
+   54000000 trep @   0.0006 msec (1600000.0/sec): 100-pixel fill slice partial ellipse
+
+   20000000 reps @   0.0004 msec (2660000.0/sec): Fill 1x1 equivalent triangle
+   20000000 reps @   0.0004 msec (2760000.0/sec): Fill 1x1 equivalent triangle
+   20000000 reps @   0.0004 msec (2760000.0/sec): Fill 1x1 equivalent triangle
+   20000000 reps @   0.0004 msec (2740000.0/sec): Fill 1x1 equivalent triangle
+   20000000 reps @   0.0004 msec (2750000.0/sec): Fill 1x1 equivalent triangle
+  100000000 trep @   0.0004 msec (2730000.0/sec): Fill 1x1 equivalent triangle
+
+     900000 reps @   0.0053 msec (190000.0/sec): Fill 10x10 equivalent triangle
+     900000 reps @   0.0059 msec (168000.0/sec): Fill 10x10 equivalent triangle
+     900000 reps @   0.0065 msec (155000.0/sec): Fill 10x10 equivalent triangle
+     900000 reps @   0.0071 msec (140000.0/sec): Fill 10x10 equivalent triangle
+     900000 reps @   0.0072 msec (139000.0/sec): Fill 10x10 equivalent triangle
+    4500000 trep @   0.0064 msec (156000.0/sec): Fill 10x10 equivalent triangle
+
+    3000000 reps @   0.0022 msec (461000.0/sec): Fill 100x100 equivalent triangle
+    3000000 reps @   0.0022 msec (464000.0/sec): Fill 100x100 equivalent triangle
+    3000000 reps @   0.0022 msec (460000.0/sec): Fill 100x100 equivalent triangle
+    3000000 reps @   0.0022 msec (460000.0/sec): Fill 100x100 equivalent triangle
+    3000000 reps @   0.0022 msec (464000.0/sec): Fill 100x100 equivalent triangle
+   15000000 trep @   0.0022 msec (462000.0/sec): Fill 100x100 equivalent triangle
+
+   20000000 reps @   0.0003 msec (3360000.0/sec): Fill 1x1 trapezoid
+   20000000 reps @   0.0003 msec (3430000.0/sec): Fill 1x1 trapezoid
+   20000000 reps @   0.0003 msec (3450000.0/sec): Fill 1x1 trapezoid
+   20000000 reps @   0.0003 msec (3440000.0/sec): Fill 1x1 trapezoid
+   20000000 reps @   0.0003 msec (3440000.0/sec): Fill 1x1 trapezoid
+  100000000 trep @   0.0003 msec (3430000.0/sec): Fill 1x1 trapezoid
+
+    3000000 reps @   0.0023 msec (444000.0/sec): Fill 10x10 trapezoid
+    3000000 reps @   0.0023 msec (442000.0/sec): Fill 10x10 trapezoid
+    3000000 reps @   0.0023 msec (428000.0/sec): Fill 10x10 trapezoid
+    3000000 reps @   0.0025 msec (406000.0/sec): Fill 10x10 trapezoid
+    3000000 reps @   0.0023 msec (442000.0/sec): Fill 10x10 trapezoid
+   15000000 trep @   0.0023 msec (432000.0/sec): Fill 10x10 trapezoid
+
+    5000000 reps @   0.0012 msec (808000.0/sec): Fill 100x100 trapezoid
+    5000000 reps @   0.0012 msec (817000.0/sec): Fill 100x100 trapezoid
+    5000000 reps @   0.0012 msec (817000.0/sec): Fill 100x100 trapezoid
+    5000000 reps @   0.0012 msec (826000.0/sec): Fill 100x100 trapezoid
+    5000000 reps @   0.0012 msec (812000.0/sec): Fill 100x100 trapezoid
+   25000000 trep @   0.0012 msec (816000.0/sec): Fill 100x100 trapezoid
+
+    1400000 reps @   0.0038 msec (264000.0/sec): Fill 300x300 trapezoid
+    1400000 reps @   0.0038 msec (264000.0/sec): Fill 300x300 trapezoid
+    1400000 reps @   0.0038 msec (265000.0/sec): Fill 300x300 trapezoid
+    1400000 reps @   0.0038 msec (264000.0/sec): Fill 300x300 trapezoid
+    1400000 reps @   0.0038 msec (265000.0/sec): Fill 300x300 trapezoid
+    7000000 trep @   0.0038 msec (264000.0/sec): Fill 300x300 trapezoid
+
+   20000000 reps @   0.0003 msec (3250000.0/sec): Fill 1x1 stippled trapezoid (8x8 stipple)
+   20000000 reps @   0.0003 msec (3320000.0/sec): Fill 1x1 stippled trapezoid (8x8 stipple)
+   20000000 reps @   0.0003 msec (3340000.0/sec): Fill 1x1 stippled trapezoid (8x8 stipple)
+   20000000 reps @   0.0003 msec (3330000.0/sec): Fill 1x1 stippled trapezoid (8x8 stipple)
+   20000000 reps @   0.0003 msec (3320000.0/sec): Fill 1x1 stippled trapezoid (8x8 stipple)
+  100000000 trep @   0.0003 msec (3310000.0/sec): Fill 1x1 stippled trapezoid (8x8 stipple)
+
+    3000000 reps @   0.0022 msec (454000.0/sec): Fill 10x10 stippled trapezoid (8x8 stipple)
+    3000000 reps @   0.0023 msec (443000.0/sec): Fill 10x10 stippled trapezoid (8x8 stipple)
+    3000000 reps @   0.0023 msec (438000.0/sec): Fill 10x10 stippled trapezoid (8x8 stipple)
+    3000000 reps @   0.0024 msec (410000.0/sec): Fill 10x10 stippled trapezoid (8x8 stipple)
+    3000000 reps @   0.0023 msec (439000.0/sec): Fill 10x10 stippled trapezoid (8x8 stipple)
+   15000000 trep @   0.0023 msec (436000.0/sec): Fill 10x10 stippled trapezoid (8x8 stipple)
+
+    5000000 reps @   0.0012 msec (810000.0/sec): Fill 100x100 stippled trapezoid (8x8 stipple)
+    5000000 reps @   0.0012 msec (810000.0/sec): Fill 100x100 stippled trapezoid (8x8 stipple)
+    5000000 reps @   0.0012 msec (808000.0/sec): Fill 100x100 stippled trapezoid (8x8 stipple)
+    5000000 reps @   0.0012 msec (808000.0/sec): Fill 100x100 stippled trapezoid (8x8 stipple)
+    5000000 reps @   0.0012 msec (809000.0/sec): Fill 100x100 stippled trapezoid (8x8 stipple)
+   25000000 trep @   0.0012 msec (809000.0/sec): Fill 100x100 stippled trapezoid (8x8 stipple)
+
+    1400000 reps @   0.0038 msec (264000.0/sec): Fill 300x300 stippled trapezoid (8x8 stipple)
+    1400000 reps @   0.0038 msec (264000.0/sec): Fill 300x300 stippled trapezoid (8x8 stipple)
+    1400000 reps @   0.0038 msec (264000.0/sec): Fill 300x300 stippled trapezoid (8x8 stipple)
+    1400000 reps @   0.0038 msec (264000.0/sec): Fill 300x300 stippled trapezoid (8x8 stipple)
+    1400000 reps @   0.0038 msec (264000.0/sec): Fill 300x300 stippled trapezoid (8x8 stipple)
+    7000000 trep @   0.0038 msec (264000.0/sec): Fill 300x300 stippled trapezoid (8x8 stipple)
+
+   20000000 reps @   0.0003 msec (3330000.0/sec): Fill 1x1 opaque stippled trapezoid (8x8 stipple)
+   20000000 reps @   0.0003 msec (3250000.0/sec): Fill 1x1 opaque stippled trapezoid (8x8 stipple)
+   20000000 reps @   0.0003 msec (3320000.0/sec): Fill 1x1 opaque stippled trapezoid (8x8 stipple)
+   20000000 reps @   0.0003 msec (3350000.0/sec): Fill 1x1 opaque stippled trapezoid (8x8 stipple)
+   20000000 reps @   0.0003 msec (3320000.0/sec): Fill 1x1 opaque stippled trapezoid (8x8 stipple)
+  100000000 trep @   0.0003 msec (3310000.0/sec): Fill 1x1 opaque stippled trapezoid (8x8 stipple)
+
+    3000000 reps @   0.0022 msec (453000.0/sec): Fill 10x10 opaque stippled trapezoid (8x8 stipple)
+    3000000 reps @   0.0023 msec (443000.0/sec): Fill 10x10 opaque stippled trapezoid (8x8 stipple)
+    3000000 reps @   0.0023 msec (441000.0/sec): Fill 10x10 opaque stippled trapezoid (8x8 stipple)
+    3000000 reps @   0.0024 msec (411000.0/sec): Fill 10x10 opaque stippled trapezoid (8x8 stipple)
+    3000000 reps @   0.0023 msec (440000.0/sec): Fill 10x10 opaque stippled trapezoid (8x8 stipple)
+   15000000 trep @   0.0023 msec (437000.0/sec): Fill 10x10 opaque stippled trapezoid (8x8 stipple)
+
+    5000000 reps @   0.0012 msec (835000.0/sec): Fill 100x100 opaque stippled trapezoid (8x8 stipple)
+    5000000 reps @   0.0012 msec (840000.0/sec): Fill 100x100 opaque stippled trapezoid (8x8 stipple)
+    5000000 reps @   0.0012 msec (804000.0/sec): Fill 100x100 opaque stippled trapezoid (8x8 stipple)
+    5000000 reps @   0.0012 msec (804000.0/sec): Fill 100x100 opaque stippled trapezoid (8x8 stipple)
+    5000000 reps @   0.0012 msec (800000.0/sec): Fill 100x100 opaque stippled trapezoid (8x8 stipple)
+   25000000 trep @   0.0012 msec (816000.0/sec): Fill 100x100 opaque stippled trapezoid (8x8 stipple)
+
+    1400000 reps @   0.0038 msec (262000.0/sec): Fill 300x300 opaque stippled trapezoid (8x8 stipple)
+    1400000 reps @   0.0038 msec (261000.0/sec): Fill 300x300 opaque stippled trapezoid (8x8 stipple)
+    1400000 reps @   0.0038 msec (262000.0/sec): Fill 300x300 opaque stippled trapezoid (8x8 stipple)
+    1400000 reps @   0.0038 msec (261000.0/sec): Fill 300x300 opaque stippled trapezoid (8x8 stipple)
+    1400000 reps @   0.0038 msec (262000.0/sec): Fill 300x300 opaque stippled trapezoid (8x8 stipple)
+    7000000 trep @   0.0038 msec (261000.0/sec): Fill 300x300 opaque stippled trapezoid (8x8 stipple)
+
+   20000000 reps @   0.0003 msec (3270000.0/sec): Fill 1x1 tiled trapezoid (4x4 tile)
+   20000000 reps @   0.0003 msec (3210000.0/sec): Fill 1x1 tiled trapezoid (4x4 tile)
+   20000000 reps @   0.0003 msec (3290000.0/sec): Fill 1x1 tiled trapezoid (4x4 tile)
+   20000000 reps @   0.0003 msec (3290000.0/sec): Fill 1x1 tiled trapezoid (4x4 tile)
+   20000000 reps @   0.0003 msec (3290000.0/sec): Fill 1x1 tiled trapezoid (4x4 tile)
+  100000000 trep @   0.0003 msec (3270000.0/sec): Fill 1x1 tiled trapezoid (4x4 tile)
+
+    3000000 reps @   0.0022 msec (456000.0/sec): Fill 10x10 tiled trapezoid (4x4 tile)
+    3000000 reps @   0.0023 msec (441000.0/sec): Fill 10x10 tiled trapezoid (4x4 tile)
+    3000000 reps @   0.0023 msec (441000.0/sec): Fill 10x10 tiled trapezoid (4x4 tile)
+    3000000 reps @   0.0024 msec (419000.0/sec): Fill 10x10 tiled trapezoid (4x4 tile)
+    3000000 reps @   0.0023 msec (440000.0/sec): Fill 10x10 tiled trapezoid (4x4 tile)
+   15000000 trep @   0.0023 msec (439000.0/sec): Fill 10x10 tiled trapezoid (4x4 tile)
+
+    5000000 reps @   0.0012 msec (806000.0/sec): Fill 100x100 tiled trapezoid (4x4 tile)
+    5000000 reps @   0.0012 msec (814000.0/sec): Fill 100x100 tiled trapezoid (4x4 tile)
+    5000000 reps @   0.0012 msec (811000.0/sec): Fill 100x100 tiled trapezoid (4x4 tile)
+    5000000 reps @   0.0012 msec (804000.0/sec): Fill 100x100 tiled trapezoid (4x4 tile)
+    5000000 reps @   0.0012 msec (805000.0/sec): Fill 100x100 tiled trapezoid (4x4 tile)
+   25000000 trep @   0.0012 msec (808000.0/sec): Fill 100x100 tiled trapezoid (4x4 tile)
+
+    1400000 reps @   0.0038 msec (264000.0/sec): Fill 300x300 tiled trapezoid (4x4 tile)
+    1400000 reps @   0.0038 msec (264000.0/sec): Fill 300x300 tiled trapezoid (4x4 tile)
+    1400000 reps @   0.0038 msec (264000.0/sec): Fill 300x300 tiled trapezoid (4x4 tile)
+    1400000 reps @   0.0038 msec (264000.0/sec): Fill 300x300 tiled trapezoid (4x4 tile)
+    1400000 reps @   0.0038 msec (264000.0/sec): Fill 300x300 tiled trapezoid (4x4 tile)
+    7000000 trep @   0.0038 msec (264000.0/sec): Fill 300x300 tiled trapezoid (4x4 tile)
+
+   20000000 reps @   0.0005 msec (2220000.0/sec): Fill 1x1 stippled trapezoid (17x15 stipple)
+   20000000 reps @   0.0005 msec (2210000.0/sec): Fill 1x1 stippled trapezoid (17x15 stipple)
+   20000000 reps @   0.0004 msec (2260000.0/sec): Fill 1x1 stippled trapezoid (17x15 stipple)
+   20000000 reps @   0.0004 msec (2260000.0/sec): Fill 1x1 stippled trapezoid (17x15 stipple)
+   20000000 reps @   0.0004 msec (2270000.0/sec): Fill 1x1 stippled trapezoid (17x15 stipple)
+  100000000 trep @   0.0004 msec (2250000.0/sec): Fill 1x1 stippled trapezoid (17x15 stipple)
+
+    2000000 reps @   0.0036 msec (275000.0/sec): Fill 10x10 stippled trapezoid (17x15 stipple)
+    2000000 reps @   0.0037 msec (273000.0/sec): Fill 10x10 stippled trapezoid (17x15 stipple)
+    2000000 reps @   0.0037 msec (273000.0/sec): Fill 10x10 stippled trapezoid (17x15 stipple)
+    2000000 reps @   0.0037 msec (273000.0/sec): Fill 10x10 stippled trapezoid (17x15 stipple)
+    2000000 reps @   0.0037 msec (273000.0/sec): Fill 10x10 stippled trapezoid (17x15 stipple)
+   10000000 trep @   0.0037 msec (273000.0/sec): Fill 10x10 stippled trapezoid (17x15 stipple)
+
+     300000 reps @   0.0171 msec ( 58500.0/sec): Fill 100x100 stippled trapezoid (17x15 stipple)
+     300000 reps @   0.0171 msec ( 58600.0/sec): Fill 100x100 stippled trapezoid (17x15 stipple)
+     300000 reps @   0.0171 msec ( 58600.0/sec): Fill 100x100 stippled trapezoid (17x15 stipple)
+     300000 reps @   0.0171 msec ( 58600.0/sec): Fill 100x100 stippled trapezoid (17x15 stipple)
+     300000 reps @   0.0171 msec ( 58600.0/sec): Fill 100x100 stippled trapezoid (17x15 stipple)
+    1500000 trep @   0.0171 msec ( 58600.0/sec): Fill 100x100 stippled trapezoid (17x15 stipple)
+
+     100000 reps @   0.0621 msec ( 16100.0/sec): Fill 300x300 stippled trapezoid (17x15 stipple)
+     100000 reps @   0.0621 msec ( 16100.0/sec): Fill 300x300 stippled trapezoid (17x15 stipple)
+     100000 reps @   0.0621 msec ( 16100.0/sec): Fill 300x300 stippled trapezoid (17x15 stipple)
+     100000 reps @   0.0621 msec ( 16100.0/sec): Fill 300x300 stippled trapezoid (17x15 stipple)
+     100000 reps @   0.0619 msec ( 16200.0/sec): Fill 300x300 stippled trapezoid (17x15 stipple)
+     500000 trep @   0.0621 msec ( 16100.0/sec): Fill 300x300 stippled trapezoid (17x15 stipple)
+
+   20000000 reps @   0.0004 msec (2260000.0/sec): Fill 1x1 opaque stippled trapezoid (17x15 stipple)
+   20000000 reps @   0.0004 msec (2290000.0/sec): Fill 1x1 opaque stippled trapezoid (17x15 stipple)
+   20000000 reps @   0.0004 msec (2280000.0/sec): Fill 1x1 opaque stippled trapezoid (17x15 stipple)
+   20000000 reps @   0.0004 msec (2260000.0/sec): Fill 1x1 opaque stippled trapezoid (17x15 stipple)
+   20000000 reps @   0.0004 msec (2270000.0/sec): Fill 1x1 opaque stippled trapezoid (17x15 stipple)
+  100000000 trep @   0.0004 msec (2270000.0/sec): Fill 1x1 opaque stippled trapezoid (17x15 stipple)
+
+    2000000 reps @   0.0036 msec (275000.0/sec): Fill 10x10 opaque stippled trapezoid (17x15 stipple)
+    2000000 reps @   0.0036 msec (276000.0/sec): Fill 10x10 opaque stippled trapezoid (17x15 stipple)
+    2000000 reps @   0.0036 msec (274000.0/sec): Fill 10x10 opaque stippled trapezoid (17x15 stipple)
+    2000000 reps @   0.0037 msec (273000.0/sec): Fill 10x10 opaque stippled trapezoid (17x15 stipple)
+    2000000 reps @   0.0037 msec (273000.0/sec): Fill 10x10 opaque stippled trapezoid (17x15 stipple)
+   10000000 trep @   0.0036 msec (274000.0/sec): Fill 10x10 opaque stippled trapezoid (17x15 stipple)
+
+     300000 reps @   0.0171 msec ( 58600.0/sec): Fill 100x100 opaque stippled trapezoid (17x15 stipple)
+     300000 reps @   0.0171 msec ( 58600.0/sec): Fill 100x100 opaque stippled trapezoid (17x15 stipple)
+     300000 reps @   0.0171 msec ( 58600.0/sec): Fill 100x100 opaque stippled trapezoid (17x15 stipple)
+     300000 reps @   0.0171 msec ( 58600.0/sec): Fill 100x100 opaque stippled trapezoid (17x15 stipple)
+     300000 reps @   0.0171 msec ( 58600.0/sec): Fill 100x100 opaque stippled trapezoid (17x15 stipple)
+    1500000 trep @   0.0171 msec ( 58600.0/sec): Fill 100x100 opaque stippled trapezoid (17x15 stipple)
+
+     100000 reps @   0.0622 msec ( 16100.0/sec): Fill 300x300 opaque stippled trapezoid (17x15 stipple)
+     100000 reps @   0.0622 msec ( 16100.0/sec): Fill 300x300 opaque stippled trapezoid (17x15 stipple)
+     100000 reps @   0.0621 msec ( 16100.0/sec): Fill 300x300 opaque stippled trapezoid (17x15 stipple)
+     100000 reps @   0.0622 msec ( 16100.0/sec): Fill 300x300 opaque stippled trapezoid (17x15 stipple)
+     100000 reps @   0.0621 msec ( 16100.0/sec): Fill 300x300 opaque stippled trapezoid (17x15 stipple)
+     500000 trep @   0.0622 msec ( 16100.0/sec): Fill 300x300 opaque stippled trapezoid (17x15 stipple)
+
+   10000000 reps @   0.0005 msec (1880000.0/sec): Fill 1x1 tiled trapezoid (17x15 tile)
+   10000000 reps @   0.0005 msec (1890000.0/sec): Fill 1x1 tiled trapezoid (17x15 tile)
+   10000000 reps @   0.0005 msec (1880000.0/sec): Fill 1x1 tiled trapezoid (17x15 tile)
+   10000000 reps @   0.0005 msec (1880000.0/sec): Fill 1x1 tiled trapezoid (17x15 tile)
+   10000000 reps @   0.0005 msec (1880000.0/sec): Fill 1x1 tiled trapezoid (17x15 tile)
+   50000000 trep @   0.0005 msec (1880000.0/sec): Fill 1x1 tiled trapezoid (17x15 tile)
+
+    2000000 reps @   0.0030 msec (337000.0/sec): Fill 10x10 tiled trapezoid (17x15 tile)
+    2000000 reps @   0.0030 msec (332000.0/sec): Fill 10x10 tiled trapezoid (17x15 tile)
+    2000000 reps @   0.0030 msec (334000.0/sec): Fill 10x10 tiled trapezoid (17x15 tile)
+    2000000 reps @   0.0030 msec (333000.0/sec): Fill 10x10 tiled trapezoid (17x15 tile)
+    2000000 reps @   0.0030 msec (333000.0/sec): Fill 10x10 tiled trapezoid (17x15 tile)
+   10000000 trep @   0.0030 msec (334000.0/sec): Fill 10x10 tiled trapezoid (17x15 tile)
+
+     200000 reps @   0.0252 msec ( 39600.0/sec): Fill 100x100 tiled trapezoid (17x15 tile)
+     200000 reps @   0.0253 msec ( 39500.0/sec): Fill 100x100 tiled trapezoid (17x15 tile)
+     200000 reps @   0.0254 msec ( 39400.0/sec): Fill 100x100 tiled trapezoid (17x15 tile)
+     200000 reps @   0.0253 msec ( 39500.0/sec): Fill 100x100 tiled trapezoid (17x15 tile)
+     200000 reps @   0.0252 msec ( 39700.0/sec): Fill 100x100 tiled trapezoid (17x15 tile)
+    1000000 trep @   0.0253 msec ( 39500.0/sec): Fill 100x100 tiled trapezoid (17x15 tile)
+
+      40000 reps @   0.2020 msec (  4950.0/sec): Fill 300x300 tiled trapezoid (17x15 tile)
+      40000 reps @   0.2020 msec (  4950.0/sec): Fill 300x300 tiled trapezoid (17x15 tile)
+      40000 reps @   0.2008 msec (  4980.0/sec): Fill 300x300 tiled trapezoid (17x15 tile)
+      40000 reps @   0.2013 msec (  4970.0/sec): Fill 300x300 tiled trapezoid (17x15 tile)
+      40000 reps @   0.2007 msec (  4980.0/sec): Fill 300x300 tiled trapezoid (17x15 tile)
+     200000 trep @   0.2014 msec (  4970.0/sec): Fill 300x300 tiled trapezoid (17x15 tile)
+
+   20000000 reps @   0.0004 msec (2310000.0/sec): Fill 1x1 stippled trapezoid (161x145 stipple)
+   20000000 reps @   0.0004 msec (2310000.0/sec): Fill 1x1 stippled trapezoid (161x145 stipple)
+   20000000 reps @   0.0004 msec (2300000.0/sec): Fill 1x1 stippled trapezoid (161x145 stipple)
+   20000000 reps @   0.0004 msec (2290000.0/sec): Fill 1x1 stippled trapezoid (161x145 stipple)
+   20000000 reps @   0.0004 msec (2300000.0/sec): Fill 1x1 stippled trapezoid (161x145 stipple)
+  100000000 trep @   0.0004 msec (2300000.0/sec): Fill 1x1 stippled trapezoid (161x145 stipple)
+
+    2000000 reps @   0.0036 msec (274000.0/sec): Fill 10x10 stippled trapezoid (161x145 stipple)
+    2000000 reps @   0.0037 msec (273000.0/sec): Fill 10x10 stippled trapezoid (161x145 stipple)
+    2000000 reps @   0.0037 msec (273000.0/sec): Fill 10x10 stippled trapezoid (161x145 stipple)
+    2000000 reps @   0.0037 msec (273000.0/sec): Fill 10x10 stippled trapezoid (161x145 stipple)
+    2000000 reps @   0.0037 msec (273000.0/sec): Fill 10x10 stippled trapezoid (161x145 stipple)
+   10000000 trep @   0.0037 msec (273000.0/sec): Fill 10x10 stippled trapezoid (161x145 stipple)
+
+     300000 reps @   0.0172 msec ( 58000.0/sec): Fill 100x100 stippled trapezoid (161x145 stipple)
+     300000 reps @   0.0172 msec ( 58000.0/sec): Fill 100x100 stippled trapezoid (161x145 stipple)
+     300000 reps @   0.0173 msec ( 57900.0/sec): Fill 100x100 stippled trapezoid (161x145 stipple)
+     300000 reps @   0.0173 msec ( 57900.0/sec): Fill 100x100 stippled trapezoid (161x145 stipple)
+     300000 reps @   0.0173 msec ( 57900.0/sec): Fill 100x100 stippled trapezoid (161x145 stipple)
+    1500000 trep @   0.0173 msec ( 57900.0/sec): Fill 100x100 stippled trapezoid (161x145 stipple)
+
+      80000 reps @   0.0636 msec ( 15700.0/sec): Fill 300x300 stippled trapezoid (161x145 stipple)
+      80000 reps @   0.0636 msec ( 15700.0/sec): Fill 300x300 stippled trapezoid (161x145 stipple)
+      80000 reps @   0.0636 msec ( 15700.0/sec): Fill 300x300 stippled trapezoid (161x145 stipple)
+      80000 reps @   0.0636 msec ( 15700.0/sec): Fill 300x300 stippled trapezoid (161x145 stipple)
+      80000 reps @   0.0636 msec ( 15700.0/sec): Fill 300x300 stippled trapezoid (161x145 stipple)
+     400000 trep @   0.0636 msec ( 15700.0/sec): Fill 300x300 stippled trapezoid (161x145 stipple)
+
+   20000000 reps @   0.0004 msec (2280000.0/sec): Fill 1x1 opaque stippled trapezoid (161x145 stipple)
+   20000000 reps @   0.0004 msec (2270000.0/sec): Fill 1x1 opaque stippled trapezoid (161x145 stipple)
+   20000000 reps @   0.0004 msec (2290000.0/sec): Fill 1x1 opaque stippled trapezoid (161x145 stipple)
+   20000000 reps @   0.0004 msec (2280000.0/sec): Fill 1x1 opaque stippled trapezoid (161x145 stipple)
+   20000000 reps @   0.0004 msec (2280000.0/sec): Fill 1x1 opaque stippled trapezoid (161x145 stipple)
+  100000000 trep @   0.0004 msec (2280000.0/sec): Fill 1x1 opaque stippled trapezoid (161x145 stipple)
+
+    2000000 reps @   0.0037 msec (274000.0/sec): Fill 10x10 opaque stippled trapezoid (161x145 stipple)
+    2000000 reps @   0.0037 msec (272000.0/sec): Fill 10x10 opaque stippled trapezoid (161x145 stipple)
+    2000000 reps @   0.0037 msec (272000.0/sec): Fill 10x10 opaque stippled trapezoid (161x145 stipple)
+    2000000 reps @   0.0037 msec (272000.0/sec): Fill 10x10 opaque stippled trapezoid (161x145 stipple)
+    2000000 reps @   0.0037 msec (272000.0/sec): Fill 10x10 opaque stippled trapezoid (161x145 stipple)
+   10000000 trep @   0.0037 msec (273000.0/sec): Fill 10x10 opaque stippled trapezoid (161x145 stipple)
+
+     300000 reps @   0.0173 msec ( 58000.0/sec): Fill 100x100 opaque stippled trapezoid (161x145 stipple)
+     300000 reps @   0.0173 msec ( 57900.0/sec): Fill 100x100 opaque stippled trapezoid (161x145 stipple)
+     300000 reps @   0.0173 msec ( 58000.0/sec): Fill 100x100 opaque stippled trapezoid (161x145 stipple)
+     300000 reps @   0.0173 msec ( 58000.0/sec): Fill 100x100 opaque stippled trapezoid (161x145 stipple)
+     300000 reps @   0.0173 msec ( 58000.0/sec): Fill 100x100 opaque stippled trapezoid (161x145 stipple)
+    1500000 trep @   0.0173 msec ( 58000.0/sec): Fill 100x100 opaque stippled trapezoid (161x145 stipple)
+
+      80000 reps @   0.0636 msec ( 15700.0/sec): Fill 300x300 opaque stippled trapezoid (161x145 stipple)
+      80000 reps @   0.0636 msec ( 15700.0/sec): Fill 300x300 opaque stippled trapezoid (161x145 stipple)
+      80000 reps @   0.0635 msec ( 15700.0/sec): Fill 300x300 opaque stippled trapezoid (161x145 stipple)
+      80000 reps @   0.0636 msec ( 15700.0/sec): Fill 300x300 opaque stippled trapezoid (161x145 stipple)
+      80000 reps @   0.0636 msec ( 15700.0/sec): Fill 300x300 opaque stippled trapezoid (161x145 stipple)
+     400000 trep @   0.0636 msec ( 15700.0/sec): Fill 300x300 opaque stippled trapezoid (161x145 stipple)
+
+   10000000 reps @   0.0005 msec (1870000.0/sec): Fill 1x1 tiled trapezoid (161x145 tile)
+   10000000 reps @   0.0005 msec (1860000.0/sec): Fill 1x1 tiled trapezoid (161x145 tile)
+   10000000 reps @   0.0005 msec (1870000.0/sec): Fill 1x1 tiled trapezoid (161x145 tile)
+   10000000 reps @   0.0005 msec (1870000.0/sec): Fill 1x1 tiled trapezoid (161x145 tile)
+   10000000 reps @   0.0005 msec (1880000.0/sec): Fill 1x1 tiled trapezoid (161x145 tile)
+   50000000 trep @   0.0005 msec (1870000.0/sec): Fill 1x1 tiled trapezoid (161x145 tile)
+
+    2000000 reps @   0.0028 msec (355000.0/sec): Fill 10x10 tiled trapezoid (161x145 tile)
+    2000000 reps @   0.0028 msec (352000.0/sec): Fill 10x10 tiled trapezoid (161x145 tile)
+    2000000 reps @   0.0028 msec (352000.0/sec): Fill 10x10 tiled trapezoid (161x145 tile)
+    2000000 reps @   0.0028 msec (353000.0/sec): Fill 10x10 tiled trapezoid (161x145 tile)
+    2000000 reps @   0.0029 msec (350000.0/sec): Fill 10x10 tiled trapezoid (161x145 tile)
+   10000000 trep @   0.0028 msec (352000.0/sec): Fill 10x10 tiled trapezoid (161x145 tile)
+
+     700000 reps @   0.0078 msec (128000.0/sec): Fill 100x100 tiled trapezoid (161x145 tile)
+     700000 reps @   0.0078 msec (128000.0/sec): Fill 100x100 tiled trapezoid (161x145 tile)
+     700000 reps @   0.0078 msec (128000.0/sec): Fill 100x100 tiled trapezoid (161x145 tile)
+     700000 reps @   0.0078 msec (128000.0/sec): Fill 100x100 tiled trapezoid (161x145 tile)
+     700000 reps @   0.0078 msec (128000.0/sec): Fill 100x100 tiled trapezoid (161x145 tile)
+    3500000 trep @   0.0078 msec (128000.0/sec): Fill 100x100 tiled trapezoid (161x145 tile)
+
+     140000 reps @   0.0360 msec ( 27800.0/sec): Fill 300x300 tiled trapezoid (161x145 tile)
+     140000 reps @   0.0357 msec ( 28000.0/sec): Fill 300x300 tiled trapezoid (161x145 tile)
+     140000 reps @   0.0360 msec ( 27800.0/sec): Fill 300x300 tiled trapezoid (161x145 tile)
+     140000 reps @   0.0361 msec ( 27700.0/sec): Fill 300x300 tiled trapezoid (161x145 tile)
+     140000 reps @   0.0354 msec ( 28200.0/sec): Fill 300x300 tiled trapezoid (161x145 tile)
+     700000 trep @   0.0358 msec ( 27900.0/sec): Fill 300x300 tiled trapezoid (161x145 tile)
+
+   10000000 reps @   0.0005 msec (1890000.0/sec): Fill 1x1 tiled trapezoid (216x208 tile)
+   10000000 reps @   0.0005 msec (1880000.0/sec): Fill 1x1 tiled trapezoid (216x208 tile)
+   10000000 reps @   0.0005 msec (1870000.0/sec): Fill 1x1 tiled trapezoid (216x208 tile)
+   10000000 reps @   0.0005 msec (1890000.0/sec): Fill 1x1 tiled trapezoid (216x208 tile)
+   10000000 reps @   0.0005 msec (1880000.0/sec): Fill 1x1 tiled trapezoid (216x208 tile)
+   50000000 trep @   0.0005 msec (1880000.0/sec): Fill 1x1 tiled trapezoid (216x208 tile)
+
+    2000000 reps @   0.0029 msec (349000.0/sec): Fill 10x10 tiled trapezoid (216x208 tile)
+    2000000 reps @   0.0029 msec (350000.0/sec): Fill 10x10 tiled trapezoid (216x208 tile)
+    2000000 reps @   0.0029 msec (351000.0/sec): Fill 10x10 tiled trapezoid (216x208 tile)
+    2000000 reps @   0.0029 msec (351000.0/sec): Fill 10x10 tiled trapezoid (216x208 tile)
+    2000000 reps @   0.0029 msec (350000.0/sec): Fill 10x10 tiled trapezoid (216x208 tile)
+   10000000 trep @   0.0029 msec (350000.0/sec): Fill 10x10 tiled trapezoid (216x208 tile)
+
+    1080000 reps @   0.0057 msec (177000.0/sec): Fill 100x100 tiled trapezoid (216x208 tile)
+    1080000 reps @   0.0056 msec (179000.0/sec): Fill 100x100 tiled trapezoid (216x208 tile)
+    1080000 reps @   0.0056 msec (178000.0/sec): Fill 100x100 tiled trapezoid (216x208 tile)
+    1080000 reps @   0.0056 msec (179000.0/sec): Fill 100x100 tiled trapezoid (216x208 tile)
+    1080000 reps @   0.0056 msec (178000.0/sec): Fill 100x100 tiled trapezoid (216x208 tile)
+    5400000 trep @   0.0056 msec (178000.0/sec): Fill 100x100 tiled trapezoid (216x208 tile)
+
+     180000 reps @   0.0301 msec ( 33200.0/sec): Fill 300x300 tiled trapezoid (216x208 tile)
+     180000 reps @   0.0302 msec ( 33100.0/sec): Fill 300x300 tiled trapezoid (216x208 tile)
+     180000 reps @   0.0299 msec ( 33400.0/sec): Fill 300x300 tiled trapezoid (216x208 tile)
+     180000 reps @   0.0299 msec ( 33400.0/sec): Fill 300x300 tiled trapezoid (216x208 tile)
+     180000 reps @   0.0298 msec ( 33500.0/sec): Fill 300x300 tiled trapezoid (216x208 tile)
+     900000 trep @   0.0300 msec ( 33300.0/sec): Fill 300x300 tiled trapezoid (216x208 tile)
+
+   80000000 reps @   0.0001 msec (15100000.0/sec): Fill 1x1 aa trap
+   80000000 reps @   0.0001 msec (15300000.0/sec): Fill 1x1 aa trap
+   80000000 reps @   0.0001 msec (15300000.0/sec): Fill 1x1 aa trap
+   80000000 reps @   0.0001 msec (15000000.0/sec): Fill 1x1 aa trap
+   80000000 reps @   0.0001 msec (15300000.0/sec): Fill 1x1 aa trap
+  400000000 trep @   0.0001 msec (15200000.0/sec): Fill 1x1 aa trap
+
+   80000000 reps @   0.0001 msec (15300000.0/sec): Fill 10x10 aa trap
+   80000000 reps @   0.0001 msec (15300000.0/sec): Fill 10x10 aa trap
+   80000000 reps @   0.0001 msec (14900000.0/sec): Fill 10x10 aa trap
+   80000000 reps @   0.0001 msec (15200000.0/sec): Fill 10x10 aa trap
+   80000000 reps @   0.0001 msec (15200000.0/sec): Fill 10x10 aa trap
+  400000000 trep @   0.0001 msec (15200000.0/sec): Fill 10x10 aa trap
+
+    5000000 reps @   0.0010 msec (964000.0/sec): Fill 100x100 aa trap
+    5000000 reps @   0.0010 msec (964000.0/sec): Fill 100x100 aa trap
+    5000000 reps @   0.0010 msec (964000.0/sec): Fill 100x100 aa trap
+    5000000 reps @   0.0010 msec (964000.0/sec): Fill 100x100 aa trap
+    5000000 reps @   0.0010 msec (964000.0/sec): Fill 100x100 aa trap
+   25000000 trep @   0.0010 msec (964000.0/sec): Fill 100x100 aa trap
+
+     600000 reps @   0.0084 msec (119000.0/sec): Fill 300x300 aa trap
+     600000 reps @   0.0084 msec (119000.0/sec): Fill 300x300 aa trap
+     600000 reps @   0.0084 msec (119000.0/sec): Fill 300x300 aa trap
+     600000 reps @   0.0084 msec (119000.0/sec): Fill 300x300 aa trap
+     600000 reps @   0.0084 msec (119000.0/sec): Fill 300x300 aa trap
+    3000000 trep @   0.0084 msec (119000.0/sec): Fill 300x300 aa trap
+
+     200000 reps @   0.0392 msec ( 25500.0/sec): Fill 1x1 aa trap with 4 bit alpha
+     200000 reps @   0.0419 msec ( 23800.0/sec): Fill 1x1 aa trap with 4 bit alpha
+     200000 reps @   0.0418 msec ( 23900.0/sec): Fill 1x1 aa trap with 4 bit alpha
+     200000 reps @   0.0420 msec ( 23800.0/sec): Fill 1x1 aa trap with 4 bit alpha
+     200000 reps @   0.0419 msec ( 23900.0/sec): Fill 1x1 aa trap with 4 bit alpha
+    1000000 trep @   0.0414 msec ( 24200.0/sec): Fill 1x1 aa trap with 4 bit alpha
+
+     200000 reps @   0.0424 msec ( 23600.0/sec): Fill 10x10 aa trap with 4 bit alpha
+     200000 reps @   0.0427 msec ( 23400.0/sec): Fill 10x10 aa trap with 4 bit alpha
+     200000 reps @   0.0430 msec ( 23200.0/sec): Fill 10x10 aa trap with 4 bit alpha
+     200000 reps @   0.0425 msec ( 23500.0/sec): Fill 10x10 aa trap with 4 bit alpha
+     200000 reps @   0.0421 msec ( 23800.0/sec): Fill 10x10 aa trap with 4 bit alpha
+    1000000 trep @   0.0425 msec ( 23500.0/sec): Fill 10x10 aa trap with 4 bit alpha
+
+      80000 reps @   0.0675 msec ( 14800.0/sec): Fill 100x100 aa trap with 4 bit alpha
+      80000 reps @   0.0672 msec ( 14900.0/sec): Fill 100x100 aa trap with 4 bit alpha
+      80000 reps @   0.0694 msec ( 14400.0/sec): Fill 100x100 aa trap with 4 bit alpha
+      80000 reps @   0.0683 msec ( 14600.0/sec): Fill 100x100 aa trap with 4 bit alpha
+      80000 reps @   0.0649 msec ( 15400.0/sec): Fill 100x100 aa trap with 4 bit alpha
+     400000 trep @   0.0675 msec ( 14800.0/sec): Fill 100x100 aa trap with 4 bit alpha
+
+      30000 reps @   0.2036 msec (  4910.0/sec): Fill 300x300 aa trap with 4 bit alpha
+      30000 reps @   0.2036 msec (  4910.0/sec): Fill 300x300 aa trap with 4 bit alpha
+      30000 reps @   0.2036 msec (  4910.0/sec): Fill 300x300 aa trap with 4 bit alpha
+      30000 reps @   0.2036 msec (  4910.0/sec): Fill 300x300 aa trap with 4 bit alpha
+      30000 reps @   0.2036 msec (  4910.0/sec): Fill 300x300 aa trap with 4 bit alpha
+     150000 trep @   0.2036 msec (  4910.0/sec): Fill 300x300 aa trap with 4 bit alpha
+
+    3000000 reps @   0.0022 msec (457000.0/sec): Fill 1x1 aa trap with 1 bit alpha
+    3000000 reps @   0.0022 msec (458000.0/sec): Fill 1x1 aa trap with 1 bit alpha
+    3000000 reps @   0.0022 msec (457000.0/sec): Fill 1x1 aa trap with 1 bit alpha
+    3000000 reps @   0.0022 msec (458000.0/sec): Fill 1x1 aa trap with 1 bit alpha
+    3000000 reps @   0.0022 msec (459000.0/sec): Fill 1x1 aa trap with 1 bit alpha
+   15000000 trep @   0.0022 msec (458000.0/sec): Fill 1x1 aa trap with 1 bit alpha
+
+    3000000 reps @   0.0023 msec (437000.0/sec): Fill 10x10 aa trap with 1 bit alpha
+    3000000 reps @   0.0023 msec (435000.0/sec): Fill 10x10 aa trap with 1 bit alpha
+    3000000 reps @   0.0023 msec (434000.0/sec): Fill 10x10 aa trap with 1 bit alpha
+    3000000 reps @   0.0023 msec (436000.0/sec): Fill 10x10 aa trap with 1 bit alpha
+    3000000 reps @   0.0023 msec (435000.0/sec): Fill 10x10 aa trap with 1 bit alpha
+   15000000 trep @   0.0023 msec (436000.0/sec): Fill 10x10 aa trap with 1 bit alpha
+
+    2000000 reps @   0.0036 msec (281000.0/sec): Fill 100x100 aa trap with 1 bit alpha
+    2000000 reps @   0.0036 msec (281000.0/sec): Fill 100x100 aa trap with 1 bit alpha
+    2000000 reps @   0.0036 msec (281000.0/sec): Fill 100x100 aa trap with 1 bit alpha
+    2000000 reps @   0.0036 msec (281000.0/sec): Fill 100x100 aa trap with 1 bit alpha
+    2000000 reps @   0.0036 msec (280000.0/sec): Fill 100x100 aa trap with 1 bit alpha
+   10000000 trep @   0.0036 msec (281000.0/sec): Fill 100x100 aa trap with 1 bit alpha
+
+     600000 reps @   0.0098 msec (102000.0/sec): Fill 300x300 aa trap with 1 bit alpha
+     600000 reps @   0.0100 msec (100000.0/sec): Fill 300x300 aa trap with 1 bit alpha
+     600000 reps @   0.0100 msec (100000.0/sec): Fill 300x300 aa trap with 1 bit alpha
+     600000 reps @   0.0100 msec (100000.0/sec): Fill 300x300 aa trap with 1 bit alpha
+     600000 reps @   0.0100 msec (100000.0/sec): Fill 300x300 aa trap with 1 bit alpha
+    3000000 trep @   0.0100 msec (100000.0/sec): Fill 300x300 aa trap with 1 bit alpha
+
+   80000000 reps @   0.0001 msec (15000000.0/sec): Fill 2x1 aa trap
+   80000000 reps @   0.0001 msec (15400000.0/sec): Fill 2x1 aa trap
+   80000000 reps @   0.0001 msec (15300000.0/sec): Fill 2x1 aa trap
+   80000000 reps @   0.0001 msec (15300000.0/sec): Fill 2x1 aa trap
+   80000000 reps @   0.0001 msec (15200000.0/sec): Fill 2x1 aa trap
+  400000000 trep @   0.0001 msec (15300000.0/sec): Fill 2x1 aa trap
+
+   80000000 reps @   0.0001 msec (15300000.0/sec): Fill 2x10 aa trap
+   80000000 reps @   0.0001 msec (15000000.0/sec): Fill 2x10 aa trap
+   80000000 reps @   0.0001 msec (15400000.0/sec): Fill 2x10 aa trap
+   80000000 reps @   0.0001 msec (15400000.0/sec): Fill 2x10 aa trap
+   80000000 reps @   0.0001 msec (15300000.0/sec): Fill 2x10 aa trap
+  400000000 trep @   0.0001 msec (15300000.0/sec): Fill 2x10 aa trap
+
+   40000000 reps @   0.0001 msec (7630000.0/sec): Fill 2x100 aa trap
+   40000000 reps @   0.0001 msec (7630000.0/sec): Fill 2x100 aa trap
+   40000000 reps @   0.0001 msec (7630000.0/sec): Fill 2x100 aa trap
+   40000000 reps @   0.0001 msec (7630000.0/sec): Fill 2x100 aa trap
+   40000000 reps @   0.0001 msec (7630000.0/sec): Fill 2x100 aa trap
+  200000000 trep @   0.0001 msec (7630000.0/sec): Fill 2x100 aa trap
+
+   20000000 reps @   0.0003 msec (3430000.0/sec): Fill 2x300 aa trap
+   20000000 reps @   0.0003 msec (3430000.0/sec): Fill 2x300 aa trap
+   20000000 reps @   0.0003 msec (3430000.0/sec): Fill 2x300 aa trap
+   20000000 reps @   0.0003 msec (3430000.0/sec): Fill 2x300 aa trap
+   20000000 reps @   0.0003 msec (3430000.0/sec): Fill 2x300 aa trap
+  100000000 trep @   0.0003 msec (3430000.0/sec): Fill 2x300 aa trap
+
+     900000 reps @   0.0060 msec (166000.0/sec): Fill 1x1 aa trapezoid
+     900000 reps @   0.0060 msec (166000.0/sec): Fill 1x1 aa trapezoid
+     900000 reps @   0.0060 msec (166000.0/sec): Fill 1x1 aa trapezoid
+     900000 reps @   0.0060 msec (166000.0/sec): Fill 1x1 aa trapezoid
+     900000 reps @   0.0060 msec (166000.0/sec): Fill 1x1 aa trapezoid
+    4500000 trep @   0.0060 msec (166000.0/sec): Fill 1x1 aa trapezoid
+
+     900000 reps @   0.0061 msec (163000.0/sec): Fill 10x10 aa trapezoid
+     900000 reps @   0.0061 msec (163000.0/sec): Fill 10x10 aa trapezoid
+     900000 reps @   0.0061 msec (163000.0/sec): Fill 10x10 aa trapezoid
+     900000 reps @   0.0061 msec (163000.0/sec): Fill 10x10 aa trapezoid
+     900000 reps @   0.0061 msec (163000.0/sec): Fill 10x10 aa trapezoid
+    4500000 trep @   0.0061 msec (163000.0/sec): Fill 10x10 aa trapezoid
+
+     800000 reps @   0.0069 msec (145000.0/sec): Fill 100x100 aa trapezoid
+     800000 reps @   0.0069 msec (145000.0/sec): Fill 100x100 aa trapezoid
+     800000 reps @   0.0069 msec (145000.0/sec): Fill 100x100 aa trapezoid
+     800000 reps @   0.0069 msec (145000.0/sec): Fill 100x100 aa trapezoid
+     800000 reps @   0.0069 msec (145000.0/sec): Fill 100x100 aa trapezoid
+    4000000 trep @   0.0069 msec (145000.0/sec): Fill 100x100 aa trapezoid
+
+     500000 reps @   0.0114 msec ( 87600.0/sec): Fill 300x300 aa trapezoid
+     500000 reps @   0.0114 msec ( 87600.0/sec): Fill 300x300 aa trapezoid
+     500000 reps @   0.0114 msec ( 87600.0/sec): Fill 300x300 aa trapezoid
+     500000 reps @   0.0114 msec ( 87600.0/sec): Fill 300x300 aa trapezoid
+     500000 reps @   0.0114 msec ( 87600.0/sec): Fill 300x300 aa trapezoid
+    2500000 trep @   0.0114 msec ( 87600.0/sec): Fill 300x300 aa trapezoid
+
+   90000000 reps @   0.0001 msec (16100000.0/sec): Fill 1x1 aa pre-added trapezoid
+   90000000 reps @   0.0001 msec (16700000.0/sec): Fill 1x1 aa pre-added trapezoid
+   90000000 reps @   0.0001 msec (17000000.0/sec): Fill 1x1 aa pre-added trapezoid
+   90000000 reps @   0.0001 msec (17000000.0/sec): Fill 1x1 aa pre-added trapezoid
+   90000000 reps @   0.0001 msec (16800000.0/sec): Fill 1x1 aa pre-added trapezoid
+  450000000 trep @   0.0001 msec (16700000.0/sec): Fill 1x1 aa pre-added trapezoid
+
+   90000000 reps @   0.0001 msec (17200000.0/sec): Fill 10x10 aa pre-added trapezoid
+   90000000 reps @   0.0001 msec (17300000.0/sec): Fill 10x10 aa pre-added trapezoid
+   90000000 reps @   0.0001 msec (17100000.0/sec): Fill 10x10 aa pre-added trapezoid
+   90000000 reps @   0.0001 msec (16500000.0/sec): Fill 10x10 aa pre-added trapezoid
+   90000000 reps @   0.0001 msec (17200000.0/sec): Fill 10x10 aa pre-added trapezoid
+  450000000 trep @   0.0001 msec (17000000.0/sec): Fill 10x10 aa pre-added trapezoid
+
+    5000000 reps @   0.0010 msec (970000.0/sec): Fill 100x100 aa pre-added trapezoid
+    5000000 reps @   0.0010 msec (970000.0/sec): Fill 100x100 aa pre-added trapezoid
+    5000000 reps @   0.0010 msec (970000.0/sec): Fill 100x100 aa pre-added trapezoid
+    5000000 reps @   0.0010 msec (970000.0/sec): Fill 100x100 aa pre-added trapezoid
+    5000000 reps @   0.0010 msec (970000.0/sec): Fill 100x100 aa pre-added trapezoid
+   25000000 trep @   0.0010 msec (970000.0/sec): Fill 100x100 aa pre-added trapezoid
+
+     600000 reps @   0.0084 msec (119000.0/sec): Fill 300x300 aa pre-added trapezoid
+     600000 reps @   0.0084 msec (119000.0/sec): Fill 300x300 aa pre-added trapezoid
+     600000 reps @   0.0084 msec (119000.0/sec): Fill 300x300 aa pre-added trapezoid
+     600000 reps @   0.0084 msec (119000.0/sec): Fill 300x300 aa pre-added trapezoid
+     600000 reps @   0.0084 msec (119000.0/sec): Fill 300x300 aa pre-added trapezoid
+    3000000 trep @   0.0084 msec (119000.0/sec): Fill 300x300 aa pre-added trapezoid
+
+    2000000 reps @   0.0058 msec (173000.0/sec): Fill 10x10 equivalent complex polygon
+    2000000 reps @   0.0060 msec (167000.0/sec): Fill 10x10 equivalent complex polygon
+    2000000 reps @   0.0054 msec (185000.0/sec): Fill 10x10 equivalent complex polygon
+    2000000 reps @   0.0054 msec (185000.0/sec): Fill 10x10 equivalent complex polygon
+    2000000 reps @   0.0056 msec (179000.0/sec): Fill 10x10 equivalent complex polygon
+   10000000 trep @   0.0056 msec (178000.0/sec): Fill 10x10 equivalent complex polygon
+
+    2000000 reps @   0.0034 msec (296000.0/sec): Fill 100x100 equivalent complex polygons
+    2000000 reps @   0.0034 msec (296000.0/sec): Fill 100x100 equivalent complex polygons
+    2000000 reps @   0.0034 msec (296000.0/sec): Fill 100x100 equivalent complex polygons
+    2000000 reps @   0.0034 msec (297000.0/sec): Fill 100x100 equivalent complex polygons
+    2000000 reps @   0.0034 msec (296000.0/sec): Fill 100x100 equivalent complex polygons
+   10000000 trep @   0.0034 msec (296000.0/sec): Fill 100x100 equivalent complex polygons
+
+    6000000 reps @   0.0009 msec (1140000.0/sec): Fill 10x10 64-gon (Convex)
+    6000000 reps @   0.0009 msec (1100000.0/sec): Fill 10x10 64-gon (Convex)
+    6000000 reps @   0.0009 msec (1120000.0/sec): Fill 10x10 64-gon (Convex)
+    6000000 reps @   0.0009 msec (1100000.0/sec): Fill 10x10 64-gon (Convex)
+    6000000 reps @   0.0009 msec (1110000.0/sec): Fill 10x10 64-gon (Convex)
+   30000000 trep @   0.0009 msec (1110000.0/sec): Fill 10x10 64-gon (Convex)
+
+    3000000 reps @   0.0018 msec (541000.0/sec): Fill 100x100 64-gon (Convex)
+    3000000 reps @   0.0018 msec (543000.0/sec): Fill 100x100 64-gon (Convex)
+    3000000 reps @   0.0018 msec (543000.0/sec): Fill 100x100 64-gon (Convex)
+    3000000 reps @   0.0018 msec (542000.0/sec): Fill 100x100 64-gon (Convex)
+    3000000 reps @   0.0018 msec (543000.0/sec): Fill 100x100 64-gon (Convex)
+   15000000 trep @   0.0018 msec (542000.0/sec): Fill 100x100 64-gon (Convex)
+
+    6000000 reps @   0.0010 msec (1020000.0/sec): Fill 10x10 64-gon (Complex)
+    6000000 reps @   0.0010 msec (1000000.0/sec): Fill 10x10 64-gon (Complex)
+    6000000 reps @   0.0010 msec (1010000.0/sec): Fill 10x10 64-gon (Complex)
+    6000000 reps @   0.0010 msec (1020000.0/sec): Fill 10x10 64-gon (Complex)
+    6000000 reps @   0.0010 msec (1010000.0/sec): Fill 10x10 64-gon (Complex)
+   30000000 trep @   0.0010 msec (1010000.0/sec): Fill 10x10 64-gon (Complex)
+
+    2000000 reps @   0.0032 msec (310000.0/sec): Fill 100x100 64-gon (Complex)
+    2000000 reps @   0.0032 msec (313000.0/sec): Fill 100x100 64-gon (Complex)
+    2000000 reps @   0.0032 msec (311000.0/sec): Fill 100x100 64-gon (Complex)
+    2000000 reps @   0.0032 msec (313000.0/sec): Fill 100x100 64-gon (Complex)
+    2000000 reps @   0.0032 msec (313000.0/sec): Fill 100x100 64-gon (Complex)
+   10000000 trep @   0.0032 msec (312000.0/sec): Fill 100x100 64-gon (Complex)
+
+  320000000 reps @   0.0000 msec (57800000.0/sec): Char in 80-char line (6x13)
+  320000000 reps @   0.0000 msec (58200000.0/sec): Char in 80-char line (6x13)
+  320000000 reps @   0.0000 msec (58400000.0/sec): Char in 80-char line (6x13)
+  320000000 reps @   0.0000 msec (58000000.0/sec): Char in 80-char line (6x13)
+  320000000 reps @   0.0000 msec (57900000.0/sec): Char in 80-char line (6x13)
+ 1600000000 trep @   0.0000 msec (58100000.0/sec): Char in 80-char line (6x13)
+
+  288000000 reps @   0.0000 msec (56100000.0/sec): Char in 70-char line (8x13)
+  288000000 reps @   0.0000 msec (56000000.0/sec): Char in 70-char line (8x13)
+  288000000 reps @   0.0000 msec (56500000.0/sec): Char in 70-char line (8x13)
+  288000000 reps @   0.0000 msec (57500000.0/sec): Char in 70-char line (8x13)
+  288000000 reps @   0.0000 msec (57200000.0/sec): Char in 70-char line (8x13)
+ 1440000000 trep @   0.0000 msec (56700000.0/sec): Char in 70-char line (8x13)
+
+  240000000 reps @   0.0000 msec (43400000.0/sec): Char in 60-char line (9x15)
+  240000000 reps @   0.0000 msec (43700000.0/sec): Char in 60-char line (9x15)
+  240000000 reps @   0.0000 msec (43300000.0/sec): Char in 60-char line (9x15)
+  240000000 reps @   0.0000 msec (43700000.0/sec): Char in 60-char line (9x15)
+  240000000 reps @   0.0000 msec (43800000.0/sec): Char in 60-char line (9x15)
+ 1200000000 trep @   0.0000 msec (43600000.0/sec): Char in 60-char line (9x15)
+
+  200000000 reps @   0.0000 msec (34500000.0/sec): Char16 in 40-char line (k14)
+  200000000 reps @   0.0000 msec (34700000.0/sec): Char16 in 40-char line (k14)
+  200000000 reps @   0.0000 msec (34800000.0/sec): Char16 in 40-char line (k14)
+  200000000 reps @   0.0000 msec (34700000.0/sec): Char16 in 40-char line (k14)
+  200000000 reps @   0.0000 msec (34600000.0/sec): Char16 in 40-char line (k14)
+ 1000000000 trep @   0.0000 msec (34700000.0/sec): Char16 in 40-char line (k14)
+
+  115000000 reps @   0.0001 msec (19400000.0/sec): Char16 in 23-char line (k24)
+  115000000 reps @   0.0001 msec (19300000.0/sec): Char16 in 23-char line (k24)
+  115000000 reps @   0.0001 msec (19400000.0/sec): Char16 in 23-char line (k24)
+  115000000 reps @   0.0001 msec (19400000.0/sec): Char16 in 23-char line (k24)
+  115000000 reps @   0.0001 msec (19400000.0/sec): Char16 in 23-char line (k24)
+  575000000 trep @   0.0001 msec (19400000.0/sec): Char16 in 23-char line (k24)
+
+Could not load font '-adobe-times-medium-r-normal--10-100-75-75-p-54-iso8859-1', benchmark omitted
+
+Could not load font '-adobe-times-medium-r-normal--24-240-75-75-p-124-iso8859-1', benchmark omitted
+
+Could not load font '-adobe-times-medium-r-normal--10-100-75-75-p-54-iso8859-1', benchmark omitted
+
+   56000000 reps @   0.0001 msec (9130000.0/sec): Char16 in 7/14/7 line (k14, k24)
+   56000000 reps @   0.0001 msec (9130000.0/sec): Char16 in 7/14/7 line (k14, k24)
+   56000000 reps @   0.0001 msec (9160000.0/sec): Char16 in 7/14/7 line (k14, k24)
+   56000000 reps @   0.0001 msec (9170000.0/sec): Char16 in 7/14/7 line (k14, k24)
+   56000000 reps @   0.0001 msec (9180000.0/sec): Char16 in 7/14/7 line (k14, k24)
+  280000000 trep @   0.0001 msec (9150000.0/sec): Char16 in 7/14/7 line (k14, k24)
+
+  320000000 reps @   0.0000 msec (59800000.0/sec): Char in 80-char image line (6x13)
+  320000000 reps @   0.0000 msec (59200000.0/sec): Char in 80-char image line (6x13)
+  320000000 reps @   0.0000 msec (59400000.0/sec): Char in 80-char image line (6x13)
+  320000000 reps @   0.0000 msec (59600000.0/sec): Char in 80-char image line (6x13)
+  320000000 reps @   0.0000 msec (60600000.0/sec): Char in 80-char image line (6x13)
+ 1600000000 trep @   0.0000 msec (59700000.0/sec): Char in 80-char image line (6x13)
+
+  360000000 reps @   0.0000 msec (58900000.0/sec): Char in 70-char image line (8x13)
+  360000000 reps @   0.0000 msec (58400000.0/sec): Char in 70-char image line (8x13)
+  360000000 reps @   0.0000 msec (58100000.0/sec): Char in 70-char image line (8x13)
+  360000000 reps @   0.0000 msec (58700000.0/sec): Char in 70-char image line (8x13)
+  360000000 reps @   0.0000 msec (58600000.0/sec): Char in 70-char image line (8x13)
+ 1800000000 trep @   0.0000 msec (58500000.0/sec): Char in 70-char image line (8x13)
+
+  240000000 reps @   0.0000 msec (44400000.0/sec): Char in 60-char image line (9x15)
+  240000000 reps @   0.0000 msec (45300000.0/sec): Char in 60-char image line (9x15)
+  240000000 reps @   0.0000 msec (45100000.0/sec): Char in 60-char image line (9x15)
+  240000000 reps @   0.0000 msec (45200000.0/sec): Char in 60-char image line (9x15)
+  240000000 reps @   0.0000 msec (45600000.0/sec): Char in 60-char image line (9x15)
+ 1200000000 trep @   0.0000 msec (45100000.0/sec): Char in 60-char image line (9x15)
+
+  200000000 reps @   0.0000 msec (34900000.0/sec): Char16 in 40-char image line (k14)
+  200000000 reps @   0.0000 msec (35200000.0/sec): Char16 in 40-char image line (k14)
+  200000000 reps @   0.0000 msec (35200000.0/sec): Char16 in 40-char image line (k14)
+  200000000 reps @   0.0000 msec (35300000.0/sec): Char16 in 40-char image line (k14)
+  200000000 reps @   0.0000 msec (35000000.0/sec): Char16 in 40-char image line (k14)
+ 1000000000 trep @   0.0000 msec (35100000.0/sec): Char16 in 40-char image line (k14)
+
+  115000000 reps @   0.0001 msec (19700000.0/sec): Char16 in 23-char image line (k24)
+  115000000 reps @   0.0001 msec (19900000.0/sec): Char16 in 23-char image line (k24)
+  115000000 reps @   0.0001 msec (19700000.0/sec): Char16 in 23-char image line (k24)
+  115000000 reps @   0.0001 msec (19700000.0/sec): Char16 in 23-char image line (k24)
+  115000000 reps @   0.0001 msec (19700000.0/sec): Char16 in 23-char image line (k24)
+  575000000 trep @   0.0001 msec (19700000.0/sec): Char16 in 23-char image line (k24)
+
+Could not load font '-adobe-times-medium-r-normal--10-100-75-75-p-54-iso8859-1', benchmark omitted
+
+Could not load font '-adobe-times-medium-r-normal--24-240-75-75-p-124-iso8859-1', benchmark omitted
+
+   32000000 reps @   0.0002 msec (5210000.0/sec): Char in 80-char aa line (Charter 10)
+   32000000 reps @   0.0002 msec (5220000.0/sec): Char in 80-char aa line (Charter 10)
+   32000000 reps @   0.0002 msec (5220000.0/sec): Char in 80-char aa line (Charter 10)
+   32000000 reps @   0.0002 msec (5220000.0/sec): Char in 80-char aa line (Charter 10)
+   32000000 reps @   0.0002 msec (5220000.0/sec): Char in 80-char aa line (Charter 10)
+  160000000 trep @   0.0002 msec (5220000.0/sec): Char in 80-char aa line (Charter 10)
+
+   22400000 reps @   0.0002 msec (4480000.0/sec): Char in 30-char aa line (Charter 24)
+   22400000 reps @   0.0002 msec (4480000.0/sec): Char in 30-char aa line (Charter 24)
+   22400000 reps @   0.0002 msec (4480000.0/sec): Char in 30-char aa line (Charter 24)
+   22400000 reps @   0.0002 msec (4480000.0/sec): Char in 30-char aa line (Charter 24)
+   22400000 reps @   0.0002 msec (4480000.0/sec): Char in 30-char aa line (Charter 24)
+  112000000 trep @   0.0002 msec (4480000.0/sec): Char in 30-char aa line (Charter 24)
+
+   32000000 reps @   0.0002 msec (5260000.0/sec): Char in 80-char aa line (Courier 12)
+   32000000 reps @   0.0002 msec (5260000.0/sec): Char in 80-char aa line (Courier 12)
+   32000000 reps @   0.0002 msec (5260000.0/sec): Char in 80-char aa line (Courier 12)
+   32000000 reps @   0.0002 msec (5260000.0/sec): Char in 80-char aa line (Courier 12)
+   32000000 reps @   0.0002 msec (5260000.0/sec): Char in 80-char aa line (Courier 12)
+  160000000 trep @   0.0002 msec (5260000.0/sec): Char in 80-char aa line (Courier 12)
+
+   32000000 reps @   0.0002 msec (6170000.0/sec): Char in 80-char a line (Charter 10)
+   32000000 reps @   0.0002 msec (6170000.0/sec): Char in 80-char a line (Charter 10)
+   32000000 reps @   0.0002 msec (6160000.0/sec): Char in 80-char a line (Charter 10)
+   32000000 reps @   0.0002 msec (6170000.0/sec): Char in 80-char a line (Charter 10)
+   32000000 reps @   0.0002 msec (6170000.0/sec): Char in 80-char a line (Charter 10)
+  160000000 trep @   0.0002 msec (6170000.0/sec): Char in 80-char a line (Charter 10)
+
+   28800000 reps @   0.0002 msec (5150000.0/sec): Char in 30-char a line (Charter 24)
+   28800000 reps @   0.0002 msec (5150000.0/sec): Char in 30-char a line (Charter 24)
+   28800000 reps @   0.0002 msec (5140000.0/sec): Char in 30-char a line (Charter 24)
+   28800000 reps @   0.0002 msec (5150000.0/sec): Char in 30-char a line (Charter 24)
+   28800000 reps @   0.0002 msec (5140000.0/sec): Char in 30-char a line (Charter 24)
+  144000000 trep @   0.0002 msec (5150000.0/sec): Char in 30-char a line (Charter 24)
+
+   32000000 reps @   0.0002 msec (6160000.0/sec): Char in 80-char a line (Courier 12)
+   32000000 reps @   0.0002 msec (6170000.0/sec): Char in 80-char a line (Courier 12)
+   32000000 reps @   0.0002 msec (6160000.0/sec): Char in 80-char a line (Courier 12)
+   32000000 reps @   0.0002 msec (6160000.0/sec): Char in 80-char a line (Courier 12)
+   32000000 reps @   0.0002 msec (6170000.0/sec): Char in 80-char a line (Courier 12)
+  160000000 trep @   0.0002 msec (6160000.0/sec): Char in 80-char a line (Courier 12)
+
+   32000000 reps @   0.0002 msec (5130000.0/sec): Char in 80-char rgb line (Charter 10)
+   32000000 reps @   0.0002 msec (5130000.0/sec): Char in 80-char rgb line (Charter 10)
+   32000000 reps @   0.0002 msec (5130000.0/sec): Char in 80-char rgb line (Charter 10)
+   32000000 reps @   0.0002 msec (5130000.0/sec): Char in 80-char rgb line (Charter 10)
+   32000000 reps @   0.0002 msec (5130000.0/sec): Char in 80-char rgb line (Charter 10)
+  160000000 trep @   0.0002 msec (5130000.0/sec): Char in 80-char rgb line (Charter 10)
+
+   19200000 reps @   0.0003 msec (3630000.0/sec): Char in 30-char rgb line (Charter 24)
+   19200000 reps @   0.0003 msec (3630000.0/sec): Char in 30-char rgb line (Charter 24)
+   19200000 reps @   0.0003 msec (3630000.0/sec): Char in 30-char rgb line (Charter 24)
+   19200000 reps @   0.0003 msec (3630000.0/sec): Char in 30-char rgb line (Charter 24)
+   19200000 reps @   0.0003 msec (3630000.0/sec): Char in 30-char rgb line (Charter 24)
+   96000000 trep @   0.0003 msec (3630000.0/sec): Char in 30-char rgb line (Charter 24)
+
+   32000000 reps @   0.0002 msec (5160000.0/sec): Char in 80-char rgb line (Courier 12)
+   32000000 reps @   0.0002 msec (5150000.0/sec): Char in 80-char rgb line (Courier 12)
+   32000000 reps @   0.0002 msec (5150000.0/sec): Char in 80-char rgb line (Courier 12)
+   32000000 reps @   0.0002 msec (5160000.0/sec): Char in 80-char rgb line (Courier 12)
+   32000000 reps @   0.0002 msec (5150000.0/sec): Char in 80-char rgb line (Courier 12)
+  160000000 trep @   0.0002 msec (5150000.0/sec): Char in 80-char rgb line (Courier 12)
+
+Could not load font 'charter:antialias=true:render=false:rgba=0:pixelsize=10', benchmark omitted
+
+Could not load font 'charter:antialias=true:render=false:rgba=0:pixelsize=24', benchmark omitted
+
+Could not load font 'courier:antialias=true:render=false:rgba=0:pixelsize=12', benchmark omitted
+
+Could not load font 'charter:antialias=false:render=false:rgba=0:pixelsize=10', benchmark omitted
+
+Could not load font 'charter:antialias=false:render=false:rgba=0:pixelsize=24', benchmark omitted
+
+Could not load font 'courier:antialias=false:render=false:rgba=0:pixelsize=12', benchmark omitted
+
+Could not load font 'charter:antialias=true:render=false:rgba=rgb:pixelsize=10', benchmark omitted
+
+Could not load font 'charter:antialias=true:render=false:rgba=rgb:pixelsize=24', benchmark omitted
+
+Could not load font 'courier:antialias=true:render=false:rgba=rgb:pixelsize=12', benchmark omitted
+
+    8000000 reps @   0.0007 msec (1530000.0/sec): Scroll 10x10 pixels
+    8000000 reps @   0.0007 msec (1520000.0/sec): Scroll 10x10 pixels
+    8000000 reps @   0.0007 msec (1510000.0/sec): Scroll 10x10 pixels
+    8000000 reps @   0.0007 msec (1530000.0/sec): Scroll 10x10 pixels
+    8000000 reps @   0.0007 msec (1520000.0/sec): Scroll 10x10 pixels
+   40000000 trep @   0.0007 msec (1520000.0/sec): Scroll 10x10 pixels
+
+    5000000 reps @   0.0010 msec (975000.0/sec): Scroll 100x100 pixels
+    5000000 reps @   0.0010 msec (974000.0/sec): Scroll 100x100 pixels
+    5000000 reps @   0.0010 msec (978000.0/sec): Scroll 100x100 pixels
+    5000000 reps @   0.0010 msec (976000.0/sec): Scroll 100x100 pixels
+    5000000 reps @   0.0010 msec (976000.0/sec): Scroll 100x100 pixels
+   25000000 trep @   0.0010 msec (976000.0/sec): Scroll 100x100 pixels
+
+     600000 reps @   0.0086 msec (116000.0/sec): Scroll 500x500 pixels
+     600000 reps @   0.0086 msec (116000.0/sec): Scroll 500x500 pixels
+     600000 reps @   0.0086 msec (116000.0/sec): Scroll 500x500 pixels
+     600000 reps @   0.0086 msec (116000.0/sec): Scroll 500x500 pixels
+     600000 reps @   0.0086 msec (116000.0/sec): Scroll 500x500 pixels
+    3000000 trep @   0.0086 msec (116000.0/sec): Scroll 500x500 pixels
+
+    8000000 reps @   0.0011 msec (916000.0/sec): Copy 10x10 from window to window
+    8000000 reps @   0.0011 msec (905000.0/sec): Copy 10x10 from window to window
+    8000000 reps @   0.0011 msec (908000.0/sec): Copy 10x10 from window to window
+    8000000 reps @   0.0011 msec (909000.0/sec): Copy 10x10 from window to window
+    8000000 reps @   0.0011 msec (915000.0/sec): Copy 10x10 from window to window
+   40000000 trep @   0.0011 msec (911000.0/sec): Copy 10x10 from window to window
+
+    8000000 reps @   0.0008 msec (1230000.0/sec): Copy 100x100 from window to window
+    8000000 reps @   0.0008 msec (1230000.0/sec): Copy 100x100 from window to window
+    8000000 reps @   0.0008 msec (1230000.0/sec): Copy 100x100 from window to window
+    8000000 reps @   0.0008 msec (1230000.0/sec): Copy 100x100 from window to window
+    8000000 reps @   0.0008 msec (1230000.0/sec): Copy 100x100 from window to window
+   40000000 trep @   0.0008 msec (1230000.0/sec): Copy 100x100 from window to window
+
+     800000 reps @   0.0085 msec (118000.0/sec): Copy 500x500 from window to window
+     800000 reps @   0.0085 msec (118000.0/sec): Copy 500x500 from window to window
+     800000 reps @   0.0085 msec (118000.0/sec): Copy 500x500 from window to window
+     800000 reps @   0.0085 msec (118000.0/sec): Copy 500x500 from window to window
+     800000 reps @   0.0085 msec (118000.0/sec): Copy 500x500 from window to window
+    4000000 trep @   0.0085 msec (118000.0/sec): Copy 500x500 from window to window
+
+    8000000 reps @   0.0011 msec (937000.0/sec): Copy 10x10 from pixmap to window
+    8000000 reps @   0.0011 msec (929000.0/sec): Copy 10x10 from pixmap to window
+    8000000 reps @   0.0011 msec (915000.0/sec): Copy 10x10 from pixmap to window
+    8000000 reps @   0.0011 msec (906000.0/sec): Copy 10x10 from pixmap to window
+    8000000 reps @   0.0011 msec (906000.0/sec): Copy 10x10 from pixmap to window
+   40000000 trep @   0.0011 msec (918000.0/sec): Copy 10x10 from pixmap to window
+
+    8000000 reps @   0.0009 msec (1120000.0/sec): Copy 100x100 from pixmap to window
+    8000000 reps @   0.0009 msec (1120000.0/sec): Copy 100x100 from pixmap to window
+    8000000 reps @   0.0009 msec (1120000.0/sec): Copy 100x100 from pixmap to window
+    8000000 reps @   0.0009 msec (1120000.0/sec): Copy 100x100 from pixmap to window
+    8000000 reps @   0.0009 msec (1120000.0/sec): Copy 100x100 from pixmap to window
+   40000000 trep @   0.0009 msec (1120000.0/sec): Copy 100x100 from pixmap to window
+
+     800000 reps @   0.0087 msec (115000.0/sec): Copy 500x500 from pixmap to window
+     800000 reps @   0.0087 msec (115000.0/sec): Copy 500x500 from pixmap to window
+     800000 reps @   0.0087 msec (115000.0/sec): Copy 500x500 from pixmap to window
+     800000 reps @   0.0087 msec (115000.0/sec): Copy 500x500 from pixmap to window
+     800000 reps @   0.0087 msec (115000.0/sec): Copy 500x500 from pixmap to window
+    4000000 trep @   0.0087 msec (115000.0/sec): Copy 500x500 from pixmap to window
+
+   12000000 reps @   0.0005 msec (1910000.0/sec): Copy 10x10 from window to pixmap
+   12000000 reps @   0.0005 msec (1920000.0/sec): Copy 10x10 from window to pixmap
+   12000000 reps @   0.0005 msec (1910000.0/sec): Copy 10x10 from window to pixmap
+   12000000 reps @   0.0005 msec (1920000.0/sec): Copy 10x10 from window to pixmap
+   12000000 reps @   0.0005 msec (1920000.0/sec): Copy 10x10 from window to pixmap
+   60000000 trep @   0.0005 msec (1920000.0/sec): Copy 10x10 from window to pixmap
+
+    8000000 reps @   0.0008 msec (1180000.0/sec): Copy 100x100 from window to pixmap
+    8000000 reps @   0.0008 msec (1180000.0/sec): Copy 100x100 from window to pixmap
+    8000000 reps @   0.0008 msec (1180000.0/sec): Copy 100x100 from window to pixmap
+    8000000 reps @   0.0008 msec (1190000.0/sec): Copy 100x100 from window to pixmap
+    8000000 reps @   0.0008 msec (1180000.0/sec): Copy 100x100 from window to pixmap
+   40000000 trep @   0.0008 msec (1180000.0/sec): Copy 100x100 from window to pixmap
+
+     800000 reps @   0.0084 msec (119000.0/sec): Copy 500x500 from window to pixmap
+     800000 reps @   0.0084 msec (119000.0/sec): Copy 500x500 from window to pixmap
+     800000 reps @   0.0084 msec (119000.0/sec): Copy 500x500 from window to pixmap
+     800000 reps @   0.0084 msec (119000.0/sec): Copy 500x500 from window to pixmap
+     800000 reps @   0.0084 msec (119000.0/sec): Copy 500x500 from window to pixmap
+    4000000 trep @   0.0084 msec (119000.0/sec): Copy 500x500 from window to pixmap
+
+   12000000 reps @   0.0005 msec (1960000.0/sec): Copy 10x10 from pixmap to pixmap
+   12000000 reps @   0.0005 msec (1960000.0/sec): Copy 10x10 from pixmap to pixmap
+   12000000 reps @   0.0005 msec (1970000.0/sec): Copy 10x10 from pixmap to pixmap
+   12000000 reps @   0.0005 msec (1970000.0/sec): Copy 10x10 from pixmap to pixmap
+   12000000 reps @   0.0005 msec (1960000.0/sec): Copy 10x10 from pixmap to pixmap
+   60000000 trep @   0.0005 msec (1960000.0/sec): Copy 10x10 from pixmap to pixmap
+
+    8000000 reps @   0.0008 msec (1290000.0/sec): Copy 100x100 from pixmap to pixmap
+    8000000 reps @   0.0008 msec (1260000.0/sec): Copy 100x100 from pixmap to pixmap
+    8000000 reps @   0.0008 msec (1280000.0/sec): Copy 100x100 from pixmap to pixmap
+    8000000 reps @   0.0008 msec (1290000.0/sec): Copy 100x100 from pixmap to pixmap
+    8000000 reps @   0.0008 msec (1300000.0/sec): Copy 100x100 from pixmap to pixmap
+   40000000 trep @   0.0008 msec (1290000.0/sec): Copy 100x100 from pixmap to pixmap
+
+     800000 reps @   0.0081 msec (124000.0/sec): Copy 500x500 from pixmap to pixmap
+     800000 reps @   0.0081 msec (123000.0/sec): Copy 500x500 from pixmap to pixmap
+     800000 reps @   0.0081 msec (124000.0/sec): Copy 500x500 from pixmap to pixmap
+     800000 reps @   0.0081 msec (124000.0/sec): Copy 500x500 from pixmap to pixmap
+     800000 reps @   0.0081 msec (123000.0/sec): Copy 500x500 from pixmap to pixmap
+    4000000 trep @   0.0081 msec (123000.0/sec): Copy 500x500 from pixmap to pixmap
+
+    8000000 reps @   0.0012 msec (832000.0/sec): Copy 10x10 1-bit deep plane
+    8000000 reps @   0.0012 msec (827000.0/sec): Copy 10x10 1-bit deep plane
+    8000000 reps @   0.0012 msec (850000.0/sec): Copy 10x10 1-bit deep plane
+    8000000 reps @   0.0012 msec (839000.0/sec): Copy 10x10 1-bit deep plane
+    8000000 reps @   0.0012 msec (823000.0/sec): Copy 10x10 1-bit deep plane
+   40000000 trep @   0.0012 msec (834000.0/sec): Copy 10x10 1-bit deep plane
+
+    4000000 reps @   0.0013 msec (774000.0/sec): Copy 100x100 1-bit deep plane
+    4000000 reps @   0.0013 msec (769000.0/sec): Copy 100x100 1-bit deep plane
+    4000000 reps @   0.0013 msec (774000.0/sec): Copy 100x100 1-bit deep plane
+    4000000 reps @   0.0013 msec (776000.0/sec): Copy 100x100 1-bit deep plane
+    4000000 reps @   0.0013 msec (766000.0/sec): Copy 100x100 1-bit deep plane
+   20000000 trep @   0.0013 msec (772000.0/sec): Copy 100x100 1-bit deep plane
+
+     800000 reps @   0.0093 msec (107000.0/sec): Copy 500x500 1-bit deep plane
+     800000 reps @   0.0093 msec (107000.0/sec): Copy 500x500 1-bit deep plane
+     800000 reps @   0.0094 msec (106000.0/sec): Copy 500x500 1-bit deep plane
+     800000 reps @   0.0094 msec (107000.0/sec): Copy 500x500 1-bit deep plane
+     800000 reps @   0.0093 msec (107000.0/sec): Copy 500x500 1-bit deep plane
+    4000000 trep @   0.0094 msec (107000.0/sec): Copy 500x500 1-bit deep plane
+
+    4000000 reps @   0.0013 msec (753000.0/sec): Copy 10x10 n-bit deep plane
+    4000000 reps @   0.0013 msec (755000.0/sec): Copy 10x10 n-bit deep plane
+    4000000 reps @   0.0013 msec (762000.0/sec): Copy 10x10 n-bit deep plane
+    4000000 reps @   0.0013 msec (759000.0/sec): Copy 10x10 n-bit deep plane
+    4000000 reps @   0.0013 msec (747000.0/sec): Copy 10x10 n-bit deep plane
+   20000000 trep @   0.0013 msec (755000.0/sec): Copy 10x10 n-bit deep plane
+
+     800000 reps @   0.0118 msec ( 85100.0/sec): Copy 100x100 n-bit deep plane
+     800000 reps @   0.0118 msec ( 85000.0/sec): Copy 100x100 n-bit deep plane
+     800000 reps @   0.0118 msec ( 85000.0/sec): Copy 100x100 n-bit deep plane
+     800000 reps @   0.0118 msec ( 85000.0/sec): Copy 100x100 n-bit deep plane
+     800000 reps @   0.0118 msec ( 85000.0/sec): Copy 100x100 n-bit deep plane
+    4000000 trep @   0.0118 msec ( 85000.0/sec): Copy 100x100 n-bit deep plane
+
+      24000 reps @   0.2503 msec (  4000.0/sec): Copy 500x500 n-bit deep plane
+      24000 reps @   0.2432 msec (  4110.0/sec): Copy 500x500 n-bit deep plane
+      24000 reps @   0.2433 msec (  4110.0/sec): Copy 500x500 n-bit deep plane
+      24000 reps @   0.2433 msec (  4110.0/sec): Copy 500x500 n-bit deep plane
+      24000 reps @   0.2433 msec (  4110.0/sec): Copy 500x500 n-bit deep plane
+     120000 trep @   0.2447 msec (  4090.0/sec): Copy 500x500 n-bit deep plane
+
+    8000000 reps @   0.0012 msec (837000.0/sec): PutImage 10x10 square
+    8000000 reps @   0.0012 msec (840000.0/sec): PutImage 10x10 square
+    8000000 reps @   0.0012 msec (841000.0/sec): PutImage 10x10 square
+    8000000 reps @   0.0012 msec (807000.0/sec): PutImage 10x10 square
+    8000000 reps @   0.0012 msec (837000.0/sec): PutImage 10x10 square
+   40000000 trep @   0.0012 msec (832000.0/sec): PutImage 10x10 square
+
+     800000 reps @   0.0115 msec ( 86600.0/sec): PutImage 100x100 square
+     800000 reps @   0.0116 msec ( 86500.0/sec): PutImage 100x100 square
+     800000 reps @   0.0116 msec ( 86100.0/sec): PutImage 100x100 square
+     800000 reps @   0.0116 msec ( 86300.0/sec): PutImage 100x100 square
+     800000 reps @   0.0115 msec ( 86600.0/sec): PutImage 100x100 square
+    4000000 trep @   0.0116 msec ( 86400.0/sec): PutImage 100x100 square
+
+      16000 reps @   0.3771 msec (  2650.0/sec): PutImage 500x500 square
+      16000 reps @   0.3781 msec (  2640.0/sec): PutImage 500x500 square
+      16000 reps @   0.4158 msec (  2410.0/sec): PutImage 500x500 square
+      16000 reps @   0.4061 msec (  2460.0/sec): PutImage 500x500 square
+      16000 reps @   0.3929 msec (  2550.0/sec): PutImage 500x500 square
+      80000 trep @   0.3940 msec (  2540.0/sec): PutImage 500x500 square
+
+     800000 reps @   0.0065 msec (154000.0/sec): PutImage XY 10x10 square
+     800000 reps @   0.0065 msec (154000.0/sec): PutImage XY 10x10 square
+     800000 reps @   0.0065 msec (154000.0/sec): PutImage XY 10x10 square
+     800000 reps @   0.0065 msec (153000.0/sec): PutImage XY 10x10 square
+     800000 reps @   0.0065 msec (154000.0/sec): PutImage XY 10x10 square
+    4000000 trep @   0.0065 msec (154000.0/sec): PutImage XY 10x10 square
+
+     200000 reps @   0.0284 msec ( 35200.0/sec): PutImage XY 100x100 square
+     200000 reps @   0.0284 msec ( 35200.0/sec): PutImage XY 100x100 square
+     200000 reps @   0.0282 msec ( 35500.0/sec): PutImage XY 100x100 square
+     200000 reps @   0.0283 msec ( 35400.0/sec): PutImage XY 100x100 square
+     200000 reps @   0.0284 msec ( 35300.0/sec): PutImage XY 100x100 square
+    1000000 trep @   0.0283 msec ( 35300.0/sec): PutImage XY 100x100 square
+
+       8000 reps @   1.1055 msec (   905.0/sec): PutImage XY 500x500 square
+       8000 reps @   1.1071 msec (   903.0/sec): PutImage XY 500x500 square
+       8000 reps @   1.1066 msec (   904.0/sec): PutImage XY 500x500 square
+       8000 reps @   1.1068 msec (   904.0/sec): PutImage XY 500x500 square
+       8000 reps @   1.1067 msec (   904.0/sec): PutImage XY 500x500 square
+      40000 trep @   1.1065 msec (   904.0/sec): PutImage XY 500x500 square
+
+    4000000 reps @   0.0013 msec (792000.0/sec): ShmPutImage 10x10 square
+    4000000 reps @   0.0012 msec (809000.0/sec): ShmPutImage 10x10 square
+    4000000 reps @   0.0012 msec (801000.0/sec): ShmPutImage 10x10 square
+    4000000 reps @   0.0013 msec (790000.0/sec): ShmPutImage 10x10 square
+    4000000 reps @   0.0013 msec (799000.0/sec): ShmPutImage 10x10 square
+   20000000 trep @   0.0013 msec (798000.0/sec): ShmPutImage 10x10 square
+
+     800000 reps @   0.0121 msec ( 82600.0/sec): ShmPutImage 100x100 square
+     800000 reps @   0.0121 msec ( 82600.0/sec): ShmPutImage 100x100 square
+     800000 reps @   0.0121 msec ( 82600.0/sec): ShmPutImage 100x100 square
+     800000 reps @   0.0121 msec ( 82600.0/sec): ShmPutImage 100x100 square
+     800000 reps @   0.0121 msec ( 82600.0/sec): ShmPutImage 100x100 square
+    4000000 trep @   0.0121 msec ( 82600.0/sec): ShmPutImage 100x100 square
+
+      20000 reps @   0.2800 msec (  3570.0/sec): ShmPutImage 500x500 square
+      20000 reps @   0.2796 msec (  3580.0/sec): ShmPutImage 500x500 square
+      20000 reps @   0.2797 msec (  3580.0/sec): ShmPutImage 500x500 square
+      20000 reps @   0.2799 msec (  3570.0/sec): ShmPutImage 500x500 square
+      20000 reps @   0.2799 msec (  3570.0/sec): ShmPutImage 500x500 square
+     100000 trep @   0.2798 msec (  3570.0/sec): ShmPutImage 500x500 square
+
+     800000 reps @   0.0069 msec (144000.0/sec): ShmPutImage XY 10x10 square
+     800000 reps @   0.0069 msec (145000.0/sec): ShmPutImage XY 10x10 square
+     800000 reps @   0.0069 msec (145000.0/sec): ShmPutImage XY 10x10 square
+     800000 reps @   0.0069 msec (145000.0/sec): ShmPutImage XY 10x10 square
+     800000 reps @   0.0069 msec (145000.0/sec): ShmPutImage XY 10x10 square
+    4000000 trep @   0.0069 msec (145000.0/sec): ShmPutImage XY 10x10 square
+
+     200000 reps @   0.0296 msec ( 33800.0/sec): ShmPutImage XY 100x100 square
+     200000 reps @   0.0296 msec ( 33800.0/sec): ShmPutImage XY 100x100 square
+     200000 reps @   0.0296 msec ( 33800.0/sec): ShmPutImage XY 100x100 square
+     200000 reps @   0.0296 msec ( 33800.0/sec): ShmPutImage XY 100x100 square
+     200000 reps @   0.0296 msec ( 33800.0/sec): ShmPutImage XY 100x100 square
+    1000000 trep @   0.0296 msec ( 33800.0/sec): ShmPutImage XY 100x100 square
+
+       8000 reps @   0.9328 msec (  1070.0/sec): ShmPutImage XY 500x500 square
+       8000 reps @   0.9327 msec (  1070.0/sec): ShmPutImage XY 500x500 square
+       8000 reps @   0.9328 msec (  1070.0/sec): ShmPutImage XY 500x500 square
+       8000 reps @   0.9325 msec (  1070.0/sec): ShmPutImage XY 500x500 square
+       8000 reps @   0.9325 msec (  1070.0/sec): ShmPutImage XY 500x500 square
+      40000 trep @   0.9327 msec (  1070.0/sec): ShmPutImage XY 500x500 square
+
+     400000 reps @   0.0134 msec ( 74700.0/sec): ShmGetImage 10x10 square
+     400000 reps @   0.0153 msec ( 65400.0/sec): ShmGetImage 10x10 square
+     400000 reps @   0.0137 msec ( 73000.0/sec): ShmGetImage 10x10 square
+     400000 reps @   0.0134 msec ( 74400.0/sec): ShmGetImage 10x10 square
+     400000 reps @   0.0135 msec ( 74100.0/sec): ShmGetImage 10x10 square
+    2000000 trep @   0.0139 msec ( 72100.0/sec): ShmGetImage 10x10 square
+
+     320000 reps @   0.0177 msec ( 56600.0/sec): ShmGetImage 100x100 square
+     320000 reps @   0.0178 msec ( 56200.0/sec): ShmGetImage 100x100 square
+     320000 reps @   0.0178 msec ( 56300.0/sec): ShmGetImage 100x100 square
+     320000 reps @   0.0176 msec ( 56700.0/sec): ShmGetImage 100x100 square
+     320000 reps @   0.0178 msec ( 56000.0/sec): ShmGetImage 100x100 square
+    1600000 trep @   0.0177 msec ( 56400.0/sec): ShmGetImage 100x100 square
+
+      80000 reps @   0.1185 msec (  8440.0/sec): ShmGetImage 500x500 square
+      80000 reps @   0.1173 msec (  8520.0/sec): ShmGetImage 500x500 square
+      80000 reps @   0.1173 msec (  8520.0/sec): ShmGetImage 500x500 square
+      80000 reps @   0.1191 msec (  8400.0/sec): ShmGetImage 500x500 square
+      80000 reps @   0.1174 msec (  8520.0/sec): ShmGetImage 500x500 square
+     400000 trep @   0.1179 msec (  8480.0/sec): ShmGetImage 500x500 square
+
+      80000 reps @   0.1165 msec (  8580.0/sec): ShmGetImage XY 10x10 square
+      80000 reps @   0.1206 msec (  8290.0/sec): ShmGetImage XY 10x10 square
+      80000 reps @   0.1355 msec (  7380.0/sec): ShmGetImage XY 10x10 square
+      80000 reps @   0.1357 msec (  7370.0/sec): ShmGetImage XY 10x10 square
+      80000 reps @   0.1353 msec (  7390.0/sec): ShmGetImage XY 10x10 square
+     400000 trep @   0.1287 msec (  7770.0/sec): ShmGetImage XY 10x10 square
+
+       8000 reps @   0.8351 msec (  1200.0/sec): ShmGetImage XY 100x100 square
+       8000 reps @   0.8364 msec (  1200.0/sec): ShmGetImage XY 100x100 square
+       8000 reps @   0.9054 msec (  1100.0/sec): ShmGetImage XY 100x100 square
+       8000 reps @   0.8225 msec (  1220.0/sec): ShmGetImage XY 100x100 square
+       8000 reps @   0.8359 msec (  1200.0/sec): ShmGetImage XY 100x100 square
+      40000 trep @   0.8471 msec (  1180.0/sec): ShmGetImage XY 100x100 square
+
+        320 reps @  16.4661 msec (    60.7/sec): ShmGetImage XY 500x500 square
+        320 reps @  16.4186 msec (    60.9/sec): ShmGetImage XY 500x500 square
+        320 reps @  16.4561 msec (    60.8/sec): ShmGetImage XY 500x500 square
+        320 reps @  16.4440 msec (    60.8/sec): ShmGetImage XY 500x500 square
+        320 reps @  16.4360 msec (    60.8/sec): ShmGetImage XY 500x500 square
+       1600 trep @  16.4442 msec (    60.8/sec): ShmGetImage XY 500x500 square
+
+     360000 reps @   0.0173 msec ( 58000.0/sec): GetImage 10x10 square
+     360000 reps @   0.0173 msec ( 57800.0/sec): GetImage 10x10 square
+     360000 reps @   0.0170 msec ( 58900.0/sec): GetImage 10x10 square
+     360000 reps @   0.0148 msec ( 67600.0/sec): GetImage 10x10 square
+     360000 reps @   0.0148 msec ( 67400.0/sec): GetImage 10x10 square
+    1800000 trep @   0.0162 msec ( 61600.0/sec): GetImage 10x10 square
+
+     200000 reps @   0.0258 msec ( 38800.0/sec): GetImage 100x100 square
+     200000 reps @   0.0257 msec ( 38900.0/sec): GetImage 100x100 square
+     200000 reps @   0.0257 msec ( 38800.0/sec): GetImage 100x100 square
+     200000 reps @   0.0264 msec ( 37900.0/sec): GetImage 100x100 square
+     200000 reps @   0.0257 msec ( 38900.0/sec): GetImage 100x100 square
+    1000000 trep @   0.0259 msec ( 38700.0/sec): GetImage 100x100 square
+
+      20000 reps @   0.3095 msec (  3230.0/sec): GetImage 500x500 square
+      20000 reps @   0.3096 msec (  3230.0/sec): GetImage 500x500 square
+      20000 reps @   0.3097 msec (  3230.0/sec): GetImage 500x500 square
+      20000 reps @   0.3097 msec (  3230.0/sec): GetImage 500x500 square
+      20000 reps @   0.3101 msec (  3220.0/sec): GetImage 500x500 square
+     100000 trep @   0.3097 msec (  3230.0/sec): GetImage 500x500 square
+
+      36000 reps @   0.1538 msec (  6500.0/sec): GetImage XY 10x10 square
+      36000 reps @   0.1627 msec (  6150.0/sec): GetImage XY 10x10 square
+      36000 reps @   0.1581 msec (  6330.0/sec): GetImage XY 10x10 square
+      36000 reps @   0.1563 msec (  6400.0/sec): GetImage XY 10x10 square
+      36000 reps @   0.1568 msec (  6380.0/sec): GetImage XY 10x10 square
+     180000 trep @   0.1575 msec (  6350.0/sec): GetImage XY 10x10 square
+
+       8000 reps @   0.8503 msec (  1180.0/sec): GetImage XY 100x100 square
+       8000 reps @   0.8489 msec (  1180.0/sec): GetImage XY 100x100 square
+       8000 reps @   0.8495 msec (  1180.0/sec): GetImage XY 100x100 square
+       8000 reps @   0.9556 msec (  1050.0/sec): GetImage XY 100x100 square
+       8000 reps @   0.8645 msec (  1160.0/sec): GetImage XY 100x100 square
+      40000 trep @   0.8738 msec (  1140.0/sec): GetImage XY 100x100 square
+
+        320 reps @  17.1349 msec (    58.4/sec): GetImage XY 500x500 square
+        320 reps @  17.1317 msec (    58.4/sec): GetImage XY 500x500 square
+        320 reps @  17.1140 msec (    58.4/sec): GetImage XY 500x500 square
+        320 reps @  16.8224 msec (    59.4/sec): GetImage XY 500x500 square
+        320 reps @  17.0328 msec (    58.7/sec): GetImage XY 500x500 square
+       1600 trep @  17.0472 msec (    58.7/sec): GetImage XY 500x500 square
+
+    2800000 reps @   0.0020 msec (505000.0/sec): Composite 10x10 from window to window
+    2800000 reps @   0.0020 msec (504000.0/sec): Composite 10x10 from window to window
+    2800000 reps @   0.0020 msec (505000.0/sec): Composite 10x10 from window to window
+    2800000 reps @   0.0020 msec (505000.0/sec): Composite 10x10 from window to window
+    2800000 reps @   0.0020 msec (505000.0/sec): Composite 10x10 from window to window
+   14000000 trep @   0.0020 msec (505000.0/sec): Composite 10x10 from window to window
+
+      32000 reps @   0.1639 msec (  6100.0/sec): Composite 100x100 from window to window
+      32000 reps @   0.1640 msec (  6100.0/sec): Composite 100x100 from window to window
+      32000 reps @   0.1639 msec (  6100.0/sec): Composite 100x100 from window to window
+      32000 reps @   0.1639 msec (  6100.0/sec): Composite 100x100 from window to window
+      32000 reps @   0.1639 msec (  6100.0/sec): Composite 100x100 from window to window
+     160000 trep @   0.1639 msec (  6100.0/sec): Composite 100x100 from window to window
+
+        160 reps @  39.3911 msec (    25.4/sec): Composite 500x500 from window to window
+        160 reps @  39.3985 msec (    25.4/sec): Composite 500x500 from window to window
+        160 reps @  39.3440 msec (    25.4/sec): Composite 500x500 from window to window
+        160 reps @  39.3560 msec (    25.4/sec): Composite 500x500 from window to window
+        160 reps @  39.3820 msec (    25.4/sec): Composite 500x500 from window to window
+        800 trep @  39.3743 msec (    25.4/sec): Composite 500x500 from window to window
+
+    2800000 reps @   0.0019 msec (514000.0/sec): Composite 10x10 from pixmap to window
+    2800000 reps @   0.0019 msec (514000.0/sec): Composite 10x10 from pixmap to window
+    2800000 reps @   0.0019 msec (514000.0/sec): Composite 10x10 from pixmap to window
+    2800000 reps @   0.0019 msec (514000.0/sec): Composite 10x10 from pixmap to window
+    2800000 reps @   0.0019 msec (515000.0/sec): Composite 10x10 from pixmap to window
+   14000000 trep @   0.0019 msec (514000.0/sec): Composite 10x10 from pixmap to window
+
+    2400000 reps @   0.0022 msec (457000.0/sec): Composite 100x100 from pixmap to window
+    2400000 reps @   0.0022 msec (457000.0/sec): Composite 100x100 from pixmap to window
+    2400000 reps @   0.0022 msec (457000.0/sec): Composite 100x100 from pixmap to window
+    2400000 reps @   0.0022 msec (456000.0/sec): Composite 100x100 from pixmap to window
+    2400000 reps @   0.0022 msec (455000.0/sec): Composite 100x100 from pixmap to window
+   12000000 trep @   0.0022 msec (456000.0/sec): Composite 100x100 from pixmap to window
+
+     800000 reps @   0.0077 msec (130000.0/sec): Composite 500x500 from pixmap to window
+     800000 reps @   0.0077 msec (130000.0/sec): Composite 500x500 from pixmap to window
+     800000 reps @   0.0077 msec (130000.0/sec): Composite 500x500 from pixmap to window
+     800000 reps @   0.0077 msec (130000.0/sec): Composite 500x500 from pixmap to window
+     800000 reps @   0.0077 msec (130000.0/sec): Composite 500x500 from pixmap to window
+    4000000 trep @   0.0077 msec (130000.0/sec): Composite 500x500 from pixmap to window
+
+    2800000 reps @   0.0020 msec (510000.0/sec): Scale 5x5 from pixmap to 10x10 window
+    2800000 reps @   0.0020 msec (510000.0/sec): Scale 5x5 from pixmap to 10x10 window
+    2800000 reps @   0.0020 msec (511000.0/sec): Scale 5x5 from pixmap to 10x10 window
+    2800000 reps @   0.0020 msec (510000.0/sec): Scale 5x5 from pixmap to 10x10 window
+    2800000 reps @   0.0020 msec (511000.0/sec): Scale 5x5 from pixmap to 10x10 window
+   14000000 trep @   0.0020 msec (510000.0/sec): Scale 5x5 from pixmap to 10x10 window
+
+    2400000 reps @   0.0022 msec (465000.0/sec): Scale 50x50 from pixmap to 100x100 window
+    2400000 reps @   0.0022 msec (465000.0/sec): Scale 50x50 from pixmap to 100x100 window
+    2400000 reps @   0.0022 msec (465000.0/sec): Scale 50x50 from pixmap to 100x100 window
+    2400000 reps @   0.0021 msec (465000.0/sec): Scale 50x50 from pixmap to 100x100 window
+    2400000 reps @   0.0021 msec (466000.0/sec): Scale 50x50 from pixmap to 100x100 window
+   12000000 trep @   0.0021 msec (465000.0/sec): Scale 50x50 from pixmap to 100x100 window
+
+    1200000 reps @   0.0058 msec (174000.0/sec): Scale 250x250 from pixmap to 500x500 window
+    1200000 reps @   0.0058 msec (174000.0/sec): Scale 250x250 from pixmap to 500x500 window
+    1200000 reps @   0.0058 msec (173000.0/sec): Scale 250x250 from pixmap to 500x500 window
+    1200000 reps @   0.0058 msec (173000.0/sec): Scale 250x250 from pixmap to 500x500 window
+    1200000 reps @   0.0058 msec (173000.0/sec): Scale 250x250 from pixmap to 500x500 window
+    6000000 trep @   0.0058 msec (173000.0/sec): Scale 250x250 from pixmap to 500x500 window
+
+    2800000 reps @   0.0019 msec (515000.0/sec): Scale 10x10 from pixmap to 5x5 window
+    2800000 reps @   0.0019 msec (516000.0/sec): Scale 10x10 from pixmap to 5x5 window
+    2800000 reps @   0.0019 msec (517000.0/sec): Scale 10x10 from pixmap to 5x5 window
+    2800000 reps @   0.0019 msec (519000.0/sec): Scale 10x10 from pixmap to 5x5 window
+    2800000 reps @   0.0019 msec (519000.0/sec): Scale 10x10 from pixmap to 5x5 window
+   14000000 trep @   0.0019 msec (517000.0/sec): Scale 10x10 from pixmap to 5x5 window
+
+    2800000 reps @   0.0021 msec (483000.0/sec): Scale 100x100 from pixmap to 50x50 window
+    2800000 reps @   0.0021 msec (483000.0/sec): Scale 100x100 from pixmap to 50x50 window
+    2800000 reps @   0.0021 msec (483000.0/sec): Scale 100x100 from pixmap to 50x50 window
+    2800000 reps @   0.0021 msec (483000.0/sec): Scale 100x100 from pixmap to 50x50 window
+    2800000 reps @   0.0021 msec (483000.0/sec): Scale 100x100 from pixmap to 50x50 window
+   14000000 trep @   0.0021 msec (483000.0/sec): Scale 100x100 from pixmap to 50x50 window
+
+    1600000 reps @   0.0034 msec (295000.0/sec): Scale 500x500 from pixmap to 250x250 window
+    1600000 reps @   0.0034 msec (295000.0/sec): Scale 500x500 from pixmap to 250x250 window
+    1600000 reps @   0.0034 msec (295000.0/sec): Scale 500x500 from pixmap to 250x250 window
+    1600000 reps @   0.0034 msec (295000.0/sec): Scale 500x500 from pixmap to 250x250 window
+    1600000 reps @   0.0034 msec (295000.0/sec): Scale 500x500 from pixmap to 250x250 window
+    8000000 trep @   0.0034 msec (295000.0/sec): Scale 500x500 from pixmap to 250x250 window
+
+  600000000 reps @   0.0000 msec (114000000.0/sec): X protocol NoOperation
+  600000000 reps @   0.0000 msec (113000000.0/sec): X protocol NoOperation
+  600000000 reps @   0.0000 msec (114000000.0/sec): X protocol NoOperation
+  600000000 reps @   0.0000 msec (114000000.0/sec): X protocol NoOperation
+  600000000 reps @   0.0000 msec (114000000.0/sec): X protocol NoOperation
+ 3000000000 trep @   0.0000 msec (114000000.0/sec): X protocol NoOperation
+
+     600000 reps @   0.0087 msec (115000.0/sec): QueryPointer
+     600000 reps @   0.0087 msec (115000.0/sec): QueryPointer
+     600000 reps @   0.0087 msec (114000.0/sec): QueryPointer
+     600000 reps @   0.0087 msec (115000.0/sec): QueryPointer
+     600000 reps @   0.0087 msec (116000.0/sec): QueryPointer
+    3000000 trep @   0.0087 msec (115000.0/sec): QueryPointer
+
+     600000 reps @   0.0090 msec (111000.0/sec): GetProperty
+     600000 reps @   0.0090 msec (111000.0/sec): GetProperty
+     600000 reps @   0.0090 msec (111000.0/sec): GetProperty
+     600000 reps @   0.0090 msec (111000.0/sec): GetProperty
+     600000 reps @   0.0090 msec (111000.0/sec): GetProperty
+    3000000 trep @   0.0090 msec (111000.0/sec): GetProperty
+
+   16000000 reps @   0.0004 msec (2690000.0/sec): Change graphics context
+   16000000 reps @   0.0004 msec (2660000.0/sec): Change graphics context
+   16000000 reps @   0.0004 msec (2660000.0/sec): Change graphics context
+   16000000 reps @   0.0004 msec (2680000.0/sec): Change graphics context
+   16000000 reps @   0.0004 msec (2690000.0/sec): Change graphics context
+   80000000 trep @   0.0004 msec (2680000.0/sec): Change graphics context
+
+       2400 reps @   0.0008 msec (1280000.0/sec): Create and map subwindows (4 kids)
+       2400 reps @   0.0022 msec (461000.0/sec): Create and map subwindows (4 kids)
+       2400 reps @   0.0014 msec (726000.0/sec): Create and map subwindows (4 kids)
+       2400 reps @   0.0014 msec (718000.0/sec): Create and map subwindows (4 kids)
+       2400 reps @   0.0014 msec (714000.0/sec): Create and map subwindows (4 kids)
+      12000 trep @   0.0014 msec (702000.0/sec): Create and map subwindows (4 kids)
+
+       2400 reps @   0.0014 msec (712000.0/sec): Create and map subwindows (16 kids)
+       2400 reps @   0.0007 msec (1530000.0/sec): Create and map subwindows (16 kids)
+       2400 reps @   0.0007 msec (1510000.0/sec): Create and map subwindows (16 kids)
+       2400 reps @   0.0007 msec (1530000.0/sec): Create and map subwindows (16 kids)
+       2400 reps @   0.0007 msec (1510000.0/sec): Create and map subwindows (16 kids)
+      12000 trep @   0.0008 msec (1240000.0/sec): Create and map subwindows (16 kids)
+
+       2500 reps @   0.0013 msec (776000.0/sec): Create and map subwindows (25 kids)
+       2500 reps @   0.0007 msec (1390000.0/sec): Create and map subwindows (25 kids)
+       2500 reps @   0.0012 msec (841000.0/sec): Create and map subwindows (25 kids)
+       2500 reps @   0.0010 msec (978000.0/sec): Create and map subwindows (25 kids)
+       2500 reps @   0.0010 msec (975000.0/sec): Create and map subwindows (25 kids)
+      12500 trep @   0.0010 msec (954000.0/sec): Create and map subwindows (25 kids)
+
+       2500 reps @   0.0007 msec (1530000.0/sec): Create and map subwindows (50 kids)
+       2500 reps @   0.0008 msec (1240000.0/sec): Create and map subwindows (50 kids)
+       2500 reps @   0.0008 msec (1240000.0/sec): Create and map subwindows (50 kids)
+       2500 reps @   0.0008 msec (1240000.0/sec): Create and map subwindows (50 kids)
+       2500 reps @   0.0008 msec (1240000.0/sec): Create and map subwindows (50 kids)
+      12500 trep @   0.0008 msec (1290000.0/sec): Create and map subwindows (50 kids)
+
+       2400 reps @   0.0007 msec (1490000.0/sec): Create and map subwindows (75 kids)
+       2400 reps @   0.0007 msec (1520000.0/sec): Create and map subwindows (75 kids)
+       2400 reps @   0.0007 msec (1530000.0/sec): Create and map subwindows (75 kids)
+       2400 reps @   0.0007 msec (1500000.0/sec): Create and map subwindows (75 kids)
+       2400 reps @   0.0007 msec (1490000.0/sec): Create and map subwindows (75 kids)
+      12000 trep @   0.0007 msec (1510000.0/sec): Create and map subwindows (75 kids)
+
+       2400 reps @   0.0007 msec (1510000.0/sec): Create and map subwindows (100 kids)
+       2400 reps @   0.0007 msec (1490000.0/sec): Create and map subwindows (100 kids)
+       2400 reps @   0.0007 msec (1500000.0/sec): Create and map subwindows (100 kids)
+       2400 reps @   0.0009 msec (1150000.0/sec): Create and map subwindows (100 kids)
+       2400 reps @   0.0007 msec (1480000.0/sec): Create and map subwindows (100 kids)
+      12000 trep @   0.0007 msec (1410000.0/sec): Create and map subwindows (100 kids)
+
+       2400 reps @   0.0007 msec (1350000.0/sec): Create and map subwindows (200 kids)
+       2400 reps @   0.0014 msec (740000.0/sec): Create and map subwindows (200 kids)
+       2400 reps @   0.0007 msec (1360000.0/sec): Create and map subwindows (200 kids)
+       2400 reps @   0.0024 msec (416000.0/sec): Create and map subwindows (200 kids)
+       2400 reps @   0.0008 msec (1190000.0/sec): Create and map subwindows (200 kids)
+      12000 trep @   0.0012 msec (822000.0/sec): Create and map subwindows (200 kids)
+
+       2400 reps @   0.0003 msec (3160000.0/sec): Create unmapped window (4 kids)
+       2400 reps @   0.0003 msec (3150000.0/sec): Create unmapped window (4 kids)
+       2400 reps @   0.0003 msec (3030000.0/sec): Create unmapped window (4 kids)
+       2400 reps @   0.0003 msec (3180000.0/sec): Create unmapped window (4 kids)
+       2400 reps @   0.0004 msec (2630000.0/sec): Create unmapped window (4 kids)
+      12000 trep @   0.0003 msec (3020000.0/sec): Create unmapped window (4 kids)
+
+       2400 reps @   0.0005 msec (2200000.0/sec): Create unmapped window (16 kids)
+       2400 reps @   0.0003 msec (3350000.0/sec): Create unmapped window (16 kids)
+       2400 reps @   0.0003 msec (3230000.0/sec): Create unmapped window (16 kids)
+       2400 reps @   0.0003 msec (3360000.0/sec): Create unmapped window (16 kids)
+       2400 reps @   0.0003 msec (3300000.0/sec): Create unmapped window (16 kids)
+      12000 trep @   0.0003 msec (3010000.0/sec): Create unmapped window (16 kids)
+
+       2500 reps @   0.0003 msec (3200000.0/sec): Create unmapped window (25 kids)
+       2500 reps @   0.0004 msec (2280000.0/sec): Create unmapped window (25 kids)
+       2500 reps @   0.0003 msec (3310000.0/sec): Create unmapped window (25 kids)
+       2500 reps @   0.0003 msec (3110000.0/sec): Create unmapped window (25 kids)
+       2500 reps @   0.0003 msec (3500000.0/sec): Create unmapped window (25 kids)
+      12500 trep @   0.0003 msec (3010000.0/sec): Create unmapped window (25 kids)
+
+       2500 reps @   0.0003 msec (3630000.0/sec): Create unmapped window (50 kids)
+       2500 reps @   0.0003 msec (3490000.0/sec): Create unmapped window (50 kids)
+       2500 reps @   0.0003 msec (3250000.0/sec): Create unmapped window (50 kids)
+       2500 reps @   0.0009 msec (1150000.0/sec): Create unmapped window (50 kids)
+       2500 reps @   0.0004 msec (2270000.0/sec): Create unmapped window (50 kids)
+      12500 trep @   0.0004 msec (2290000.0/sec): Create unmapped window (50 kids)
+
+       2400 reps @   0.0003 msec (3350000.0/sec): Create unmapped window (75 kids)
+       2400 reps @   0.0003 msec (3340000.0/sec): Create unmapped window (75 kids)
+       2400 reps @   0.0003 msec (3350000.0/sec): Create unmapped window (75 kids)
+       2400 reps @   0.0003 msec (3360000.0/sec): Create unmapped window (75 kids)
+       2400 reps @   0.0003 msec (3350000.0/sec): Create unmapped window (75 kids)
+      12000 trep @   0.0003 msec (3350000.0/sec): Create unmapped window (75 kids)
+
+       2400 reps @   0.0005 msec (2200000.0/sec): Create unmapped window (100 kids)
+       2400 reps @   0.0003 msec (3360000.0/sec): Create unmapped window (100 kids)
+       2400 reps @   0.0003 msec (3460000.0/sec): Create unmapped window (100 kids)
+       2400 reps @   0.0003 msec (3370000.0/sec): Create unmapped window (100 kids)
+       2400 reps @   0.0003 msec (3360000.0/sec): Create unmapped window (100 kids)
+      12000 trep @   0.0003 msec (3060000.0/sec): Create unmapped window (100 kids)
+
+       2400 reps @   0.0003 msec (3360000.0/sec): Create unmapped window (200 kids)
+       2400 reps @   0.0003 msec (3370000.0/sec): Create unmapped window (200 kids)
+       2400 reps @   0.0005 msec (2190000.0/sec): Create unmapped window (200 kids)
+       2400 reps @   0.0003 msec (3370000.0/sec): Create unmapped window (200 kids)
+       2400 reps @   0.0003 msec (3360000.0/sec): Create unmapped window (200 kids)
+      12000 trep @   0.0003 msec (3040000.0/sec): Create unmapped window (200 kids)
+
+       2400 reps @   0.0015 msec (655000.0/sec): Map window via parent (4 kids)
+       2400 reps @   0.0006 msec (1720000.0/sec): Map window via parent (4 kids)
+       2400 reps @   0.0006 msec (1630000.0/sec): Map window via parent (4 kids)
+       2400 reps @   0.0006 msec (1720000.0/sec): Map window via parent (4 kids)
+       2400 reps @   0.0006 msec (1680000.0/sec): Map window via parent (4 kids)
+      12000 trep @   0.0008 msec (1280000.0/sec): Map window via parent (4 kids)
+
+       2400 reps @   0.0004 msec (2450000.0/sec): Map window via parent (16 kids)
+       2400 reps @   0.0004 msec (2310000.0/sec): Map window via parent (16 kids)
+       2400 reps @   0.0004 msec (2450000.0/sec): Map window via parent (16 kids)
+       2400 reps @   0.0004 msec (2450000.0/sec): Map window via parent (16 kids)
+       2400 reps @   0.0014 msec (719000.0/sec): Map window via parent (16 kids)
+      12000 trep @   0.0006 msec (1640000.0/sec): Map window via parent (16 kids)
+
+       2500 reps @   0.0004 msec (2440000.0/sec): Map window via parent (25 kids)
+       2500 reps @   0.0016 msec (637000.0/sec): Map window via parent (25 kids)
+       2500 reps @   0.0004 msec (2420000.0/sec): Map window via parent (25 kids)
+       2500 reps @   0.0004 msec (2370000.0/sec): Map window via parent (25 kids)
+       2500 reps @   0.0004 msec (2450000.0/sec): Map window via parent (25 kids)
+      12500 trep @   0.0006 msec (1550000.0/sec): Map window via parent (25 kids)
+
+       2500 reps @   0.0005 msec (2170000.0/sec): Map window via parent (50 kids)
+       2500 reps @   0.0021 msec (467000.0/sec): Map window via parent (50 kids)
+       2500 reps @   0.0006 msec (1610000.0/sec): Map window via parent (50 kids)
+       2500 reps @   0.0005 msec (2180000.0/sec): Map window via parent (50 kids)
+       2500 reps @   0.0005 msec (2120000.0/sec): Map window via parent (50 kids)
+      12500 trep @   0.0008 msec (1200000.0/sec): Map window via parent (50 kids)
+
+       2400 reps @   0.0021 msec (478000.0/sec): Map window via parent (75 kids)
+       2400 reps @   0.0005 msec (1900000.0/sec): Map window via parent (75 kids)
+       2400 reps @   0.0005 msec (1940000.0/sec): Map window via parent (75 kids)
+       2400 reps @   0.0005 msec (1940000.0/sec): Map window via parent (75 kids)
+       2400 reps @   0.0005 msec (1930000.0/sec): Map window via parent (75 kids)
+      12000 trep @   0.0008 msec (1200000.0/sec): Map window via parent (75 kids)
+
+       2400 reps @   0.0011 msec (940000.0/sec): Map window via parent (100 kids)
+       2400 reps @   0.0006 msec (1760000.0/sec): Map window via parent (100 kids)
+       2400 reps @   0.0006 msec (1770000.0/sec): Map window via parent (100 kids)
+       2400 reps @   0.0006 msec (1730000.0/sec): Map window via parent (100 kids)
+       2400 reps @   0.0006 msec (1710000.0/sec): Map window via parent (100 kids)
+      12000 trep @   0.0007 msec (1490000.0/sec): Map window via parent (100 kids)
+
+       2400 reps @   0.0008 msec (1240000.0/sec): Map window via parent (200 kids)
+       2400 reps @   0.0008 msec (1250000.0/sec): Map window via parent (200 kids)
+       2400 reps @   0.0008 msec (1230000.0/sec): Map window via parent (200 kids)
+       2400 reps @   0.0008 msec (1250000.0/sec): Map window via parent (200 kids)
+       2400 reps @   0.0008 msec (1180000.0/sec): Map window via parent (200 kids)
+      12000 trep @   0.0008 msec (1230000.0/sec): Map window via parent (200 kids)
+
+       2400 reps @   0.0004 msec (2770000.0/sec): Unmap window via parent (4 kids)
+       2400 reps @   0.0006 msec (1570000.0/sec): Unmap window via parent (4 kids)
+       2400 reps @   0.0004 msec (2810000.0/sec): Unmap window via parent (4 kids)
+       2400 reps @   0.0004 msec (2700000.0/sec): Unmap window via parent (4 kids)
+       2400 reps @   0.0004 msec (2720000.0/sec): Unmap window via parent (4 kids)
+      12000 trep @   0.0004 msec (2390000.0/sec): Unmap window via parent (4 kids)
+
+       2400 reps @   0.0004 msec (2320000.0/sec): Unmap window via parent (16 kids)
+       2400 reps @   0.0002 msec (5060000.0/sec): Unmap window via parent (16 kids)
+       2400 reps @   0.0002 msec (5050000.0/sec): Unmap window via parent (16 kids)
+       2400 reps @   0.0002 msec (5000000.0/sec): Unmap window via parent (16 kids)
+       2400 reps @   0.0002 msec (4410000.0/sec): Unmap window via parent (16 kids)
+      12000 trep @   0.0003 msec (3990000.0/sec): Unmap window via parent (16 kids)
+
+       2500 reps @   0.0002 msec (5690000.0/sec): Unmap window via parent (25 kids)
+       2500 reps @   0.0002 msec (5720000.0/sec): Unmap window via parent (25 kids)
+       2500 reps @   0.0002 msec (5730000.0/sec): Unmap window via parent (25 kids)
+       2500 reps @   0.0002 msec (5720000.0/sec): Unmap window via parent (25 kids)
+       2500 reps @   0.0002 msec (5720000.0/sec): Unmap window via parent (25 kids)
+      12500 trep @   0.0002 msec (5710000.0/sec): Unmap window via parent (25 kids)
+
+       2500 reps @   0.0002 msec (6280000.0/sec): Unmap window via parent (50 kids)
+       2500 reps @   0.0002 msec (6260000.0/sec): Unmap window via parent (50 kids)
+       2500 reps @   0.0002 msec (6260000.0/sec): Unmap window via parent (50 kids)
+       2500 reps @   0.0002 msec (6280000.0/sec): Unmap window via parent (50 kids)
+       2500 reps @   0.0002 msec (4540000.0/sec): Unmap window via parent (50 kids)
+      12500 trep @   0.0002 msec (5830000.0/sec): Unmap window via parent (50 kids)
+
+       2400 reps @   0.0002 msec (6530000.0/sec): Unmap window via parent (75 kids)
+       2400 reps @   0.0002 msec (6480000.0/sec): Unmap window via parent (75 kids)
+       2400 reps @   0.0002 msec (6500000.0/sec): Unmap window via parent (75 kids)
+       2400 reps @   0.0006 msec (1580000.0/sec): Unmap window via parent (75 kids)
+       2400 reps @   0.0002 msec (6530000.0/sec): Unmap window via parent (75 kids)
+      12000 trep @   0.0002 msec (4010000.0/sec): Unmap window via parent (75 kids)
+
+       2400 reps @   0.0002 msec (6590000.0/sec): Unmap window via parent (100 kids)
+       2400 reps @   0.0002 msec (6620000.0/sec): Unmap window via parent (100 kids)
+       2400 reps @   0.0006 msec (1580000.0/sec): Unmap window via parent (100 kids)
+       2400 reps @   0.0002 msec (6530000.0/sec): Unmap window via parent (100 kids)
+       2400 reps @   0.0002 msec (6520000.0/sec): Unmap window via parent (100 kids)
+      12000 trep @   0.0002 msec (4020000.0/sec): Unmap window via parent (100 kids)
+
+       2400 reps @   0.0001 msec (6850000.0/sec): Unmap window via parent (200 kids)
+       2400 reps @   0.0006 msec (1580000.0/sec): Unmap window via parent (200 kids)
+       2400 reps @   0.0001 msec (6850000.0/sec): Unmap window via parent (200 kids)
+       2400 reps @   0.0001 msec (6770000.0/sec): Unmap window via parent (200 kids)
+       2400 reps @   0.0001 msec (6810000.0/sec): Unmap window via parent (200 kids)
+      12000 trep @   0.0002 msec (4100000.0/sec): Unmap window via parent (200 kids)
+
+       2400 reps @   0.0007 msec (1410000.0/sec): Destroy window via parent (4 kids)
+       2400 reps @   0.0007 msec (1370000.0/sec): Destroy window via parent (4 kids)
+       2400 reps @   0.0007 msec (1400000.0/sec): Destroy window via parent (4 kids)
+       2400 reps @   0.0007 msec (1410000.0/sec): Destroy window via parent (4 kids)
+       2400 reps @   0.0009 msec (1110000.0/sec): Destroy window via parent (4 kids)
+      12000 trep @   0.0008 msec (1330000.0/sec): Destroy window via parent (4 kids)
+
+       2400 reps @   0.0005 msec (2150000.0/sec): Destroy window via parent (16 kids)
+       2400 reps @   0.0005 msec (1920000.0/sec): Destroy window via parent (16 kids)
+       2400 reps @   0.0005 msec (2130000.0/sec): Destroy window via parent (16 kids)
+       2400 reps @   0.0006 msec (1550000.0/sec): Destroy window via parent (16 kids)
+       2400 reps @   0.0005 msec (1970000.0/sec): Destroy window via parent (16 kids)
+      12000 trep @   0.0005 msec (1920000.0/sec): Destroy window via parent (16 kids)
+
+       2500 reps @   0.0004 msec (2240000.0/sec): Destroy window via parent (25 kids)
+       2500 reps @   0.0004 msec (2230000.0/sec): Destroy window via parent (25 kids)
+       2500 reps @   0.0005 msec (2220000.0/sec): Destroy window via parent (25 kids)
+       2500 reps @   0.0004 msec (2220000.0/sec): Destroy window via parent (25 kids)
+       2500 reps @   0.0004 msec (2290000.0/sec): Destroy window via parent (25 kids)
+      12500 trep @   0.0004 msec (2240000.0/sec): Destroy window via parent (25 kids)
+
+       2500 reps @   0.0004 msec (2260000.0/sec): Destroy window via parent (50 kids)
+       2500 reps @   0.0004 msec (2390000.0/sec): Destroy window via parent (50 kids)
+       2500 reps @   0.0004 msec (2280000.0/sec): Destroy window via parent (50 kids)
+       2500 reps @   0.0004 msec (2410000.0/sec): Destroy window via parent (50 kids)
+       2500 reps @   0.0006 msec (1660000.0/sec): Destroy window via parent (50 kids)
+      12500 trep @   0.0005 msec (2160000.0/sec): Destroy window via parent (50 kids)
+
+       2400 reps @   0.0004 msec (2500000.0/sec): Destroy window via parent (75 kids)
+       2400 reps @   0.0004 msec (2520000.0/sec): Destroy window via parent (75 kids)
+       2400 reps @   0.0004 msec (2530000.0/sec): Destroy window via parent (75 kids)
+       2400 reps @   0.0004 msec (2230000.0/sec): Destroy window via parent (75 kids)
+       2400 reps @   0.0004 msec (2410000.0/sec): Destroy window via parent (75 kids)
+      12000 trep @   0.0004 msec (2430000.0/sec): Destroy window via parent (75 kids)
+
+       2400 reps @   0.0004 msec (2560000.0/sec): Destroy window via parent (100 kids)
+       2400 reps @   0.0006 msec (1580000.0/sec): Destroy window via parent (100 kids)
+       2400 reps @   0.0004 msec (2540000.0/sec): Destroy window via parent (100 kids)
+       2400 reps @   0.0004 msec (2540000.0/sec): Destroy window via parent (100 kids)
+       2400 reps @   0.0004 msec (2480000.0/sec): Destroy window via parent (100 kids)
+      12000 trep @   0.0004 msec (2260000.0/sec): Destroy window via parent (100 kids)
+
+       2400 reps @   0.0005 msec (2150000.0/sec): Destroy window via parent (200 kids)
+       2400 reps @   0.0004 msec (2590000.0/sec): Destroy window via parent (200 kids)
+       2400 reps @   0.0004 msec (2590000.0/sec): Destroy window via parent (200 kids)
+       2400 reps @   0.0004 msec (2580000.0/sec): Destroy window via parent (200 kids)
+       2400 reps @   0.0004 msec (2230000.0/sec): Destroy window via parent (200 kids)
+      12000 trep @   0.0004 msec (2410000.0/sec): Destroy window via parent (200 kids)
+
+    8000000 reps @   0.0012 msec (838000.0/sec): Hide/expose window via popup (4 kids)
+    8000000 reps @   0.0012 msec (805000.0/sec): Hide/expose window via popup (4 kids)
+    8000000 reps @   0.0012 msec (829000.0/sec): Hide/expose window via popup (4 kids)
+    8000000 reps @   0.0012 msec (832000.0/sec): Hide/expose window via popup (4 kids)
+    8000000 reps @   0.0012 msec (825000.0/sec): Hide/expose window via popup (4 kids)
+   40000000 trep @   0.0012 msec (826000.0/sec): Hide/expose window via popup (4 kids)
+
+    8000000 reps @   0.0007 msec (1490000.0/sec): Hide/expose window via popup (16 kids)
+    8000000 reps @   0.0007 msec (1430000.0/sec): Hide/expose window via popup (16 kids)
+    8000000 reps @   0.0007 msec (1470000.0/sec): Hide/expose window via popup (16 kids)
+    8000000 reps @   0.0007 msec (1470000.0/sec): Hide/expose window via popup (16 kids)
+    8000000 reps @   0.0007 msec (1480000.0/sec): Hide/expose window via popup (16 kids)
+   40000000 trep @   0.0007 msec (1470000.0/sec): Hide/expose window via popup (16 kids)
+
+   10000000 reps @   0.0006 msec (1590000.0/sec): Hide/expose window via popup (25 kids)
+   10000000 reps @   0.0006 msec (1590000.0/sec): Hide/expose window via popup (25 kids)
+   10000000 reps @   0.0006 msec (1590000.0/sec): Hide/expose window via popup (25 kids)
+   10000000 reps @   0.0006 msec (1590000.0/sec): Hide/expose window via popup (25 kids)
+   10000000 reps @   0.0006 msec (1550000.0/sec): Hide/expose window via popup (25 kids)
+   50000000 trep @   0.0006 msec (1580000.0/sec): Hide/expose window via popup (25 kids)
+
+   10000000 reps @   0.0006 msec (1560000.0/sec): Hide/expose window via popup (50 kids)
+   10000000 reps @   0.0006 msec (1570000.0/sec): Hide/expose window via popup (50 kids)
+   10000000 reps @   0.0006 msec (1570000.0/sec): Hide/expose window via popup (50 kids)
+   10000000 reps @   0.0006 msec (1570000.0/sec): Hide/expose window via popup (50 kids)
+   10000000 reps @   0.0006 msec (1570000.0/sec): Hide/expose window via popup (50 kids)
+   50000000 trep @   0.0006 msec (1570000.0/sec): Hide/expose window via popup (50 kids)
+
+    7500000 reps @   0.0007 msec (1460000.0/sec): Hide/expose window via popup (75 kids)
+    7500000 reps @   0.0007 msec (1420000.0/sec): Hide/expose window via popup (75 kids)
+    7500000 reps @   0.0007 msec (1460000.0/sec): Hide/expose window via popup (75 kids)
+    7500000 reps @   0.0007 msec (1460000.0/sec): Hide/expose window via popup (75 kids)
+    7500000 reps @   0.0007 msec (1460000.0/sec): Hide/expose window via popup (75 kids)
+   37500000 trep @   0.0007 msec (1450000.0/sec): Hide/expose window via popup (75 kids)
+
+    7000000 reps @   0.0007 msec (1360000.0/sec): Hide/expose window via popup (100 kids)
+    7000000 reps @   0.0007 msec (1360000.0/sec): Hide/expose window via popup (100 kids)
+    7000000 reps @   0.0007 msec (1360000.0/sec): Hide/expose window via popup (100 kids)
+    7000000 reps @   0.0007 msec (1360000.0/sec): Hide/expose window via popup (100 kids)
+    7000000 reps @   0.0007 msec (1360000.0/sec): Hide/expose window via popup (100 kids)
+   35000000 trep @   0.0007 msec (1360000.0/sec): Hide/expose window via popup (100 kids)
+
+    6000000 reps @   0.0010 msec (986000.0/sec): Hide/expose window via popup (200 kids)
+    6000000 reps @   0.0010 msec (1030000.0/sec): Hide/expose window via popup (200 kids)
+    6000000 reps @   0.0010 msec (1030000.0/sec): Hide/expose window via popup (200 kids)
+    6000000 reps @   0.0010 msec (1030000.0/sec): Hide/expose window via popup (200 kids)
+    6000000 reps @   0.0010 msec (1030000.0/sec): Hide/expose window via popup (200 kids)
+   30000000 trep @   0.0010 msec (1020000.0/sec): Hide/expose window via popup (200 kids)
+
+     800000 reps @   0.0114 msec ( 87900.0/sec): Move window (4 kids)
+     800000 reps @   0.0119 msec ( 83900.0/sec): Move window (4 kids)
+     800000 reps @   0.0118 msec ( 84400.0/sec): Move window (4 kids)
+     800000 reps @   0.0119 msec ( 84100.0/sec): Move window (4 kids)
+     800000 reps @   0.0119 msec ( 84300.0/sec): Move window (4 kids)
+    4000000 trep @   0.0118 msec ( 84900.0/sec): Move window (4 kids)
+
+     480000 reps @   0.0136 msec ( 73700.0/sec): Move window (16 kids)
+     480000 reps @   0.0136 msec ( 73600.0/sec): Move window (16 kids)
+     480000 reps @   0.0136 msec ( 73700.0/sec): Move window (16 kids)
+     480000 reps @   0.0136 msec ( 73500.0/sec): Move window (16 kids)
+     480000 reps @   0.0135 msec ( 73900.0/sec): Move window (16 kids)
+    2400000 trep @   0.0136 msec ( 73700.0/sec): Move window (16 kids)
+
+     500000 reps @   0.0138 msec ( 72600.0/sec): Move window (25 kids)
+     500000 reps @   0.0143 msec ( 70200.0/sec): Move window (25 kids)
+     500000 reps @   0.0142 msec ( 70200.0/sec): Move window (25 kids)
+     500000 reps @   0.0143 msec ( 70200.0/sec): Move window (25 kids)
+     500000 reps @   0.0142 msec ( 70300.0/sec): Move window (25 kids)
+    2500000 trep @   0.0142 msec ( 70700.0/sec): Move window (25 kids)
+
+    1000000 reps @   0.0076 msec (131000.0/sec): Move window (50 kids)
+    1000000 reps @   0.0076 msec (131000.0/sec): Move window (50 kids)
+    1000000 reps @   0.0076 msec (131000.0/sec): Move window (50 kids)
+    1000000 reps @   0.0077 msec (131000.0/sec): Move window (50 kids)
+    1000000 reps @   0.0077 msec (130000.0/sec): Move window (50 kids)
+    5000000 trep @   0.0076 msec (131000.0/sec): Move window (50 kids)
+
+     675000 reps @   0.0082 msec (122000.0/sec): Move window (75 kids)
+     675000 reps @   0.0081 msec (123000.0/sec): Move window (75 kids)
+     675000 reps @   0.0082 msec (122000.0/sec): Move window (75 kids)
+     675000 reps @   0.0082 msec (122000.0/sec): Move window (75 kids)
+     675000 reps @   0.0082 msec (122000.0/sec): Move window (75 kids)
+    3375000 trep @   0.0082 msec (122000.0/sec): Move window (75 kids)
+
+     600000 reps @   0.0089 msec (113000.0/sec): Move window (100 kids)
+     600000 reps @   0.0089 msec (112000.0/sec): Move window (100 kids)
+     600000 reps @   0.0089 msec (112000.0/sec): Move window (100 kids)
+     600000 reps @   0.0089 msec (112000.0/sec): Move window (100 kids)
+     600000 reps @   0.0089 msec (113000.0/sec): Move window (100 kids)
+    3000000 trep @   0.0089 msec (112000.0/sec): Move window (100 kids)
+
+     600000 reps @   0.0126 msec ( 79400.0/sec): Move window (200 kids)
+     600000 reps @   0.0126 msec ( 79400.0/sec): Move window (200 kids)
+     600000 reps @   0.0126 msec ( 79400.0/sec): Move window (200 kids)
+     600000 reps @   0.0127 msec ( 78900.0/sec): Move window (200 kids)
+     600000 reps @   0.0126 msec ( 79400.0/sec): Move window (200 kids)
+    3000000 trep @   0.0126 msec ( 79300.0/sec): Move window (200 kids)
+
+   80000000 reps @   0.0001 msec (8390000.0/sec): Moved unmapped window (4 kids)
+   80000000 reps @   0.0001 msec (8470000.0/sec): Moved unmapped window (4 kids)
+   80000000 reps @   0.0001 msec (8470000.0/sec): Moved unmapped window (4 kids)
+   80000000 reps @   0.0001 msec (8440000.0/sec): Moved unmapped window (4 kids)
+   80000000 reps @   0.0001 msec (8440000.0/sec): Moved unmapped window (4 kids)
+  400000000 trep @   0.0001 msec (8440000.0/sec): Moved unmapped window (4 kids)
+
+   48000000 reps @   0.0001 msec (8460000.0/sec): Moved unmapped window (16 kids)
+   48000000 reps @   0.0001 msec (8450000.0/sec): Moved unmapped window (16 kids)
+   48000000 reps @   0.0001 msec (8450000.0/sec): Moved unmapped window (16 kids)
+   48000000 reps @   0.0001 msec (8440000.0/sec): Moved unmapped window (16 kids)
+   48000000 reps @   0.0001 msec (8320000.0/sec): Moved unmapped window (16 kids)
+  240000000 trep @   0.0001 msec (8420000.0/sec): Moved unmapped window (16 kids)
+
+   50000000 reps @   0.0001 msec (8410000.0/sec): Moved unmapped window (25 kids)
+   50000000 reps @   0.0001 msec (8420000.0/sec): Moved unmapped window (25 kids)
+   50000000 reps @   0.0001 msec (8350000.0/sec): Moved unmapped window (25 kids)
+   50000000 reps @   0.0001 msec (8440000.0/sec): Moved unmapped window (25 kids)
+   50000000 reps @   0.0001 msec (8440000.0/sec): Moved unmapped window (25 kids)
+  250000000 trep @   0.0001 msec (8410000.0/sec): Moved unmapped window (25 kids)
+
+   45000000 reps @   0.0001 msec (8440000.0/sec): Moved unmapped window (50 kids)
+   45000000 reps @   0.0001 msec (8320000.0/sec): Moved unmapped window (50 kids)
+   45000000 reps @   0.0001 msec (8370000.0/sec): Moved unmapped window (50 kids)
+   45000000 reps @   0.0001 msec (8400000.0/sec): Moved unmapped window (50 kids)
+   45000000 reps @   0.0001 msec (8440000.0/sec): Moved unmapped window (50 kids)
+  225000000 trep @   0.0001 msec (8390000.0/sec): Moved unmapped window (50 kids)
+
+   45000000 reps @   0.0001 msec (8420000.0/sec): Moved unmapped window (75 kids)
+   45000000 reps @   0.0001 msec (8320000.0/sec): Moved unmapped window (75 kids)
+   45000000 reps @   0.0001 msec (8440000.0/sec): Moved unmapped window (75 kids)
+   45000000 reps @   0.0001 msec (8440000.0/sec): Moved unmapped window (75 kids)
+   45000000 reps @   0.0001 msec (8240000.0/sec): Moved unmapped window (75 kids)
+  225000000 trep @   0.0001 msec (8370000.0/sec): Moved unmapped window (75 kids)
+
+   50000000 reps @   0.0001 msec (8330000.0/sec): Moved unmapped window (100 kids)
+   50000000 reps @   0.0001 msec (8460000.0/sec): Moved unmapped window (100 kids)
+   50000000 reps @   0.0001 msec (8480000.0/sec): Moved unmapped window (100 kids)
+   50000000 reps @   0.0001 msec (8410000.0/sec): Moved unmapped window (100 kids)
+   50000000 reps @   0.0001 msec (8480000.0/sec): Moved unmapped window (100 kids)
+  250000000 trep @   0.0001 msec (8430000.0/sec): Moved unmapped window (100 kids)
+
+   60000000 reps @   0.0001 msec (8430000.0/sec): Moved unmapped window (200 kids)
+   60000000 reps @   0.0001 msec (8430000.0/sec): Moved unmapped window (200 kids)
+   60000000 reps @   0.0001 msec (8430000.0/sec): Moved unmapped window (200 kids)
+   60000000 reps @   0.0001 msec (8430000.0/sec): Moved unmapped window (200 kids)
+   60000000 reps @   0.0001 msec (8420000.0/sec): Moved unmapped window (200 kids)
+  300000000 trep @   0.0001 msec (8430000.0/sec): Moved unmapped window (200 kids)
+
+    8000000 reps @   0.0009 msec (1170000.0/sec): Move window via parent (4 kids)
+    8000000 reps @   0.0009 msec (1160000.0/sec): Move window via parent (4 kids)
+    8000000 reps @   0.0009 msec (1150000.0/sec): Move window via parent (4 kids)
+    8000000 reps @   0.0009 msec (1150000.0/sec): Move window via parent (4 kids)
+    8000000 reps @   0.0009 msec (1150000.0/sec): Move window via parent (4 kids)
+   40000000 trep @   0.0009 msec (1160000.0/sec): Move window via parent (4 kids)
+
+   32000000 reps @   0.0003 msec (3640000.0/sec): Move window via parent (16 kids)
+   32000000 reps @   0.0003 msec (3640000.0/sec): Move window via parent (16 kids)
+   32000000 reps @   0.0003 msec (3650000.0/sec): Move window via parent (16 kids)
+   32000000 reps @   0.0003 msec (3630000.0/sec): Move window via parent (16 kids)
+   32000000 reps @   0.0003 msec (3630000.0/sec): Move window via parent (16 kids)
+  160000000 trep @   0.0003 msec (3640000.0/sec): Move window via parent (16 kids)
+
+   25000000 reps @   0.0002 msec (4970000.0/sec): Move window via parent (25 kids)
+   25000000 reps @   0.0002 msec (4970000.0/sec): Move window via parent (25 kids)
+   25000000 reps @   0.0002 msec (4970000.0/sec): Move window via parent (25 kids)
+   25000000 reps @   0.0002 msec (4970000.0/sec): Move window via parent (25 kids)
+   25000000 reps @   0.0002 msec (4970000.0/sec): Move window via parent (25 kids)
+  125000000 trep @   0.0002 msec (4970000.0/sec): Move window via parent (25 kids)
+
+   40000000 reps @   0.0001 msec (7700000.0/sec): Move window via parent (50 kids)
+   40000000 reps @   0.0001 msec (7710000.0/sec): Move window via parent (50 kids)
+   40000000 reps @   0.0001 msec (7700000.0/sec): Move window via parent (50 kids)
+   40000000 reps @   0.0001 msec (7690000.0/sec): Move window via parent (50 kids)
+   40000000 reps @   0.0001 msec (7730000.0/sec): Move window via parent (50 kids)
+  200000000 trep @   0.0001 msec (7710000.0/sec): Move window via parent (50 kids)
+
+   45000000 reps @   0.0001 msec (8740000.0/sec): Move window via parent (75 kids)
+   45000000 reps @   0.0001 msec (8730000.0/sec): Move window via parent (75 kids)
+   45000000 reps @   0.0001 msec (8740000.0/sec): Move window via parent (75 kids)
+   45000000 reps @   0.0001 msec (8730000.0/sec): Move window via parent (75 kids)
+   45000000 reps @   0.0001 msec (8740000.0/sec): Move window via parent (75 kids)
+  225000000 trep @   0.0001 msec (8730000.0/sec): Move window via parent (75 kids)
+
+   50000000 reps @   0.0001 msec (9350000.0/sec): Move window via parent (100 kids)
+   50000000 reps @   0.0001 msec (9360000.0/sec): Move window via parent (100 kids)
+   50000000 reps @   0.0001 msec (9370000.0/sec): Move window via parent (100 kids)
+   50000000 reps @   0.0001 msec (9370000.0/sec): Move window via parent (100 kids)
+   50000000 reps @   0.0001 msec (9360000.0/sec): Move window via parent (100 kids)
+  250000000 trep @   0.0001 msec (9360000.0/sec): Move window via parent (100 kids)
+
+   60000000 reps @   0.0001 msec (10500000.0/sec): Move window via parent (200 kids)
+   60000000 reps @   0.0001 msec (10500000.0/sec): Move window via parent (200 kids)
+   60000000 reps @   0.0001 msec (10500000.0/sec): Move window via parent (200 kids)
+   60000000 reps @   0.0001 msec (10500000.0/sec): Move window via parent (200 kids)
+   60000000 reps @   0.0001 msec (10500000.0/sec): Move window via parent (200 kids)
+  300000000 trep @   0.0001 msec (10500000.0/sec): Move window via parent (200 kids)
+
+    3200000 reps @   0.0017 msec (572000.0/sec): Resize window (4 kids)
+    3200000 reps @   0.0018 msec (571000.0/sec): Resize window (4 kids)
+    3200000 reps @   0.0018 msec (571000.0/sec): Resize window (4 kids)
+    3200000 reps @   0.0018 msec (560000.0/sec): Resize window (4 kids)
+    3200000 reps @   0.0020 msec (499000.0/sec): Resize window (4 kids)
+   16000000 trep @   0.0018 msec (553000.0/sec): Resize window (4 kids)
+
+    3200000 reps @   0.0024 msec (425000.0/sec): Resize window (16 kids)
+    3200000 reps @   0.0024 msec (425000.0/sec): Resize window (16 kids)
+    3200000 reps @   0.0024 msec (425000.0/sec): Resize window (16 kids)
+    3200000 reps @   0.0023 msec (426000.0/sec): Resize window (16 kids)
+    3200000 reps @   0.0024 msec (425000.0/sec): Resize window (16 kids)
+   16000000 trep @   0.0024 msec (425000.0/sec): Resize window (16 kids)
+
+    1750000 reps @   0.0037 msec (271000.0/sec): Resize window (25 kids)
+    1750000 reps @   0.0029 msec (346000.0/sec): Resize window (25 kids)
+    1750000 reps @   0.0027 msec (368000.0/sec): Resize window (25 kids)
+    1750000 reps @   0.0027 msec (367000.0/sec): Resize window (25 kids)
+    1750000 reps @   0.0027 msec (369000.0/sec): Resize window (25 kids)
+    8750000 trep @   0.0029 msec (339000.0/sec): Resize window (25 kids)
+
+    1500000 reps @   0.0039 msec (259000.0/sec): Resize window (50 kids)
+    1500000 reps @   0.0039 msec (259000.0/sec): Resize window (50 kids)
+    1500000 reps @   0.0039 msec (257000.0/sec): Resize window (50 kids)
+    1500000 reps @   0.0047 msec (212000.0/sec): Resize window (50 kids)
+    1500000 reps @   0.0050 msec (201000.0/sec): Resize window (50 kids)
+    7500000 trep @   0.0043 msec (235000.0/sec): Resize window (50 kids)
+
+    1500000 reps @   0.0058 msec (173000.0/sec): Resize window (75 kids)
+    1500000 reps @   0.0058 msec (173000.0/sec): Resize window (75 kids)
+    1500000 reps @   0.0058 msec (174000.0/sec): Resize window (75 kids)
+    1500000 reps @   0.0058 msec (172000.0/sec): Resize window (75 kids)
+    1500000 reps @   0.0058 msec (172000.0/sec): Resize window (75 kids)
+    7500000 trep @   0.0058 msec (173000.0/sec): Resize window (75 kids)
+
+     800000 reps @   0.0067 msec (148000.0/sec): Resize window (100 kids)
+     800000 reps @   0.0067 msec (149000.0/sec): Resize window (100 kids)
+     800000 reps @   0.0067 msec (148000.0/sec): Resize window (100 kids)
+     800000 reps @   0.0067 msec (150000.0/sec): Resize window (100 kids)
+     800000 reps @   0.0068 msec (147000.0/sec): Resize window (100 kids)
+    4000000 trep @   0.0067 msec (148000.0/sec): Resize window (100 kids)
+
+     600000 reps @   0.0099 msec (101000.0/sec): Resize window (200 kids)
+     600000 reps @   0.0098 msec (102000.0/sec): Resize window (200 kids)
+     600000 reps @   0.0098 msec (102000.0/sec): Resize window (200 kids)
+     600000 reps @   0.0099 msec (101000.0/sec): Resize window (200 kids)
+     600000 reps @   0.0099 msec (101000.0/sec): Resize window (200 kids)
+    3000000 trep @   0.0099 msec (101000.0/sec): Resize window (200 kids)
+
+   40000000 reps @   0.0001 msec (8000000.0/sec): Resize unmapped window (4 kids)
+   40000000 reps @   0.0001 msec (7960000.0/sec): Resize unmapped window (4 kids)
+   40000000 reps @   0.0001 msec (8050000.0/sec): Resize unmapped window (4 kids)
+   40000000 reps @   0.0001 msec (7980000.0/sec): Resize unmapped window (4 kids)
+   40000000 reps @   0.0001 msec (7970000.0/sec): Resize unmapped window (4 kids)
+  200000000 trep @   0.0001 msec (7990000.0/sec): Resize unmapped window (4 kids)
+
+   48000000 reps @   0.0001 msec (8020000.0/sec): Resize unmapped window (16 kids)
+   48000000 reps @   0.0001 msec (8030000.0/sec): Resize unmapped window (16 kids)
+   48000000 reps @   0.0001 msec (8030000.0/sec): Resize unmapped window (16 kids)
+   48000000 reps @   0.0001 msec (8020000.0/sec): Resize unmapped window (16 kids)
+   48000000 reps @   0.0001 msec (8030000.0/sec): Resize unmapped window (16 kids)
+  240000000 trep @   0.0001 msec (8030000.0/sec): Resize unmapped window (16 kids)
+
+   50000000 reps @   0.0001 msec (7980000.0/sec): Resize unmapped window (25 kids)
+   50000000 reps @   0.0001 msec (8000000.0/sec): Resize unmapped window (25 kids)
+   50000000 reps @   0.0001 msec (8010000.0/sec): Resize unmapped window (25 kids)
+   50000000 reps @   0.0001 msec (8000000.0/sec): Resize unmapped window (25 kids)
+   50000000 reps @   0.0001 msec (7940000.0/sec): Resize unmapped window (25 kids)
+  250000000 trep @   0.0001 msec (7990000.0/sec): Resize unmapped window (25 kids)
+
+   40000000 reps @   0.0001 msec (8040000.0/sec): Resize unmapped window (50 kids)
+   40000000 reps @   0.0001 msec (7960000.0/sec): Resize unmapped window (50 kids)
+   40000000 reps @   0.0001 msec (7930000.0/sec): Resize unmapped window (50 kids)
+   40000000 reps @   0.0001 msec (7950000.0/sec): Resize unmapped window (50 kids)
+   40000000 reps @   0.0001 msec (7970000.0/sec): Resize unmapped window (50 kids)
+  200000000 trep @   0.0001 msec (7970000.0/sec): Resize unmapped window (50 kids)
+
+   45000000 reps @   0.0001 msec (7820000.0/sec): Resize unmapped window (75 kids)
+   45000000 reps @   0.0001 msec (7980000.0/sec): Resize unmapped window (75 kids)
+   45000000 reps @   0.0001 msec (7980000.0/sec): Resize unmapped window (75 kids)
+   45000000 reps @   0.0001 msec (7950000.0/sec): Resize unmapped window (75 kids)
+   45000000 reps @   0.0001 msec (7980000.0/sec): Resize unmapped window (75 kids)
+  225000000 trep @   0.0001 msec (7940000.0/sec): Resize unmapped window (75 kids)
+
+   50000000 reps @   0.0001 msec (8010000.0/sec): Resize unmapped window (100 kids)
+   50000000 reps @   0.0001 msec (8020000.0/sec): Resize unmapped window (100 kids)
+   50000000 reps @   0.0001 msec (8040000.0/sec): Resize unmapped window (100 kids)
+   50000000 reps @   0.0001 msec (7920000.0/sec): Resize unmapped window (100 kids)
+   50000000 reps @   0.0001 msec (7930000.0/sec): Resize unmapped window (100 kids)
+  250000000 trep @   0.0001 msec (7990000.0/sec): Resize unmapped window (100 kids)
+
+   60000000 reps @   0.0001 msec (7970000.0/sec): Resize unmapped window (200 kids)
+   60000000 reps @   0.0001 msec (7860000.0/sec): Resize unmapped window (200 kids)
+   60000000 reps @   0.0001 msec (7780000.0/sec): Resize unmapped window (200 kids)
+   60000000 reps @   0.0001 msec (8000000.0/sec): Resize unmapped window (200 kids)
+   60000000 reps @   0.0001 msec (7990000.0/sec): Resize unmapped window (200 kids)
+  300000000 trep @   0.0001 msec (7920000.0/sec): Resize unmapped window (200 kids)
+
+    2400000 reps @   0.0022 msec (453000.0/sec): Circulate window (4 kids)
+    2400000 reps @   0.0022 msec (455000.0/sec): Circulate window (4 kids)
+    2400000 reps @   0.0022 msec (456000.0/sec): Circulate window (4 kids)
+    2400000 reps @   0.0022 msec (455000.0/sec): Circulate window (4 kids)
+    2400000 reps @   0.0022 msec (454000.0/sec): Circulate window (4 kids)
+   12000000 trep @   0.0022 msec (455000.0/sec): Circulate window (4 kids)
+
+    1600000 reps @   0.0032 msec (314000.0/sec): Circulate window (16 kids)
+    1600000 reps @   0.0032 msec (314000.0/sec): Circulate window (16 kids)
+    1600000 reps @   0.0035 msec (283000.0/sec): Circulate window (16 kids)
+    1600000 reps @   0.0039 msec (258000.0/sec): Circulate window (16 kids)
+    1600000 reps @   0.0039 msec (255000.0/sec): Circulate window (16 kids)
+    8000000 trep @   0.0035 msec (282000.0/sec): Circulate window (16 kids)
+
+    1250000 reps @   0.0042 msec (236000.0/sec): Circulate window (25 kids)
+    1250000 reps @   0.0042 msec (239000.0/sec): Circulate window (25 kids)
+    1250000 reps @   0.0042 msec (238000.0/sec): Circulate window (25 kids)
+    1250000 reps @   0.0042 msec (237000.0/sec): Circulate window (25 kids)
+    1250000 reps @   0.0042 msec (238000.0/sec): Circulate window (25 kids)
+    6250000 trep @   0.0042 msec (238000.0/sec): Circulate window (25 kids)
+
+    1500000 reps @   0.0048 msec (208000.0/sec): Circulate window (50 kids)
+    1500000 reps @   0.0048 msec (209000.0/sec): Circulate window (50 kids)
+    1500000 reps @   0.0049 msec (206000.0/sec): Circulate window (50 kids)
+    1500000 reps @   0.0049 msec (205000.0/sec): Circulate window (50 kids)
+    1500000 reps @   0.0048 msec (207000.0/sec): Circulate window (50 kids)
+    7500000 trep @   0.0048 msec (207000.0/sec): Circulate window (50 kids)
+
+    1500000 reps @   0.0051 msec (196000.0/sec): Circulate window (75 kids)
+    1500000 reps @   0.0053 msec (187000.0/sec): Circulate window (75 kids)
+    1500000 reps @   0.0053 msec (189000.0/sec): Circulate window (75 kids)
+    1500000 reps @   0.0053 msec (189000.0/sec): Circulate window (75 kids)
+    1500000 reps @   0.0053 msec (188000.0/sec): Circulate window (75 kids)
+    7500000 trep @   0.0053 msec (190000.0/sec): Circulate window (75 kids)
+
+     900000 reps @   0.0060 msec (167000.0/sec): Circulate window (100 kids)
+     900000 reps @   0.0060 msec (167000.0/sec): Circulate window (100 kids)
+     900000 reps @   0.0060 msec (167000.0/sec): Circulate window (100 kids)
+     900000 reps @   0.0060 msec (167000.0/sec): Circulate window (100 kids)
+     900000 reps @   0.0059 msec (168000.0/sec): Circulate window (100 kids)
+    4500000 trep @   0.0060 msec (167000.0/sec): Circulate window (100 kids)
+
+     800000 reps @   0.0082 msec (121000.0/sec): Circulate window (200 kids)
+     800000 reps @   0.0082 msec (122000.0/sec): Circulate window (200 kids)
+     800000 reps @   0.0082 msec (121000.0/sec): Circulate window (200 kids)
+     800000 reps @   0.0082 msec (122000.0/sec): Circulate window (200 kids)
+     800000 reps @   0.0082 msec (122000.0/sec): Circulate window (200 kids)
+    4000000 trep @   0.0082 msec (122000.0/sec): Circulate window (200 kids)
+
+  120000000 reps @   0.0000 msec (23500000.0/sec): Circulate Unmapped window (4 kids)
+  120000000 reps @   0.0000 msec (24200000.0/sec): Circulate Unmapped window (4 kids)
+  120000000 reps @   0.0000 msec (24200000.0/sec): Circulate Unmapped window (4 kids)
+  120000000 reps @   0.0000 msec (24200000.0/sec): Circulate Unmapped window (4 kids)
+  120000000 reps @   0.0000 msec (24200000.0/sec): Circulate Unmapped window (4 kids)
+  600000000 trep @   0.0000 msec (24100000.0/sec): Circulate Unmapped window (4 kids)
+
+   96000000 reps @   0.0001 msec (18300000.0/sec): Circulate Unmapped window (16 kids)
+   96000000 reps @   0.0001 msec (18200000.0/sec): Circulate Unmapped window (16 kids)
+   96000000 reps @   0.0001 msec (18300000.0/sec): Circulate Unmapped window (16 kids)
+   96000000 reps @   0.0001 msec (18200000.0/sec): Circulate Unmapped window (16 kids)
+   96000000 reps @   0.0001 msec (18100000.0/sec): Circulate Unmapped window (16 kids)
+  480000000 trep @   0.0001 msec (18200000.0/sec): Circulate Unmapped window (16 kids)
+
+   50000000 reps @   0.0001 msec (10600000.0/sec): Circulate Unmapped window (25 kids)
+   50000000 reps @   0.0001 msec (10800000.0/sec): Circulate Unmapped window (25 kids)
+   50000000 reps @   0.0001 msec (10800000.0/sec): Circulate Unmapped window (25 kids)
+   50000000 reps @   0.0001 msec (10600000.0/sec): Circulate Unmapped window (25 kids)
+   50000000 reps @   0.0001 msec (10600000.0/sec): Circulate Unmapped window (25 kids)
+  250000000 trep @   0.0001 msec (10700000.0/sec): Circulate Unmapped window (25 kids)
+
+   30000000 reps @   0.0002 msec (5140000.0/sec): Circulate Unmapped window (50 kids)
+   30000000 reps @   0.0002 msec (5140000.0/sec): Circulate Unmapped window (50 kids)
+   30000000 reps @   0.0002 msec (5140000.0/sec): Circulate Unmapped window (50 kids)
+   30000000 reps @   0.0002 msec (5180000.0/sec): Circulate Unmapped window (50 kids)
+   30000000 reps @   0.0002 msec (5130000.0/sec): Circulate Unmapped window (50 kids)
+  150000000 trep @   0.0002 msec (5150000.0/sec): Circulate Unmapped window (50 kids)
+
+   22500000 reps @   0.0003 msec (3510000.0/sec): Circulate Unmapped window (75 kids)
+   22500000 reps @   0.0003 msec (3520000.0/sec): Circulate Unmapped window (75 kids)
+   22500000 reps @   0.0003 msec (3510000.0/sec): Circulate Unmapped window (75 kids)
+   22500000 reps @   0.0003 msec (3510000.0/sec): Circulate Unmapped window (75 kids)
+   22500000 reps @   0.0003 msec (3510000.0/sec): Circulate Unmapped window (75 kids)
+  112500000 trep @   0.0003 msec (3510000.0/sec): Circulate Unmapped window (75 kids)
+
+   20000000 reps @   0.0004 msec (2340000.0/sec): Circulate Unmapped window (100 kids)
+   20000000 reps @   0.0004 msec (2340000.0/sec): Circulate Unmapped window (100 kids)
+   20000000 reps @   0.0004 msec (2340000.0/sec): Circulate Unmapped window (100 kids)
+   20000000 reps @   0.0004 msec (2340000.0/sec): Circulate Unmapped window (100 kids)
+   20000000 reps @   0.0004 msec (2340000.0/sec): Circulate Unmapped window (100 kids)
+  100000000 trep @   0.0004 msec (2340000.0/sec): Circulate Unmapped window (100 kids)
+
+    6000000 reps @   0.0009 msec (1140000.0/sec): Circulate Unmapped window (200 kids)
+    6000000 reps @   0.0009 msec (1140000.0/sec): Circulate Unmapped window (200 kids)
+    6000000 reps @   0.0009 msec (1140000.0/sec): Circulate Unmapped window (200 kids)
+    6000000 reps @   0.0009 msec (1140000.0/sec): Circulate Unmapped window (200 kids)
+    6000000 reps @   0.0009 msec (1140000.0/sec): Circulate Unmapped window (200 kids)
+   30000000 trep @   0.0009 msec (1140000.0/sec): Circulate Unmapped window (200 kids)
+
