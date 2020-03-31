@@ -2151,7 +2151,7 @@ overhead.
         Smaller difference in times is better.
     }
     \label{bronte_lmbench_syscall_graph}
-    \includegraphics[width=.6\textwidth]{../data/bench/bronte-lmbench/syscall_times.png}
+    \includegraphics[width=.8\textwidth]{../data/bench/bronte-lmbench/syscall_times.png}
 \end{figure}
 
 As shown in \autoref{bronte_lmbench_syscall}, ebpH adds non-negligible
@@ -2184,7 +2184,7 @@ calls like \passthrough{\lstinline!stat(2)!}, overhead drops to about
         Smaller difference in times is better.
     }
     \label{bronte_lmbench_select_graph}
-    \includegraphics[width=.6\textwidth]{../data/bench/bronte-lmbench/select_times.png}
+    \includegraphics[width=.8\textwidth]{../data/bench/bronte-lmbench/select_times.png}
 \end{figure}
 
 The \passthrough{\lstinline!select(2)!} system call benchmarks allow us
@@ -2234,7 +2234,7 @@ which is invoked upon return from a signal handler.
         Smaller difference in times is better.
     }
     \label{bronte_lmbench_signal_graph}
-    \includegraphics[width=.6\textwidth]{../data/bench/bronte-lmbench/signal_times.png}
+    \includegraphics[width=.8\textwidth]{../data/bench/bronte-lmbench/signal_times.png}
 \end{figure}
 
 \FloatBarrier
@@ -2305,7 +2305,7 @@ method is only about 10\%, which is acceptable in practice.
         Smaller difference in times is better.
     }
     \label{bronte_lmbench_process_graph}
-    \includegraphics[width=.6\textwidth]{../data/bench/bronte-lmbench/process_times.png}
+    \includegraphics[width=.8\textwidth]{../data/bench/bronte-lmbench/process_times.png}
 \end{figure}
 
 \FloatBarrier
@@ -2331,7 +2331,7 @@ pipes, it imposes an overhead of 1.25 microseconds, or about 28\%.
         Smaller difference in times is better.
     }
     \label{bronte_lmbench_ipc_graph}
-    \includegraphics[width=.6\textwidth]{../data/bench/bronte-lmbench/ipc_times.png}
+    \includegraphics[width=.8\textwidth]{../data/bench/bronte-lmbench/ipc_times.png}
 \end{figure}
 
 \FloatBarrier
@@ -2382,7 +2382,7 @@ dataset.
         Smaller difference in times is better. Standard error is given as error bars.
     }
     \label{bronte_7day_graph}
-    \includegraphics[width=.6\textwidth]{../data/bench/bronte-7day/under_3us_times.png}
+    \includegraphics[width=.8\textwidth]{../data/bench/bronte-7day/under_3us_times.png}
 \end{figure}
 
 System calls in the dataset shown in \autoref{bronte_7day} do not
@@ -2425,7 +2425,7 @@ with a system under load in subsequent sections.
         Smaller difference in times is better. Standard error is given as error bars.
     }
     \label{bronte_7day_parity_graph}
-    \includegraphics[width=.6\textwidth]{../data/bench/bronte-7day/lmbench_parity_times.png}
+    \includegraphics[width=.8\textwidth]{../data/bench/bronte-7day/lmbench_parity_times.png}
 \end{figure}
 
 \FloatBarrier
@@ -2436,28 +2436,47 @@ Macro-Benchmark: ebpH in
 Production}{homeostasis-3day Macro-Benchmark: ebpH in Production}}\label{homeostasis-3day-macro-benchmark-ebph-in-production}}
 
 \begin{table}
-    \caption[Top 20 system calls by count in the \code{homeostasis-3day} dataset]{
-        Top 20 system calls by count in the \code{homeostasis-3day} dataset.
-        Time scale is logarithmic. Standard error is given as error bars.
+    \caption[Top 20 system call overheads by count in the \code{homeostasis-3day} dataset]{
+        Top 20 system call overheads by count in the \code{homeostasis-3day} dataset.
+        Standard deviations are given in parentheses.
     }
     \label{tab:homeostasis_3day}
     \input{../data/bench/homeostasis-3day/homeostasis_3day_results.tex}
 \end{table}
 
 \begin{figure}
-    \caption[Selected system calls from the \code{bronte-7day} dataset]{
-        Selected system calls from the \code{bronte-7day} dataset, for easy
-        comparison with the \code{lmbench} data from \autoref{lmbench_section}.
-        Smaller difference in times is better. Standard error is given as error bars.
+    \caption[Top 20 system call overheads by count in the \code{homeostasis-3day} dataset]{
+        Top 20 system call overheads by count in the \code{homeostasis-3day} dataset.
+        Time scale is logarithmic. Standard error is given as error bars.
     }
+    \label{fig:homeostasis_3day}
     \label{bronte_7day_parity_graph}
-    \includegraphics[width=.6\textwidth]{../data/bench/bronte-7day/lmbench_parity_times.png}
+    \includegraphics[width=.8\textwidth]{../data/bench/homeostasis-3day/homeostasis_3day_times.png}
 \end{figure}
 
 \hypertarget{arch-3day-macro-benchmark-ebph-on-a-personal-computer}{%
 \subsubsection{\texorpdfstring{\texttt{arch-3day} Macro-Benchmark: ebpH
 on a Personal
 Computer}{arch-3day Macro-Benchmark: ebpH on a Personal Computer}}\label{arch-3day-macro-benchmark-ebph-on-a-personal-computer}}
+
+\begin{table}
+    \caption[Top 20 system call overheads by count in the \code{arch-3day} dataset]{
+        Top 20 system call overheads by count in the \code{arch-3day} dataset.
+        Standard deviations are given in parentheses.
+    }
+    \label{tab:arch_3day}
+    \input{../data/bench/arch-3day/arch_3day_results.tex}
+\end{table}
+
+\begin{figure}
+    \caption[Top 20 system call overheads by count in the \code{arch-3day} dataset]{
+        Top 20 system call overheads by count in the \code{arch-3day} dataset.
+        Time scale is logarithmic. Standard error is given as error bars.
+    }
+    \label{fig:arch_3day}
+    \label{bronte_7day_parity_graph}
+    \includegraphics[width=.8\textwidth]{../data/bench/arch-3day/arch_3day_times.png}
+\end{figure}
 
 \hypertarget{comparing-results-with-the-original-ph}{%
 \subsection{Comparing Results with the Original
