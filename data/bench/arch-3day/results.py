@@ -93,6 +93,7 @@ def export_data(orig, prefix):
     data['time_ebph'] = data['time_mean_ebph'].map('{:.3f} '.format) + \
             data['time_std_ebph'].map('({:.4f})'.format)
     data = data[['syscall', 'count', 'time_base', 'time_ebph', 'diff', 'overhead']]
+    data['syscall'] = data['syscall'].str.replace('_', r'\_')
     data = data.rename(columns={
         'syscall': r'\multicolumn{1}{l}{System Call}',
         'count': r'Count',

@@ -1981,6 +1981,8 @@ for the overhead of `bpfbench` itself on base times. Regardless, these results m
 of the impact of ebpH on a real system, since they capture the behavior of the system in its entirety.
 We will have an opportunity to compare these results with a system under load in subsequent sections.
 
+<!-- FIXME: replace these with new tables -->
+
 \begin{table}
     \caption[Selected system calls from the \code{bronte-7day} dataset]{
         Selected system calls from the \code{bronte-7day} dataset, for easy
@@ -2005,6 +2007,25 @@ We will have an opportunity to compare these results with a system under load in
 ### `homeostasis-3day` Macro-Benchmark: ebpH in Production
 
 <!-- TODO: fill this on Monday the 30th -->
+
+\begin{table}
+    \caption[Top 20 system calls by count in the \code{homeostasis-3day} dataset]{
+        Top 20 system calls by count in the \code{homeostasis-3day} dataset.
+        Time scale is logarithmic. Standard error is given as error bars.
+    }
+    \label{tab:homeostasis_3day}
+    \input{../data/bench/homeostasis-3day/homeostasis_3day_results.tex}
+\end{table}
+
+\begin{figure}
+    \caption[Selected system calls from the \code{bronte-7day} dataset]{
+        Selected system calls from the \code{bronte-7day} dataset, for easy
+        comparison with the \code{lmbench} data from \autoref{lmbench_section}.
+        Smaller difference in times is better. Standard error is given as error bars.
+    }
+    \label{bronte_7day_parity_graph}
+    \includegraphics[width=.6\textwidth]{../data/bench/bronte-7day/lmbench_parity_times.png}
+\end{figure}
 
 ### `arch-3day` Macro-Benchmark: ebpH on a Personal Computer
 
