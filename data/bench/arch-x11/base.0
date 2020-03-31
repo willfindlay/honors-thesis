@@ -1055,3 +1055,17 @@ Sync time adjustment is 0.0114 msecs.
     2000000 reps @   0.0037 msec (271000.0/sec): Fill 10x10 stippled trapezoid (17x15 stipple)
    10000000 trep @   0.0037 msec (272000.0/sec): Fill 10x10 stippled trapezoid (17x15 stipple)
 
+     300000 reps @   0.0170 msec ( 58700.0/sec): Fill 100x100 stippled trapezoid (17x15 stipple)
+     300000 reps @   0.0170 msec ( 58700.0/sec): Fill 100x100 stippled trapezoid (17x15 stipple)
+     300000 reps @   0.0170 msec ( 58700.0/sec): Fill 100x100 stippled trapezoid (17x15 stipple)
+     300000 reps @   0.0171 msec ( 58600.0/sec): Fill 100x100 stippled trapezoid (17x15 stipple)
+     300000 reps @   0.0171 msec ( 58600.0/sec): Fill 100x100 stippled trapezoid (17x15 stipple)
+    1500000 trep @   0.0170 msec ( 58700.0/sec): Fill 100x100 stippled trapezoid (17x15 stipple)
+
+     100000 reps @   0.0621 msec ( 16100.0/sec): Fill 300x300 stippled trapezoid (17x15 stipple)
+     100000 reps @   0.0620 msec ( 16100.0/sec): Fill 300x300 stippled trapezoid (17x15 stipple)
+     100000 reps @   0.0619 msec ( 16200.0/sec): Fill 300x300 stippled trapezoid (17x15 stipple)
+     100000 reps @   0.0619 msec ( 16200.0/sec): Fill 300x300 stippled trapezoid (17x15 stipple)
+     100000 reps @   0.0620 msec ( 16100.0/sec): Fill 300x300 stippled trapezoid (17x15 stipple)
+     500000 trep @   0.0620 msec ( 16100.0/sec): Fill 300x300 stippled trapezoid (17x15 stipple)
+
