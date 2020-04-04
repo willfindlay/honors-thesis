@@ -117,7 +117,7 @@ and Teng Qin\footnote{\url{https://github.com/palmtenor}}
 for their guidance and willingness to respond to issues and questions related to the *bcc* project.
 Brendan Gregg's\footnote{\url{https://github.com/brendangregg} and \url{http://www.brendangregg.com}}
 writings and talks have been a great source of inspiration, especially with respect to background research.
-Sasha Goldstein's\footnote{\url{https://github.com/goldshtn}} *syscount.py* was an invaluable basis
+Sasha Goldshtein's\footnote{\url{https://github.com/goldshtn}} *syscount.py* was an invaluable basis
 for my earliest proof-of-concept experimentation, although none of that original code has made it into this iteration of ebpH.
 
 For their love and tremendous support of my education, I would like to thank my parents,
@@ -2477,8 +2477,8 @@ in profile data.
 
 To that end, I plan to make the following changes in a future iteration of ebpH:
 
-1) Refactor all hashmaps into the `LRU_HASH` type;
-1) Refactor profile data storage to use a `HASH_OF_MAPS`.
+1) Refactoring all hashmaps into the `LRU_HASH` type;
+1) Refactoring profile data storage to use a `HASH_OF_MAPS`.
 
 #### Refactoring Profiles and Processes to Use `LRU_HASH`
 
@@ -2513,13 +2513,6 @@ significantly on memory overhead compared to the current design.
 \label{gui_section}
 
 <!-- TODO: write this section -->
-
-### General System Introspection and the Future of ebpH
-
-\label{general_introspection}
-
-<!-- TODO: write this section -->
-
 <!-- NOTE: maybe we can re-use some of this?
 The ebpH GUI (hereafter referred to as the GUI) provides a graphical user interface for interacting
 with the daemon. This GUI is still a work in progress and will be improved considerably
@@ -2529,6 +2522,30 @@ the ebpH logs. It can also be used to issue rudimentary commands such as profile
 Future versions of the GUI will include more commands for controlling the state of ebpH,
 as well as increased system visibility and more information about processes and profiles.
 \autoref{early-gui} depicts an early version of the GUI.
+-->
+
+### General System Introspection and the Future of ebpH
+
+\label{general_introspection}
+
+<!-- TODO: write this section -->
+
+<!-- NOTE: maybe we can re-use some of this?
+As an intrusion detection system, ebpH's role is well-defined: monitor the system, detect misbehaving processes,
+and report them to the user. However, there is one glaring problem with this approach, particularly as we venture
+into the territory of automated responses via system call delays: users do not necessarily *want* a system that
+chooses not to perform a requested action; they also do not necessarily *want* a system that harasses them
+with warnings about program behavior that they either don't care about or don't necessarily understand.
+
+One potential solution to this problem is providing other benefits to the user through ebpH *in addition
+to* intrusion detection and response. For example, future versions of ebpH could include a performance analysis component,
+a debugger component, or any number of other metrics for increased system visibility. After all, one of the primary use cases
+for system introspection is precisely that: allowing a user to observe their system. By adding this extra functionality,
+we can provide complimentary benefits to the user that may incentivize them to run ebpH in the first place.
+
+It should also not be overlooked that, in many cases, increased system state visibility can provide implicit security
+benefits to the experienced user. For example, an experienced system administrator could use a future version of ebpH
+to find vulnerabilities in their system before an attack even occurs.
 -->
 
 <!-- FIXME: replace all of the following with the above two sections -->
