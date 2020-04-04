@@ -2,7 +2,9 @@
 author: |
     | William Findlay
 title: |
-    | Host-Based Anomaly Detection with Extended BPF
+    | Host-Based Anomaly Detection
+    | with
+    | Extended BPF
 subtitle: |
     | COMP4906 Honours Thesis
 date: \today
@@ -170,18 +172,18 @@ Introduced to the Linux Kernel in a 2013 RFC and subsequent kernel patch [@staro
 eBPF offers a promising interface for kernel introspection, particularly given its
 scope and unprecedented level of safety therein; although eBPF can examine
 any data structure or function in the kernel through the instrumentation of tracepoints,
-its safety is guaranteed via a bytecode verifier. What this means in practice is that we
-effectively have unlimited, highly performant, production-safe system
+its safety is guaranteed via a bytecode verifier. What this means in practice is that eBPF
+effectively provides unlimited, highly performant, production-safe system
 introspection capabilities that can be used to monitor as much or as little
-system state as we desire.
+system state as desired.
 
 Certainly, eBPF offers unprecedented system state visibility, but this is only scratching
 the surface of what this technology is capable of. With nearly limitless tracing capabilities,
-we can construct powerful applications to enhance system security, stability, and performance.
+powerful applications can be constructed to enhance system security, stability, and performance.
 In theory, these applications can perform much of their work autonomously in the background, but
 are equally capable of functioning in a more interactive role, keeping the end user informed
 about changes in system state, particularly if these changes in state are undesired. To that end,
-I propose *ebpH* (a portmanteau of eBPF and pH), an intrusion detection system
+I propose *ebpH* (a portmanteau of eBPF and pH), an anomaly detection system
 based entirely on eBPF that monitors process state in the form of system call sequences.
 By building and maintaining per-executable behavior profiles, ebpH can dynamically detect when
 processes are behaving outside of the status quo, and notify the user so that they can understand
@@ -263,7 +265,7 @@ but instead presents many of the most popular ones. Note how eBPF covers every p
 
 Applications such as strace [@strace; @manstrace] which make use of the ptrace system call are certainly
 a viable option for limited system introspection with respect to specific processes.
-However, this does not represent a complete solution, as we are limited to monitoring
+However, this does not represent a complete solution, as the user is limited to monitoring
 the system calls made by a process to communicate with the kernel, its memory, and the state of its registers,
 rather than the underlying kernel functions themselves [@manptrace]. The scope of ptrace-based solutions is
 also limited by ptrace's lack of scalability; ptrace's API is conducive to tracing single processes at a time rather
@@ -300,9 +302,9 @@ in the catastrophic consequences outlined above.
 
 Built-in kernel subsystems for instrumentation seem to be the most desirable choice of any
 of the presented solutions. In fact, eBPF [@starovoitov13; @starovoitov14] itself constitutes one such solution. However,
-for the time being, we will focus on a few others, namely ftrace [@ftrace] and perf\_events [@manperfeventopen]
+for the time being, I will focus on a few others, namely ftrace [@ftrace] and perf\_events [@manperfeventopen]
 (eBPF programs actually *can* and *do* use both of these interfaces anyway). While both of these solutions are
-safe to use (assuming we trust the user), they suffer from limited documentation and relatively poor user interfaces.
+safe to use (assuming the system can trust the root user), they suffer from limited documentation and relatively poor user interfaces.
 These factors in tandem mean that ftrace and perf\_events, while quite useful for a variety of system introspection
 needs, are less extensible than other approaches.
 
@@ -312,7 +314,7 @@ It is worth spending a bit more time comparing eBPF with Dtrace, as both
 APIs are quite full-featured and designed with similar functionality in mind.
 The original Dtrace [@cantrill04] was designed in 2004 for Solaris and lives on to this
 day in several operating systems, including Solaris, FreeBSD, MacOS X [@gregg14], and
-Linux [@dtrace4linux] (we will examine the dtrace4linux implementation with
+Linux [@dtrace4linux] (the dtrace4linux implementation will be examined with
 more scrutiny later in this section).
 
 In general, the original Dtrace and the current version of eBPF share much of the same
@@ -370,7 +372,7 @@ the existing eBPF virtual machine.
 ## Classic BPF
 
 In 1992, McCanne and Jacobson [@bpf] introduced the original BPF\footnote{Hereafter,
-we will refer to the original BPF as {\itshape Classic BPF} to avoid confusion with eBPF and the BPF programming paradigm.}
+I will refer to the original BPF as {\itshape Classic BPF} to avoid confusion with eBPF and the BPF programming paradigm.}
 or *Berkeley Packet Filter* as a mechanism for capturing,
 monitoring, and filtering network traffic in the BSD kernel.
 Classic BPF's primary insights were two-fold:
@@ -391,7 +393,7 @@ capabilities of the original BPF virtual machine.
 
 Since its original introduction, eBPF has offered a consistent, powerful, and production-safe
 mechanism for general Linux introspection and continues to improve rapidly over time.
-We discuss eBPF in more detail in the following section.
+eBPF is discussed in more detail in the following section.
 
 ## eBPF: Linux Tracing Superpowers
 
@@ -400,9 +402,9 @@ We discuss eBPF in more detail in the following section.
 In 2016, eBPF was described by Brendan Gregg [@gregg16]
 as nothing short of *Linux tracing superpowers*.
 I echo that sentiment here, as it summarizes eBPF's capabilities perfectly.
-Through eBPF programs, we can simultaneously trace userland symbols and library
+Through eBPF programs, one can simultaneously trace userland symbols and library
 calls, kernel functions and data structures, and hardware performance. What's more,
-through an even newer subset of eBPF, known as *XDP* or *Express Data Path* [@xdp], we
+through an even newer subset of eBPF, known as *XDP* or *Express Data Path* [@xdp], one
 can inspect, modify, redirect, and even drop packets entirely before they even reach the main kernel network stack.
 \autoref{ebpf-use-cases} provides a high level overview of these use cases and the corresponding
 eBPF instrumentation required.
@@ -472,8 +474,8 @@ we are able to attach onto various probes and tracepoints, both in the kernel an
 -->
 
 \begin{table}[p]
-    \caption[Various map types available in eBPF programs, as of Linux 5.3]{
-        Various map types \cite{bcc, gregg19bpf} available in eBPF programs, as of Linux 5.3.
+    \caption[Various map types available in eBPF programs, as of Linux 5.5]{
+        Various map types \cite{bcc, gregg19bpf} available in eBPF programs, as of Linux 5.5.
     }
     \label{ebpf-maps}
     \resizebox{\textwidth}{.2\textheight}{
@@ -505,29 +507,78 @@ we are able to attach onto various probes and tracepoints, both in the kernel an
 There are several map types available in eBPF which cover a wide variety of use cases.
 These map types along with a brief description are provided in \autoref{ebpf-maps}.
 Thanks to this wide arsenal of maps, eBPF developers have a powerful set of both general-purpose
-and specialized data structures at their disposal; as we will see in coming sections,
+and specialized data structures at their disposal; as shown in coming sections,
 many of these maps are quite versatile and have use cases beyond what might initially
 seem pertinent. For example, the `ARRAY` map type may be used to initialize large data structures
-to be copied into a general purpose `HASH` map (refer to \autoref{appendix-bigdata} in \autoref{ebpf-design-patterns}).
+to be copied into a general purpose `HASH` (refer to \autoref{appendix-bigdata} in \autoref{ebpf-design-patterns}).
 This can be effectively used to bypass the verifier's stack space limitations, which are discussed in detail
 in \autoref{verifier-section}.
+
+### Tracepoints, Kprobes, and Uprobes
+
+As shown previously in \autoref{ebpf-use-cases} on page \pageref{ebpf-use-cases}, eBPF supports
+a number of distinct program types which may be used to instrument and interact with various
+aspects of system functionality. ebpH's functionality mainly relies on three specific program
+types: the *tracepoint*, the *kprobe*, and the *uprobe* [@gregg19bpf; @bcc]. Here, I will describe
+what each program type does and how they work at a high level. These concepts
+will be revisited frequently when discussing ebpH's implementation in \autoref{sec:impl}.
+
+#### Tracepoints
+
+Tracepoints [@gregg19bpf] define the stable kernel tracing API of eBPF; at a high level, they are predefined
+sections in kernel code that trap to eBPF handlers when these handlers are defined.
+Tracepoints are stable in the sense that the information exposed to eBPF by a tracepoint
+will not be likely to change between kernel versions, which means that they are ideal for
+use in production where forward compatibility with new versions of Linux is a desirable property.
+Although using tracepoints is ideal when possible, they have a few caveats; in particular,
+a limited number of tracepoints are defined by the kernel, and they do not cover an exhaustive
+list of kernel functionality. Linux 5.5 defines 1,872 tracepoints in total.
+
+ebpH uses tracepoints to implement the bulk of its kernelspace functionality
+(c.f. \autoref{ebph_profiles} and \autoref{ebph_processes}). System call tracepoints
+are used to track system call sequences for its anomaly detection functionality; scheduler tracepoints
+are used to maintain the set of traced processes and to associate these processes with the correct
+profiles.
+
+#### Kprobes
+
+Whereas tracepoints define a stable kernel tracing API, kprobes [@gregg19bpf] can be though of as
+their dynamic counterparts. Although kprobes may be used to trace any exported kernel function
+(that is, any kernel function that is not in-lined by the compiler), they are not considered
+stable as the API of a kprobe changes whenever the corresponding kernel function changes.
+Thus, tracepoints are preferred when possible and kprobes are generally used as a last resort.
+Kprobes work by inserting a breakpoint at a specific address in kernel memory; when this breakpoint
+is hit, the kernel traps to the associated BPF handler. Kprobes can also be used to
+instrument function returns, in which case they are known as kretprobes.
+
+ebpH uses only one kretprobe, and does so to keep track of when processes receive
+a signal that would trap to a signal handler (c.f. \autoref{non_determinism}).
+
+#### Uprobes
+
+Uprobes and uretprobes work in a similar fashion to kprobes and kretprobes; the primary difference
+here is that we are now instrumenting *userspace* rather than kernelspace. A breakpoint is inserted
+at the target userspace address and this breakpoint traps to the appropriate BPF handler.
+
+ebpH uses uprobes to implement sending complex commands to the BPF program from a userspace library
+(c.f. \autoref{ebph_admin_sec}).
 
 ### The Verifier: The Good, the Bad, and the Ugly
 \label{verifier-section}
 
-The verifier is responsible for eBPF's unprecedented safety, one of its
+The verifier is responsible for eBPF's unprecedented safety given its scope, one of its
 most attractive qualities with respect to system tracing. While this verifier
-is quintessential to the safety of eBPF given its impressive scope and power,
+is quintessential to the safety of eBPF,
 it is not without its drawbacks. In this section, I describe how the verifier works,
 its nuances and drawbacks, and recent work that has been done to improve
 the verifier's support for increasingly complex eBPF programs.
 
 Proving the safety of arbitrary code is by definition a difficult problem.
-This is thanks in part to theoretical limitations on what we can actually prove;
+This is thanks in part to theoretical limitations on what is actually provable;
 a famous example is the halting problem described by Turing circa 1937 [@turing37].
 This difficulty is further compounded by stricter requirements for safety in the context
-of an eBPF program; in particular, we don't want BPF programs to crash or otherwise
-damage the kernel.
+of an eBPF program; in particular, developers don't want BPF programs to crash or otherwise
+damage the kernel [@fleming17].
 
 To illustrate the importance of this problem of safety with respect to eBPF,
 let us consider a simple example. We will again consider the halting problem
@@ -546,10 +597,10 @@ prohibits memory access using registers with unbounded values. For example, acce
 variable $i$ in a `for` loop would be prohibited unless it could be shown that this variable's set of possible
 values exists within a memory-safe range.
 
-While we have established that verifying the safety of eBPF programs is an important problem to solve,
+While I have established that verifying the safety of eBPF programs is an important problem to solve,
 the question remains as to whether it is *possible* to solve.
 For the reasons outlined above, this problem should intuitively seem impossible,
-or at least far more difficult than should be feasible. So, what can we do? The answer
+or at least far more difficult than should be feasible. So, what can the verifier do? The answer
 is to *change the rules* to make it easier. In particular, while it is difficult to prove
 that the set of all possible eBPF programs are safe, it is much easier\footnote{\emph{Easier}
 here means \emph{computationally easier}, certainly not trivial.}
@@ -570,8 +621,8 @@ the relationship between potentially valid eBPF code and verifiably valid eBPF c
     \caption[Complexity and verifiability of eBPF programs.]{
         Complexity and verifiability of eBPF programs.
         Safety guarantees for eBPF programs rely on certain compromises.
-        Ideally we would like to have a relationship as shown on the bottom;
-        in practice, we have something that is getting closer over time, but is still
+        Ideally the relationship would be as shown on the bottom;
+        in practice, the relationship is getting closer over time, but is still
         far from the ideal.
     }
     \label{complexity-verifiability}
@@ -580,16 +631,16 @@ the relationship between potentially valid eBPF code and verifiably valid eBPF c
 
 The immediate exclusion of eBPF programs meeting certain criteria is the crux
 of eBPF's safety guarantees. Unfortunately, it also rather intuitively
-limits what we are actually able to do with eBPF programs. In particular,
+limits what developers are actually able to do with eBPF programs. In particular,
 eBPF is not a Turing complete language; it prohibits arbitrary jump instructions,
-cycles in execution graphs, and unverified memory access. Further, we limit
-stack allocations to only 512 bytes -- far too small for many practical use cases.
+cycles in execution graphs, and unverified memory access. Further, eBPF limits
+stack allocations to only 512 bytes [@gregg19bpf] -- far too small for many practical use cases.
 From a security perspective, these limitations are a *good thing*, because they allow us to immediately exclude eBPF
 programs with unverifiable safety; but from a usability standpoint, particularly that of a new eBPF
 developer, the trade-off is not without its drawbacks.
 
 Fortunately, the eBPF verifier is getting better over time (\autoref{complexity-verifiability}).
-When we say *better*, what we mean is that it is able to prove the safety of increasingly complex programs.
+When I say *better*, what I mean is that it is able to prove the safety of increasingly complex programs.
 Perhaps the best example of this steady improvement is a recent kernel patch [@starovoitov19] that added
 support for bounded loops in eBPF programs. With this patch, the set of viable
 eBPF programs was *greatly* increased; in fact, ebpH in its current incarnation relies
@@ -633,6 +684,8 @@ further in \autoref{ph-lap}.
 
 ## Intrusion Detection
 
+The concept of intrusion detection has seen prevalent attention in academic work since
+the early 1980's [@anderson80; @denning85; @denning87].
 At a high level, intrusion detection systems (IDS) strive to monitor
 systems at a particular level and use observed data to make decisions
 about the legitimacy of these observations [@kemmerer02].
@@ -679,7 +732,8 @@ This is generally quite similar to the original pH (\autoref{process-homeostasis
 with one major exception:
 As we will see, the original pH also responds to anomalies by delaying
 system calls outright and preventing anomalous `execve(2)` calls [@soma02].
-Implementing this functionality in ebpH is a topic for future work (c.f. \autoref{response_automation}).
+Implementing this functionality in ebpH is a topic for future work (c.f. \autoref{response_automation}),
+and currently ebpH only supports the anomaly detection aspect of its predecessor.
 
 ### A Survey of Data Collection in Intrusion Detection Systems
 
@@ -868,12 +922,14 @@ eBPF tracepoints or probes seems untenable due to the verifier's refusal to acco
 the code required for such an implementation. The addition of system call delays into
 ebpH is currently a topic for future work (c.f. \autoref{response_automation}).
 
-<!--
 ## Other Related Work
-TODO: maybe write this if we have time???
+<!--
+TODO FIXME: maybe write this if we have time???
 -->
 
 # Implementing ebpH
+
+\label{sec:impl}
 
 <!-- TODO: revise, starting here -->
 
@@ -1018,6 +1074,8 @@ as well as any time ebpH stops monitoring the system.
 These profiles are automatically loaded every time ebpH starts.
 
 <!-- FIXME later: this table footnote is showing up PAGES later... WTF?! -->
+\begingroup
+\small
 \begin{longtable}{>{\ttfamily}lp{2.6in}l}
     \caption{Main perf event categories in ebpH.}
     \label{bpf-events}\\
@@ -1040,6 +1098,7 @@ These profiles are automatically loaded every time ebpH starts.
     ebpH\_error & Reports generic errors & $2^{2} \text{ pages}$\\
     \bottomrule
 \end{longtable}
+\endgroup
 
 \FloatBarrier
 
@@ -1067,7 +1126,8 @@ shows sample output from `ebph-ps` running on a system.
     numbers=none,
     label={ebph_ps_out},
     caption={[Sample output from \texttt{ebph-ps}]
-    Sample output from \texttt{ebph-ps}.}]
+    Sample output from \texttt{ebph-ps}.},
+    basicstyle={\ttfamily\scriptsize}]
 {../code/sample_outputs/ebph-ps.out}
 
 In addition to listing information per-process, `ebph-ps` can also show information
@@ -1087,7 +1147,8 @@ all profiles on a system using the `-p` flag.
     Sample output from \texttt{ebph-ps -p}.
     Note how the \texttt{PID} column has been replaced with the profile \texttt{KEY} and
     \texttt{ebph-ps} now lists each profile exactly once, regardless of whether
-    the profile is currently running.}]
+    the profile is currently running.},
+    basicstyle={\ttfamily\scriptsize}]
 {../code/sample_outputs/ebph-ps-p.out}
 
 ### `ebph-admin`
@@ -1104,8 +1165,8 @@ is to expose functions that are then attached to the BPF program via uprobes. Th
 are restricted to only trace calls that originate from the daemon's own PID, which prevents
 another binary from simply loading that library code and issuing unauthorized commands to the
 BPF program. \autoref{ebph_admin_request} depicts the process of using `ebph-admin` to make
-a request to the daemon. \autoref{commands_section} discusses the various underlying
-mechanisms used to support commands in further detail.
+a request to the daemon. <!--\autoref{commands_section} discusses the various underlying
+mechanisms used to support commands in further detail.-->
 
 \begin{figure}
     \caption[Dataflow of a request from \texttt{ebph-admin}]{
@@ -1178,14 +1239,16 @@ struct ebpH_profile
 };
 \end{lstlisting}
 
-<!-- FIXME: update following description to include training and testing data -->
 The profile itself is a C data structure that keeps track of information about the
-executable, as well as a sparse two-dimensional array of lookahead pairs [@soma07] to
-keep track of system call patterns. Each entry in this array consists of an
+executable as well as two copies of profile data, one for training, and one for
+testing. This profile data consists of a sparse two dimensional array of lookahead pairs
+[@soma02; @soma07] used to keep track of observed system call patterns. Each entry in this array consists of an
 8-bit integer, with the $i^\text{th}$ bit corresponding to a previously observed
 distance $i$ between the two calls. When ebpH observes this distance, it sets the corresponding bit
-to `1`. Otherwise, it remains `0`. Each profile maintains lookahead pairs for each possible pair of
-system calls. \autoref{lookahead-ls} presents a sample (`read`, `close`) lookahead pair for the `ls` binary.
+to `1` using a bitwise `OR` operation. Otherwise, it remains `0`.
+Each profile maintains lookahead pairs for each possible pair of system calls, and these lookahead
+pairs are checked against new sequences when a profile becomes normal.
+\autoref{lookahead-ls} presents a sample (`read`, `close`) lookahead pair for the `ls` binary.
 
 \FloatBarrier
 
@@ -1270,9 +1333,9 @@ behavior; this will be covered in more detail shortly). This sequence is subsequ
 into the corresponding profile's lookahead pairs and flip the correct bits. If the process' profile is normal,
 new sequences will trigger ebpH's anomaly detection mechanism and a warning will be sent to userspace.
 
-In addition to the system call tracepoints described above, ebpH also keeps track of a few other tracepoints to
+In addition to the system call tracepoints described above, ebpH also instruments a few other tracepoints to
 keep track of profile creation, process creation and deletion, and profile association on `exec`-family system calls.
-The `sched` family exposes the necessary tracepoints in order to do this. Additionally, ebpH defines
+The `sched` class of tracepoints exposes hooks on the necessary system functionality in order to do this. Additionally, ebpH defines
 one kprobe in order to detect when a process invokes its signal handler. \autoref{ebph-tracepoints} summarizes the
 tracepoints and kprobes used by ebpH along with their side effects on ebpH's state.
 
@@ -1318,15 +1381,6 @@ the process' current sequence of system calls, to ensure that there is no carryo
 between two unrelated profiles when constructing their lookahead pairs. This is important
 in order to prevent `execve(2)` calls from being used to construct artificially good sequences
 in a profile which may be later used to mask malicious behavior [@soma02].
-
-<!--
-The entry and exit points to the `execve(2)` system call are used to differentiate a true
-`execve(2)` call from the kernel routines responsible for loading shared libraries, which both
-invoke the aforementioned `do_open_execat` subroutine. When we first hit an `execve(2)`,
-we set an indicator variable in the process struct to say that we are in the middle of an `execve(2)`.
-Subsequent calls to `do_open_execat` are then ignored until we hit `execve(2)`'s return tracepoint
-and unset the indicator variable.
--->
 
 ### Profile Association and Sequence Duplication
 
@@ -1449,27 +1503,17 @@ for testing, it decreases the probability of any false positives.
 
 \FloatBarrier
 
-## The `ebphd` Commands API
+<!-- ## The `ebphd` Commands API -->
 
-\label{commands_section}
+<!-- \label{commands_section} -->
 
-<!-- TODO: write this -->
+<!-- ### Setting Runtime Parameters -->
 
-### Setting Runtime Parameters
+<!-- ### Examining Profiles and Processes -->
 
-<!-- TODO: write this -->
+<!-- ### Issuing More Complex Commands -->
 
-### Examining Profiles and Processes
-
-<!-- TODO: write this -->
-
-### Issuing More Complex Commands
-
-<!-- TODO: write this -->
-
-## Soothing the Verifier: Technical Challenges of ebpH's Implementation
-
-<!-- FIXME: potentially go over or replace this section -->
+## Soothing the Verifier
 
 The development of ebpH elicited many challenges with respect to the eBPF verifier.
 As seen in \autoref{verifier-section}, eBPF programs become more difficult to verify
@@ -1485,14 +1529,6 @@ the form of several subproblems as follows:
 3) Traditional C-style dynamic memory allocation is prohibited;
 4) Support for bounded loops is in its infancy and such loops must be carefully constructed to avoid verifier issues;
 5) The verifier tends to err on the side of caution and will produce false positives with non-negligible frequency.
-
-<!--
-Subproblem (1) means that, at the moment, there is no simple means of injecting
-system call delay into system calls from within the eBPF program, an important part
-of the original pH's functionality [@soma02]. Kernel scheduling and delay functions do not work
-in eBPF due to unsafe jump instructions, and so other means of
-delaying processes need to be explored. This is currently a topic for future
-work (c.f. \autoref{response_automation}). <!-- FIXME: change this so it makes sense in light of BPF signals -->
 
 Subproblem (1) poses a particular challenge for a few aspects of ebpH's design: namely, profile keying and storage,
 `execve(2)` abortion, and issuing system call delays. This is due to the fact that eBPF programs do not have
@@ -1554,7 +1590,37 @@ from the vexing kernel panics, data corruptions, and other crashes that so often
 kernel development -- ebpH crashed the system precisely *zero* times during testing *and* development.
 This extraordinary feat is made possible by eBPF's safety guarantees.
 
+## Dealing a Lack of Concurrency Control Mechanisms
+
+\label{impl_no_conc}
+
+Due to a lack of sufficient preemption checks in the verifier [@verifier_git; @bpf_h_git], tracing
+programs are currently forbidden from using the `bpf_spin_lock` primitive included in kernel 5.1.
+This means that ebpH has no means of managing concurrency within its data structures in the traditional sense,
+and there no immediately obvious way of guaranteeing that modifications to profiles are consistent.
+Notably, the map used to keep track of processes does not suffer from this problem, as each `ebpH_process`
+data structure keeps track of its own thread.
+
+Since profiles may be modified by multiple processes at once, it is important that these
+modifications be kept relatively synchronized to avoid mismatches. One useful aspect of ebpH's
+design is that entries within lookahead pairs are tracked with bits, which means that each entry is
+either `1` or `0` at a given time, and that entries are set using a bitwise `OR` operation.
+Since a `x | 1` is always equal to `1`, the operation of setting a lookahead pair is actually immune to
+concurrency-related issues. Similarly, lookahead pairs are only checked for anomalies once a profile has been frozen,
+and this check is done on a separate copy of the training data from the one being modified. This means that
+the operation of checking a lookahead pair is also safe.
+
+On the other hand, ebpH profiles have several flags and counters that need to be kept
+synchronized in order for them to work properly. Although locking in the traditional sense is impossible,
+eBPF *does* have atomic add and subtract instructions [@bpf_h_git] that combine the operation of checking a value
+with the operation of incrementing or decrementing it. ebpH uses these to keep its flags and counters
+at least semi-consistent with what is expected. Although this is not a perfect solution, it is sufficient
+as a temporary stopgap until a better alternative is made available. \autoref{no_concurrency} further
+discusses the need for concurrency control mechanisms in eBPF.
+
 # Measuring ebpH's Overhead
+
+\label{measuring_overhead_section}
 
 One of the primary advantages of eBPF is its relatively low overhead [@gregg19bpf; @starovoitov13; @starovoitov14]
 compared to many other system introspection solutions (c.f. \autoref{tracing-section} and \autoref{ebpf-superpowers}).
@@ -1570,31 +1636,17 @@ The specifics of each benchmarking test along with the results are provided in \
 
 \label{methodology-section}
 
-Since ebpH's kernelspace functionality resides in system call hooks, we can get an
-idea of what overhead it imposes on the system by running macro-benchmarks
-on the time required to make system calls. Initially, I planned to use `syscount` [@syscount]
-from `bcc-tools` for this purpose, however this tool currently has a race condition
-that may affect results due to its use of `BPF_HASH` rather than `BPF_PERCPU_ARRAY` for
-data storage (c.f. \autoref{ebpf-maps} on page \pageref{ebpf-maps}). Instead, a custom
-benchmarking tool, `bpfbench`\footnote{Full source code available at
-\url{https://github.com/willfindlay/bpfbench}.}, was written in eBPF for this purpose. Like \texttt{syscount},
-`bpfbench` measures system call overhead by taking the difference of `ktime` (in nanoseconds)
-between system call entry and return; this difference along with the number of calls
-observed is stored in an eBPF map for later analysis. Unlike `syscount`, `bpfbench`
-stores this data in a per-cpu array, aggregating data at the end when necessary; this means
-that neither the system call count nor the system call overhead is subject to race conditions
-like its predecessor. See \autoref{bpfbench} for the BPF portion of `bpfbench`'s source code.
-
-Macro-benchmarking data was collected on various systems, including a server used in production,
-a personal computer, and a CCSL (Carleton Computer Security Lab) workstation. Tests were run
-under a variety of workloads and benchmarking data was collected using `bpfbench`.
-For each dataset, the same test was conducted on the system twice: once with ebpH running, and once without.
-All ebpH data was collected while ebpH was monitoring the entire system (i.e. started immediately on
-boot via a `systemd` unit) and running with normal parameters and logging settings.
+The experimental methodology used to determine ebpH's performance overhead includes both
+macro and micro-benchmarks, to establish both real-world behavior and highly controlled experimental
+results respectively. Benchmarks were primarily concerned with ebpH's overhead on system calls, although
+other factors were considered in the micro-benchmark tests, such as signal handler overhead, IPC (interprocess-communication),
+and process creation latency. Macro-benchmarking data was collected on various
+systems under various workloads, including: a server used in production;
+a personal computer; and a CCSL (Carleton Computer Security Lab) workstation. Micro-benchmarking
+data was collected on the CCSL workstation only under an otherwise idle workload, in order to prevent
+corruption of results by outside factors.
 \autoref{systems} summarizes each of the systems used for the collection of benchmarking data,
-including relevant hardware specifications,
-and \autoref{macro-datasets} provides a description of each dataset, including the system and the workload
-tested.
+including relevant hardware specifications.
 
 \begin{table}
     \caption[Systems used for the collection of ebpH benchmarking data]
@@ -1630,7 +1682,74 @@ tested.
     \end{tabular}
 \end{table}
 
-<!-- TODO: finalize this -->
+### `lmbench` Micro-Benchmark
+
+<!--
+In addition to system call overhead, we are also interested in how ebpH affects overall system performance.
+In particular, ebpH should have negligible impact on normal system use. In order to ascertain this, micro-benchmarking
+data was collected for a variety of test cases. \autoref{micro-datasets} provides a description of each micro-benchmark dataset,
+including the system and the workload tested. Additional details of each micro-benchmark test are provided in their respective
+results sections.
+-->
+
+McVoy's `lmbench` [@lmbench; @lmbenchgit] is a Linux micro-benchmarking suite that has seen
+prominent use in academia [@lmbenchex1; @lmbenchex2; @lmbenchex3; @lmbenchex4] for establishing
+various performance metrics of UNIX-like systems. The *OS-category* benchmarks in `lmbench` are most
+relevant to ebpH's overhead.This category provides performance metrics such as:
+
+- Simple system call latency (c.f. \autoref{bronte_lmbench_syscall} and \autoref{bronte_lmbench_syscall_graph});
+- `select(2)` latency on various file types (c.f. \autoref{bronte_lmbench_select} and \autoref{bronte_lmbench_select_graph});
+- Signal handler latency (c.f. \autoref{bronte_lmbench_signal} and \autoref{bronte_lmbench_signal_graph});
+- Dynamic process creation latency (c.f. \autoref{bronte_lmbench_process} and \autoref{bronte_lmbench_process_graph});
+- IPC (inter-process communication) latency for pipes and UNIX stream sockets (c.f. \autoref{bronte_lmbench_ipc}
+and \autoref{bronte_lmbench_ipc_graph}).
+
+Simple system call and `select(2)` latency will give an idea of how ebpH affects system call overhead directly, while
+signal handler latency will show the overhead caused by both ebpH's treatment of the underlying system calls
+as well as the signal-aware stack discussed in \autoref{non_determinism}. Finally, the process creation and IPC
+latency metrics will provide a better picture of ebpH's overhead in a more practical context.
+
+<!--
+\begin{table}
+    \caption[ebpH micro-benchmarking datasets]{
+        ebpH micro-benchmarking datasets.
+    }
+    \label{micro-datasets}
+    \begin{tabular}{>{\ttfamily}l>{\ttfamily}llp{3in}}
+    \toprule
+    \multicolumn{1}{l}{Dataset} & \multicolumn{1}{l}{System} & Workload & Description \\
+    \midrule
+        bronte-lmbench & bronte & Artificial & OS micro-benchmarks from the
+            \texttt{lmbench} \cite{lmbench, lmbenchgit} suite, with and without ebpH \\
+        arch-x11perf & arch & Artificial & \texttt{x11perf} \cite{x11perf, x11perfcomp} full benchmarking suite, with and without ebpH \\
+    \bottomrule
+    \end{tabular}
+\end{table}
+-->
+
+### `bpfbench` Macro-Benchmarks
+
+Since ebpH's kernelspace functionality resides in system call hooks, its imposed overhead on the system
+can be established by running macro-benchmarks on the time required to make system calls.
+Initially, I planned to use `syscount` [@syscount] from `bcc-tools` for this purpose,
+however this tool currently has a race condition that may affect results due to its use of
+`BPF_HASH` rather than `BPF_PERCPU_ARRAY` for data storage (c.f. \autoref{ebpf-maps} on page \pageref{ebpf-maps}).
+Instead, an ad-hoc benchmarking tool, `bpfbench`\footnote{Full source code available at
+\url{https://github.com/willfindlay/bpfbench}.}, was written in eBPF for this purpose. Like \texttt{syscount},
+`bpfbench` measures system call overhead by taking the difference of `ktime` (in nanoseconds)
+between system call entry and return; this difference along with the number of calls
+observed is stored in an eBPF map for later analysis. Unlike `syscount`, `bpfbench`
+stores this data in a `PERCPU_ARRAY`, aggregating data at the end when necessary; this means
+that neither the system call count nor the system call overhead is subject to race conditions
+like its predecessor. See \autoref{bpfbench} for the BPF portion of `bpfbench`'s source code.
+
+Tests were run under a variety of workloads and benchmarking data was collected using `bpfbench`.
+For each dataset, the same test was conducted on the system twice: once with ebpH running, and once without.
+All ebpH data was collected while ebpH was monitoring the entire system (i.e. started immediately on
+boot via a `systemd` unit) and running with normal parameters and logging settings.
+\autoref{macro-datasets} provides a description of each dataset, including the system and the workload
+tested.
+
 \begin{table}
     \caption[ebpH macro-benchmarking datasets]{
         ebpH macro-benchmarking datasets.
@@ -1659,27 +1778,23 @@ After benchmarking data was collected, overhead was calculated according to the 
 \end{align*}
 as measured by \texttt{bpfbench}.
 
-In addition to system call overhead, we are also interested in how ebpH affects overall system performance.
-In particular, ebpH should have negligible impact on normal system use. In order to ascertain this, micro-benchmarking
-data was collected for a variety of test cases. \autoref{micro-datasets} provides a description of each micro-benchmark dataset,
-including the system and the workload tested. Additional details of each micro-benchmark test are provided in their respective
-results sections.
+<!--
+Since system call runtime is not necessarily deterministic depending on implementation,
+some of the results from the macro-benchmarks were pathological. I define a pathological result
+as any result that showed a significant performance improvement when running ebpH over
+running the system normally. There can be many causes for such disparity; for instance
+system calls with a high variance in the amount of "thinking" required in kernelspace
+based on input, or system calls that block until a certain condition is true on a given
+system resource.
+-->
 
-\begin{table}
-    \caption[ebpH micro-benchmarking datasets]{
-        ebpH micro-benchmarking datasets.
-    }
-    \label{micro-datasets}
-    \begin{tabular}{>{\ttfamily}l>{\ttfamily}llp{3in}}
-    \toprule
-    \multicolumn{1}{l}{Dataset} & \multicolumn{1}{l}{System} & Workload & Description \\
-    \midrule
-        bronte-lmbench & bronte & Artificial & OS micro-benchmarks from the
-            \texttt{lmbench} \cite{lmbench, lmbenchgit} suite, with and without ebpH \\
-        arch-x11perf & arch & Artificial & \texttt{x11perf} \cite{x11perf, x11perfcomp} full benchmarking suite, with and without ebpH \\
-    \bottomrule
-    \end{tabular}
-\end{table}
+Many system calls in Linux are designed to wait and return when some property becomes true on a system resource;
+such calls are referred to as *blocking system calls*. Since many blocking system calls introduce a high
+degree of variance in results, they have been pruned from the results presented here. In particular, any
+system call with a standard deviation in runtime higher than 10 microseconds has been removed from the presented
+results. This is an effective heuristic for weeding out blocking system calls that could impact the integrity of the
+dataset while preserving those that have acceptable impact on results. Full, unadulterated results
+are provided in \autoref{appendix_datasets}.
 
 ## Results
 
@@ -1687,31 +1802,14 @@ results sections.
 
 This section presents the results of all benchmarks. Micro-benchmarking results will be presented
 first in order to provide a more statistically significant depiction of ebpH's overhead, followed by macro-benchmarking
-data collected with `bpfbench` to cover ebpH's behavior in production environments. Many of the macro-benchmarking
-datasets have been trimmed for brevity and the exclusion of outlier datapoints; these datasets will be provided
-in full in \autoref{appendix_datasets}.
+data collected with `bpfbench` to cover ebpH's behavior in production environments. Macro-benchmark results
+have been trimmed for brevity, and pruned for outliers and results with unacceptably high variance. As mentioned,
+full datasets are available in \autoref{appendix_datasets}.
 
-### `bronte-lmbench`: Measuring System Latency with `lmbench` Micro-Benchmark
+### `bronte-lmbench` System Latency Micro-Benchmark
 
-\label{lmbench_section}
+\label{bronte_lmbench}
 
-McVoy's `lmbench` [@lmbench; @lmbenchgit] is a Linux micro-benchmarking suite that has seen
-prominent use in academia [@lmbenchex1; @lmbenchex2; @lmbenchex3; @lmbenchex4] for establishing
-various performance metrics of UNIX-like systems. In particular, we are interested in
-the *OS-category* benchmarks provided by `lmbench`. This category provides performance metrics
-such as:
-
-- Simple system call latency (c.f. \autoref{bronte_lmbench_syscall} and \autoref{bronte_lmbench_syscall_graph});
-- `select(2)` latency on various file types (c.f. \autoref{bronte_lmbench_select} and \autoref{bronte_lmbench_select_graph});
-- Signal handler latency (c.f. \autoref{bronte_lmbench_signal} and \autoref{bronte_lmbench_signal_graph});
-- Dynamic process creation latency (c.f. \autoref{bronte_lmbench_process} and \autoref{bronte_lmbench_process_graph});
-- IPC (inter-process communication) latency for pipes and UNIX stream sockets (c.f. \autoref{bronte_lmbench_ipc}
-and \autoref{bronte_lmbench_ipc_graph}).
-
-Simple system call and `select(2)` latency will give us an idea of how ebpH affects system call overhead directly, while
-signal handler latency will show the overhead caused by both ebpH's treatment of the underlying system calls
-as well as the signal-aware stack discussed in \autoref{non_determinism}. Finally, the process creation and IPC
-latency metrics will provide a better picture of ebpH's overhead in a more practical context.
 1000 ebpH and 1000 non-ebpH OS-category trials were run on `bronte`, a workstation in the CCSL (Carleton Computer Security Lab)
 at Carleton University. The results were then averaged and compared to determine overhead.
 
@@ -1769,13 +1867,15 @@ more representative of the general case.
     \includegraphics[width=.8\textwidth]{../data/bench/bronte-lmbench/select_times.png}
 \end{figure}
 
-The `select(2)` system call benchmarks allow us to get an idea of the overhead imposed on a blocking
-system call in a controlled environment. `select(2)` [@man_select] is used to wait until one or more
+The `select(2)` system call benchmarks provide an idea of the overhead imposed on a blocking
+system call in a controlled environment; the more time the kernel spends blocking, the smaller effect ebpH's
+overhead has on system call runtime. `select(2)` [@man_select] is used to wait until one or more
 file descriptors become available for a given operation; the `select(2)` benchmarks from `lmbench`
 invoke this system call on predefined sets of file descriptors, shown in \autoref{bronte_lmbench_select}.
-The results here demonstrate that the overhead imposed by ebpH rapidly diminishes for blocking system calls,
-and in some cases drops below the standard third of a microsecond that was observed previously; the likely explanation
-here is that the overhead incurred by ebpH is occurring during time that would otherwise be spent blocking.
+The results here demonstrate that the overhead imposed by ebpH rapidly diminishes as the duration spent blocking
+increases, and in some cases drops below the standard third of a microsecond that was observed previously;
+the likely explanation here is that the overhead incurred by ebpH is occurring during time that would otherwise
+be spent blocking.
 
 \FloatBarrier
 
@@ -1865,7 +1965,8 @@ which is acceptable in practice.
 \autoref{bronte_lmbench_ipc} shows the overhead caused by ebpH on two methods of IPC, pipes and
 Unix domain stream sockets. UNIX stream socket IPC, ebpH imposes an overhead of 1.7 microseconds,
 or about 18\%. For pipes, it imposes an overhead of 1.25 microseconds, or about 28\%.
-<!-- FIXME: come back here and say more -->
+While these results are significant, they shouldn't pose much of a problem
+for modern applications.
 
 <!-- IPC -->
 \begin{table}
@@ -1890,193 +1991,383 @@ or about 18\%. For pipes, it imposes an overhead of 1.25 microseconds, or about 
 
 \FloatBarrier
 
-### `bronte-7day` Macro-Benchmark
+### `bronte-kernel` Kernel Compilation Micro-Benchmark
 
+\label{bronte_kernel}
+
+<!-- FIXME: Finalize this when we have full benchmark results -->
+
+While `lmbench` provides a good representation of the overhead associated
+with system simple system calls and various simple operations, it is not necessarily
+indicative of performance impact as a whole. In order to ascertain how resource-intensive
+operations are affected by ebpH, I ran a benchmark of Linux 5.6 kernel compilation times.
+Five trials were run without ebpH running and five more trials were run with ebpH running.
+\autoref{tab:bronte_kernel} shows the results of the benchmark.
+
+\begin{table}
+    \caption[Kernel compilation times from the \code{bronte-kernel} dataset]{
+        Kernel compilation times from the \code{bronte-kernel} dataset.
+        \code{System} represents CPU time spent in kernelspace, \code{User}
+        represents CPU time spent in userspace, and \code{Elapsed} represents real
+        time elapsed. Note that the test was run using all 16 of \code{bronte}'s logical cores,
+        therefore true elapsed time is significantly shorter than system and user CPU times.
+        Standard deviations are given in parentheses and smaller overhead is better.
+    }
+    \label{tab:bronte_kernel}
+    \input{../data/bench/bronte-kernel/bronte_kernel_results.tex}
+\end{table}
+
+According to \autoref{tab:bronte_kernel}, ebpH has relatively
+small impact on the overhead of kernelspace operations during compilation,
+with a `System` overhead of only $10.6\%$. This makes sense, as most of the system calls
+being made during kernel compilation are relatively long to begin with, such as `execve(2)`.
+Longer system calls will have a higher base time and thus ebpH's sub-microsecond runtime
+has limited impact on total overhead. As expected, ebpH has negligible impact on the `User`
+time, well within the margin of error. The total impact that ebpH had on compilation times
+is reflected by the `Elapsed` time, which shows that ebpH only had a $1\%$ performance impact overall.
+
+### `bronte-7day`
+
+\label{bronte_7day}
+
+<!-- FIXME: Redo results once bronte benchmark is over -->
 <!-- FIXME: this section needs to be revised when the new 7-day macro-benchmark is done -->
 
-In order to get an idea of how ebpH interacts with the system as a whole, I ran a macro-benchmark of all
-system calls using `bpfbench` for a period of 14 days on `bronte`, the same CCSL workstation tested in \autoref{lmbench_section}.
-For the first seven days of testing, the system had been running ebpH since boot, and so all processes were being monitored.
-ebpH was run with normal parameters, profile saving, loading, and logging enabled.
-For the final seven days, the benchmark was run once again, this time without ebpH. All benchmarks for this dataset
-were run under an idle workload. After concluding the benchmark tests, overhead was compared between ebpH and
-non-ebpH data in order to ascertain what effect ebpH had on the system.
-
-<!-- FIXME: maybe remove this? -->
-<!--
-The tests were run as follows:
-```{.sh}
-# enable ebphd systemd unit and reboot
-sudo systemctl enable ebphd && reboot now
-# test with ebpH for one week
-sudo bpfbench -d 1w ebph-results.log
-# stop ebphd
-sudo systemctl stop ebphd
-# test without ebpH for one week
-sudo bpfbench -d 1w base-results.log
-```
--->
-
-In order to eliminate outliers, we exclude any results more than 3 standard deviations from the mean. Outliers may be
-caused by a number of factors (since the measurements are for the entire system over an arbitrary period of time),
-although one common explanation would be blocking system calls taking an inordinate amount of time to finish,
-resulting in highly irregular execution times. Simple system calls (e.g. system calls with an execution time
-of less than about $3\mu$s) offer the best measure of overhead caused by ebpH, and so will be the focus
-here. \autoref{bronte_7day} and \autoref{bronte_7day_graph} present the top 20 most frequent system calls
-with execution time of less than $3\mu$s from the `bronte-7day` dataset.
+The `bronte-7day` macro-benchmark was collected using `bpfbench` over a period of
+14 days in total: seven days with ebpH and seven without. `bronte` is a workstation
+in the CCSL lab at Carleton University. Tests were run under an idle workload.
+\autoref{tab:bronte_7day} and \autoref{fig:bronte_7day} show the top 20
+system calls by count (after removing outliers and high variance blocking system calls)
+over the 14 day period along with associated overheads for the base and ebpH tests.
 
 \begin{table}
-    \caption[Top 20 most frequent system calls with base times of under 3$\mu$s from the \code{bronte-7day} dataset]{
-        Top 20 most frequent system calls with base times of under 3$\mu$s from the \code{bronte-7day}
-        dataset (after discarding outliers). Smaller overhead is better.
+    \caption[Top 20 system call overheads by count in the \code{bronte-7day} dataset]{
+        Top 20 system call overheads by count, with standard deviations of less than 10 microseconds,
+        in the \code{bronte-7day} dataset.
+        Standard deviations are given in parentheses.
     }
-    \label{bronte_7day}
-    \input{../data/bench/bronte-7day/under_3us_times.tex}
+    \label{tab:bronte_7day}
+    \resizebox{\columnwidth}{!}{
+    \input{../data/bench/bronte-7day/bronte_7day_results.tex}
+    }
 \end{table}
 
 \begin{figure}
-    \caption[Top 20 most frequent system calls with base times of under 3$\mu$s from the \code{bronte-7day} dataset]{
-        Top 20 most frequent system calls with base times of under 3$\mu$s from the
-        \code{bronte-7day} dataset (after discarding outliers).
-        Smaller difference in times is better. Standard error is given as error bars.
+    \caption[Top 20 system call overheads by count in the \code{bronte-7day} dataset]{
+        Top 20 system call overheads by count, with standard deviations of less than 10 microseconds,
+        in the \code{bronte-7day} dataset. Time scale is logarithmic. Standard error is given as error bars.
     }
-    \label{bronte_7day_graph}
-    \includegraphics[width=.8\textwidth]{../data/bench/bronte-7day/under_3us_times.png}
+    \label{fig:bronte_7day}
+    \includegraphics[width=.8\textwidth]{../data/bench/bronte-7day/bronte_7day_times.png}
 \end{figure}
 
-<!--
-Of the data presented in \autoref{bronte_7day}, the `bpf(2)` system call represents the most extreme
-overhead, with an overhead of $691\%$ and a standard deviation of $2.48$. This high deviation is explicable
-by the fact that many of the `bpf(2)` system calls made directly by ebpH involve direct map reads and writes of
-several megabytes at a time when saving and loading profiles to and from disk. When ebpH is not running, the
-`bpf(2)` system calls made by other BPF-related programs on the system generally do not involve
-such intensive operations.
--->
-
-<!--
-\begin{table}
-    \caption{Top 20 most frequent system calls with base times of less than 7 microseconds
-    from the \code{bronte-7day} dataset after discarding outliers.
-    Smaller overhead is better. Standard deviations from the mean are given in parentheses.}
-    \label{bronte_7day_small}
-    \input{../data/bench/bronte-7day/overhead-small-times.tex}
-\end{table}
--->
-
-System calls in the dataset shown in \autoref{bronte_7day} do not present with overhead higher
-than about $294\%$. While $294\%$ may seem high, it is important to remember that these overheads
-are on system calls that have an execution time of a few microseconds or less. In practice, ebpH is only
-adding a few microseconds of additional execution to these system calls, a slowdown that will likely
-go unnoticed by users.
-
-In order to provide a better comparison with the experimental results from the `lmbench` system
-calls micro-benchmark, \autoref{bronte_7day_parity} and \autoref{bronte_7day_parity_graph} show the
-same system calls from the `bronte-7day` dataset. Note that the system-wide overhead
-is generally either the same or better than the `lmbench` results and `getppid(2)` in particular is
-seems to be significantly improved. These results may be slightly misleading, however, since we
-are examining overhead across *the entire system* over and extended period of time, and also need to account
-for the overhead of `bpfbench` itself on base times. Regardless, these results may be slightly more indicative
-of the impact of ebpH on a real system, since they capture the behavior of the system in its entirety.
-We will have an opportunity to compare these results with a system under load in subsequent sections.
-
-<!-- FIXME: replace these with new tables -->
-
-\begin{table}
-    \caption[Selected system calls from the \code{bronte-7day} dataset]{
-        Selected system calls from the \code{bronte-7day} dataset, for easy
-        comparison with the \code{lmbench} data from \autoref{lmbench_section}.
-    }
-    \label{bronte_7day_parity}
-    \input{../data/bench/bronte-7day/lmbench_parity_times.tex}
-\end{table}
-
-\begin{figure}
-    \caption[Selected system calls from the \code{bronte-7day} dataset]{
-        Selected system calls from the \code{bronte-7day} dataset, for easy
-        comparison with the \code{lmbench} data from \autoref{lmbench_section}.
-        Smaller difference in times is better. Standard error is given as error bars.
-    }
-    \label{bronte_7day_parity_graph}
-    \includegraphics[width=.8\textwidth]{../data/bench/bronte-7day/lmbench_parity_times.png}
-\end{figure}
+The data in \autoref{tab:bronte_7day} show that ebpH imposes anywhere from relatively minor to
+severe overhead on the most frequency executed system calls in `bronte-7day`. A few results show
+slight performance improvements under ebpH, but these are anomalous. Such anomalous results are
+likely due to ambient system factors such as caching, availability of resources, or changes in behavior
+based on flags, such as in the case of `send_msg(2)` which blocks on busy sockets by default but can be made
+to immediately return instead. Notably, the `bpf(2)` system call appears to add significant overhead
+(over 28 microseconds or about 344\%), but this can be explained by the fact that it is being made
+by ebpH itself to lookup and update maps. These map operations require significantly more runtime,
+and so this is reflected in the results. Besides the aforementioned anomalies, these results are
+mostly indicative of the overhead that ebpH imposes on frequent system calls; however,
+the next two sections will present the same benchmark run under production and ordinary use workloads,
+which will be more representative of ebpH's overhead in practice.
 
 \FloatBarrier
 
-### `homeostasis-3day` Macro-Benchmark: ebpH in Production
+### `homeostasis-3day`
 
-<!-- TODO: fill this on Monday the 30th -->
+\label{homeostasis_3day}
+
+The `homeostasis-3day` macro-benchmark was collected using `bpfbench` over a period of
+six days in total: three days with ebpH and three without. `homeostasis` is a Mediawiki
+server used to host the COMP3000 course wiki at Carleton University. Tests were
+run under the normal workload associated with running the webserver and SQL database.
+\autoref{tab:homeostasis_3day} and \autoref{fig:homeostasis_3day} show the top 20
+system calls by count (after removing outliers and high variance blocking system calls)
+over the six day period along with associated overheads for the base and ebpH tests.
 
 \begin{table}
     \caption[Top 20 system call overheads by count in the \code{homeostasis-3day} dataset]{
-        Top 20 system call overheads by count in the \code{homeostasis-3day} dataset.
+        Top 20 system call overheads by count, with standard deviations of less than 10 microseconds,
+        in the \code{homeostasis-3day} dataset.
         Standard deviations are given in parentheses.
     }
     \label{tab:homeostasis_3day}
+    \resizebox{\columnwidth}{!}{
     \input{../data/bench/homeostasis-3day/homeostasis_3day_results.tex}
+    }
 \end{table}
 
 \begin{figure}
     \caption[Top 20 system call overheads by count in the \code{homeostasis-3day} dataset]{
-        Top 20 system call overheads by count in the \code{homeostasis-3day} dataset.
-        Time scale is logarithmic. Standard error is given as error bars.
+        Top 20 system call overheads by count, with standard deviations of less than 10 microseconds,
+        in the \code{homeostasis-3day} dataset. Time scale is logarithmic. Standard error is given as error bars.
     }
     \label{fig:homeostasis_3day}
-    \label{bronte_7day_parity_graph}
     \includegraphics[width=.8\textwidth]{../data/bench/homeostasis-3day/homeostasis_3day_times.png}
 \end{figure}
 
-### `arch-3day` Macro-Benchmark: ebpH on a Personal Computer
+As with the previous marco-benchmark, \autoref{tab:homeostasis_3day} shows that
+ebpH has minor to significant impact
+on the runtime overhead of the most frequently executed system calls. Of the
+five most frequent system calls, all present with an overhead of less than 20\%,
+and `read(2)` in particular shows a slight performance improvement under ebpH.
+As in the previous section, this result is clearly pathological and is likely a result
+of ambient factors such as caching and availability of resources. The overheads
+of ordinary, non-blocking system calls such as `getpid(2)` and `lseek(2)` are consistent
+with previously observed results. In general, the overheads presented here
+are unlikely to have significant impact on performance of modern applications.
+
+### `arch-3day`
+
+\label{arch_3day}
+
+Similar to the `homeostasis` tests, the `arch-3day` macro-benchmark was collected
+over a period of six days on `arch`, my personal desktop computer; the idea was to see
+what sort of overhead ebpH caused during the everyday use of a personal workstation.
+While these results certainly have a higher variance than previous results due to
+inconsistent usage and workload, it is important to see how ebpH behaves on a variety of
+systems under a variety of use cases. \autoref{tab:arch_3day} and \autoref{fig:arch_3day}
+show the top 20 system calls by count (after removing outliers and high variance blocking system calls)
+over the six day period along with associated overheads for the base and ebpH tests.
 
 \begin{table}
     \caption[Top 20 system call overheads by count in the \code{arch-3day} dataset]{
-        Top 20 system call overheads by count in the \code{arch-3day} dataset.
+        Top 20 system call overheads by count, with standard deviations of less than 10 microseconds,
+        in the \code{arch-3day} dataset.
         Standard deviations are given in parentheses.
     }
     \label{tab:arch_3day}
+    \resizebox{\columnwidth}{!}{
     \input{../data/bench/arch-3day/arch_3day_results.tex}
+    }
 \end{table}
 
 \begin{figure}
     \caption[Top 20 system call overheads by count in the \code{arch-3day} dataset]{
-        Top 20 system call overheads by count in the \code{arch-3day} dataset.
+        Top 20 system call overheads by count, with standard deviations of less than 10 microseconds,
+        in the \code{arch-3day} dataset.
         Time scale is logarithmic. Standard error is given as error bars.
     }
     \label{fig:arch_3day}
-    \label{bronte_7day_parity_graph}
     \includegraphics[width=.8\textwidth]{../data/bench/arch-3day/arch_3day_times.png}
 \end{figure}
 
-<!-- TODO: fill this on Monday the 30th -->
+The results shown in \autoref{tab:arch_3day}, are roughly consistent with previous
+macro-benchmarks. In this dataset, the five most frequent calls present with an overhead
+of less than approximately 10\%, an even better even better than previous trials.
+A few system calls show moderate performance improvement, but as before, this is
+likely explained by ambient factors in the system.
 
+### Summary
+
+\autoref{bronte_lmbench} shows that ebpH has significant impact on the overheads
+of short system calls and that this impact diminishes as kernel runtime increases.
+These findings extend to other aspects of system performance, such as process creation,
+interprocess communication, and signal handling.
+\autoref{bronte_kernel} demonstrates that ebpH imposes negligible overhead on
+kernel compilation, a task that is highly intensive in CPU usage and involves the
+creation of many processes. This further reinforces the notion that
+ebpH's overhead is acceptable in practice, its relatively high impact
+on short system call runtimes.
+The results from the `bpfbench` macro-benchmarks (\autoref{bronte_7day}, \autoref{homeostasis_3day},
+\autoref{arch_3day}) show that while ebpH
+has significant impact on the overhead of short system calls, this impact
+diminishes significantly as base system call runtime increases. Further, the
+majority of frequent system calls on a variety of different work loads tend
+to have a high enough base runtime that ebpH has minimal impact in practice.
 <!--
-\begin{table}
-    \caption{Top 20 most frequent system calls from the \code{arch-3day} dataset, sorted by percent overhead. Smaller
-    overhead is better.}
-    %\input{../tables/arch-3day/overhead-by-count.tex}
-\end{table}
-
-\begin{table}
-    \caption{Top 20 highest overhead system calls from the \code{arch-3day} dataset, sorted by percent overhead. Smaller
-    overhead is better.}
-    %\input{../tables/arch-3day/overhead-by-overhead.tex}
-\end{table}
+\autoref{fig:macro_summary} shows system call overheads from the three macro-benchmark
+datasets plotted against base runtime. This further indicates
 -->
 
 ## Comparing Results with the Original pH
 
 <!-- TODO: come back here -->
 
-<!-- FIXME: not done yet -->
-In order to facilitate easy comparison with the original pH system, much of the experimental
-methodology surrounding the testing of ebpH was designed to closely mimic that of Somayaji's
-original dissertation [@soma02]. In particular, the `lmbench` and `x11perf` micro-benchmarks will
-be especially informative in this regard.
+In Somayaji's dissertation [@soma02], he provides performance metrics on selected system calls
+as well as kernel compilation benchmarks and X11 performance statistics. Some of the methodology
+I have used for measuring ebpH's performance directly mirrors this approach in order to facilitate
+easy comparison between the two systems. In particular, the `lmbench` micro-benchmarks and the
+`kernel-build` micro-benchmark will be informative in this regard.
+
+The `bronte-lmbench` system call results in \autoref{bronte_lmbench_syscall} on page \pageref{bronte_lmbench_syscall}
+show that ebpH consistently adds just over a third of a microsecond of runtime to system calls on `bronte`.
+Depending on the call in question, this can result in minor to significant overhead -- different system calls
+require different amounts of processing in kernelspace, depending on their design and implementation.
+In the pH dissertation [@soma02], Somayaji presents a small variety of system call overheads with varying
+base times and shows that pH adds approximately 1.9 microseconds of runtime. Although ebpH adds only
+about one sixth of this overhead, this result is misleading due to the difference in hardware specifications
+between `lydia`, the system which pH was tested on in 2002, and `bronte`, the system that ebpH was tested on;
+in particular, `bronte` is a *significantly* faster and more powerful machine, which means that base runtime
+will not be directly comparable between the two systems. The percent overhead statistic may be slightly more
+informative here. For null system calls (that is, system calls which require next to no thinking on the part
+of the kernel), such as `getpid` or `getppid`, ebpH adds $614\%$ overhead, which may seem quite significant.
+In contrast, pH adds only about $165\%$. However, if pH were tested on `bronte` today, this overhead would
+likely be much larger, as the base execution time for system calls would be significantly smaller.
+As the complexity of calls increases, the percent overheads expressed by pH and ebpH approach
+each other. For instance, `write(2)` has an overhead of approximately $133\%$ in pH and about $321\%$
+in ebpH. `sigaction(2)` can also be compared with the signal handler install results from \autoref{bronte_lmbench_signal}
+on page \pageref{bronte_lmbench_signal} (since that is in essence just a call to `rt_sigaction(2)`);
+pH achieves an overhead of about $75\%$ while ebpH adds about $175\%$.
+
+The dynamic process creation latency results from `bronte-lmbench` will also be quite informative
+for establishing a comparison between pH and ebpH. In the pH dissertation [@soma02], Somayaji
+presents the overheads of three distinct process creation benchmarks, exactly the same ones
+that I have used here to test ebpH. For the `fork+exit` test, pH achieves $3.3\%$ overhead, while ebpH
+achieves $2.7\%$; in this case, ebpH actually begins to outperform the original pH. These results
+are also reflected in the next two tests, `fork+execve` and `fork+/bin/sh -c`. For `fork+execve`, ebpH
+performs astonishingly well compared to its predecessor, with an overhead of $8.1\%$ compared to
+pH's $273.6\%$. This result, however, is slightly misleading as pH loads profiles from disk into kernel
+memory on every `execve(2)` call, whereas ebpH maintains them in a map. Thus, ebpH's overhead does not
+include the overhead required to load a profile into memory. Similarly, ebpH's results in the `fork+/bin/sh -c`
+test show an overhead of about $10\%$, while pH's overhead is closer to $29\%$. The impact of the differences in
+handling of profiles is more diminished here, although it is still a factor. Regardless, these results show that
+ebpH is consistently able to either outperform or keep up with pH in real applications.
+
+Finally, the kernel compilation benchmarks presented in \autoref{bronte_kernel} show improvement over
+the original pH results [@soma02]. In particular, ebpH only adds about $10\%$ overhead to `System` time, compared to
+pH's $38\%$; however, this large improvement is most likely due to ebpH's reduced overhead on `execve(2)` calls,
+which make up a large portion of kernelspace overhead for compilation tasks. Even so, the end result is a $1\%$
+total performance overhead for ebpH, compared to $3\%$ for the original pH, which shows the ebpH can keep
+up with pH in practice.
 
 # Discussion
 
-<!-- TODO: write this -->
+Previous sections have presented the design, implementation, and testing of ebpH, and offered
+a comparison between ebpH and its predecessor, pH, in light of design and implementation
+differences between the two. Past sections have shown that ebpH supports many of the same features
+as the original pH while offering significantly higher portability and adaptability.
+Experimental results presented in the previous section have shown that its performance
+overhead can compete with the original version. This section will discuss further the viability
+of eBPF-based anomaly detection in light of the results, and present topics for future work
+to improve and extend future versions of ebpH.
+\autoref{ebpf_shortcomings} discusses the shortcomings of eBPF that I believe need to be resolved
+in order to permit more complex intrusion detection software within this paradigm, while
+\autoref{future-work} presents topics for future work in development, testing, and design of
+future iterations of ebpH.
 
 ## Shortcomings of eBPF
+
+\label{ebpf_shortcomings}
+
+In previous sections, I have highlighted the important factors that make the eBPF
+paradigm an excellent choice for the development and deployment of host-base intrusion
+detection systems. While the experimental results in \autoref{measuring_overhead_section}
+have shown that eBPF can be as efficient as kernel-based implementations and
+\autoref{implementing-ebph} has described how eBPF can be used to implement many of the same
+features as kernel-based implementations, I have not yet touched on many of the shortcomings
+of the technology. This section will attempt to rectify this gap in light of empirical
+observations from the development of ebpH.
+
+### Lack of Concurrency Control Mechanisms in Tracing Programs
+
+\label{no_concurrency}
+
+As discussed in previous sections (\autoref{impl_no_conc}), the lack of concurrency control mechanisms in
+eBPF tracing programs [@verifier_git; @bpf_h_git] is detrimental to the use of eBPF for the creation of complex,
+security-sensitive applications. While the risks associated with non-deterministic data
+are fine for simple tracing programs designed for use cases such as performance analysis,
+this assumption quickly breaks down for more complex applications that rely on accurate results.
+The current version of ebpH mostly gets away with this due to the way it handles lookahead pairs
+combined with the use of atomic add and subtract operations for profile flags. However, future iterations
+of ebpH may depend on more complex behavioral tracking and analysis which is currently not possible
+in eBPF to an acceptable degree of certainty.
+
+eBPF *does* have restricted concurrency primitives, such as `bpf_spin_lock` [@bpf_h_git], but these are limited
+to non-tracing (and non-socket) programs due to insufficient checks by the verifier. This is to prevent
+buggy BPF programs from causing kernel functions to timeout, which could potentially crash the system.
+Resolving this problem would require updates to the verifier to ensure that it can properly
+check preemptions related to spin locks in tracing programs. While this functionality is currently not
+available the BPF maintainers have indicated that they are planning to support locking in tracing programs
+in the future [@bpf_h_git].
+
+### Limited Support for Necessary Kernel Helpers
+
+One of the major improvements of extended BPF over classic BPF is the introduction of
+the `bpf_call` instruction to its bytecode [@starovoitov13; @starovoitov14].
+In particular, eBPF programs can invoke a predetermined set of helper functions
+provided by the kernel [@gregg19bpf; @man_bpf_helpers]. Due to verifiability requirements on BPF programs,
+the set of kernel functions that can be invoked is *highly* limited in scope.
+As of Linux 5.5, eBPF supports 117 distinct helper functions [@bpf_h_git]. However,
+many of these helpers relate specifically to operations on eBPF maps and lookups on
+architecture-specific kernel data structures and more still are limited to specific
+niche program types, such as XDP, socket filter, or traffic classifier programs.
+
+One particular pain-point that I encountered during the development of ebpH is
+the lack of a reliable means of constructing pathnames in eBPF. The kernel provides
+helpers for doing so, but these are not available for BPF programs. This means that
+ebpH is unable to support hashing profiles by pathname, and instead must rely
+on the computation of a unique key from filesystem metadata. While this solution is
+pragmatically the same, ebpH's usability suffers as a result. In the original pH,
+profiles were stored on disk in subdirectories that mirrored their pathname in the original filesystem;
+in ebpH however, they are simply stored with the same filename as the corresponding profile key.
+This makes it difficult for users to interact with ebpH without using `ebph-ps` to figure out
+the key of the profile they want first. While there are potential workarounds for this, including the
+determination of pathnames in userspace, these are not ideal in terms of performance or reliability.
+It is worth noting, however, that a patch is currently under review to remedy this gap in eBPF's
+functionality [@zhang19].
+
+### Verifier Bugs
+
+Although the verifier provides critical safety guarantees to eBPF programs,
+it suffers from a few bugs that, in the best case, make it difficult to work with.
+In particular, the verifier can be inconsistent when performing static analysis
+on large and complex programs, such as the BPF programs employed by ebpH.
+To illustrate this complexity empirically, consider \autoref{fig:sys_exit} which
+depicts the instruction flow of ebpH's `sys_exit` tracepoint program.
+
+<!-- FIXME: make this not be a draft image for final version -->
+\begin{figure}
+    \caption[The instruction flow of ebpH's \code{sys_exit} tracepoint program]{
+        The instruction flow of ebpH's \code{sys_exit} tracepoint program.
+        Note the complexity of the BPF program. This figure was generated using
+        \code{bpftool} and \texttt{graphviz}'s \code{osage} tool.
+    }
+    \label{fig:sys_exit}
+    \includegraphics[width=.6\textwidth, draft=true]{../figures/progviz/raw_syscalls_sys_exit.png}
+\end{figure}
+
+The verifier itself is a rather complex program; as of Linux 5.5, it consists of over 10,000
+lines of C code [@verifier_git]. As a consequence of this complexity, the probability of bugs
+increases significantly. If the verifier fails at any stage in the verification process, it
+errs on the side of caution and rejects the program. Unfortunately, this behavior does impact
+ebpH to an extent. Due to a presently unknown bug in the verifier, it occasionally rejects
+the `sys_exit` program depicted in \autoref{fig:sys_exit}; this issue can be resolved by restarting
+the system. While this behavior is certainly annoying, it is an acceptable trade-off for the
+safety guarantees that the verifier provides when it is working properly.
+
+One argument that may arise from this notion of inconsistent verifier behavior is whether
+it truly protects the system at all from buggy BPF programs. After all, one of the primary
+advantages cited for eBPF programs over kernel-based implementations is the ability to
+guarantee production safety despite BPF code running in ring 0 with full access to the kernel.
+A counter-point to this argument is that a 99\% probability of guaranteeing safety is better
+than a 0\% probability -- that is to say, having a verifier that works almost all of the time
+is better than not having one at all.
+
+### Dropped Perf Buffer Submissions
+
+Another primary advantage for using eBPF over traditional kernel-based
+implementations is the ability to easily buffer communication with userspace.
+Context switches between userspace and kernelspace are expensive [@gebai18];
+eBPF largely mitigates this by allowing userspace programs to buffer map access,
+which in turn allows for variable granularity in the amount of context switches
+required per event. For instance, ebpH reads events from its BPF programs
+using the perf event buffer interface provided by eBPF; to do this, it
+simply polls each map every second via an event loop.
+
+While perf buffers do reduce program overhead in practice, they have caveats of their
+own that need to be addressed. For instance, BPF programs may outright refuse to
+submit some perf events (this behavior was encountered during the development of ebpH)
+and events that occur too frequently may fill the buffer completely, which in turn causes
+events to be dropped. Although these caveats do pose significant challenges to the development
+of reliable BPF programs, it is possible to circumvent them with careful design choices.
+For instance, submission failure can be checked within the BPF program and backup mechanisms can
+then be employed to be sure that the data makes it to userspace; dropped submissions that occur
+due to high frequency events may be solved by tuning the size of the buffer or adjusting the frequency
+at which the BPF program polls it.
 
 ## Future Work
 
@@ -2140,10 +2431,34 @@ comparison between the two systems when conducting a security analysis (c.f. \au
 
 \label{security_analysis_section}
 
-<!-- TODO: finish writing this section -->
-
 In order to measure ebpH's effectiveness at detecting and (in future versions) mitigating attacks,
-it is necessary to conduct a thorough security analysis.
+it is necessary to conduct a thorough security analysis of the system. In anomaly detection, there
+are a few important heuristics to consider when determining the efficacy of a system:
+false positive rate (FPR), false negative rate (FNR), true positive rate (TPR), true
+negative rate (TNR), and alarm precision (AP) [@vanoorschot19]. When combined, these
+heuristics provide an accurate representation of:
+
+- How often the system flags legitimate behavior as anomalous (FPR);
+- How often the system misses anomalous behavior (FNR);
+- How often the system detects anomalous behavior (TPR);
+- How often the system allows legitimate behavior (TNR);
+- The ratio of true positives to total positives (AP).
+
+According to the above definitions, FPR and FNR provide an indication of the *error rate*
+of an anomaly detection system, while TPR and TNR provide an indication of the *correctness rate*.
+Finally, AP provides an indication of what percentage of all flagged anomalies are correct.
+Determining these five heuristics for ebpH will require carefully planned testing strategies
+comprised of building known-good profiles, mounting various known attacks, and measuring
+rates of flagged events against predetermined values. Additionally, the same known-good profiles
+should be tested for extended periods of time under normal system behavior to ensure that the
+rate of false positives is acceptable.
+
+As a general-purpose anomaly-based IDS, it is important to show that ebpH
+is capable of detecting a wide variety of attacks. The mimicry attacks described in Wagner and Soto's paper [@wagner02]
+are particularly interesting, as they were directly designed to defeat the original pH system
+(albeit an earlier version with much shorter lookahead pair window length) by constructing attack patterns
+that generate false negatives. The results depicted in their paper should be compared against the results from
+testing and used to inform later changes to ebpH.
 
 ### Refactoring Profile and Process Hashmaps to Other Map Types
 
@@ -2165,7 +2480,7 @@ To that end, I plan to make the following changes in a future iteration of ebpH:
 1) Refactor all hashmaps into the `LRU_HASH` type;
 1) Refactor profile data storage to use a `HASH_OF_MAPS`.
 
-#### Refactoring to Use `LRU_HASH`
+#### Refactoring Profiles and Processes to Use `LRU_HASH`
 
 The `LRU_HASH` [@bcc; @gregg19bpf] is an eBPF map type of size $n$ that keeps $n$ entries preallocated
 at all times. When a BPF program attempts to add an entry to a full `LRU_HASH`, it discards
@@ -2180,7 +2495,7 @@ would simply cause ebpH to forget about the least recently used process. Even us
 default map size of 10,240 entries would represent a 99.7\% reduction in map size, which would
 in turn reduce the overhead of preallocating the entire map significantly.
 
-#### Refactoring to Use `HASH_OF_MAPS`
+#### Refactoring Profile Data to Use `HASH_OF_MAPS`
 
 `HASH_OF_MAPS` [@bcc; @gregg19bpf] is a type of map-in-map data structure that allows
 BPF programs to define and store maps inside of other maps. While support for this
@@ -2277,19 +2592,6 @@ will provide the means to conduct reproducible experiments across various condit
 including measuring ebpH's response to a variety of simulated attacks. Snapshots will
 ensure controlled and consistent system state between runs, and will be particularly
 useful in controlling for initial ebpH profile state during each round of testing.
-
-During normal testing, we are particularly interested in the rate of
-false positives and false negatives observed by ebpH. A false positive will be
-defined as any anomaly detected by ebpH that corresponds to ordinary system behavior,
-while a false negative will be defined as a failure to detect the presence of an attack.
-In order to test for both false positive and false negative rates, we will observe ebpH
-on ordinary systems as well as systems under attack and compare results.
-
-As a general-purpose anomaly-based intrusion detection system, it is important to show that ebpH
-is capable of detecting a wide variety of attacks. The mimicry attacks described in Wagner and Soto's paper [@wagner02]
-are particularly interesting, as they were directly designed to defeat the original pH system
-(albeit an earlier version with much shorter lookahead pair window length) by constructing attack patterns
-that generate false negatives.
 
 ### Gathering and Analyzing Performance Data
 
@@ -2466,3 +2768,8 @@ controlling the potential future adoption of ebpH, and is therefore important to
 \label{appendix_datasets}
 
 <!-- TODO: include these -->
+\begingroup
+\let\tablesize\scriptsize
+\input{../data/bench/homeostasis-3day/homeostasis_3day_full_results.tex}
+\input{../data/bench/arch-3day/arch_3day_full_results.tex}
+\endgroup

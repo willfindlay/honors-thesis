@@ -86,6 +86,14 @@
   month="August",
 }
 
+http://man7.org/linux/man-pages/man7/bpf-helpers.7.html
+@manual{man_bpf_helpers,
+  title={{bpf-helpers(7) Linux Programmer's Manual}},
+  organization="Linux",
+  year="2019",
+  month="Nov",
+}
+
 % XDP
 @inproceedings{xdp,
   author={H{\o}iland-J{\o}rgensen, Toke and Brouer, Jesper Dangaard and Borkmann, Daniel and Fastabend, John and Herbert, Tom and Ahern, David and Miller, David},
@@ -224,6 +232,24 @@
 }
 
 % verifier stuff below this line --------------------------------------
+
+% Verifier git
+@misc{verifier_git,
+  author={{Linux Kernel}},
+  title={{kernel/bpf/verifier.c}},
+  year=2020,
+  month={March},
+  url={https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/kernel/bpf/verifier.c?h=v5.5.13},
+}
+
+% Verifier git
+@misc{bpf_h_git,
+  author={{Linux Kernel}},
+  title={{include/uapi/linux/bpf.h}},
+  year=2020,
+  month={March},
+  url={https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/include/uapi/linux/bpf.h?h=v5.5.13},
+}
 
 % Intro to BPF article, Fleming 2017
 @misc{fleming17,
@@ -827,8 +853,102 @@ series = {EuroSys ’07}
   organization={{ACM Berkeley, CA}}
 }
 
+% Phoronix test suite + examples
+@misc{phoronix,
+  author={Michael Larabel and M. Tippett},
+  year={2011},
+  title={{Phoronix Test Suite}},
+  url={https://www.phoronix-test-suite.com}
+}
+@article{phoronixex1,
+  title={{Performance of Eucalyptus and OpenStack Clouds on Futuregrid}},
+  author={Sharath, S and Basu, Anirban},
+  journal={International Journal of Computer Applications},
+  volume={80},
+  number={13},
+  year={2013},
+  publisher={Foundation of Computer Science},
+  url={https://pdfs.semanticscholar.org/5736/770a685c98b3c0b690bcfea9722a2cbd620a.pdf},
+}
+@article{phoronixex2,
+  author = {Hong, Cheol-Ho and Spence, Ivor and Nikolopoulos, Dimitrios S.},
+  title = {{GPU Virtualization and Scheduling Methods: A Comprehensive Survey}},
+  year = {2017},
+  issue_date = {October 2017},
+  publisher = {Association for Computing Machinery},
+  address = {New York, NY, USA},
+  volume = {50},
+  number = {3},
+  issn = {0360-0300},
+  url = {https://doi.org/10.1145/3068281},
+  doi = {10.1145/3068281},
+  journal = {ACM Comput. Surv.},
+  month = jun,
+  articleno = {Article 35},
+  numpages = {37},
+  keywords = {CPU-GPU heterogeneous computing, GPU virtualization, GPU scheduling methods, cloud computing}
+}
+@inproceedings{phoronixex3,
+  author={S. {Aditham} and N. {Ranganathan}},
+  booktitle={2015 IEEE International Conference on Big Data (Big Data)},
+  title={{A Novel Framework for Mitigating Insider Attacks in Big Data Systems}},
+  year={2015},
+  volume={},
+  number={},
+  pages={1876-1885},
+}
 
 % Related work below this line ----------------------------
 
 % System call policies
 https://www.usenix.org/legacy/events/sec03/tech/full_papers/provos/provos_html/
+
+% New background below this line --------------------------
+
+% Intrusion detection ----------
+
+% D.E. Denning, original intrusion detection model paper
+@article{denning87,
+  author={D. E. {Denning}},
+  journal={IEEE Transactions on Software Engineering},
+  title={{An Intrusion-Detection Model}},
+  year={1987},
+  volume={SE-13},
+  number={2},
+  pages={222-232},
+}
+@book{denning85,
+  title={{Requirements and Model for IDES - A Real-Time Intrusion-Detection Expert System}},
+  author={Denning, Dorothy and Neumann, Peter G},
+  volume={8},
+  year={1985},
+  publisher={SRI International}
+}
+@techreport{anderson80,
+  title={{Computer Security Threat Monitoring and Surveillance}},
+  author={Anderson, James P},
+  institution={James P. Anderson Co., Fort Washington, PA},
+  year={1980}
+}
+
+% BPF overhead ------------------
+
+@article{gebai18,
+author = {Gebai, Mohamad and Dagenais, Michel R.},
+title = {{Survey and Analysis of Kernel and Userspace Tracers on Linux: Design, Implementation, and Overhead}},
+year = {2018},
+issue_date = {June 2018},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+volume = {51},
+number = {2},
+issn = {0360-0300},
+url = {https://doi.org/10.1145/3158644},
+doi = {10.1145/3158644},
+journal = {ACM Comput. Surv.},
+month = mar,
+articleno = {Article 26},
+numpages = {33},
+keywords = {userspace, ring buffer, kernel, reentrancy, monitoring, performance, Linux, tracer, lockless}
+}
+

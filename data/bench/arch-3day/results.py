@@ -48,19 +48,22 @@ def parse_all_results(d):
     ebph = combine_data(ebph)
     return base, ebph
 
+def discard_outliers(data):
+    grp = data.groupby('syscall')
+    mean = grp['time'].transform('mean')
+    std = grp['time'].transform('std')
+    zscore = (data['time'] - mean) / std
+    zscore = zscore.fillna(0)
+    good = zscore < 3
+    return data[good]
+
 def combine_data(data):
     combined = pd.concat(data)
-    #combined = discard_outliers(combined, 3)
+    combined = discard_outliers(combined)
     combined = combined.groupby('syscall', as_index=False).agg({'count': 'sum', 'time': [ 'mean', 'std', 'sem']})
     combined.columns = ['_'.join(col).strip('_') for col in combined.columns.values]
     combined = combined.rename(columns={'count_sum': 'count'})
     return combined
-
-#def discard_outliers(data, stds):
-#    z = data[['syscall', 'time', 'dummy']].groupby('syscall').transform(lambda g: (g - g.mean()).div(g.std()))
-#    outliers = z.abs() > stds
-#    data = data[~outliers.any(axis=1)]
-#    return data
 
 def compare(base, ebph):
     data = pd.merge(base, ebph, on='syscall', suffixes=['_base', '_ebph'])
@@ -68,11 +71,9 @@ def compare(base, ebph):
     data = data.drop(columns=['count_base', 'count_ebph'])
     data['diff'] = (data['time_mean_ebph'] - data['time_mean_base'])
     data['overhead'] = data['diff'] / data['time_mean_base'] * 100
-    # Outlier stuff
-    data = data[(np.abs(sp.stats.zscore(data['time_mean_base'])) < 3)]
-    data = data[(np.abs(sp.stats.zscore(data['time_mean_ebph'])) < 3)]
-    data = data[(np.abs(sp.stats.zscore(data['overhead'])) < 3)]
-    data = data[(np.abs(sp.stats.zscore(data['diff'])) < 3)]
+    # Discard pathological data
+    data = data[data['time_std_base'] < 10]
+    data = data[data['time_std_ebph'] < 10]
     return data
 
 def export_all(data):
