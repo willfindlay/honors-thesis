@@ -2529,17 +2529,23 @@ significantly on memory overhead compared to the current design.
 
 \label{gui_section}
 
-<!-- TODO: write this section -->
-<!-- NOTE: maybe we can re-use some of this?
-The ebpH GUI (hereafter referred to as the GUI) provides a graphical user interface for interacting
-with the daemon. This GUI is still a work in progress and will be improved considerably
-during the testing and iteration phase (see \autoref{methodology-and-future-work}). In its current incarnation,
-the GUI can be used to inspect profiles, examine the overall state of ebpH, and check
-the ebpH logs. It can also be used to issue rudimentary commands such as profile deletion.
-Future versions of the GUI will include more commands for controlling the state of ebpH,
-as well as increased system visibility and more information about processes and profiles.
-\autoref{early-gui} depicts an early version of the GUI.
--->
+If ebpH is to be a truly adoptable security solution, it first needs to be a usable one.
+In its current incarnation, ebpH is not user friendly; it supports minimal interaction
+through a set of simple CLI programs and most user feedback and notification occurs
+through log files. In order to ebpH to become usable software, the daemon needs a graphical
+user interface to act as a dashboard for user interaction.
+
+I envision the ebpH GUI as a way for the user to get detailed information about the behavior
+of their system and make administrative decisions therein. For example, the user could
+view a visual representation of recent anomalous behavior, inspect profiles for detailed
+information, make modifications to profiles, and perform operations on running processes
+such as killing them or blacklisting them from monitoring. This will allow the user
+to use ebpH as a tool for visualizing system behavior and make easy modifications to ebpH's
+enforcement on the system.
+
+Both during and after the development of the GUI, I plan to conduct usability studies to get
+an idea of how users interact with ebpH, what their perception of the system is, and whether
+changes need to be made to increase its potential for future adoption.
 
 ### General System Introspection and the Future of ebpH
 
@@ -2563,194 +2569,6 @@ we can provide complimentary benefits to the user that may incentivize them to r
 It should also not be overlooked that, in many cases, increased system state visibility can provide implicit security
 benefits to the experienced user. For example, an experienced system administrator could use a future version of ebpH
 to find vulnerabilities in their system before an attack even occurs.
--->
-
-<!-- FIXME: replace all of the following with the above two sections -->
-
-<!--
-
-# Methodology and Future Work
-
-While the ebpH prototype is certainly capable of monitoring a system for anomalies,
-much testing and work remains to be done in order to completely reimplement the original
-pH and ascertain whether eBPF is truly the best choice for implementing such an IDS.
-Here, we discuss the planned strategies for testing ebpH, as well as plans for iteration
-on the initial prototype, and future work.
-
-## Planned Testing Strategy
-
-The ebpH prototype as well as its future iterations will be heavily tested on several
-machines under a variety of workloads. \autoref{testing-specifications}
-summarizes the currently planned systems and any relevant details therein.
-Additional testing will be done on virtual machines
-to simulate multiple systems under artificially constructed workloads and attacks.
-
-\begin{table}
-\caption[A summary of the various systems that will be used to test ebpH]
-{
-A summary of the various systems that will be used to test ebpH.
-}
-\label{testing-specifications}
-\begin{center}
-\begin{tabular}{|l|p{4in}|}
-\hline
-\textbf{System} & \textbf{Description}\\
-\hline
-\hline
-arch & My personal desktop computer, which has been running the current ebpH prototype for one month\\
-\hline
-archlaptop & My personal laptop computer, which has been running the current ebpH prototype for one month\\
-\hline
-homeostasis & Dr. Somayaji's computer at Carleton University, which also serves the Wiki for his courses\\
-\hline
-CCSL Servers & The servers at the Carleton Computer Security Lab\\
-\hline
-Assorted Virtual Machines & Several virtual machines running a variety of test workloads\\
-\hline
-\end{tabular}
-\end{center}
-\end{table}
-
-### Gathering and Analyzing Profile Data
-
-ebpH will be retrofitted with the ability to generate CSV datasets and
-plots that will summarize profile data. Through the examination of profile
-data (specifically lookahead pair patterns), we can get a clear picture of ebpH's
-understanding of system behavior. Results will be gathered for a wide variety of systems as
-depicted above in \autoref{testing-specifications}; this will yield the opportunity to test
-ebpH on production systems of various scale (i.e. *homeostasis* and the *CCSL Servers*) as well
-as personal computers for everyday use (i.e. *arch* and *archlaptop*).
-
-Furthermore, the addition of several virtual machines for testing
-will provide the means to conduct reproducible experiments across various conditions,
-including measuring ebpH's response to a variety of simulated attacks. Snapshots will
-ensure controlled and consistent system state between runs, and will be particularly
-useful in controlling for initial ebpH profile state during each round of testing.
-
-### Gathering and Analyzing Performance Data
-
-One of the primary advantages cited for using eBPF to build intrusion detection systems
-is lower overhead. In order to test the validity of this claim, we need reliable metrics
-to measure ebpH's memory and CPU overhead under a variety of workloads and systems. A recent
-patch to the Linux Kernel has added the ability to measure individual eBPF program performance
-[@starovoitov19a]. Additionally, we can combine this approach through hardware performance measurement
-with eBPF perf events. This approach should provide the combined advantage of measuring
-the specific overhead associated with ebpH along with its impact on the overall memory and CPU usage
-of its environment.
-
-Another important consideration with respect to overhead is ebpH's direct impact
-on the user; in particular, we want to avoid annoying the user by introducing noticeable
-delays into their workflow. Therefore, in addition to rigorous quantitative testing,
-ebpH's overhead will also be qualitatively tested for noticeable impact on system performance
-during everyday use.
-
-## Potential Improvements to ebpH
-
-The system described in this proposal is a prototype, designed to
-implement the basic functionality of the pH intrusion detection system in eBPF,
-in order to ascertain whether such an implementation would be viable.
-While I believe I have achieved that goal, there is still plenty of room
-for future work on ebpH. Topics for future work include
-adding a mechanism for delaying system calls, using ebpH to increase
-overall system visibility, and the potential introduction of alternative
-behavioral metrics to provide a more comprehensive picture of system state
-and make better predictions about its validity. Furthermore, I plan to
-make extensive improvements to the ebpH GUI to complement the aforementioned
-augmentations to ebpH daemon functionality.
-
-### Delaying System Calls
-
-The most obvious improvement to ebpH is the introduction of system call delays in a future iteration.
-This feature comprises a large part of the original pH's response strategy and would be a vital part
-of a full reimplementation. As previously discussed, this is not necessarily an easy thing to accomplish
-due to the eBPF verifier's restrictions on program safety. From the perspective of what eBPF is trying to
-accomplish, this makes sense. In Somayaji's dissertation [@soma02], he discussed the potential for pH
-itself to cause denial of service on a system, due to intentional provocation from an attacker or
-simply an edge case in program behavior. eBPF is designed with safety in mind; allowing eBPF programs
-to cause denial of service in this way would be the antithesis of what eBPF is trying to accomplish.
-Therefore, another solution is needed.
-
-A kernel-based implementation for process delays would certainly
-work, but would be far from ideal -- this sacrifices a lot of the advantages that come with an eBPF implementation
-of pH in the first place, namely easy portability between Linux systems and guaranteed safety. Such an implementation
-would either be in the form of a kernel patch or a loadable kernel module; both of these
-solutions suffer from safety issues as we have discussed at length in \autoref{an-overview-of-the-linux-tracing-landscape}.
-Additionally, a kernel patch in particular limits the portability of ebpH, which currently runs on
-any vanilla Linux Kernel above version 5.3.
-
-We can also consider the possibility of busy waiting within the eBPF tracepoints themselves, although
-this also carries a few obvious drawbacks. Firstly, busy waiting means that the process that is being slowed
-down will continue to occupy CPU time instead of yielding it to another process by ceding time to the scheduler.
-Another obvious drawback is with respect to the verifier itself; verifier support for the bounded loops required
-for busy waiting is conditional on several factors. This may result in the rejection of busy waiting due
-to perceived safety violations.
-
-A third possibility is issuing delays from userspace via the `SIGSTOP` and `SIGCONT` signals;
-the daemon would simply issue these signals to offending processes and space them proportionally
-with respect to recent anomalies produced. While this solution *could* work, it suffers from a few
-obvious flaws. Firstly, there is no guarantee that we can prevent another signal from waking up
-the process early; in fact, an attacker with the ability to send arbitrary signals has already
-completely circumvented this type of response. Additionally, there is no guarantee that a process will receive
-this signal in time to stop the offending system call(s). By the time the process receives the signal,
-it may already be too late to stop the attack.
-
-None of these solutions seem ideal; it is likely that a presently unknown fourth alternative
-will present the best approach. Perhaps there may be an entirely eBPF-based solution on the horizon
-pending updates to the verifier -- time will tell. For now, it may be worthwhile exploring what options
-are available at the present to determine if any are suitable for use in practice.
-
-### Measuring Other System Behavior
-
-In his dissertation [@soma02], Somayaji discusses the potential of having multiple homeostatic
-systems at work on a given machine. This approach would more closely resemble the concept of
-homeostasis we know in biology, wherein multiple subsystems work together to add stability to
-overall system state. pH was a great starting point, and pending the introduction of system call
-delays as discussed in the above section, ebpH will follow in its footsteps in that regard.
-However, much of the true power of eBPF comes from its ability to monitor *so much* system state
-at once; there's no reason ebpH has to stop at system call tracing.
-
-By using eBPF to monitor multiple facets of system state, we can get a clearer picture of normal process
-behavior, which could in turn yield more accurate anomaly detection results. Perhaps these metrics could
-include memory allocations, number of incoming network connections, socket I/O, file I/O, CPU time per process, or any number
-of such metrics. eBPF can measure all of that and more; and it can do so reliably, efficiently, and with guaranteed safety.
-
-### Overall System Visibility
-
-As an intrusion detection system, ebpH's role is well-defined: monitor the system, detect misbehaving processes,
-and report them to the user. However, there is one glaring problem with this approach, particularly as we venture
-into the territory of automated responses via system call delays: users do not necessarily *want* a system that
-chooses not to perform a requested action; they also do not necessarily *want* a system that harasses them
-with warnings about program behavior that they either don't care about or don't necessarily understand.
-
-One potential solution to this problem is providing other benefits to the user through ebpH *in addition
-to* intrusion detection and response. For example, future versions of ebpH could include a performance analysis component,
-a debugger component, or any number of other metrics for increased system visibility. After all, one of the primary use cases
-for system introspection is precisely that: allowing a user to observe their system. By adding this extra functionality,
-we can provide complimentary benefits to the user that may incentivize them to run ebpH in the first place.
-
-It should also not be overlooked that, in many cases, increased system state visibility can provide implicit security
-benefits to the experienced user. For example, an experienced system administrator could use a future version of ebpH
-to find vulnerabilities in their system before an attack even occurs.
-
-TODO: move this to new future work section along with previous GUI section
-
-## Improvements to the ebpH GUI
-
-The GUI has potentially the most room for improvement of the entire ebpH system.
-Many of these improvements will be in tandem to those discussed in previous sections;
-in particular, system visibility enhancements to ebpH will almost certainly manifest themselves
-through the GUI wherein we will be able to visually present information to the user as they request it.
-
-Future versions of the GUI will also have more options for inspecting and making changes to system profiles.
-Somayaji describes three important operations in his dissertation [@soma02], *tolerize*, *sensitize*, and *normalize*,
-which have not yet been implemented in ebpH. These options will be added to the GUI when they are implemented to allow
-users to have fine grained control over how ebpH treats the profiles on their system. Additionally, users should be able
-to inspect individual profiles and look at their data in a format that is easy to understand; potentially this could be
-achieved via plotting profile data or perhaps presenting the top *n* system call lookahead pairs by process.
-
-Ultimately, the GUI is perhaps among the most important components of ebpH, particularly given the usability
-requirements we have discussed in previous sections. As such, it is one of the most important factors
-controlling the potential future adoption of ebpH, and is therefore important to get exactly right.
 -->
 
 # Conclusion
@@ -2786,16 +2604,6 @@ controlling the potential future adoption of ebpH, and is therefore important to
 \label{bpfbench}
 
 \lil[language=c, caption={The eBPF component of \code{bpfbench}.}]{../code/bpfbench/src/bpf/bpf_program.c}
-
-<!--
-# Process Creation Benchmarks Source Code
-
-\label{appendix_microbench}
-
-\lil[language=c, caption={Source code for the \code{fork.c} micro-benchmark.}]{../experiments/microbench/src/fork.c}
-\lil[language=c, caption={Source code for the \code{forkexec.c} micro-benchmark.}]{../experiments/microbench/src/forkexec.c}
-\lil[language=c, caption={Source code for the \code{system.c} micro-benchmark.}]{../experiments/microbench/src/system.c}
--->
 
 # Full Macro-Benchmarking Datasets
 
