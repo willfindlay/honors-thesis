@@ -2990,6 +2990,29 @@ Behavior}\label{controlling-for-further-sources-of-non-deterministic-behavior}}
 
 \label{further_non_determinism}
 
+While simple binaries do normalize relatively quickly in ebpH, the
+complex behavior of many modern processes causes some binaries to never
+normalize. This is due to sources of \emph{non-determinism} in their
+behavior. Some examples of things that might introduce non-determinism
+include scheduling hints, complex event-based behavior, and interprocess
+communication.
+
+Currently, ebpH handles the non-determinism of signal handlers by
+implementing a stack of sequences and pushing to and popping from that
+stack as signal handlers are called and returned. While this is a start,
+it does not capture all sources of non-determinism in complex programs
+such as a web browser. Instead, ebpH needs to know what system calls are
+associated with non-deterministic behavior and treat these calls
+differently. Depending on the severity of the issue, this may require a
+re-design of ebpH's heuristics for analyzing profile lookahead pairs.
+
+Future work in this area will include determining commonalities between
+new sequences, especially false positives in normalized binaries, and
+analyzing these commonalities to deduce precisely what these sources of
+non-deterministic behavior are and how to mitigate related issues
+therein. This will be a major focus of improvement for future iterations
+of ebpH.
+
 \hypertarget{automating-ebph-response}{%
 \subsubsection{Automating ebpH
 Response}\label{automating-ebph-response}}
