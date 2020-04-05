@@ -853,6 +853,22 @@ sacrificing the ability to respond to threats before they reach their destinatio
 This result is consistent with Kerschbaum et al.'s observation that external sensor approaches tend to be
 favored over their internal counterparts [@spafford02].
 
+### eBPF and XDP for Network Intrusion Detection
+
+Most work in eBPF-based intrusion detection leverages its network monitoring capabilities.
+Rather than a host-based approach to data collection, these solutions generally fall within
+the network-based category; for instance, an eBPF/XDP filter may be set up at a strategic point
+within a network to analyze incoming traffic. ntopng [@deri19] uses BPF tracepoints and kprobes to analyze
+incoming TCP traffic, and error injection to reject bad connections. Cloudflare has built
+DDoS mitigation systems [@bertin17; @fabre18] which use XDP [@hoiland18] to enforce automatically generated
+policies before packets enter the main kernel networking stack. Suricata [@suricata18; @yates17] provides
+optional support for eBPF and XDP to optimize its network intrusion detection stack performance and to enable
+it to drop packets earlier than otherwise would have been possible.
+While these solutions have been shown to be efficient and effective against network-based attacks,
+none of them focuses on protecting the host itself. Since eBPF can be used to monitor all
+aspects of system behavior, this represents a small subset of eBPF's potential use cases
+in the field of intrusion detection. ebpH has been designed to rectify this gap in the research.
+
 ## Process Homeostasis
 
 Anil Somayaji's *Process Homeostasis* [@soma02], styled as *pH*, forms the basis for
@@ -921,26 +937,6 @@ developed that works well with the eBPF paradigm; in particular, injecting delay
 eBPF tracepoints or probes seems untenable due to the verifier's refusal to accommodate
 the code required for such an implementation. The addition of system call delays into
 ebpH is currently a topic for future work (c.f. \autoref{response_automation}).
-
-## Other Related Work
-
-### Traditional Host-Based IDS Approaches
-
-### eBPF and XDP for Network Intrusion Detection
-
-Most work in eBPF-based intrusion detection leverages its network monitoring capabilities.
-Rather than a host-based approach to data collection, these solutions generally fall within
-the network-based category; for instance, an eBPF/XDP filter may be set up at a strategic point
-within a network to analyze incoming traffic. ntopng [@deri19] uses BPF tracepoints and kprobes to analyze
-incoming TCP traffic, and error injection to reject bad connections. Cloudflare has built
-DDoS mitigation systems [@bertin17; @fabre18] which use XDP [@hoiland18] to enforce automatically generated
-policies before packets enter the main kernel networking stack. Suricata [@suricata18; @yates17] provides
-optional support for eBPF and XDP to optimize its network intrusion detection stack performance and to enable
-it to drop packets earlier than otherwise would have been possible.
-While these solutions have been shown to be efficient and effective against network-based attacks,
-none of them focuses on protecting the host itself. Since eBPF can be used to monitor all
-aspects of system behavior, this represents a small subset of eBPF's potential use cases
-in the field of intrusion detection. ebpH has been designed to rectify this gap in the research.
 
 # Implementing ebpH
 
@@ -1746,10 +1742,16 @@ latency metrics will provide a better picture of ebpH's overhead in a more pract
 \end{table}
 -->
 
+### Kernel Compilation Micro-Benchmark
+
+<!-- TODO FIXME: write this -->
+
 ### `bpfbench` Macro-Benchmarks
 
-Since ebpH's kernelspace functionality resides in system call hooks, its imposed overhead on the system
+Since ebpH's kernelspace functionality resides in system call hooks, much of its imposed overhead on the system
 can be established by running macro-benchmarks on the time required to make system calls.
+The data collected here will augment the selected system call data from the `lmbench` micro-benchmarks
+by increasing its scope and placing it within the context of realistic system workloads.
 Initially, I planned to use `syscount` [@syscount] from `bcc-tools` for this purpose,
 however this tool currently has a race condition that may affect results due to its use of
 `BPF_HASH` rather than `BPF_PERCPU_ARRAY` for data storage (c.f. \autoref{ebpf-maps} on page \pageref{ebpf-maps}).
@@ -2014,8 +2016,6 @@ for modern applications.
 
 \label{bronte_kernel}
 
-<!-- FIXME: Finalize this when we have full benchmark results -->
-
 While `lmbench` provides a good representation of the overhead associated
 with system simple system calls and various simple operations, it is not necessarily
 indicative of performance impact as a whole. In order to ascertain how resource-intensive
@@ -2203,8 +2203,6 @@ datasets plotted against base runtime. This further indicates
 -->
 
 ## Comparing Results with the Original pH
-
-<!-- TODO: come back here -->
 
 In Somayaji's dissertation [@soma02], he provides performance metrics on selected system calls
 as well as kernel compilation benchmarks and X11 performance statistics. Some of the methodology
@@ -2616,6 +2614,31 @@ to find vulnerabilities in their system before an attack even occurs.
 -->
 
 # Conclusion
+
+\begin{table}
+    \caption[Revisiting the comparison of ebpH and pH in light of topics for future work]{
+        Revisiting the comparison of ebpH and pH in light of topics for future work.
+    }
+    \label{ebph_comparison}
+    \resizebox{\columnwidth}{!}{
+    \begin{tabular}{>{\ttfamily}lllcccccc}
+        \toprule
+        \multicolumn{1}{l}{\bfseries System} & {\bfseries Implementation} & {\bfseries Data Collected} &
+            \rotatebox{90}{Portable} & \rotatebox{90}{\parbox{2cm}{Production\\Safe}} &
+            \rotatebox{90}{\parbox{2cm}{Low Mem.\\Overhead}} &
+            \rotatebox{90}{\parbox{2cm}{Low Perf.\\Overhead}} &
+            \rotatebox{90}{Detection} & \rotatebox{90}{Response} \\
+        \midrule
+        pH \cite{soma02} & Kernel Patch & System call sequences
+            & \xmark & \xmark & \cmark & \cmark & \cmark & \cmark\\
+        ebpH 1.0         & eBPF + Userspace Daemon & System call sequences
+            & \cmark & \cmark & \xmark & \cmark & \cmark & \xmark \\
+        ebpH 2.0         & eBPF + Userspace Daemon & Many aspects of system
+            & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark \\
+        \bottomrule
+    \end{tabular}
+    }
+\end{table}
 
 <!-- References -->
 \clearpage
