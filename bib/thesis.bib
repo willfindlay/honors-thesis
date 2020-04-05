@@ -95,7 +95,7 @@ http://man7.org/linux/man-pages/man7/bpf-helpers.7.html
 }
 
 % XDP
-@inproceedings{xdp,
+@inproceedings{hoiland18,
   author={H{\o}iland-J{\o}rgensen, Toke and Brouer, Jesper Dangaard and Borkmann, Daniel and Fastabend, John and Herbert, Tom and Ahern, David and Miller, David},
   title={{The eXpress Data Path: Fast Programmable Packet Processing in the Operating System Kernel}},
   booktitle={{Proceedings of the 14th International Conference on Emerging Networking Experiments and Technologies}},
@@ -952,3 +952,46 @@ numpages = {33},
 keywords = {userspace, ring buffer, kernel, reentrancy, monitoring, performance, Linux, tracer, lockless}
 }
 
+% Related work ------------------
+
+% Ntopng
+@inproceedings{deri19,
+  title={{Combining System Visibility and Security Using eBPF.}},
+  author={Deri, Luca and Sabella, Samuele and Mainardi, Simone},
+  booktitle={{ITASEC}},
+  year={2019},
+  url={https://pdfs.semanticscholar.org/7d3f/8396a7407c62a0344ba 34b9addc16f73bbfb.pdf}
+}
+
+% Cloudflare XDP
+@inproceedings{bertin17,
+  title={{XDP in Practice: Integrating XDP into our DDoS Mitigation Pipeline}},
+  author={Bertin, Gilberto},
+  booktitle={{Technical Conference on Linux Networking, Netdev}},
+  volume={2},
+  year={2017}
+}
+@misc{fabre18,
+  author={Fabre, Arthur},
+  title={{L4Drop: XDP DDoS Mitigations}},
+  year={2018},
+  month={Nov},
+  journal={{Cloudflare}},
+  publisher={{Cloudflare}},
+  url={https://blog.cloudflare.com/l4drop-xdp-ebpf-based-ddos-mitigations/},
+}
+
+% Suricata
+@misc{suricata18,
+  author={{Suricata}},
+  title={{Suricata - eBPF and XDP}},
+  year={2018},
+  url={https://suricata.readthedocs.io/en/latest/capture-hardware/ebpf-xdp.html}
+}
+@misc{yates17,
+  author={Tom Yates},
+  title={{Using eBPF and XDP in Suricata}},
+  year={2017},
+  month={nov},
+  url={https://lwn.net/Articles/737771/}
+}

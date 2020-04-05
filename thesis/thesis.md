@@ -308,7 +308,7 @@ safe to use (assuming the system can trust the root user), they suffer from limi
 These factors in tandem mean that ftrace and perf\_events, while quite useful for a variety of system introspection
 needs, are less extensible than other approaches.
 
-### Dtrace
+### Comparing eBPF and Dtrace
 
 It is worth spending a bit more time comparing eBPF with Dtrace, as both
 APIs are quite full-featured and designed with similar functionality in mind.
@@ -318,7 +318,7 @@ Linux [@dtrace4linux] (the dtrace4linux implementation will be examined with
 more scrutiny later in this section).
 
 In general, the original Dtrace and the current version of eBPF share much of the same
-family and cover similar use cases [@cantrill04; @starovoitov13; @starovoitov14].
+functionality and cover similar use cases [@cantrill04; @starovoitov13; @starovoitov14].
 This includes perhaps most notably dynamic instrumentation
 in both userspace and kernelspace, arbitrary context instrumentation (i.e.\ the ability
 to instrument essentially any aspect of the system), and guarantees of safety
@@ -404,7 +404,7 @@ as nothing short of *Linux tracing superpowers*.
 I echo that sentiment here, as it summarizes eBPF's capabilities perfectly.
 Through eBPF programs, one can simultaneously trace userland symbols and library
 calls, kernel functions and data structures, and hardware performance. What's more,
-through an even newer subset of eBPF, known as *XDP* or *Express Data Path* [@xdp], one
+through an even newer subset of eBPF, known as *XDP* or *Express Data Path* [@hoiland18], one
 can inspect, modify, redirect, and even drop packets entirely before they even reach the main kernel network stack.
 \autoref{ebpf-use-cases} provides a high level overview of these use cases and the corresponding
 eBPF instrumentation required.
@@ -808,9 +808,9 @@ early enough such that refactoring is minimized [@peng95; @spafford02].
 This approach is also far less generic than other internal sensor approaches described here.
 
 Another potential internal source for data is through host-based network stack
-introspection. Classic BPF [@bpf] and eBPF/XDP [@starovoitov13; @starovoitov14; @bcc; @xdp] are quite excellent at this.
+introspection. Classic BPF [@bpf] and eBPF/XDP [@starovoitov13; @starovoitov14; @bcc; @hoiland18] are quite excellent at this.
 Host-based network introspection allows the analysis of network traffic at various points in the kernel's
-networking stack, and XDP packet redirection [@xdp] allows fast detection and response before a packet even reaches
+networking stack, and XDP packet redirection [@hoiland18] allows fast detection and response before a packet even reaches
 the main networking stack.
 
 ebpH itself constitutes an internal host-based approach; that is, it uses
@@ -923,9 +923,24 @@ the code required for such an implementation. The addition of system call delays
 ebpH is currently a topic for future work (c.f. \autoref{response_automation}).
 
 ## Other Related Work
-<!--
-TODO FIXME: maybe write this if we have time???
--->
+
+### Traditional Host-Based IDS Approaches
+
+### eBPF and XDP for Network Intrusion Detection
+
+Most work in eBPF-based intrusion detection leverages its network monitoring capabilities.
+Rather than a host-based approach to data collection, these solutions generally fall within
+the network-based category; for instance, an eBPF/XDP filter may be set up at a strategic point
+within a network to analyze incoming traffic. ntopng [@deri19] uses BPF tracepoints and kprobes to analyze
+incoming TCP traffic, and error injection to reject bad connections. Cloudflare has built
+DDoS mitigation systems [@bertin17; @fabre18] which use XDP [@hoiland18] to enforce automatically generated
+policies before packets enter the main kernel networking stack. Suricata [@suricata18; @yates17] provides
+optional support for eBPF and XDP to optimize its network intrusion detection stack performance and to enable
+it to drop packets earlier than otherwise would have been possible.
+While these solutions have been shown to be efficient and effective against network-based attacks,
+none of them focuses on protecting the host itself. Since eBPF can be used to monitor all
+aspects of system behavior, this represents a small subset of eBPF's potential use cases
+in the field of intrusion detection. ebpH has been designed to rectify this gap in the research.
 
 # Implementing ebpH
 
@@ -935,9 +950,12 @@ TODO FIXME: maybe write this if we have time???
 
 At a high level, ebpH is an anomaly detection system that profiles executable behavior
 by sequencing the system calls that processes make to the kernel; this essentially
-serves as a reimplementation of the original pH system described by Somayaji [@soma02].
+serves as a reimplementation of the original pH system by Somayaji [@soma02].
 What makes ebpH unique is its use of BPF programs for system call instrumentation
 and profiling (in contrast to the original pH which was implemented as a Linux 2.2 kernel patch).
+In this section, I will present the design and implementation of ebpH, with a particular
+emphasis on the both challenges and benefits associated with an eBPF implementation and
+ebpH's parallels with the original pH system.
 
 ## Why an eBPF Implementation?
 
@@ -974,10 +992,11 @@ a rough framework for doing so.
 
 As discussed in previous sections (see \autoref{ebpf-superpowers} and \autoref{data_collection_survey}),
 eBPF offers several unique advantages over traditional solutions, particularly with respect to
-intrusion detection data collection. eBPF can match the scope of kernel-based implementations
-while providing safety guarantees that previously would not have been possible. This essentially
-caused an implicit trade-off between production safety and scope in IDS implementations. Furthermore,
-eBPF's forward-compatibility ensures that new versions of the kernel will not break old code,
+intrusion detection data collection. eBPF can match the scope [@bcc; @gregg19bpf] and speed [@gebai18]
+of kernel-based implementations while providing safety guarantees that previously would not have been possible.
+Whereas before there existed an implicit trade-off between production safety on one hand and
+scope and efficiency on the other, now eBPF marries these three properties under one paradigm.
+Furthermore, eBPF's forward-compatibility ensures that new versions of the kernel will not break old code,
 and that in general it is not necessary to upgrade to a new kernel version once one has access
 to the minimum set of features required to compile and run a given BPF program. For instance,
 since ebpH depends on Linux 5.3, all Linux kernel versions $\ge$ 5.3 will be able to support
@@ -2547,7 +2566,7 @@ Both during and after the development of the GUI, I plan to conduct usability st
 an idea of how users interact with ebpH, what their perception of the system is, and whether
 changes need to be made to increase its potential for future adoption.
 
-### General System Introspection and the Future of ebpH
+### General System Introspection: Integrating Multiple Homeostatic Systems into ebpH
 
 \label{general_introspection}
 
