@@ -219,7 +219,7 @@ with several unique solutions, each with a variety of benefits and drawbacks.
 \autoref{introspection-summary} presents an overview of some prominent examples
 relevant to GNU/Linux systems.
 
-\begin{table}
+\begin{table}[p]
 \caption{A summary of various system introspection technologies available for GNU/Linux systems.}
 \label{introspection-summary}
 \begin{center}
@@ -241,8 +241,6 @@ eBPF & In-kernel execution of pre-verified, JIT-compiled bytecode & \cite{bcc, g
 \end{center}
 \end{table}
 
-\clearpage
-
 These technologies can, in general, be classified into a few broad categories (\autoref{instr-cmp}),
 albeit with potential overlap depending on the tool:
 
@@ -251,7 +249,7 @@ albeit with potential overlap depending on the tool:
 1) Loadable kernel modules;
 1) Kernel subsystems.
 
-\begin{figure}
+\begin{figure}[p]
 \begin{center}
 \includegraphics[keepaspectratio, height=3.2in]{../figures/instr-cmp.png}
 \end{center}
@@ -262,6 +260,8 @@ but instead presents many of the most popular ones. Note how eBPF covers every p
 }
 \label{instr-cmp}
 \end{figure}
+
+\FloatBarrier
 
 Applications such as strace [@strace; @manstrace] which make use of the ptrace system call are certainly
 a viable option for limited system introspection with respect to specific processes.
@@ -377,8 +377,8 @@ or *Berkeley Packet Filter* as a mechanism for capturing,
 monitoring, and filtering network traffic in the BSD kernel.
 Classic BPF's primary insights were two-fold:
 
-1) network traffic events are *frequent* and *fast*, and therefore an efficient filtering mechanism was needed;
-1) a limited, register-based bytecode being run in an in-kernel virtual machine provides precisely the mechanism described in point (1).
+1) Network traffic events are *frequent* and *fast*, and therefore an efficient filtering mechanism was needed;
+1) A limited, register-based bytecode being run in an in-kernel virtual machine provides precisely the mechanism described in point (1).
 
 The virtual machine described above was used to implement the *filter* component of BPF, while in-kernel network function
 tracepoints implemented the *tap* component. The tap forwarded packet events to the filter, which then decided what to do
@@ -2553,6 +2553,31 @@ changes need to be made to increase its potential for future adoption.
 
 <!-- TODO: write this section -->
 
+One of eBPF's primary strengths is the ability to monitor the *entire* system
+at once. BPF programs can be written to instrument system calls, kernel functions,
+signals, library calls, memory allocations, keyboard input, incoming network packets --
+the list goes on. What's more, eBPF programs can freely communicate with each other and with userspace
+programs through maps. Monitoring system call sequences is a good start for eBPF anomaly detection,
+but this can be extended to do so much more. In Somayaji's dissertation [@soma02], he describes future
+iterations of pH that consist of multiple homeostatic systems working together, interacting with each other,
+and monitoring many aspects of system behavior in a loosely couple manner. This vision fits the eBPF
+paradigm perfectly, and I believe that this is something that will be achievable in future versions of ebpH.
+
+After determining what aspects of system behavior it needs to monitor, extending ebpH in such a manner
+would be a relatively straightforward process. The daemon's API is already extensible, and adding more
+data sources would be as simple as writing BPF programs to instrument them; the BPF programs could then interact
+with each other via map access. All that remains is to come up with a new heuristic to integrate the data sources
+into a cohesive detection and response mechanism. The original pH dissertation [@soma02] can provide further guidance
+in this regard.
+
+Integrating multiple data sources in this way would not only move ebpH towards emulating true homeostasis
+in biology, but would also serve as a means of dealing with the non-deterministic behavior described
+in previous sections. With multiple homeostatic mechanisms providing feedback to each other, the impact of
+false positives in system call sequences will naturally diminish. The current prototype of
+ebpH already has an example of this in the way that it handles signals -- ebpH uses the invocation of a signal
+handler to inform its decision-making with respect to novel system call sequences, and thus reduce non-determinism
+in sequences.
+
 <!-- NOTE: maybe we can re-use some of this?
 As an intrusion detection system, ebpH's role is well-defined: monitor the system, detect misbehaving processes,
 and report them to the user. However, there is one glaring problem with this approach, particularly as we venture
@@ -2572,8 +2597,6 @@ to find vulnerabilities in their system before an attack even occurs.
 -->
 
 # Conclusion
-
-<!-- TODO: write this -->
 
 <!-- References -->
 \clearpage

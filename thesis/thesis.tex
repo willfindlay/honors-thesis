@@ -244,7 +244,7 @@ come up with several unique solutions, each with a variety of benefits
 and drawbacks. \autoref{introspection-summary} presents an overview of
 some prominent examples relevant to GNU/Linux systems.
 
-\begin{table}
+\begin{table}[p]
 \caption{A summary of various system introspection technologies available for GNU/Linux systems.}
 \label{introspection-summary}
 \begin{center}
@@ -266,8 +266,6 @@ eBPF & In-kernel execution of pre-verified, JIT-compiled bytecode & \cite{bcc, g
 \end{center}
 \end{table}
 
-\clearpage
-
 These technologies can, in general, be classified into a few broad
 categories (\autoref{instr-cmp}), albeit with potential overlap
 depending on the tool:
@@ -285,7 +283,7 @@ depending on the tool:
   Kernel subsystems.
 \end{enumerate}
 
-\begin{figure}
+\begin{figure}[p]
 \begin{center}
 \includegraphics[keepaspectratio, height=3.2in]{../figures/instr-cmp.png}
 \end{center}
@@ -296,6 +294,8 @@ but instead presents many of the most popular ones. Note how eBPF covers every p
 }
 \label{instr-cmp}
 \end{figure}
+
+\FloatBarrier
 
 Applications such as strace \autocite{strace,manstrace} which make use
 of the ptrace system call are certainly a viable option for limited
@@ -3222,6 +3222,42 @@ to increase its potential for future adoption.
 ebpH}\label{general-system-introspection-and-the-future-of-ebph}}
 
 \label{general_introspection}
+
+One of eBPF's primary strengths is the ability to monitor the
+\emph{entire} system at once. BPF programs can be written to instrument
+system calls, kernel functions, signals, library calls, memory
+allocations, keyboard input, incoming network packets -- the list goes
+on. What's more, eBPF programs can freely communicate with each other
+and with userspace programs through maps. Monitoring system call
+sequences is a good start for eBPF anomaly detection, but this can be
+extended to do so much more. In Somayaji's dissertation
+\autocite{soma02}, he describes future iterations of pH that consist of
+multiple homeostatic systems working together, interacting with each
+other, and monitoring many aspects of system behavior in a loosely
+couple manner. This vision fits the eBPF paradigm perfectly, and I
+believe that this is something that will be achievable in future
+versions of ebpH.
+
+After determining what aspects of system behavior it needs to monitor,
+extending ebpH in such a manner would be a relatively straightforward
+process. The daemon's API is already extensible, and adding more data
+sources would be as simple as writing BPF programs to instrument them;
+the BPF programs could then interact with each other via map access. All
+that remains is to come up with a new heuristic to integrate the data
+sources into a cohesive detection and response mechanism. The original
+pH dissertation \autocite{soma02} can provide further guidance in this
+regard.
+
+Integrating multiple data sources in this way would not only move ebpH
+towards emulating true homeostasis in biology, but would also serve as a
+means of dealing with the non-deterministic behavior described in
+previous sections. With multiple homeostatic mechanisms providing
+feedback to each other, the impact of false positives in system call
+sequences will naturally diminish. The current prototype of ebpH already
+has an example of this in the way that it handles signals -- ebpH uses
+the invocation of a signal handler to inform its decision-making with
+respect to novel system call sequences, and thus reduce non-determinism
+in sequences.
 
 \hypertarget{conclusion}{%
 \section{Conclusion}\label{conclusion}}
