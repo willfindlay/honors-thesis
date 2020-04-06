@@ -13,6 +13,8 @@ sns.set()
 flatui = ["#9b59b6", "#3498db", "#95a5a6", "#e74c3c", "#34495e", "#2ecc71"]
 sns.set_palette(flatui)
 
+pd.set_option('display.float_format', lambda x: '%.3f' % x)
+
 def parse_syscall_results(f):
     data = []
     data = pd.read_csv(f, sep=r'\s+', skiprows=5, header=0)

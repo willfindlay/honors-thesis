@@ -4,7 +4,7 @@ TRIALS=5
 KERNEL_SOURCE=/var/tmp/linux
 
 OUTFILE=$1
-TEMP_FILE=`mktemp`
+TEMP_FILE=$(mktemp)
 TIMEFORMAT="%U %S %R"
 
 [[ -z $1 ]] && { echo "Usage: $0 OUTFILE"; exit -1; }
@@ -13,13 +13,15 @@ build_kernel()
 {
     cd "$KERNEL_SOURCE"
     make clean
-    make -j `nproc`
+    make -j $(nproc)
 } 2>&1
 
 run_experiment()
 (
     echo "Clearing $TEMP_FILE"
     > "$TEMP_FILE"
+    echo "Running once as a control..."
+    build_kernel
     echo "Running experiment..."
     for i in $(seq 1 $TRIALS); do
         echo "Running trial $i..."
