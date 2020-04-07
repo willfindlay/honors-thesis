@@ -4,4 +4,4 @@ Exploring the viability of host-based anomaly detection in eBPF.
 
 Describes the implementation and design of ebpH, an eBPF successor to the pH IDS.
 
-This is a work in progress, but is very nearly done, so I feel comfortable making it public at this point.
+You can read it [here](thesis/thesis.pdf).
