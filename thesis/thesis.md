@@ -634,7 +634,7 @@ of eBPF's safety guarantees. Unfortunately, it also rather intuitively
 limits what developers are actually able to do with eBPF programs. In particular,
 eBPF is not a Turing complete language; it prohibits arbitrary jump instructions,
 cycles in execution graphs, and unverified memory access. Further, eBPF limits
-stack allocations to only 512 bytes [@gregg19bpf] -- far too small for many practical use cases.
+stack allocations to only 512 bytes [@gregg19bpf] --- far too small for many practical use cases.
 From a security perspective, these limitations are a *good thing*, because they allow us to immediately exclude eBPF
 programs with unverifiable safety; but from a usability standpoint, particularly that of a new eBPF
 developer, the trade-off is not without its drawbacks.
@@ -672,7 +672,7 @@ Critically, from a security perspective, system calls provide the interface to t
 the kernel's facilities for mediating access by subjects (i.e. users and their processes)
 onto system objects (i.e. security-sensitive resources). This means that system calls
 provide a highly representative picture of a given process' attempts to access resources
-that we care about -- whether this access is valid or otherwise.
+that we care about --- whether this access is valid or otherwise.
 
 Through the instrumentation of system calls, we can establish
 a clear outline of exactly how a process is behaving, the critical
@@ -1012,7 +1012,7 @@ between BPF programs needs to occur through the variety of maps. Further, limita
 allocation and access restrict the dynamic allocation of data. To cope with these restrictions,
 the current version of ebpH takes a less memory-efficient approach than its predecessor;
 in particular, the sparse array of lookahead pairs is not dynamically allocated
--- instead, profiles themselves are dynamically allocated at runtime via a special hashmap. There are
+--- instead, profiles themselves are dynamically allocated at runtime via a special hashmap. There are
 plans to rework the way ebpH stores profile data to move it into separate *map-in-map* structures
 that should allow a more memory-efficient approach to lookahead pair storage. This is outlined in
 more detail in \autoref{lru_section}.
@@ -1197,7 +1197,7 @@ mechanisms used to support commands in further detail.-->
         directly accesses a map or triggers the execution of a uprobe
         BPF program with \texttt{libebph.so}, depending on the complexity
         of the request. Note that malicious applications cannot abuse \texttt{libebph.so}
-        to issue their own commands -- only the daemon can do this.
+        to issue their own commands --- only the daemon can do this.
     }
     \label{ebph_admin_request}
     \includegraphics[width=.8\textwidth]{../figures/ebph-admin.png}
@@ -1484,7 +1484,7 @@ by ebpH if the profile has been previously marked normal.
 
 \protect\enlargethispage*{\baselineskip}
 
-\lil[language=c, label={anomaly.c}, caption={\texttt{anomaly.c}, a simple program to demonstrate anomaly detection in ebpH.}]{../code/ebpH/misc/anomaly.c}
+\lil[language=c, label={anomaly.c}, caption={\texttt{anomaly.c}, a simple program to demonstrate anomaly detection in ebpH.}]{../code/anomaly.c}
 
 In order to test this, I artificially lower ebpH's normal time to three seconds instead of one week.
 Then, I run the above test program several times with no arguments to establish normal behavior. Once the profile
@@ -1590,7 +1590,7 @@ to correctly identify the loop structure [@corbet18]. Since the verifier relies
 on pattern matching in order to identify induction variables, LLVM optimizations
 to eBPF bytecode introduce an element of fragility to loop verification [@corbet18].
 Bounded loops that perform memory access using the induction variable are also quite finicky at best;
-the verifier must be able to show that memory access is safe in all possible states -- this precludes induction
+the verifier must be able to show that memory access is safe in all possible states --- this precludes induction
 variables from having an unsafe lower *or* upper bound when they are used to index into a buffer.
 These limitations affect ebpH and its design in non-trivial ways; for example, ebpH requires specially crafted
 helper functions to perform simple operations such as indexing into the array of lookahead pairs or per-process
@@ -1607,7 +1607,7 @@ code due to a false positive, there is simply no better solution than to try a d
 ebpH triggered many false positives during its development which required significant refactoring of
 otherwise reasonable code. While these verifier false positives are unfortunate, they are a far cry
 from the vexing kernel panics, data corruptions, and other crashes that so often occur during ordinary
-kernel development -- ebpH crashed the system precisely *zero* times during testing *and* development.
+kernel development --- ebpH crashed the system precisely *zero* times during testing *and* development.
 This extraordinary feat is made possible by eBPF's safety guarantees.
 
 ## Dealing a Lack of Concurrency Control Mechanisms
@@ -2096,7 +2096,7 @@ over the 14 day period along with associated overheads for the base and ebpH tes
 
 The data in \autoref{tab:bronte_7day} show that ebpH imposes anywhere from relatively moderate to
 severe overhead on the most frequency executed system calls in `bronte-7day`. A few results show
-slight performance improvements under ebpH outside, but these are anomalous. Such anomalous results are
+slight performance improvements under ebpH, but these are anomalous. Such anomalous results are
 likely due to ambient system factors such as caching, availability of resources, or highly variable behavior
 based on flags, such as in the case of `ioctl(2)` whose runtime depends on implementation details within various
 character devices. Besides the aforementioned anomalies, these results are
@@ -2373,7 +2373,7 @@ it truly protects the system at all from buggy BPF programs. After all, one of t
 advantages cited for eBPF programs over kernel-based implementations is the ability to
 guarantee production safety despite BPF code running in ring 0 with full access to the kernel.
 A counter-point to this argument is that a 99\% probability of guaranteeing safety is better
-than a 0\% probability -- that is to say, having a verifier that works almost all of the time
+than a 0\% probability --- that is to say, having a verifier that works almost all of the time
 is better than not having one at all.
 
 ### Dropped Perf Buffer Submissions
@@ -2584,7 +2584,7 @@ changes need to be made to increase its potential for future adoption.
 
 One of eBPF's primary strengths is the ability to monitor the *entire* system
 at once. BPF programs can be written to instrument system calls, kernel functions,
-signals, library calls, memory allocations, keyboard input, incoming network packets --
+signals, library calls, memory allocations, keyboard input, incoming network packets ---
 the list goes on. What's more, eBPF programs can freely communicate with each other and with userspace
 programs through maps. Monitoring system call sequences is a good start for eBPF anomaly detection,
 but this can be extended to do so much more. In Somayaji's dissertation [@soma02], he describes future
@@ -2603,7 +2603,7 @@ Integrating multiple data sources in this way would not only move ebpH towards e
 in biology, but would also serve as a means of dealing with the non-deterministic behavior described
 in previous sections. With multiple homeostatic mechanisms providing feedback to each other, the impact of
 false positives in system call sequences will naturally diminish. The current prototype of
-ebpH already has an example of this in the way that it handles signals -- ebpH uses the invocation of a signal
+ebpH already has an example of this in the way that it handles signals --- ebpH uses the invocation of a signal
 handler to inform its decision-making with respect to novel system call sequences, and thus reduce non-determinism
 in sequences.
 
