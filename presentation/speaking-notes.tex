@@ -1,0 +1,980 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{hyphens}{url}
+\def\UrlBreaks{\do\/\do-\do.\do=\do_\do?\do\&\do\%\do\a\do\b\do\c\do\d\do\e\do\f\do\g\do\h\do\i\do\j\do\k\do\l\do\m\do\n\do\o\do\p\do\q\do\r\do\s\do\t\do\u\do\v\do\w\do\x\do\y\do\z\do\A\do\B\do\C\do\D\do\E\do\F\do\G\do\H\do\I\do\J\do\K\do\L\do\M\do\N\do\O\do\P\do\Q\do\R\do\S\do\T\do\U\do\V\do\W\do\X\do\Y\do\Z\do\0\do\1\do\2\do\3\do\4\do\5\do\6\do\7\do\8\do\9}
+\documentclass[
+  12pt]{findlay}
+
+% Pandoc Stuff
+\makeatletter
+\RequirePackage{listings}
+\RequirePackage{graphicx}
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htb
+\def\fps@figure{htb!}
+\newcommand{\passthrough}[1]{#1}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\makeatother
+
+
+
+
+\title{Speaking Notes}
+\author{William Findlay}
+\date{\today}
+
+
+\begin{document}
+
+\newpage
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\hypertarget{slide-1}{%
+\section{Slide 1}\label{slide-1}}
+
+\begin{itemize}
+\tightlist
+\item
+  Introduce myself
+\item
+  Here to talk about eBPF
+
+  \begin{itemize}
+  \tightlist
+  \item
+    all the crazy things you can do with it
+  \item
+    how it can be a crazy powerful tool for OS security
+  \item
+    demonstrate this using ebpH, a host-based anomaly detection system I
+    built with eBPF
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{slide-2}{%
+\section{Slide 2}\label{slide-2}}
+
+\begin{itemize}
+\tightlist
+\item
+  At a high level, eBPF is a way of injecting user-specified code into
+  the kernel
+\item
+  With the idea being that this code runs in kernelspace and can be used
+  to instrument essentially all system behavior
+
+  \begin{itemize}
+  \tightlist
+  \item
+    that means we can see all userspace and all kernelspace events, all
+    at the same time
+  \end{itemize}
+\item
+  The key advantage of eBPF over traditional methods such as LKMs is
+  this idea of safety
+
+  \begin{itemize}
+  \tightlist
+  \item
+    BPF programs are guaranteed not to crash the kernel or damage a
+    running system
+  \item
+    they have a verifier for this, which I will explain shortly
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{slide-3}{%
+\section{Slide 3}\label{slide-3}}
+
+\begin{itemize}
+\tightlist
+\item
+  Before I talk about security-specific use cases, I want to touch on
+  how pervasive this technology already is in industry
+\item
+  Lots of big data companies are already using eBPF for performance
+  monitoring, debugging, optimization
+
+  \begin{itemize}
+  \tightlist
+  \item
+    this is happening in production and at scale
+  \item
+    companies like Netflix, Facebook, Google, many more
+  \item
+    creator of eBPF actually works at Facebook
+  \end{itemize}
+\item
+  There is also an established set of tools that cover most basic use
+  cases
+
+  \begin{itemize}
+  \tightlist
+  \item
+    bcc (sponsored by the Linux foundation) has over 100 of them
+  \item
+    monitor everything from cache hits/misses to TCP connection requests
+    to setuid system calls
+  \end{itemize}
+\item
+  There's also a really important example of eBPF being used for
+  security in production
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Cloudflare's DDoS mitigation stack is now largely based on eBPF
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{slide-4}{%
+\section{Slide 4}\label{slide-4}}
+
+\begin{itemize}
+\tightlist
+\item
+  Now that you know a bit about the kinds of things you can do with
+  eBPF, we need to talk about how this relates to security
+\item
+  I think this really starts with the notion that a lot of security is
+  about what you can see
+
+  \begin{itemize}
+  \tightlist
+  \item
+    if an attacker can break into a system and we don't know about it
+    until it's too late, they've gotten away with it
+  \item
+    remember, eBPF lets us see everything about our system
+  \item
+    that means every system call, every login, every scheduler
+    operation, every packet, all at the same time
+  \item
+    and it can do this with crazy low overhead
+  \end{itemize}
+\item
+  Before eBPF, this kind of system introspection came at a cost
+
+  \begin{itemize}
+  \tightlist
+  \item
+    generally you have a trade-off between speed, scope, or production
+    safety
+  \item
+    library call interposition, kernel modification, ptrace is just
+    terrible (REALLY slow, up to 44,200\%)
+  \end{itemize}
+\item
+  eBPF can do everything without having to deal with this speed / scope
+  / safety trade-off
+\end{itemize}
+
+\hypertarget{slide-5}{%
+\section{Slide 5}\label{slide-5}}
+
+\begin{itemize}
+\tightlist
+\item
+  Up until now I've just been handwaving and making all these magical
+  claims about eBPF, so here is how it actually works
+\item
+  We start in userspace where we first need to generate some BPF
+  bytecode to send off to the kernel
+
+  \begin{itemize}
+  \tightlist
+  \item
+    originally this was done by hand, but now we have fancy LLVM
+    backends that can convert C into BPF instructions
+  \end{itemize}
+\item
+  Once we have our bytecode, we send it off to the kernel using the BPF
+  system call, and this system call immediately traps to the eBPF
+  verifier
+\item
+  The verifier checks our code for safety and will either immediately
+  reject our code or accept our code, at which point it moves onto a JIT
+  compiler which converts it in real time to machine instructions
+\item
+  Once the BPF program is running, there are a lot of different things
+  that we can use it to instrument
+
+  \begin{itemize}
+  \tightlist
+  \item
+    userspace functions
+  \item
+    kernel functions / data structures
+  \item
+    hardware performance counters
+  \item
+    networking stuff
+  \end{itemize}
+\item
+  Everything is event based, so this BPF program is being run every time
+  a specific event occurs
+\item
+  All BPF programs can store data in maps
+
+  \begin{itemize}
+  \tightlist
+  \item
+    BPF programs can use maps to interact with each other
+  \item
+    And maps can be used to interact with userspace (via the BPF system
+    call)
+  \item
+    The important thing to understand about these maps is that we can
+    control the amount of context switches we need to do, which is a lot
+    of where BPF's performance comes from, over something like Dtrace
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{slide-6}{%
+\section{Slide 6}\label{slide-6}}
+
+\begin{itemize}
+\tightlist
+\item
+  The verifier's job is to make sure that BPF programs do not crash the
+  kernel
+\item
+  It can be considered part of the kernel's reference monitor
+\item
+  10,000 lines of C code, pretty complex
+\item
+  BPF system call traps to verifier on every PROG\_LOAD
+\item
+  How can you guarantee safety?
+
+  \begin{itemize}
+  \tightlist
+  \item
+    limitations
+  \item
+    simulation
+  \item
+    static analysis
+  \end{itemize}
+\item
+  512 byte stack space
+\item
+  No unbounded loops
+\item
+  Hard limit of 4 million BPF instructions per program
+\item
+  No buffer access with unbounded induction variables
+\end{itemize}
+
+\hypertarget{slide-7}{%
+\section{Slide 7}\label{slide-7}}
+
+\begin{itemize}
+\tightlist
+\item
+  Even with all these limitations, BPF programs can still be quite
+  complex
+\item
+  The figure on the left is an instruction flow graph of one of ebpH's
+  BPF programs
+\item
+  Generated with bpftool and graphviz osage
+\item
+  Just over 1500 BPF instructions, JIT compiled to just over 1900
+  machine instructions
+\item
+  A lot of additional complexity comes from maps + tail calls
+\end{itemize}
+
+\hypertarget{slide-8}{%
+\section{Slide 8}\label{slide-8}}
+
+\begin{itemize}
+\tightlist
+\item
+  Before I talk about my anomaly detection system, ebpH, I'll talk a bit
+  about what came before it
+\item
+  pH or Process Homeostasis was an early anomaly detection by Anil
+\item
+  The idea was to instrument system calls and build behavioral profiles
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Delay anomalous system calls proportionally to recent anomalies
+  \end{itemize}
+\item
+  Implementation had a few key problems
+
+  \begin{itemize}
+  \tightlist
+  \item
+    The stuff that pH was doing is basically impossible to do outside of
+    patching the kernel directly
+  \item
+    Crazy modifications like patching the scheduler, writing new
+    assembly code, etc.
+  \item
+    The key points here: not production safe, certainly not portable
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{slide-9}{%
+\section{Slide 9}\label{slide-9}}
+
+\begin{itemize}
+\tightlist
+\item
+  ebpH is a portmanteau of Extended BPF and Process Homeostasis
+\item
+  The idea is taking this 20 year old technology and re-writing it using
+  modern technology
+\item
+  Table below compares the original pH and the current version ebpH in
+  some important categories
+\item
+  (NEXT SLIDE)
+\end{itemize}
+
+\hypertarget{slide-10}{%
+\section{Slide 10}\label{slide-10}}
+
+\begin{itemize}
+\tightlist
+\item
+  Firstly, I want to point out that ebpH solves the problems of
+  portability and production safety
+\item
+  Two innate properties of BPF
+
+  \begin{itemize}
+  \tightlist
+  \item
+    perfect forward compatibility (we generally only add features, don't
+    take them away)
+  \item
+    verifier's safety guarantees
+  \end{itemize}
+\item
+  (NEXT SLIDE)
+\end{itemize}
+
+\hypertarget{slide-11}{%
+\section{Slide 11}\label{slide-11}}
+
+\begin{itemize}
+\tightlist
+\item
+  Note that pH actually has two properties that ebpH currently does not
+  satisfy
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Low memory overhead and a response component (the system call
+    delays)
+  \end{itemize}
+\item
+  Future work covers this, hopefully I'll be able to convince you that
+  future versions of ebpH will be able to satisfy all of my design goals
+\end{itemize}
+
+\hypertarget{slide-12}{%
+\section{Slide 12}\label{slide-12}}
+
+\begin{itemize}
+\tightlist
+\item
+  Basic idea of ebpH is the same as pH
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Trace system calls
+  \item
+    Build profile of lookahead pairs
+  \item
+    Gather enough data to normalize a profile
+  \item
+    New lookahead pair entries in a normal profile are considered
+    anomalies
+  \end{itemize}
+\item
+  eBPF makes this safe
+
+  \begin{itemize}
+  \tightlist
+  \item
+    We are doing this instrumentation in a new way
+  \item
+    The key difference here is data collection
+  \end{itemize}
+\item
+  Figure on the left shows an example lookahead pair from the ls binary
+
+  \begin{itemize}
+  \tightlist
+  \item
+    (read, close)
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{slide-13}{%
+\section{Slide 13}\label{slide-13}}
+
+\begin{itemize}
+\tightlist
+\item
+  ebpH uses three BPF program types to collect data
+\item
+  most important is tracepoints
+
+  \begin{itemize}
+  \tightlist
+  \item
+    instrument system calls
+  \item
+    instrument the scheduler for process creation and profile
+    association on execve
+  \end{itemize}
+\item
+  kprobes for dynamic instrumentation of signal delivery
+
+  \begin{itemize}
+  \tightlist
+  \item
+    this allows ebpH to be signal-aware, which helps it deal with
+    non-deterministic behavior from signal handlers
+  \end{itemize}
+\item
+  uprobes
+
+  \begin{itemize}
+  \tightlist
+  \item
+    instrument userspace shared library called libebph
+  \item
+    allows userspace to issue more complex commands to the BPF programs
+  \item
+    on top of direct map access like we have seen before
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{slide-14}{%
+\section{Slide 14}\label{slide-14}}
+
+\begin{itemize}
+\tightlist
+\item
+  Daemon manages the lifecycle of all of ebpH's BPF programs
+
+  \begin{itemize}
+  \tightlist
+  \item
+    loads the BPF programs when it is started
+  \item
+    BPF programs are invoked every time specific events occur (system
+    calls, process creation, binary loading, signals, etc.)
+  \item
+    continually polls buffered events from the BPF programs
+    (e.g.~anomalies, profile creation, etc.)
+  \item
+    it also has direct access to all of the BPF hashmaps
+  \end{itemize}
+\item
+  Profiles are stored persistently on disk, log files are kept which
+  describe all ebpH events in detail
+\item
+  Daemon exposes an API to other userspace programs through a UNIX
+  stream socket
+
+  \begin{itemize}
+  \tightlist
+  \item
+    this socket is owned by root and is only readable and writeable by
+    root
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{slide-15}{%
+\section{Slide 15}\label{slide-15}}
+
+\begin{itemize}
+\tightlist
+\item
+  I have made a lot of claims so far about eBPF's performance, so let's
+  see how ebpH compares with the original pH implementation
+\item
+  Three distinct benchmarks
+\item
+  lmbench suite to test
+
+  \begin{itemize}
+  \tightlist
+  \item
+    basic system call overhead
+  \item
+    process creation overhead
+  \item
+    IPC overhead (signals, UDS, pipes) (won't be covering this category)
+  \end{itemize}
+\item
+  kernel compilation benchmarks
+
+  \begin{itemize}
+  \tightlist
+  \item
+    how does ebpH affect the overhead of real, complex tasks
+  \end{itemize}
+\item
+  bpfbench
+
+  \begin{itemize}
+  \tightlist
+  \item
+    wrote my own ad-hoc benchmarking tool in eBPF
+  \item
+    uses BPF programs to instrument latency on system call execution
+  \item
+    advantage: monitor entire system (see most frequent system calls in
+    practice and measure their overhead)
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{slide-16}{%
+\section{Slide 16}\label{slide-16}}
+
+\begin{itemize}
+\tightlist
+\item
+  bpfbench
+
+  \begin{itemize}
+  \tightlist
+  \item
+    three distinct systems, three distinct workloads
+  \end{itemize}
+\item
+  micro benchmarks
+
+  \begin{itemize}
+  \tightlist
+  \item
+    bronte only (besides micro benchmarks, bronte was idle)
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{slide-17}{%
+\section{Slide 17}\label{slide-17}}
+
+\begin{itemize}
+\tightlist
+\item
+  getppid
+
+  \begin{itemize}
+  \tightlist
+  \item
+    null system call (almost no kernelspace runtime)
+  \item
+    essentially involves a namespace lookup + a quick data structure
+    access
+  \item
+    this shows the worst case for performance overhead
+  \item
+    about 614\%, which seems like a lot, but drops off quickly
+  \end{itemize}
+\item
+  stat(2)
+
+  \begin{itemize}
+  \tightlist
+  \item
+    more kernelspace runtime
+  \item
+    this has much better overhead, 65\%
+  \end{itemize}
+\item
+  select(2) blocking system call, approaches best case
+
+  \begin{itemize}
+  \tightlist
+  \item
+    blocks until property is true on one or more open file descriptors
+  \item
+    overhead as high as 99\%, as low as only 2\%
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{slide-18}{%
+\section{Slide 18}\label{slide-18}}
+
+\begin{itemize}
+\tightlist
+\item
+  process creation
+
+  \begin{itemize}
+  \tightlist
+  \item
+    three test cases, from least to most complex
+  \end{itemize}
+\item
+  fork + exit creates a new process and exits immediately (this almost
+  never happens in the wild)
+\item
+  fork + execve creates a new process and executes a simple hello world
+  program (this is probably most common)
+\item
+  fork + /bin/sh -c same as fork + execve except uses the shell to
+  execute the hello world program
+\item
+  highest overhead is only 10\%, which is acceptable in practice
+\end{itemize}
+
+\hypertarget{slide-19}{%
+\section{Slide 19}\label{slide-19}}
+
+\begin{itemize}
+\tightlist
+\item
+  kernel compilation benchmark shows the most impressive result
+\item
+  the idea was to test a very CPU-intensive task
+\item
+  involves a lot of userspace time (which ebpH doesn't really affect),
+  but still many system calls
+
+  \begin{itemize}
+  \tightlist
+  \item
+    tested how many -\textgreater{} 176 million
+  \end{itemize}
+\item
+  ebpH imposes only 10\% kernelspace overhead
+\item
+  the total overhead is under 1\%
+\item
+  this actually shows ebpH outperforming the original pH (kernel
+  implementation)
+\end{itemize}
+
+\hypertarget{slide-20}{%
+\section{Slide 20}\label{slide-20}}
+
+\begin{itemize}
+\tightlist
+\item
+  bpfbench results
+\item
+  a lot of data, I will summarize for the sake of time
+\item
+  looked at top 20 system calls by count across three datasets
+\item
+  overhead from about 5\% to 150\%, acceptable in practice
+\item
+  non-idle systems had longer system calls as most frequent
+
+  \begin{itemize}
+  \tightlist
+  \item
+    which translates to lower overhead where it really matters
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{slide-21}{%
+\section{Slide 21}\label{slide-21}}
+
+\begin{itemize}
+\tightlist
+\item
+  in summary:
+\item
+  ebpH can impose significant overhead on some system calls
+
+  \begin{itemize}
+  \tightlist
+  \item
+    but this isn't the whole story
+  \item
+    longer system calls means less overhead
+  \item
+    systems doing real work tend to invoke longer system calls more
+    frequently
+  \item
+    system call overhead is not necessarily indicative of tangible
+    performance impact
+  \end{itemize}
+\item
+  ebpH does VERY well on real tasks
+
+  \begin{itemize}
+  \tightlist
+  \item
+    outperforms the original pH
+  \item
+    slowdown is imperceptible in practice
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{slide-22}{%
+\section{Slide 22}\label{slide-22}}
+
+\begin{itemize}
+\tightlist
+\item
+  we have seen the eBPF can be very effective in data collection
+\item
+  there are some new additions to eBPF that can make it very effective
+  at responding to attacks
+\item
+  in Linux 5.3, we got bpf\_signal
+
+  \begin{itemize}
+  \tightlist
+  \item
+    send signals to processes in real time from kernelspace
+  \item
+    if a signal is coming from the kernel, it happens instantaneously
+  \end{itemize}
+\item
+  Linux 5.5, bpf\_signal\_thread
+
+  \begin{itemize}
+  \tightlist
+  \item
+    like bpf\_signal, but we now control which thread receives the
+    signal
+  \end{itemize}
+\item
+  Linux 4.16, bpf\_override\_return
+
+  \begin{itemize}
+  \tightlist
+  \item
+    targeted error injection on whitelisted kernel functions
+  \item
+    block system calls from completing successfully
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{slide-23}{%
+\section{Slide 23}\label{slide-23}}
+
+\begin{itemize}
+\tightlist
+\item
+  now we have the tools to make ebpH respond to attacks
+\item
+  send SIGSTOP and SIGCONT for system call delays
+\item
+  use bpf\_override\_return to stop anomalous execves
+\item
+  recall table 1 from the beginning of the talk
+\end{itemize}
+
+\hypertarget{slide-24}{%
+\section{Slide 24}\label{slide-24}}
+
+\begin{itemize}
+\tightlist
+\item
+  I also want to touch on ways that ebpH's memory overhead can be
+  improved
+\item
+  currently, one big map for processes, one big map for profiles
+
+  \begin{itemize}
+  \tightlist
+  \item
+    this is way too granular
+  \end{itemize}
+\item
+  original pH used a linked list to keep track of processes and profiles
+
+  \begin{itemize}
+  \tightlist
+  \item
+    dynamic allocation in the traditional sense is not possible in BPF,
+    needs to be done through maps
+  \end{itemize}
+\item
+  new BPF map types can help make things more fine-grained
+
+  \begin{itemize}
+  \tightlist
+  \item
+    LRU\_HASH enables us to use a smaller map that discards least
+    recently used entries
+  \item
+    HASH\_OF\_MAPS nested maps for the sparse array of lookahead pairs,
+    achieve something like dynamic allocation
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{slide-25}{%
+\section{Slide 25}\label{slide-25}}
+
+\begin{itemize}
+\tightlist
+\item
+  what other types of security problems can we solve with BPF?
+\item
+  anomaly detection
+
+  \begin{itemize}
+  \tightlist
+  \item
+    no reason to stop at system calls
+  \item
+    ebpH only uses a very tiny subset of eBPF's functionality
+  \item
+    there are over 1,800 tracepoints alone in Linux 5.5, ebpH uses five
+    of them
+  \end{itemize}
+\item
+  DDoS mitigation and network intrusion detection
+
+  \begin{itemize}
+  \tightlist
+  \item
+    this is already being done
+  \item
+    Cloudflare, ntopng, etc.
+  \end{itemize}
+\item
+  Increasing visibility of attacks and misuse
+
+  \begin{itemize}
+  \tightlist
+  \item
+    ebpH does a bit of this
+  \item
+    bcc tools are great at this
+  \item
+    capable
+
+    \begin{itemize}
+    \tightlist
+    \item
+      monitor every time a capability is used (CAP\_SYS\_ADMIN,
+      CAP\_NET\_BIND\_SERVICE, etc.)
+    \end{itemize}
+  \item
+    eperm
+
+    \begin{itemize}
+    \tightlist
+    \item
+      monitor every eperm error (useful for constructing policies)
+    \end{itemize}
+  \item
+    setuids
+
+    \begin{itemize}
+    \tightlist
+    \item
+      monitor all calls to setuid
+    \end{itemize}
+  \item
+    execsnoop
+
+    \begin{itemize}
+    \tightlist
+    \item
+      monitor every execve system call
+    \end{itemize}
+  \item
+    many others
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{slide-26}{%
+\section{Slide 26}\label{slide-26}}
+
+\begin{itemize}
+\tightlist
+\item
+  something I've been thinking about recently is using eBPF to enforce
+  sandboxing rules
+
+  \begin{itemize}
+  \tightlist
+  \item
+    something like seccomp, but enforce rules externally, totally
+    application transparent
+  \item
+    bpf\_signal could do this easily
+  \end{itemize}
+\item
+  the main takeaway from this talk should be as follows:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    name anything you want to trace
+  \item
+    eBPF can do it and it can do it safely and with excellent
+    performance
+  \end{itemize}
+\item
+  ebpH is just the beginning
+\end{itemize}
+
+\hypertarget{slide-27}{%
+\section{Slide 27}\label{slide-27}}
+
+\begin{itemize}
+\tightlist
+\item
+  in conclusion
+\item
+  ebpH is as fast or faster than the original kernel implementation
+\item
+  it supports most of the original functionality, and future versions
+  will support all of it
+\item
+  we can expand on ebpH to leverage more system data with eBPF
+
+  \begin{itemize}
+  \tightlist
+  \item
+    I envision a whole ecosystem of BPF programs, monitoring various
+    aspects of system state, sharing information with each other
+  \item
+    take things beyond system call tracing and truly begin to emulate
+    natural homeostatic mechanisms
+  \end{itemize}
+\item
+  the future of eBPF in OS security is bright
+
+  \begin{itemize}
+  \tightlist
+  \item
+    we are going to see a lot more of this kind of thing
+  \item
+    we are just at the beginning, and eBPF gets better with every
+    subsequent kernel update
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{slide-28}{%
+\section{Slide 28}\label{slide-28}}
+
+\begin{itemize}
+\tightlist
+\item
+  any questions?
+\end{itemize}
+
+\clearpage
+
+\printbibliography
+
+\end{document}

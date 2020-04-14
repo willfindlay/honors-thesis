@@ -1,0 +1,16 @@
+Speaker: William Findlay
+
+Title: Host-Based Anomaly Detection with Extended BPF
+
+Abstract: Extended BPF (eBPF) is an exciting new technology in the Linux kernel
+that allows for arbitrary system introspection by loading user-specified bytecode
+into the kernel. Further, this introspection comes with production safety guarantees
+due to a mandatory verification step before any BPF programs are allowed to run in kernelspace.
+eBPF has seen wide use in industry for debugging and performance monitoring applications
+and is starting to see some use in computer security, although current research
+is primarily focused on network monitoring. In this talk, I will discuss
+how eBPF works and what makes it an attractive solution for computer security
+applications. I will then present ebpH, a prototype host-based anomaly detection
+system that I have built using eBPF. I will use preliminary results from ebpH to make
+the case for further research with respect to eBPF in computer security,
+both for anomaly detection and other use cases beyond.
