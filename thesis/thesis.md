@@ -58,10 +58,10 @@ numbersections: true
 System introspection is becoming an increasingly attractive option
 for maintaining operating system stability and security. This is primarily
 due to the many recent advances in system introspection technology; in particular,
-the 2013 introduction of *Extended Berkeley Packet Filter* (*eBPF*)
+the 2014 introduction of *Extended Berkeley Packet Filter* (*eBPF*)
 into the Linux Kernel [@starovoitov13; @starovoitov14] along with the recent
 development of more usable interfaces such as the *BPF Compiler Collection* (*bcc*)
-[@bcc] has resulted in a highly compelling, performant, and (perhaps most importantly)
+[@bcc] have resulted in a rich, performant, and (perhaps most importantly)
 safe subsystem for both kernel and userland instrumentation.
 
 The scope, safety, and performance of eBPF system introspection has potentially powerful applications
@@ -71,13 +71,13 @@ ebpH is an intrusion detection system (IDS) that uses eBPF programs to instrumen
 and establish normal behavior for processes, building a profile for each executable on the system;
 subsequently, ebpH can warn the user when it detects process behavior that violates the established
 profiles. Experimental results show that ebpH can detect anomalies in process behavior with negligible
-overhead. Furthermore, ebpH's anomaly detection comes with zero risk to the system thanks to the safety
+overhead. Furthermore, ebpH's anomaly detection comes with minimal risk to the system thanks to the safety
 guarantees of eBPF, rendering it an ideal solution for monitoring production systems.
 
 This thesis will discuss the design and implementation of ebpH along with the technical
 challenges which occurred along the way. It will then present experimental data and performance benchmarks
 that demonstrate ebpH's ability to monitor process behavior with minimal overhead. Finally, it will conclude
-with a discussion on the merits of eBPF IDS implementations and potential avenues for future work therein.
+with a discussion on the merits of eBPF IDS implementations and potential avenues for future work.
 
 ebpH is licensed under GPLv2 and full source code is available at [https://github.com/willfindlay/ebph](https://github.com/willfindlay/ebph).
 
@@ -105,24 +105,24 @@ of the current prototype system.
 \markboth{Acknowledgments}{}
 
 First and foremost, I would like to thank my advisor, Anil Somayaji, for his
-tireless efforts to ensure the success of this project, as well as for providing
+tireless efforts to ensure the success of this project as well as for providing
 the original design for pH along with invaluable advice and ideas. Implementing ebpH
 and writing this thesis has been a long process and not without its challenges.
-Dr. Somayaji's support and guidance have been quintessential to the success of this
+Dr. Somayaji's support and guidance have been critical to the success of this
 undertaking.
 
 I would also like to thank the members and contributors of the *Iovisor Project*,
-especially Yonghong Song\footnote{\url{https://github.com/yonghong-song}}
-and Teng Qin\footnote{\url{https://github.com/palmtenor}}
+especially Yonghong Song
+and Teng Qin
 for their guidance and willingness to respond to issues and questions related to the *bcc* project.
-Brendan Gregg's\footnote{\url{https://github.com/brendangregg} and \url{http://www.brendangregg.com}}
+Brendan Gregg's
 writings and talks have been a great source of inspiration, especially with respect to background research.
-Sasha Goldshtein's\footnote{\url{https://github.com/goldshtn}} *syscount.py* was an invaluable basis
+Sasha Goldshtein's *syscount.py* was an invaluable basis
 for my earliest proof-of-concept experimentation, although none of that original code has made it into this iteration of ebpH.
 
 For their love and tremendous support of my education, I would like to thank my parents,
 Mark and Terri-Lyn. Without them, I am certain that none of this would have been possible.
-I would additionally like to thank my mother for suffering through the first draft of this thesis,
+I would additionally like to thank my mother for suffering through the first draft of this thesis
 and finding the many errors that come with writing a paper this large in Vim with no grammar checker.
 
 Finally, I want to thank my dear friend, Amanda, for all the support she has provided me throughout
@@ -152,7 +152,7 @@ my university career. I couldn't have made it this far without you.
 \pagenumbering{arabic}
 \setcounter{page}{1}
 
-# Introduction and Motivation
+# Introduction
 
 As our computer systems grow increasingly complex, so too does it
 become more difficult to gauge precisely what they are doing
@@ -163,39 +163,42 @@ is happening on their systems, especially beyond that which they can actually se
 on their screens. An unfortunate corollary to this observation is that
 users *also* have no way of knowing whether their system may be *misbehaving*
 at a given moment, whether due to a malicious actor, buggy software, or simply
-some unfortunate combination of circumstances.
+some unfortunate combination of circumstances [@soma02].
 
-Recently, a lot of work has been done to help bridge this gap between
-system state and visibility, particularly through the introduction of
-powerful new tools such as *Extended Berkeley Packet Filter* (eBPF).
-Introduced to the Linux Kernel in a 2013 RFC and subsequent kernel patch [@starovoitov13; @starovoitov14],
-eBPF offers a promising interface for kernel introspection, particularly given its
-scope and unprecedented level of safety therein; although eBPF can examine
-any data structure or function in the kernel through the instrumentation of tracepoints,
-its safety is guaranteed via a bytecode verifier. What this means in practice is that eBPF
-effectively provides unlimited, highly performant, production-safe system
-introspection capabilities that can be used to monitor as much or as little
-system state as desired.
+In order to solve this problem of limited visibility, we must turn to
+system introspection to provide the necessary tools to gain more
+information about system state. While traditional systems introspection
+techniques are either too slow, too unsafe, or too limited in scope to be
+used effectively in production, a number of recent advances in this field
+have presented increasingly attractive options. The introduction
+of Dtrace [@cantrill04] in 2004 by Cantrill et al. was an early example
+of a robust monitoring framework that could be used in production, although
+it came with its own drawbacks, such as an inability to specify complex tracing
+programs, as it defined only a high level scripting language for doing so.
+In 2014, eBPF (*Extended Berkeley Packet Filter*) [@starovoitov13; @starovoitov14]
+was introduced to the Linux kernel. eBPF revolutionized Linux tracing by providing
+a safe means of injecting custom bytecode into the kernel from userspace.
+These programs could be relatively complex compared to early solutions such as Dtrace,
+and subsequent improvements to the eBPF paradigm [@starovoitov19] have seen that complexity
+increase significantly.
 
-Certainly, eBPF offers unprecedented system state visibility, but this is only scratching
-the surface of what this technology is capable of. With nearly limitless tracing capabilities,
-powerful applications can be constructed to enhance system security, stability, and performance.
-In theory, these applications can perform much of their work autonomously in the background, but
-are equally capable of functioning in a more interactive role, keeping the end user informed
-about changes in system state, particularly if these changes in state are undesired. To that end,
-I propose *ebpH* (a portmanteau of eBPF and pH), an anomaly detection system
-based entirely on eBPF that monitors process state in the form of system call sequences.
-By building and maintaining per-executable behavior profiles, ebpH can dynamically detect when
-processes are behaving outside of the status quo, and notify the user so that they can understand
-exactly what is going on.
+With the advent eBPF, it is now possible define complex programs to trace nearly all aspects
+of a running Linux safely and efficiently. Previously, this would only have been possible
+via direct modification of the kernel, either through direct patches or loadable kernel modules,
+which both lack the safety guarantees of eBPF. *Process Homeostasis* (pH) [@soma02] is an early
+anomaly detection system, implemented as a patch for the Linux 2.2 kernel. In this thesis,
+I will present *ebpH* (a portmanteau of eBPF and pH), which provides an eBPF re-implementation
+of the original pH system. ebpH provides production safety and forward compatibility guarantees
+that were not possible in the original implementation, which will greatly improve its adoptability.
+Experimental results show that ebpH is capable of monitoring production systems under moderate to heavy
+workloads with negligible performance overhead --- in some cases, even showing performance *improvements* over the
+original system. Further, thanks to the safety guarantees of eBPF, zero kernel panics occurred
+during its development and testing, a feat which would not have been possible with a kernel-based
+implementation.
 
-A prototype of ebpH has been written using the Python interface provided by the *BPF Compiler Collection* (*bcc*) [@bcc],
-and preliminary tests show that it is capable of monitoring system state under moderate to heavy workloads with negligible
-overhead. What's more, zero kernel panics occurred during ebpH's development and early testing, which simply
-would not have been possible without the safety guarantees that eBPF provides. The rest of this
-proposal will cover the necessary background material required to understand ebpH, describe
-several aspects of its implementation, including the many findings and pitfalls encountered along the way,
-and discuss the planned methodology for testing and iterating on this prototype going forward.
+The rest of this thesis will cover the necessary background material required to understand ebpH,
+its design and implementation, experimental performance results, and plans for future work
+and iteration on the current prototype.
 
 # Background
 
@@ -244,8 +247,8 @@ eBPF & In-kernel execution of pre-verified, JIT-compiled bytecode & \cite{bcc, g
 These technologies can, in general, be classified into a few broad categories (\autoref{instr-cmp}),
 albeit with potential overlap depending on the tool:
 
-1) Userland libraries;
 1) `ptrace`-based instrumentation;
+1) Userland libraries;
 1) Loadable kernel modules;
 1) Kernel subsystems.
 
@@ -281,7 +284,7 @@ exactly is going on during a given process' execution, library tracing needs to 
 In fact, ltrace does exactly this; when the user specifies the \texttt{-S} flag, ltrace uses the ptrace system call
 to provide strace-like system call tracing functionality.
 
-LKM-based implementations such as sysdig [@sysdig] and SystemTap [@systemtap] offer an extremely
+Out of tree LKM-based implementations such as sysdig [@sysdig] and SystemTap [@systemtap] offer an extremely
 deep and powerful tracing solution given their ability to instrument the entire system, including
 the kernel itself. Their primary detriment is a lack of safety guarantees with respect to the modules
 themselves. No matter how vetted or credible a piece of software might be, running it natively in
@@ -298,15 +301,15 @@ of a production system; the risks are simply too great and far outweigh the bene
 Instead, such code must be carefully examined, reviewed, and tested, a process which
 can potentially take months. What's more, even allowing for a careful testing and vetting
 process, there is always some probability that a bug can slip through the cracks, resulting
-in the catastrophic consequences outlined above.
+in catastrophic consequences.
 
-Built-in kernel subsystems for instrumentation seem to be the most desirable choice of any
-of the presented solutions. In fact, eBPF [@starovoitov13; @starovoitov14] itself constitutes one such solution. However,
-for the time being, I will focus on a few others, namely ftrace [@ftrace] and perf\_events [@manperfeventopen]
-(eBPF programs actually *can* and *do* use both of these interfaces anyway). While both of these solutions are
-safe to use (assuming the system can trust the root user), they suffer from limited documentation and relatively poor user interfaces.
-These factors in tandem mean that ftrace and perf\_events, while quite useful for a variety of system introspection
-needs, are less extensible than other approaches.
+Kernel subsystems such as eBPF [@starovoitov13; @starovoitov14],
+ftrace [@ftrace], and perf\_events [@manperfeventopen] seem to be the most desirable choice
+of any of the presented solutions. ftrace is a virtual filesystem located at `/sys/kernel/debug/tracing`
+which is used for the instrumentation of tracepoints and perf\_events is used to instrument hardware performance
+counters. While these two subsystems are useful in their own right, they suffer from poor documentation and
+limited user interfaces; eBPF eclipses their functionality entirely and presents a much more compelling interface
+for the development of complex applications.
 
 ### Comparing eBPF and Dtrace
 
@@ -330,7 +333,7 @@ down to the following points [@gregg14; @gregg19bpf]:
 low level and high level interfaces (see \autoref{bpf-dtrace-api});
 1) Dtrace is useful for writing one-liner scripts, but not for writing more complex programs;
 1) eBPF is natively supported in Linux, while Dtrace ports are purely
-LKM-based.
+LKM-based and out of tree.
 
 \begin{figure}
 \includegraphics[width=0.5\textwidth]{../figures/bpf-dtrace-api.png}
@@ -391,9 +394,11 @@ approach for general system introspection. Therefore, in 2013, he proposed
 *Extended BPF* (eBPF), a superset of Classic BPF, which vastly increased the
 capabilities of the original BPF virtual machine.
 
+<!--
 Since its original introduction, eBPF has offered a consistent, powerful, and production-safe
 mechanism for general Linux introspection and continues to improve rapidly over time.
 eBPF is discussed in more detail in the following section.
+-->
 
 ## eBPF: Linux Tracing Superpowers
 
@@ -2633,9 +2638,10 @@ builds per-executable behavioral profiles. Experimental results (c.f. \autoref{m
 have shown that ebpH can keep up with the performance of its kernel-based predecessor, pH.
 Finally, I presented my plans for the future of ebpH as a system that can integrate many facets of
 system behavior by leveraging the eBPF paradigm to take advantage of its multi-faceted capabilities
-with respect to system instrumentation (c.f. \autoref{discussion}).
-\autoref{tab:new_comparison} presents a theoretical comparison between the future version of ebpH,
-the current version of ebpH, and the original pH.
+with respect to system instrumentation; this, coupled with a few improvements made possible by
+recent advances to eBPF itself, should position ebpH as a strong contender in the field
+of intrusion detection (c.f. \autoref{discussion}). \autoref{tab:new_comparison} presents
+a theoretical comparison between a future version of ebpH, the current version of ebpH, and the original pH.
 
 \begin{table}
     \caption[Revisiting the comparison of ebpH and pH in light of topics for future work]{
@@ -2667,8 +2673,8 @@ the current version of ebpH, and the original pH.
 
 \clearpage
 
-eBPF represents a powerful tool for building versatile, performant, and production safe
-intrusion detection systems. While current work in this area is representative of its advantages
+Ultimately, this work shows that eBPF represents a powerful tool for building versatile, performant,
+and production safe intrusion detection systems. While current work in this area is representative of its advantages
 in network-based IDS implementations, eBPF has equal merits in host-based implementations.
 The current version of ebpH serves as a proof of concept to demonstrate eBPF's value in
 this regard, and future iterations on my prototype will hopefully be able to take further advantage of
@@ -2683,7 +2689,7 @@ eBPF's power and versatility to deliver a truly homeostatic intrusion detection 
 \appendix
 \appendixpage
 
-# eBPF Design Patterns
+# Handling Large Datatypes in eBPF Programs
 
 \label{ebpf-design-patterns}
 
